@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SteeringControls : MonoBehaviour
 {
@@ -19,11 +20,20 @@ public class SteeringControls : MonoBehaviour
     int minX = 0;
 
     public ShipController shipController;
+    private Image img;
+
+    Color touchedColour = new Color(1, 1, 1, 1);
+    Color releasedColour = new Color(1, 1, 1, 0.6f);
 
     private void OnEnable()
     {
         maxX = Screen.height + Screen.width / 10;
         minX = Screen.height / 4;
+    }
+
+    private void Start()
+    {
+        img = gameObject.GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -52,11 +62,11 @@ public class SteeringControls : MonoBehaviour
             if (angle > maxAngle) { angle = maxAngle; }
             else if (angle < -maxAngle) { angle = -maxAngle; }
             shipController.SetRotation(angle * rotationDampening);
+            img.color = touchedColour;
         }
         else {
             shipController.SetRotation(0);
+            img.color = releasedColour;
         }
     }
-
-    
 }
