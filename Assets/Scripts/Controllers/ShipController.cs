@@ -5,9 +5,9 @@ using UnityEngine;
 public class ShipController : MonoBehaviour
 {
 
-    Vector2 pos = new Vector2();
-    Vector2 vel = new Vector2();
-    Vector2 acc = new Vector2();
+    public Vector2 pos { private set; get; } = new Vector2();
+    public Vector2 vel { private set; get; } = new Vector2();
+    public Vector2 acc { private set; get; } = new Vector2();
 
     float rotation = 0;
 
