@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipController : MonoBehaviour
+public class ControllerPlayerShip : MonoBehaviour
 {
 
     public Vector2 pos { private set; get; } = new Vector2();

@@ -5,7 +5,7 @@ using UnityEngine;
 public class BackgroundScroll : MonoBehaviour
 {
     public float ScrollSpeedModifier;
-    public ShipController shipController;
+    public ControllerPlayerShip shipController;
     Material mat;
 
     private void Start()

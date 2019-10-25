@@ -19,7 +19,7 @@ public class SteeringControls : MonoBehaviour
     int maxX = 0;
     int minX = 0;
 
-    public ShipController shipController;
+    public ControllerPlayerShip shipController;
     private Image img;
 
     Color touchedColour = new Color(1, 1, 1, 1);
