@@ -10,7 +10,7 @@ public class ShipController : MonoBehaviour
 
     float rotation = 0;
 
-    float baseAcc = 50.0f;
+    float accelerationRate = 50.0f;
 
     float maxSpeed = 32;
     float minSpeed = 1;
@@ -36,14 +36,12 @@ public class ShipController : MonoBehaviour
     }
     private void ApplyForce()
     {
-        acc = VectorMethods.FromDegrees(transform.eulerAngles.z) * baseAcc;
+        acc = VectorMethods.FromDegrees(transform.eulerAngles.z) * accelerationRate;
         mRigidbody.AddForce(acc);
-        //rigidBody.velocity += acc;
         if (mRigidbody.velocity.magnitude > targetSpeed)
         {
             mRigidbody.velocity = VectorMethods.SetMagnitude(mRigidbody.velocity, targetSpeed);
         }
-        acc.Set(0, 0);
     }
 
     public void SetRotation(float r)
