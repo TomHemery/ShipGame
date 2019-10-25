@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ControllerPlayerShip : MonoBehaviour
+public class ShipController : MonoBehaviour
 {
 
     public Vector2 acc { private set; get; } = new Vector2();
-    public Rigidbody2D rigidBody { private set; get; }
+    public Rigidbody2D mRigidbody { private set; get; }
 
     float rotation = 0;
 
@@ -19,9 +19,9 @@ public class ControllerPlayerShip : MonoBehaviour
     bool firstUpdate = false;
 
     private void Awake()
-    { 
-        rigidBody = GetComponent<Rigidbody2D>();
-        targetSpeed = minSpeed; 
+    {
+        mRigidbody = GetComponent<Rigidbody2D>();
+        targetSpeed = minSpeed;
     }
 
     // Update is called once per frame
@@ -34,22 +34,25 @@ public class ControllerPlayerShip : MonoBehaviour
             ApplyForce();
         }
     }
-    private void ApplyForce() {
+    private void ApplyForce()
+    {
         acc = VectorMethods.FromDegrees(transform.eulerAngles.z) * baseAcc;
-        rigidBody.AddForce(acc);
+        mRigidbody.AddForce(acc);
         //rigidBody.velocity += acc;
-        if (rigidBody.velocity.magnitude > targetSpeed)
+        if (mRigidbody.velocity.magnitude > targetSpeed)
         {
-            rigidBody.velocity = VectorMethods.SetMagnitude(rigidBody.velocity, targetSpeed);
+            mRigidbody.velocity = VectorMethods.SetMagnitude(mRigidbody.velocity, targetSpeed);
         }
         acc.Set(0, 0);
     }
 
-    public void SetRotation(float r) {
+    public void SetRotation(float r)
+    {
         rotation = r;
     }
 
-    public void SetTargetSpeed(float s, float min, float max) {
+    public void SetTargetSpeed(float s, float min, float max)
+    {
         targetSpeed = s.Map(min, max, minSpeed, maxSpeed);
     }
 }

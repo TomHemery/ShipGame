@@ -19,7 +19,7 @@ public class SteeringControls : MonoBehaviour
     int maxX = 0;
     int minX = 0;
 
-    public ControllerPlayerShip shipController;
+    public ShipController playerShipController;
     private Image img;
 
     Color touchedColour = new Color(1, 1, 1, 1);
@@ -55,17 +55,17 @@ public class SteeringControls : MonoBehaviour
 
             if (outputLine.magnitude > maxX) outputLine = VectorMethods.SetMagnitude(outputLine, maxX);
             else if (outputLine.magnitude < minX) outputLine = VectorMethods.SetMagnitude(outputLine, minX);
-            shipController.SetTargetSpeed(outputLine.magnitude, minX, maxX);
+            playerShipController.SetTargetSpeed(outputLine.magnitude, minX, maxX);
 
             angle = Vector2.Angle(vertical, outputLine);
             if (touchStart.y > touchEnd.y) { angle = -angle; }
             if (angle > maxAngle) { angle = maxAngle; }
             else if (angle < -maxAngle) { angle = -maxAngle; }
-            shipController.SetRotation(angle * rotationDampening);
+            playerShipController.SetRotation(angle * rotationDampening);
             img.color = touchedColour;
         }
         else {
-            shipController.SetRotation(0);
+            playerShipController.SetRotation(0);
             img.color = releasedColour;
         }
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class BackgroundScroll : MonoBehaviour
 {
     public float ScrollSpeedModifier;
-    public ControllerPlayerShip shipController;
+    public ShipController playerShipContoller;
     Material mat;
 
     private void Start()
@@ -16,7 +16,7 @@ public class BackgroundScroll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        mat.mainTextureOffset = new Vector2(ScrollSpeedModifier * shipController.rigidBody.position.x,
-            ScrollSpeedModifier * shipController.rigidBody.position.y);
+        mat.mainTextureOffset = new Vector2(ScrollSpeedModifier * playerShipContoller.mRigidbody.position.x,
+            ScrollSpeedModifier * playerShipContoller.mRigidbody.position.y);
     }
 }
