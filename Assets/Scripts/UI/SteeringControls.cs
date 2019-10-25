@@ -14,7 +14,7 @@ public class SteeringControls : MonoBehaviour
 
     float angle;
     float maxAngle = 51.0f;
-    float rotationDampening = 0.16f;
+    float rotationDampening = 0.08f;
 
     int maxX = 0;
     int minX = 0;

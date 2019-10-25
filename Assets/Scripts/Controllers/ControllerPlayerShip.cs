@@ -5,13 +5,11 @@ using UnityEngine;
 public class ControllerPlayerShip : MonoBehaviour
 {
 
-    public Vector2 pos { private set; get; } = new Vector2();
-    public Vector2 vel { private set; get; } = new Vector2();
     public Vector2 acc { private set; get; } = new Vector2();
+    public Rigidbody2D rigidBody { private set; get; }
 
     float rotation = 0;
 
-    float dampening = 0.005f;
     float baseAcc = 50.0f;
 
     float maxSpeed = 32;
@@ -21,36 +19,29 @@ public class ControllerPlayerShip : MonoBehaviour
     bool firstUpdate = false;
 
     private void Awake()
-    {
-        targetSpeed = minSpeed;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    { 
+        rigidBody = GetComponent<Rigidbody2D>();
+        targetSpeed = minSpeed; 
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (firstUpdate) firstUpdate = false;
         else
         {
             transform.Rotate(0, 0, rotation);
             ApplyForce();
-            transform.position = pos;
         }
     }
     private void ApplyForce() {
-        vel += (vel * -1 * dampening) * Time.deltaTime;
         acc = VectorMethods.FromDegrees(transform.eulerAngles.z) * baseAcc;
-        vel += acc * Time.deltaTime;
-        if (vel.magnitude > targetSpeed)
-        { 
-            vel = VectorMethods.SetMagnitude(vel, targetSpeed);
+        rigidBody.AddForce(acc);
+        //rigidBody.velocity += acc;
+        if (rigidBody.velocity.magnitude > targetSpeed)
+        {
+            rigidBody.velocity = VectorMethods.SetMagnitude(rigidBody.velocity, targetSpeed);
         }
-        pos += vel * Time.deltaTime;
         acc.Set(0, 0);
     }
 

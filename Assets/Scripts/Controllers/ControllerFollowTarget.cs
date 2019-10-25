@@ -5,10 +5,11 @@ using UnityEngine;
 public class ControllerFollowTarget : MonoBehaviour
 {
 
-    public Transform target;
+    public Transform Target;
+    public Vector3 Offset = new Vector3(0, 0, -10);
 
-    void Update()
+    void LateUpdate()
     {
-        transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
+        transform.position = Target.position + Offset;
     }
 }
