@@ -71,7 +71,7 @@ public class SteeringControlsOneFinger : MonoBehaviour
             float dist = Vector2.Distance(origin, touchPoint);
             if (OuterRadius >= dist && InnerRadius <= dist)
             {
-                playerShipController.SetTargetSpeed(touchPoint.x, InnerRadius, OuterRadius);
+                playerShipController.SetTargetSpeed(Vector2.Distance(origin, touchPoint), InnerRadius, OuterRadius);
                 angle = Vector2.Angle(vertical, touchPoint) - 90;
                 playerShipController.SetRotation(angle * rotationDampening);
             }
