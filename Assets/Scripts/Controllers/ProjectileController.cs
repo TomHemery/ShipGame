@@ -5,7 +5,7 @@ using UnityEngine;
 public class ProjectileController : MonoBehaviour
 {
 
-    public float Speed;
+    public float MaxSpeed = 50;
     private Vector2 acc;
 
     private Rigidbody2D mRigidBody;
@@ -22,10 +22,10 @@ public class ProjectileController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (mRigidBody.velocity.magnitude < Speed)
+        if (mRigidBody.velocity.magnitude < MaxSpeed)
             mRigidBody.AddForce(acc);
-        if (mRigidBody.velocity.magnitude > Speed)
-            mRigidBody.velocity = VectorMethods.SetMagnitude(mRigidBody.velocity, Speed);
+        if (mRigidBody.velocity.magnitude > MaxSpeed)
+            mRigidBody.velocity = VectorMethods.SetMagnitude(mRigidBody.velocity, MaxSpeed);
 
         timeAlive += Time.deltaTime;
         if (timeAlive > lifeSpan)

@@ -7,13 +7,7 @@ public class MultipleBasicProjectileWeapon : Weapon
 
     public Transform [] SpawnPoints;
     public GameObject ProjectilePrefab;
-    private Rigidbody2D mRigidbody;
     private int index = 0;
-
-    private void Start()
-    {
-        mRigidbody = GetComponent<Rigidbody2D>();
-    }
 
     override protected void Fire()
     {
@@ -22,7 +16,7 @@ public class MultipleBasicProjectileWeapon : Weapon
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), projectile.GetComponent<Collider2D>(), true);
         ProjectileController projectileController = projectile.GetComponent<ProjectileController>();
         projectileController.SetAcc(100, transform.rotation.z);
-        //projectile.GetComponent<Rigidbody2D>().velocity = mRigidbody.velocity;
+        projectile.GetComponent<Rigidbody2D>().velocity = VectorMethods.FromDegrees(transform.eulerAngles.z) * projectileController.MaxSpeed;
         index = index < SpawnPoints.Length - 1 ? index + 1 : 0;
     }
 }

@@ -97,6 +97,11 @@ PrefabInstance:
       propertyPath: damage
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 8646945756360900757, guid: 222a844e4efa83a419bbcf9c8b0a05e2,
+        type: 3}
+      propertyPath: MaxSpeed
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 8646945756678351744, guid: 222a844e4efa83a419bbcf9c8b0a05e2,
         type: 3}
       propertyPath: m_Name

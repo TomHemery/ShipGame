@@ -10,6 +10,8 @@ public class ShipResourceManager : MonoBehaviour
     public float MaxHealth { get; private set; } = 100;
     public float Shields { get; private set; }
     public float MaxShields { get; private set; } = 50;
+    
+    public float ShieldRechargeRate { get; private set; } = 10; //shields per second
 
     public ResourceBarManager ResourceBarManager;
 
@@ -18,6 +20,12 @@ public class ShipResourceManager : MonoBehaviour
     {
         SetHealth(MaxHealth);
         SetShields(MaxShields);
+    }
+
+    private void Update()
+    {
+        AddShields(Time.deltaTime * ShieldRechargeRate);
+        if (Health <= 0) Explode();
     }
 
     /// <summary>
@@ -102,5 +110,10 @@ public class ShipResourceManager : MonoBehaviour
         float shieldDamage = d - healthDamage;
         ReduceShields(shieldDamage);
         ReduceHealth(healthDamage);
+    }
+
+    private void Explode()
+    {
+        Destroy(gameObject);
     }
 }
