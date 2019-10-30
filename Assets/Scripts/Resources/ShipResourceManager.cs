@@ -7,17 +7,20 @@ public class ShipResourceManager : MonoBehaviour
 {
 
     public float Health { get; private set; }
-    public float MaxHealth { get; private set; } = 100;
+    public float MaxHealth = 100;
     public float Shields { get; private set; }
-    public float MaxShields { get; private set; } = 50;
-    
+    public float MaxShields = 50;
     public float ShieldRechargeRate { get; private set; } = 10; //shields per second
+
+
+    public bool HasShields = true; //does this ship have shields?
 
     public ResourceBarManager ResourceBarManager;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (!HasShields) MaxShields = 0;
         SetHealth(MaxHealth);
         SetShields(MaxShields);
     }
@@ -104,12 +107,17 @@ public class ShipResourceManager : MonoBehaviour
     /// <param name="d">The amount of damage to do</param>
     public void DoDamage(float d)
     {
-        d = Mathf.Abs(d);
-        float healthDamage = d - Shields;
-        if (healthDamage < 0) healthDamage = 0;
-        float shieldDamage = d - healthDamage;
-        ReduceShields(shieldDamage);
-        ReduceHealth(healthDamage);
+        if (HasShields)
+        {
+            d = Mathf.Abs(d);
+            float healthDamage = d - Shields;
+            if (healthDamage < 0) healthDamage = 0;
+            float shieldDamage = d - healthDamage;
+            ReduceShields(shieldDamage);
+            ReduceHealth(healthDamage);
+        }
+        else
+            ReduceHealth(d);
     }
 
     private void Explode()

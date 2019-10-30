@@ -11,12 +11,18 @@ public class ResourceBarManager : MonoBehaviour
     Vector3 shieldBarScale = new Vector3(1, 1, 1);
 
     public void UpdateHealthBar(float h, float maxH) {
-        healthBarScale.x = h.Map(0, maxH, 0, 1);
-        HealthBar.localScale = healthBarScale;
+        if (HealthBar != null)
+        {
+            healthBarScale.x = h.Map(0, maxH, 0, 1);
+            HealthBar.localScale = healthBarScale;
+        }
     }
 
     public void UpdateShieldBar(float s, float maxS) {
-        shieldBarScale.x = s.Map(0, maxS, 0, 1);
-        ShieldBar.localScale = shieldBarScale;
+        if (ShieldBar != null)
+        {
+            shieldBarScale.x = s.Map(0, maxS, 0, 1);
+            ShieldBar.localScale = shieldBarScale;
+        }
     }
 }
