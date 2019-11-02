@@ -14,6 +14,8 @@ public class ProjectileController : MonoBehaviour
 
     public float damage = 10;
 
+    public GameObject explosionPrefab;
+
     private void Awake()
     {
         mRigidBody = GetComponent<Rigidbody2D>();
@@ -52,7 +54,7 @@ public class ProjectileController : MonoBehaviour
     }
 
     private void Explode() {
-
+        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }

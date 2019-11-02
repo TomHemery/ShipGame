@@ -102,6 +102,12 @@ PrefabInstance:
       propertyPath: MaxSpeed
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 8646945756360900757, guid: 222a844e4efa83a419bbcf9c8b0a05e2,
+        type: 3}
+      propertyPath: explosionPrefab
+      value: 
+      objectReference: {fileID: 1933057997586368794, guid: 2da328153fbfa1e4f9633a4dbabd9367,
+        type: 3}
     - target: {fileID: 8646945756678351744, guid: 222a844e4efa83a419bbcf9c8b0a05e2,
         type: 3}
       propertyPath: m_Name

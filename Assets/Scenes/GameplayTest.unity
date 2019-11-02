@@ -1104,6 +1104,8 @@ MonoBehaviour:
   MaxShields: 0
   HasShields: 0
   ResourceBarManager: {fileID: 578712659}
+  explosionPrefab: {fileID: 1933057997586368794, guid: 2da328153fbfa1e4f9633a4dbabd9367,
+    type: 3}
 --- !u!114 &864429595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1344,6 +1346,8 @@ MonoBehaviour:
   MaxShields: 50
   HasShields: 1
   ResourceBarManager: {fileID: 1237685549}
+  explosionPrefab: {fileID: 1933057997586368794, guid: 2da328153fbfa1e4f9633a4dbabd9367,
+    type: 3}
 --- !u!114 &946207039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1869,6 +1873,7 @@ MonoBehaviour:
   MaxShields: 50
   HasShields: 0
   ResourceBarManager: {fileID: 0}
+  explosionPrefab: {fileID: 0}
 --- !u!60 &1287973646
 PolygonCollider2D:
   m_ObjectHideFlags: 0

@@ -96,6 +96,8 @@ MonoBehaviour:
   MaxSpeed: 50
   lifeSpan: 2
   damage: 10
+  explosionPrefab: {fileID: 1933057997586368794, guid: 2da328153fbfa1e4f9633a4dbabd9367,
+    type: 3}
 --- !u!1 &8646945756678351744
 GameObject:
   m_ObjectHideFlags: 0

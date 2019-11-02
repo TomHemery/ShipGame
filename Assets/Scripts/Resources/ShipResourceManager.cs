@@ -17,6 +17,8 @@ public class ShipResourceManager : MonoBehaviour
 
     public ResourceBarManager ResourceBarManager;
 
+    public GameObject explosionPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -122,6 +124,7 @@ public class ShipResourceManager : MonoBehaviour
 
     private void Explode()
     {
+        Instantiate(explosionPrefab);
         Destroy(gameObject);
     }
 }
