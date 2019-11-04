@@ -38,7 +38,6 @@ public class ProjectileController : MonoBehaviour
     { 
         if(collision.gameObject.tag != "Projectile")
         {
-            Debug.Log("Collided with: " + collision.gameObject);
             ShipResourceManager resourceManager = collision.gameObject.GetComponent<ShipResourceManager>();
             if(resourceManager != null)
             {
