@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 3813318767767790963}
   - component: {fileID: 3813318767767790962}
   - component: {fileID: 3813318767767790961}
+  - component: {fileID: -8004381002537793284}
   m_Layer: 0
-  m_Name: Explosion2_0
+  m_Name: Explosion2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,8 +69,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -85943685
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -8270682667820493152, guid: 5ade0f0a1e8ff6c40966387c3941cf34,
     type: 3}
@@ -116,3 +117,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3813318767767790962}
   animName: Explosion2
+--- !u!50 &-8004381002537793284
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3813318767767790973}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 1
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

@@ -31,7 +31,7 @@ public class ProjectileController : MonoBehaviour
 
         timeAlive += Time.deltaTime;
         if (timeAlive > lifeSpan)
-            Explode();
+            Explode(mRigidBody.velocity);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -43,7 +43,8 @@ public class ProjectileController : MonoBehaviour
             {
                 resourceManager.DoDamage(damage);
             }
-            Explode();
+            Rigidbody2D otherRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
+            Explode(otherRigidbody != null ? otherRigidbody.velocity : mRigidBody.velocity);
         }
     }
 
@@ -52,8 +53,9 @@ public class ProjectileController : MonoBehaviour
         acc = VectorMethods.FromDegrees(transform.eulerAngles.z) * _acc;
     }
 
-    private void Explode() {
-        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+    private void Explode(Vector2 velocity) {
+        GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        explosion.GetComponent<Rigidbody2D>().velocity = velocity;
         Destroy(gameObject);
     }
 }
