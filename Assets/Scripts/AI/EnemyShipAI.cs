@@ -26,6 +26,11 @@ public class EnemyShipAI : BasicAI
         controller = GetComponent<ShipController>();
     }
 
+    private void Start()
+    {
+        Radar.Instance.AddTarget(transform);
+    }
+
 
     void Update()
     {
@@ -43,5 +48,10 @@ public class EnemyShipAI : BasicAI
         transform.right = targetPosition - transform.position;
 
         Weapon.DoAutoFire = distToTarget < attackRange;
+    }
+
+    private void OnDestroy()
+    {
+        Radar.Instance.RemoveTarget(transform);
     }
 }

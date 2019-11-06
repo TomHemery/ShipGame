@@ -6,16 +6,16 @@ public class Radar : MonoBehaviour
 {
     public static Radar Instance { get; private set; } = null;
 
-    private List<Transform> targets = new List<Transform>();
-    private List<GameObject> radarPings = new List<GameObject>();
+    private readonly List<Transform> targets = new List<Transform>();
+    private readonly List<GameObject> radarPings = new List<GameObject>();
+    private float radarRange = 4000;
 
     public Transform PlayerShip;
-    public float RadarRange = 100;
     public GameObject RadarPingObject;
 
     private void Awake()
     {
-        if (Instance != null) Instance = this;
+        if (Instance == null) Instance = this;
     }
 
     // Update is called once per frame
@@ -26,11 +26,11 @@ public class Radar : MonoBehaviour
         {
             t = targets[i];
             GameObject ping = radarPings[i];
-            if (Vector2.Distance(t.position, PlayerShip.position) < RadarRange)
-            {
-
+            Vector2 between = t.position - PlayerShip.position;
+            float distSquared = between.sqrMagnitude;
+            if (distSquared < radarRange) { 
                 ping.SetActive(true);
-                
+                ping.GetComponent<RectTransform>().anchoredPosition = between * ((radarRange + (radarRange / 4)) / radarRange);
             }
             else ping.SetActive(false);
         }
@@ -42,5 +42,14 @@ public class Radar : MonoBehaviour
         GameObject ping = Instantiate(RadarPingObject, transform);
         radarPings.Add(ping);
         ping.SetActive(false);
+    }
+
+    public void RemoveTarget(Transform t)
+    {
+        GameObject ping = radarPings[targets.IndexOf(t)];
+        ping.SetActive(false);
+
+        radarPings.Remove(ping);
+        targets.Remove(t);
     }
 }

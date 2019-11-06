@@ -2304,9 +2304,9 @@ RectTransform:
   m_Father: {fileID: 511833337}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 40, y: -320}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -601, y: -20}
   m_SizeDelta: {x: 240, y: 240}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1709717922
@@ -2357,9 +2357,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e35f5bc998541c47b39be78d20a1a16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerShip: {fileID: 0}
-  RadarRange: 100
-  RadarPingObject: {fileID: 0}
+  PlayerShip: {fileID: 946207034}
+  RadarRange: 900
+  RadarPingObject: {fileID: 1992722413187019272, guid: 5d89b536a59fc314381afb6fbd406e32,
+    type: 3}
 --- !u!1 &1758283132
 GameObject:
   m_ObjectHideFlags: 0
