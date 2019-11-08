@@ -13,9 +13,16 @@ public class Radar : MonoBehaviour
     public Transform PlayerShip;
     public GameObject RadarPingObject;
 
+    public GameObject ObjectiveArrow;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
+    }
+
+    private void Start()
+    {
+        ObjectiveArrow.SetActive(false);
     }
 
     // Update is called once per frame
@@ -47,9 +54,11 @@ public class Radar : MonoBehaviour
     public void RemoveTarget(Transform t)
     {
         GameObject ping = radarPings[targets.IndexOf(t)];
-        ping.SetActive(false);
-
-        radarPings.Remove(ping);
+        if (ping != null)
+        {
+            ping.SetActive(false);
+            radarPings.Remove(ping);
+        }
         targets.Remove(t);
     }
 }
