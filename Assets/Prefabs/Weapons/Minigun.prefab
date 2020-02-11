@@ -129,7 +129,7 @@ MonoBehaviour:
   CooldownInterval: 0.2
   DoAutoFire: 0
   SpawnPoint: {fileID: 3547009111420234011}
-  ProjectilePrefab: {fileID: 8017419979020523603, guid: c33779d46208c0b41a31d0528cfaa124,
+  ProjectilePrefab: {fileID: 4774657909410250254, guid: c33779d46208c0b41a31d0528cfaa124,
     type: 3}
 --- !u!61 &1265180680
 BoxCollider2D:
