@@ -10,7 +10,9 @@ public class PlayerShipController : ShipController
     private void Update()
     {
         //Acceleration based on user input 
-        enableThrust = Input.GetButton("Accelerate");
+        thrustMode = Input.GetButton("Accelerate") ? ThrustMode.Forward : 
+                     Input.GetButton("Decelerate") ? ThrustMode.Backward : 
+                     ThrustMode.None;
 
         // convert mouse position into world coordinates
         Vector2 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);

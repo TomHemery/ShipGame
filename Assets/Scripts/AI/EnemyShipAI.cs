@@ -46,7 +46,7 @@ public class EnemyShipAI : BasicAI
         }
 
         //move toward player (aiming for target speed)
-        controller.enableThrust = controller.M_Rigidbody.velocity.magnitude < targetSpeed;
+        controller.thrustMode = controller.M_Rigidbody.velocity.magnitude < targetSpeed ? ShipController.ThrustMode.Forward : ShipController.ThrustMode.None;
 
         //point at the player
         transform.right = targetPosition - transform.position;
