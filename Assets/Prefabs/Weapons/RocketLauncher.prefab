@@ -81,7 +81,6 @@ MonoBehaviour:
   SpawnPoint: {fileID: 5153481981354218673}
   ProjectilePrefab: {fileID: 8646945756360900756, guid: 222a844e4efa83a419bbcf9c8b0a05e2,
     type: 3}
-  parentShip_controller: {fileID: 0}
 --- !u!61 &8556093208819490210
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -156,7 +155,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 8543c3aa50f3b16458df4b66d36c5317, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -176,7 +175,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 3d7777a8283b4d947963c5a8cdc04774, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
