@@ -15,7 +15,7 @@ public class EnemyShipAI : BasicAI
     private float maxSpeed = 20;
     private float maxDist = 20;
     private float targetDist = 5;
-    private float speed;
+    private float targetSpeed;
 
     private float distToTarget = float.MaxValue;
 
@@ -34,19 +34,24 @@ public class EnemyShipAI : BasicAI
 
     void Update()
     {
+        //find the target
         targetPosition = playerShipTransform.position;
 
+        //work out how fast we want to go
         distToTarget = Vector2.Distance(transform.position, targetPosition);
-
-        if (distToTarget < targetDist) speed = 0;
-        else if (distToTarget > maxDist) speed = maxSpeed;
+        if (distToTarget < targetDist) targetSpeed = 0;
+        else if (distToTarget > maxDist) targetSpeed = maxSpeed;
         else {
-            speed = distToTarget.Map(targetDist, maxDist, minSpeed, maxSpeed);
+            targetSpeed = distToTarget.Map(targetDist, maxDist, minSpeed, maxSpeed);
         }
 
-        controller.SetTargetSpeed(speed, minSpeed, maxSpeed);
+        //move toward player (aiming for target speed)
+        controller.enableThrust = controller.M_Rigidbody.velocity.magnitude < targetSpeed;
+
+        //point at the player
         transform.right = targetPosition - transform.position;
 
+        //shoot if we're close
         Weapon.DoAutoFire = distToTarget < attackRange;
     }
 

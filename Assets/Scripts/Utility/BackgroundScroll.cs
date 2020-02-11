@@ -16,7 +16,7 @@ public class BackgroundScroll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        mat.mainTextureOffset = new Vector2(ScrollSpeedModifier * playerShipContoller.mRigidbody.position.x,
-            ScrollSpeedModifier * playerShipContoller.mRigidbody.position.y);
+        mat.mainTextureOffset = new Vector2(ScrollSpeedModifier * playerShipContoller.M_Rigidbody.position.x,
+            ScrollSpeedModifier * playerShipContoller.M_Rigidbody.position.y);
     }
 }
