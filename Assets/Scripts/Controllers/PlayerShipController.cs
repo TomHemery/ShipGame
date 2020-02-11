@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class PlayerShipController : ShipController
 {
-
-    public List<Weapon> playerShipWeapons;
-
     private void Update()
     {
         //Acceleration based on user input 
@@ -21,15 +18,15 @@ public class PlayerShipController : ShipController
         Vector2 direction = (mouseWorldPosition - (Vector2)transform.position).normalized;
 
         // set vector of transform directly
-        transform.right = direction;
+        transform.up = direction;
 
         if (Input.GetButtonDown("Fire"))
         {
-            foreach (Weapon w in playerShipWeapons) w.DoAutoFire = true;
+            foreach (Weapon w in weapons) w.DoAutoFire = true;
         }
         else if (Input.GetButtonUp("Fire"))
         {
-            foreach (Weapon w in playerShipWeapons) w.DoAutoFire = false;
+            foreach (Weapon w in weapons) w.DoAutoFire = false;
         }
     }
 }

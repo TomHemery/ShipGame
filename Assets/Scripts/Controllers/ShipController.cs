@@ -10,13 +10,17 @@ public class ShipController : MonoBehaviour
 
     float rotation = 0;
 
+    [HideInInspector]
     public ThrustMode thrustMode = ThrustMode.None;
     float forwardThrustForce = 50.0f;
     float activeDampening = 0.95f;
     float passiveDampening = 0.99f;
 
-    protected float maxSpeed = 32;
-    protected float minSpeed = 1;
+    public float maxSpeed = 32;
+    public float minSpeed = 1;
+
+    [HideInInspector]
+    public List<Weapon> weapons = new List<Weapon>();
 
     private void Awake()
     {
@@ -25,7 +29,7 @@ public class ShipController : MonoBehaviour
 
     private void Start()
     {
-        M_Rigidbody.velocity = VectorMethods.FromDegrees(transform.eulerAngles.z);
+        M_Rigidbody.velocity = transform.up;
     }
 
     void FixedUpdate()
@@ -49,7 +53,7 @@ public class ShipController : MonoBehaviour
 
     private void ApplyForwardThrust(float thrust)
     {
-        Acc = VectorMethods.FromDegrees(transform.eulerAngles.z) * thrust;
+        Acc = transform.up * thrust;
         M_Rigidbody.AddForce(Acc);
     }
 

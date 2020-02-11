@@ -6,24 +6,25 @@ public class EnemyShipAI : BasicAI
 {
     
     public Transform playerShipTransform;
-    public Weapon Weapon;
 
     private ShipController controller;
     private Vector3 targetPosition;
 
-    private float minSpeed = 1;
-    private float maxSpeed = 20;
-    private float maxDist = 20;
-    private float targetDist = 5;
+    public float minSpeed = 1;
+    public float maxSpeed = 28;
+    public float maxDist = 20;
+    public float targetDist = 5;
     private float targetSpeed;
 
     private float distToTarget = float.MaxValue;
 
-    private float attackRange = 18;
+    public float attackRange = 18;
 
     void Awake()
     {
         controller = GetComponent<ShipController>();
+        controller.maxSpeed = maxSpeed;
+        controller.minSpeed = minSpeed;
     }
 
     private void Start()
@@ -49,10 +50,13 @@ public class EnemyShipAI : BasicAI
         controller.thrustMode = controller.M_Rigidbody.velocity.magnitude < targetSpeed ? ShipController.ThrustMode.Forward : ShipController.ThrustMode.None;
 
         //point at the player
-        transform.right = targetPosition - transform.position;
+        transform.up = targetPosition - transform.position;
 
         //shoot if we're close
-        Weapon.DoAutoFire = distToTarget < attackRange;
+        foreach (Weapon w in controller.weapons)
+        {
+            w.DoAutoFire = distToTarget < attackRange;
+        }
     }
 
     private void OnDestroy()
