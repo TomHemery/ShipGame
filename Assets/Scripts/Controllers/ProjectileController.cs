@@ -38,7 +38,7 @@ public class ProjectileController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     { 
-        ShipResourceManager resourceManager = collision.gameObject.GetComponent<ShipResourceManager>();
+        HealthResourceManager resourceManager = collision.gameObject.GetComponent<HealthResourceManager>();
         if(resourceManager != null)
         {
             resourceManager.DoDamage(damage);
