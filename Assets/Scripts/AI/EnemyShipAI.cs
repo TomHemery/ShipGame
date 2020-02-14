@@ -55,7 +55,8 @@ public class EnemyShipAI : BasicAI
         //shoot if we're close
         foreach (Weapon w in controller.weapons)
         {
-            w.DoAutoFire = distToTarget < attackRange;
+            if (distToTarget < attackRange) w.EnableAutoFire();
+            else w.DisableAutoFire();
         }
     }
 
