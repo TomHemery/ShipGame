@@ -8,14 +8,6 @@ public class BasicProjectileWeapon : Weapon
     public Transform SpawnPoint;
     public GameObject ProjectilePrefab;
 
-    private ShipController parentShip_controller;
-
-    private void Start()
-    {
-        parentShip_controller = transform.root.GetComponent<ShipController>();
-        parentShip_controller.weapons.Add(this);
-    }
-
     /// <summary>
     /// Fires the weapon
     /// </summary>

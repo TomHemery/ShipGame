@@ -4,20 +4,23 @@ using UnityEngine;
 
 public class BasicBeamWeapon : Weapon
 {
-    public float range;
-    private GameObject beam; 
+    public GameObject beamPrefab;
+    public Transform beamSource;
+
+    private void Start()
+    {
+        beamPrefab = Instantiate(beamPrefab, beamSource);
+        beamPrefab.SetActive(false);
+    }
 
     public override void EnableAutoFire()
     {
-        //instantiate the beam object 
+        beamPrefab.SetActive(true);
     }
 
     public override void DisableAutoFire()
     {
-        if (beam != null) {
-            Destroy(beam);
-            beam = null;
-        }
+        beamPrefab.SetActive(false);
     }
 
 }

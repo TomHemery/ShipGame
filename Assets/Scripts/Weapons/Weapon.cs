@@ -5,6 +5,13 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour
 {
 
+    protected ShipController parentShip_controller;
+
+    public void Awake()
+    {
+        parentShip_controller = transform.root.GetComponent<ShipController>();
+        parentShip_controller.weapons.Add(this);
+    }
     /// <summary>
     /// The interval with which this weapon will cooldown in seconds
     /// </summary>

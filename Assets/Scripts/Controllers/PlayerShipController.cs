@@ -22,7 +22,10 @@ public class PlayerShipController : ShipController
 
         if (Input.GetButtonDown("Fire"))
         {
-            foreach (Weapon w in weapons) w.EnableAutoFire();
+            foreach (Weapon w in weapons)
+            {
+                w.EnableAutoFire();
+            }
         }
         else if (Input.GetButtonUp("Fire"))
         {
