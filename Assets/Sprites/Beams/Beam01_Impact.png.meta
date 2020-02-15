@@ -1,31 +1,31 @@
 fileFormatVersion: 2
-guid: ce28cbade3aacb14789e88d70c900391
+guid: 49d814bed7b4bd447bf72edfe127075f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5600222758089090772
-    second: Beam01_0
+      213: 8506702596079538722
+    second: Beam01_Impact_0
   - first:
-      213: -6364116796498913907
-    second: Beam01_1
+      213: 8773359117921733264
+    second: Beam01_Impact_1
   - first:
-      213: -2542272487380125281
-    second: Beam01_2
+      213: 4929441604668448468
+    second: Beam01_Impact_2
   - first:
-      213: -6339719039843650692
-    second: Beam01_3
+      213: -9213128810803469901
+    second: Beam01_Impact_3
   - first:
-      213: -5496244347563071147
-    second: Beam01_4
+      213: -8824561578534061378
+    second: Beam01_Impact_4
   - first:
-      213: -9032671107915354658
-    second: Beam01_5
+      213: 6726875711634977437
+    second: Beam01_Impact_5
   - first:
-      213: -5326585269219394260
-    second: Beam01_6
+      213: -6010761598338079241
+    second: Beam01_Impact_6
   - first:
-      213: 2011722216378540486
-    second: Beam01_7
+      213: 3626307833170559672
+    second: Beam01_Impact_7
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -58,15 +58,15 @@ TextureImporter:
     filterMode: 0
     aniso: -1
     mipBias: -100
-    wrapU: 0
-    wrapV: 0
-    wrapW: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 10
@@ -106,185 +106,173 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Beam01_0
+      name: Beam01_Impact_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 8
-        height: 8
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 980c6d7dc67a9964f92443603be94315
-      internalID: -5600222758089090772
+      spriteID: c6a9dbba442dd054cba9a29fd209b929
+      internalID: 8506702596079538722
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Beam01_1
+      name: Beam01_Impact_1
       rect:
         serializedVersion: 2
-        x: 8
+        x: 12
         y: 0
-        width: 8
-        height: 8
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8e2c2a25acfd0cd4fb43785044d48921
-      internalID: -6364116796498913907
+      spriteID: 97489d5ede0d2fa4ca2a272232820830
+      internalID: 8773359117921733264
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Beam01_2
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 0
-        width: 8
-        height: 8
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cea096659a7bc374a9bd48590e444a2e
-      internalID: -2542272487380125281
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Beam01_3
+      name: Beam01_Impact_2
       rect:
         serializedVersion: 2
         x: 24
         y: 0
-        width: 8
-        height: 8
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1950083d63f071b48afa38c909e7974a
-      internalID: -6339719039843650692
+      spriteID: 60556fd45baac624aa4842ada09dd6e5
+      internalID: 4929441604668448468
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Beam01_4
+      name: Beam01_Impact_3
       rect:
         serializedVersion: 2
-        x: 32
+        x: 36
         y: 0
-        width: 8
-        height: 8
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4c814aea27af25340939c7d6e312b250
-      internalID: -5496244347563071147
+      spriteID: faef2c4d6ef0be143b9f801f2aca7512
+      internalID: -9213128810803469901
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Beam01_5
-      rect:
-        serializedVersion: 2
-        x: 40
-        y: 0
-        width: 8
-        height: 8
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f02aee80d3fe5654e8595af8d654eff9
-      internalID: -9032671107915354658
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Beam01_6
+      name: Beam01_Impact_4
       rect:
         serializedVersion: 2
         x: 48
         y: 0
-        width: 8
-        height: 8
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 291380a4d4ac4204f86d490830bb0950
-      internalID: -5326585269219394260
+      spriteID: bcb5865f3a4cbe741bb1b955e75cf3d1
+      internalID: -8824561578534061378
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Beam01_7
+      name: Beam01_Impact_5
       rect:
         serializedVersion: 2
-        x: 56
+        x: 60
         y: 0
-        width: 8
-        height: 8
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8ec59caea97dc324d89690feda9086db
-      internalID: 2011722216378540486
+      spriteID: e6f894e3bc7b5334a90117523c6a43df
+      internalID: 6726875711634977437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beam01_Impact_6
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 0
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f598ebef975fa44599e22fa48c5117b
+      internalID: -6010761598338079241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beam01_Impact_7
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 0
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49befc7d43b735941a580c4b86adf23c
+      internalID: 3626307833170559672
       vertices: []
       indices: 
       edges: []
