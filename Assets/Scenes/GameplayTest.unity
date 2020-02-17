@@ -770,6 +770,12 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!61 &530478435 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 8556093208819490210, guid: 8c71fc8f31f09ae40a7e94d9bb30f28a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1576222057}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &577526854
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1119,16 +1125,16 @@ GameObject:
   - component: {fileID: 864429592}
   - component: {fileID: 864429590}
   - component: {fileID: 864429591}
-  - component: {fileID: 864429594}
   - component: {fileID: 864429593}
   - component: {fileID: 864429595}
+  - component: {fileID: 864429596}
   m_Layer: 0
   m_Name: EnemyShip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &864429589
 Transform:
   m_ObjectHideFlags: 0
@@ -1217,7 +1223,37 @@ CompositeCollider2D:
   m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths: []
+  m_ColliderPaths:
+  - m_Collider: {fileID: 1435490205}
+    m_ColliderPaths:
+    - - X: -10000033
+        Y: -13000000
+      - X: -10000033
+        Y: 3000000
+      - X: -17000004
+        Y: 2999971
+      - X: -16999975
+        Y: -13000000
+  - m_Collider: {fileID: 530478435}
+    m_ColliderPaths:
+    - - X: 16999975
+        Y: -13000000
+      - X: 16999975
+        Y: 3000000
+      - X: 10000004
+        Y: 2999971
+      - X: 10000033
+        Y: -13000000
+  - m_Collider: {fileID: 864970565}
+    m_ColliderPaths:
+    - - X: 16999971
+        Y: -17000000
+      - X: 16999971
+        Y: 14000000
+      - X: -17000000
+        Y: 13999971
+      - X: -16999971
+        Y: -17000000
   m_CompositePaths:
     m_Paths:
     - - {x: 1.6999942, y: -1.7}
@@ -1226,23 +1262,6 @@ CompositeCollider2D:
       - {x: -1.6999942, y: -1.7}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.000005
---- !u!114 &864429594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 864429588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2c8ae9770e10cb4ba371958c9bf5ef7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxHealth: 100
-  ResourceBarManager: {fileID: 578712659}
-  explosionPrefab: {fileID: 1933057997586368794, guid: 2da328153fbfa1e4f9633a4dbabd9367,
-    type: 3}
-  MaxShields: 0
 --- !u!114 &864429595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1256,8 +1275,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 75
-  ResourceBarManager: {fileID: 0}
-  explosionPrefab: {fileID: 0}
+  ResourceBarManager: {fileID: 578712659}
+  explosionPrefab: {fileID: 1933057997586368794, guid: 2da328153fbfa1e4f9633a4dbabd9367,
+    type: 3}
+--- !u!114 &864429596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864429588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db3db04d46a99a9429c72db94fd5c47d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootDrops:
+  - dropPrefab: {fileID: 5447800882768667956, guid: eeb191af0e3e28e49977858483de5ab6,
+      type: 3}
+    dropProbability: 1
+    dropQuantityMax: 10
+    dropQuantityMin: 5
+  spawnRange: 2
+--- !u!61 &864970565 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 146167587, guid: 5f5b2cf411578a247892cc76ac3211b7,
+    type: 3}
+  m_PrefabInstance: {fileID: 5557758646650940200}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &901440321
 GameObject:
   m_ObjectHideFlags: 0
@@ -1435,8 +1480,9 @@ GameObject:
   - component: {fileID: 946207038}
   - component: {fileID: 946207035}
   - component: {fileID: 946207037}
+  - component: {fileID: 946207039}
   m_Layer: 0
-  m_Name: Ship
+  m_Name: PlayerShip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1547,6 +1593,19 @@ MonoBehaviour:
   explosionPrefab: {fileID: 1933057997586368794, guid: 2da328153fbfa1e4f9633a4dbabd9367,
     type: 3}
   MaxShields: 50
+--- !u!114 &946207039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 946207033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 920471d2ddaf0a34ba8b227471789529, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  contents: []
 --- !u!4 &953242859 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2576642569972955214, guid: 4c67b361b4cbc064fbf7110ca1082cbd,
@@ -1917,6 +1976,12 @@ MonoBehaviour:
   MaxHealth: 75
   ResourceBarManager: {fileID: 0}
   explosionPrefab: {fileID: 0}
+--- !u!61 &1435490205 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 8556093208819490210, guid: 8c71fc8f31f09ae40a7e94d9bb30f28a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1132633024}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1467597803 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5680799464301056083, guid: e2bc8e5cae126fa4db730551e0e79df1,
@@ -2627,6 +2692,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5557758644923583889, guid: 5f5b2cf411578a247892cc76ac3211b7,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f5b2cf411578a247892cc76ac3211b7, type: 3}

@@ -10,6 +10,7 @@ Material:
   m_Name: UnlitSprite
   m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA _ALPHATEST_ON _EMISSION _GLOSSYREFLECTIONS_OFF
+    _ISOUTLINEENABLED_ON
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -61,6 +62,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - PixelSnap: 0
+    - _AlphaThreshold: 0.39
     - _BumpScale: 1
     - _Cutoff: 0.481
     - _DetailNormalMapScale: 1
@@ -69,9 +71,11 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 0
+    - _IsOutlineEnabled: 1
     - _Metallic: 0
     - _Mode: 1
     - _OcclusionStrength: 1
+    - _OutlineSize: 6
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -82,4 +86,5 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0.3576137, g: 2.297397, b: 0.40325588, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 4.606021, g: 4.606021, b: 4.606021, a: 3.45}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
