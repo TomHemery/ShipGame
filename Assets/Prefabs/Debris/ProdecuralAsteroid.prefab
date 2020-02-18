@@ -102,8 +102,8 @@ MonoBehaviour:
   height: 64
   numFrames: 6
   numWhorleyNoisePoints: 20
-  minCraters: 2
-  maxCraters: 6
+  minCraters: 3
+  maxCraters: 7
   minCraterRadius: 3
   maxCraterRadius: 10
   craterNoise: 8
@@ -121,26 +121,17 @@ MonoBehaviour:
     width: 48
     height: 48
   threshold: 140
-  baseColour:
-    serializedVersion: 2
-    rgba: 4278193174
+  shadowValue: 50
   mid1ShadingNeighbourhood: 2
-  midColour1:
-    serializedVersion: 2
-    rgba: 4278197813
+  midValue1: 80
   mid2ShadingNeighbourhood: 2
-  midColour2:
-    serializedVersion: 2
-    rgba: 4278201679
+  midValue2: 110
   mid3ShadingNeighbourhood: 2
-  midColour3:
-    serializedVersion: 2
-    rgba: 4278663776
+  midValue3: 150
   highlightShadingNeighbourhood: 3
-  highlightColour:
-    serializedVersion: 2
-    rgba: 4279520632
-  shadingNoise: 0.01
+  highlightValue: 200
+  shadingNoise: 20
+  baseColour: {r: 0.8584906, g: 0.5742327, b: 0.13363297, a: 1}
 --- !u!114 &673632786037268403
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,11 +8,11 @@ public class ProceduralAsteroid : MonoBehaviour
     private SpriteRenderer m_renderer;
     private Texture2D m_texture;
     private Sprite [] m_sprites;
-    private PolygonCollider2D m_collider;
 
     private DamageAnimation damageAnimation;
 
-    private readonly Color32 clear = new Color32(0, 0, 0, 0);
+    private readonly byte clear = 0;
+    private float maxRealDistance;
 
     public int pixelsPerUnit = 10;
     public int width = 64;
@@ -35,21 +35,24 @@ public class ProceduralAsteroid : MonoBehaviour
     public Rect whorleyNoisePointBounds;
 
     public float threshold = 0.55f;
-    public Color32 baseColour;
+    public byte shadowValue;
     public int mid1ShadingNeighbourhood = 2;
-    public Color32 midColour1;
+    public byte midValue1;
     public int mid2ShadingNeighbourhood = 2;
-    public Color32 midColour2;
+    public byte midValue2;
     public int mid3ShadingNeighbourhood = 2;
-    public Color32 midColour3;
+    public byte midValue3;
     public int highlightShadingNeighbourhood = 2;
-    public Color32 highlightColour;
-    public float shadingNoise = 0.5f;
+    public byte highlightValue;
+    public byte shadingNoise = 10;
+
+    public Color baseColour;
 
     private void Awake()
     {
         m_renderer = GetComponent<SpriteRenderer>();
         m_sprites = new Sprite[numFrames];
+        maxRealDistance = Mathf.Sqrt(width * width + height * height);
         GenerateAsteroid();
     }
 
@@ -64,7 +67,7 @@ public class ProceduralAsteroid : MonoBehaviour
         damageAnimation = GetComponent<DamageAnimation>();
         damageAnimation.sprites = m_sprites;
 
-        m_collider = gameObject.AddComponent<PolygonCollider2D>();
+        gameObject.AddComponent<PolygonCollider2D>();
     }
 
     private Texture2D GenerateTexture() {
@@ -74,7 +77,7 @@ public class ProceduralAsteroid : MonoBehaviour
             filterMode = FilterMode.Point,
         };
 
-        Color32 [] pixels = result.GetPixels32();
+        byte[] pixels = new byte[width * numFrames * height];
 
         for (int texLeft = 0; texLeft < width * numFrames; texLeft += width)
         {
@@ -83,7 +86,7 @@ public class ProceduralAsteroid : MonoBehaviour
                 //create some points in the area of the texture
                 Vector2[] whorleyNoisePoints = new Vector2[numWhorleyNoisePoints];
 
-                //assign every pixel a grayscale colour based on distance from the nearest point 
+                //assign every pixel a grayscale value based on distance from the nearest point 
                 byte brightest = 0;
                 byte darkest = byte.MaxValue;
                 for (int i = 0; i < numWhorleyNoisePoints; i++)
@@ -96,7 +99,7 @@ public class ProceduralAsteroid : MonoBehaviour
                         byte value = DistanceToGrayscale(x, y, whorleyNoisePoints);
                         if (value > brightest) brightest = value;
                         if (value < darkest) darkest = value;
-                        SetPixel(x, y, new Color32(value, value, value, byte.MaxValue), pixels);
+                        SetPixel(x, y, value, pixels);
                     }
                 }
 
@@ -104,12 +107,11 @@ public class ProceduralAsteroid : MonoBehaviour
                 {
                     for (int y = 0; y < width; y++)
                     {
-                        Color32 c = GetPixel(x, y, pixels);
-                        byte normalizedValue = NormalizeByte(c.r, darkest, brightest);
-                        SetPixel(x, y, new Color32(normalizedValue, normalizedValue, normalizedValue, 255), pixels);
+                        byte normalizedValue = NormalizeByte(GetPixel(x, y, pixels), darkest, brightest);
+                        SetPixel(x, y, normalizedValue, pixels);
                         if (normalizedValue > threshold)
                         {
-                            SetPixel(x, y, baseColour, pixels);
+                            SetPixel(x, y, shadowValue, pixels);
                         }
                         else
                         {
@@ -146,17 +148,17 @@ public class ProceduralAsteroid : MonoBehaviour
                 {
                     for (int tex_y = 0; tex_y < height; tex_y++)
                     {
-                        if (CompareColours(GetPixel(tex_x, tex_y, pixels), clear))
+                        if (GetPixel(tex_x, tex_y, pixels) == clear)
                         {
-                            for (int x = tex_x - destructionNeighbourhood; 
-                                x <= (tex_x + destructionNeighbourhood >= result.width-1 ? result.width-1 : tex_x + destructionNeighbourhood); 
+                            for (int x = tex_x - destructionNeighbourhood;
+                                x <= (tex_x + destructionNeighbourhood >= result.width - 1 ? result.width - 1 : tex_x + destructionNeighbourhood);
                                 x++)
                             {
-                                for (int y = tex_y - destructionNeighbourhood <= 0 ? 0 : tex_y - destructionNeighbourhood; 
-                                    y <= (tex_y + destructionNeighbourhood >= height - 1 ? height - 1 : tex_y + destructionNeighbourhood); 
+                                for (int y = tex_y - destructionNeighbourhood <= 0 ? 0 : tex_y - destructionNeighbourhood;
+                                    y <= (tex_y + destructionNeighbourhood >= height - 1 ? height - 1 : tex_y + destructionNeighbourhood);
                                     y++)
                                 {
-                                    if (!CompareColours(GetPixel(x, y, pixels), clear) && Random.value < destructionNoise)
+                                    if (GetPixel(x, y, pixels) != clear && Random.value < destructionNoise)
                                     {
                                         SetPixel(x, y, clear, pixels);
                                     }
@@ -185,33 +187,53 @@ public class ProceduralAsteroid : MonoBehaviour
                 }
             }
         }
+
         ShadeInTexture(pixels);
-        result.SetPixels32(pixels);
+
+        Color32[] colours = new Color32[width * numFrames * height];
+
+        for (int i = 0; i < pixels.Length; i++) {
+            if (pixels[i] != clear)
+            {
+                colours[i] = new Color32(
+                    (byte)(baseColour.r * pixels[i]),
+                    (byte)(baseColour.g * pixels[i]),
+                    (byte)(baseColour.b * pixels[i]),
+                    byte.MaxValue
+                );
+            }
+            else
+            {
+                colours[i] = Color.clear;
+            }
+        }
+
+        result.SetPixels32(colours);
         result.Apply();
         return result;
     }
 
-    private void ShadeInTexture(Color32 [] pixels) {
-        ShadePass(clear, baseColour, midColour1, pixels, mid1ShadingNeighbourhood);
-        ShadePass(baseColour, midColour1, midColour2, pixels, mid2ShadingNeighbourhood);
-        ShadePass(midColour1, midColour2, midColour3, pixels, mid3ShadingNeighbourhood);
-        ShadePass(midColour2, midColour3, highlightColour, pixels, highlightShadingNeighbourhood);
+    private void ShadeInTexture(byte [] pixels) {
+        ShadePass(clear, shadowValue, midValue1, pixels, mid1ShadingNeighbourhood);
+        ShadePass(shadowValue, midValue1, midValue2, pixels, mid2ShadingNeighbourhood);
+        ShadePass(midValue1, midValue2, midValue3, pixels, mid3ShadingNeighbourhood);
+        ShadePass(midValue2, midValue3, highlightValue, pixels, highlightShadingNeighbourhood);
     }
 
-    private void ShadePass(Color32 outsideColour, Color32 targetColour, Color32 newColour, Color32[] pixels, int neighbourhood) {
+    private void ShadePass(byte outsideColour, byte targetColour, byte newColour, byte[] pixels, int neighbourhood) {
         float texWidth = width * numFrames;
         for (int x = neighbourhood; x < texWidth - neighbourhood; x++)
         {
             for (int y = neighbourhood; y < height - neighbourhood; y++)
             {
-                if (CompareColours(GetPixel(x, y, pixels), targetColour))
+                if (GetPixel(x, y, pixels) >= targetColour)
                 { //for each filled in pixel
                     bool onEdge = false;
                     for (int x2 = x - neighbourhood <= 0 ? 0 : x - neighbourhood; x2 <= (x + neighbourhood > texWidth - 1 ? texWidth - 1 : x + neighbourhood); x2++)
                     {
                         for (int y2 = y - neighbourhood <= 0 ? 0 : y - neighbourhood; y2 <= (y + neighbourhood > height - 1 ? height - 1 : y + neighbourhood); y2++)
                         {
-                            if (CompareColours(GetPixel(x2, y2, pixels), outsideColour))
+                            if (GetPixel(x2, y2, pixels) < targetColour)
                             {
                                 onEdge = true;
                                 break;
@@ -220,27 +242,18 @@ public class ProceduralAsteroid : MonoBehaviour
                     }
                     if (!onEdge)
                     {
-                        SetPixel(x, y, newColour, pixels);
+                        SetPixel(x, y, (byte)(newColour + (byte)Random.Range(0, shadingNoise)), pixels);
                     }
                 }
             }
         }
     }
 
-    private bool CompareColours(Color32 colourA, Color32 colourB){
-        return
-            colourA.r == colourB.r &&
-            colourA.g == colourB.g &&
-            colourA.b == colourB.b &&
-            colourA.a == colourB.a
-        ;
-    }
-
-    private void SetPixel(int x, int y, Color32 c,  Color32[] pixels) {
+    private void SetPixel(int x, int y, byte c,  byte[] pixels) {
         pixels[x + y * width * numFrames] = c;
     }
 
-    private Color32 GetPixel(int x, int y,  Color32[] pixels) {
+    private byte GetPixel(int x, int y,  byte[] pixels) {
         return pixels[x + y * width * numFrames];
     }
 
@@ -251,7 +264,7 @@ public class ProceduralAsteroid : MonoBehaviour
         return result;
     }
 
-    private void CopyPrevFrame(int newFrameX,  Color32[] pixels) {
+    private void CopyPrevFrame(int newFrameX,  byte[] pixels) {
         for (int x = newFrameX; x < newFrameX + width; x++) {
             for (int y = 0; y < height; y++) {
                 SetPixel(x, y, GetPixel(x - width, y,  pixels), pixels);
@@ -260,7 +273,6 @@ public class ProceduralAsteroid : MonoBehaviour
     }
 
     private byte DistanceToGrayscale(int x, int y, Vector2[] points) {
-        float maxRealDistance = Mathf.Sqrt(width * width + height * height);
         byte minScaledDistance = byte.MaxValue;
 
         foreach (Vector2 point in points) {
