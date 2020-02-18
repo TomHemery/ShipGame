@@ -53,11 +53,6 @@ public class ProceduralAsteroid : MonoBehaviour
         GenerateAsteroid();
     }
 
-    //private void Update()
-    //{
-    //    GenerateAsteroid();
-    //}
-
     private void GenerateAsteroid() {
         //generate the texture
         m_texture = GenerateTexture();
