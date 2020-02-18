@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ControllerFollowTarget : MonoBehaviour
+public class FollowTargetController : MonoBehaviour
 {
 
     public Transform Target;

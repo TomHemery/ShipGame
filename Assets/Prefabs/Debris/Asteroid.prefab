@@ -236,4 +236,9 @@ MonoBehaviour:
     dropProbability: 0.8
     dropQuantityMax: 6
     dropQuantityMin: 2
+  - dropPrefab: {fileID: 8744863751882838978, guid: ea844846b5132b748b1a3ca8014d22a7,
+      type: 3}
+    dropProbability: 0.5
+    dropQuantityMax: 4
+    dropQuantityMin: 1
   spawnRange: 3
