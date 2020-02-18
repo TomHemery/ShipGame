@@ -8,18 +8,31 @@ public class DropLootOnDestroy : MonoBehaviour
     public List<LootDrop> lootDrops;
     public float spawnRange = 1.0f;
 
-    private void OnDestroy()
+    bool isQuitting = false;
+
+    void OnApplicationQuit()
     {
-        foreach (LootDrop ld in lootDrops) {
-            if (Random.value <= ld.dropProbability) {
-                int numDrops = Random.Range(ld.dropQuantityMin, ld.dropQuantityMax + 1);
-                for (int i = 0; i < numDrops; i++) {
-                    Vector2 pos = transform.position;
-                    pos += Random.insideUnitCircle.normalized * Random.Range(0, spawnRange);
-                    Instantiate(ld.dropPrefab, pos, Quaternion.identity);
+        isQuitting = true;
+    }
+
+    void OnDestroy()
+    {
+        if (!isQuitting)
+        {
+            foreach (LootDrop ld in lootDrops)
+            {
+                if (Random.value <= ld.dropProbability)
+                {
+                    int numDrops = Random.Range(ld.dropQuantityMin, ld.dropQuantityMax + 1);
+                    for (int i = 0; i < numDrops; i++)
+                    {
+                        Vector2 pos = transform.position;
+                        pos += Random.insideUnitCircle.normalized * Random.Range(0, spawnRange);
+                        GameObject drop = Instantiate(ld.dropPrefab, pos, Quaternion.identity);
+                        drop.transform.SetParent(null);
+                    }
                 }
             }
         }
     }
-
 }

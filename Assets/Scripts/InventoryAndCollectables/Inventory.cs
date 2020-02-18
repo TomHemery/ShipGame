@@ -7,6 +7,7 @@ public class Inventory : MonoBehaviour
     public Dictionary<string, int> Contents { get; private set; } = new Dictionary<string, int>();
     public int FilledCapacity { get; private set; } = 0;
     public int MaxCapacity = 100;
+    public UIInventoryController uiController;
 
     /// <summary>
     /// Checks if the inventory has space for "quantity" of "item", if it does then it increases the quantity of "item" by "quantity"
@@ -18,10 +19,11 @@ public class Inventory : MonoBehaviour
         if (MaxCapacity > FilledCapacity + quantity)
         {
             if (Contents.ContainsKey(item))
-                Contents[item] += quantity;
+                Contents[item] = Contents[item] + quantity;
             else
                 Contents.Add(item, quantity);
             FilledCapacity += quantity;
+            UpdateUIController();
             return true;
         }
         return false;
@@ -37,9 +39,10 @@ public class Inventory : MonoBehaviour
     {
         bool result = CheckForItem(item, quantity);
         if (result) {
-            Contents[item] -= quantity;
+            Contents[item] = Contents[item] - quantity;
             if (Contents[item] <= 0) Contents.Remove(item);
             FilledCapacity -= quantity;
+            UpdateUIController();
         }
         return result;
     }
@@ -52,5 +55,9 @@ public class Inventory : MonoBehaviour
     /// <returns></returns>
     public bool CheckForItem(string item, int quantity = 1) {
         return (Contents.ContainsKey(item) && Contents[item] >= quantity);
+    }
+
+    private void UpdateUIController() {
+        if (uiController != null) uiController.UpdateContents();
     }
 }

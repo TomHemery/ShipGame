@@ -64,7 +64,7 @@ public class HealthResourceManager : MonoBehaviour
 
     protected void Explode()
     {
-        if (explosionPrefab != null) Instantiate(explosionPrefab);
+        if (explosionPrefab != null) Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }
