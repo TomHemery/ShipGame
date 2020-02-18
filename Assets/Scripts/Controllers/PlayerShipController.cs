@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerShipController : ShipController
 {
@@ -22,10 +23,8 @@ public class PlayerShipController : ShipController
 
         if (Input.GetButtonDown("Fire"))
         {
-            foreach (Weapon w in weapons)
-            {
-                w.EnableAutoFire();
-            }
+            if (!EventSystem.current.IsPointerOverGameObject())
+                foreach (Weapon w in weapons) w.EnableAutoFire();
         }
         else if (Input.GetButtonUp("Fire"))
         {

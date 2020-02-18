@@ -63,10 +63,13 @@ public class Beam : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        HealthResourceManager hrm = other.gameObject.GetComponent<HealthResourceManager>();
-        if(hrm != null)hrm.DoDamage(dps * Time.deltaTime);
-        distanceToCollision = Vector2.Distance(transform.position, other.ClosestPoint(transform.position));
-        otherCollider = other;
+        if (!other.gameObject.CompareTag("Collectable"))
+        {
+            HealthResourceManager hrm = other.gameObject.GetComponent<HealthResourceManager>();
+            if (hrm != null) hrm.DoDamage(dps * Time.deltaTime);
+            distanceToCollision = Vector2.Distance(transform.position, other.ClosestPoint(transform.position));
+            otherCollider = other;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)

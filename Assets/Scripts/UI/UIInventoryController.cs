@@ -34,7 +34,8 @@ public class UIInventoryController : MonoBehaviour
             itemRect.localPosition = new Vector2(x * itemRect.rect.width, y * itemRect.rect.height);
 
             GameObject screenItemContents = screenItem.transform.Find("Contents").gameObject;
-            screenItemContents.GetComponentInChildren<Text>().text = "" + entry.Value;
+            screenItemContents.transform.Find("QuantityText").GetComponent<Text>().text = entry.Value.ToString();
+            screenItemContents.transform.Find("NameText").GetComponent<Text>().text = entry.Key;
             screenItemContents.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("Sprites/Collectables/" + entry.Key);
 
             x++;

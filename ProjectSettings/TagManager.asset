@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - WeaponAttachment
   - Hull
+  - Collectable
   layers:
   - Default
   - TransparentFX
