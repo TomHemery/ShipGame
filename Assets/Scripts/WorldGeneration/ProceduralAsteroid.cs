@@ -31,7 +31,6 @@ public class ProceduralAsteroid : MonoBehaviour
     public int craterNoiseDestruction = 1;
     public int destructionNeighbourhood = 1;
     public float destructionNoise = 0.5f;
-    
 
     public Rect whorleyNoisePointBounds;
 
@@ -54,9 +53,14 @@ public class ProceduralAsteroid : MonoBehaviour
         GenerateAsteroid();
     }
 
+    //private void Update()
+    //{
+    //    GenerateAsteroid();
+    //}
+
     private void GenerateAsteroid() {
         //generate the texture
-        GenerateTexture();
+        m_texture = GenerateTexture();
 
         for (int i = 0; i < numFrames; i++) m_sprites[i] = Sprite.Create(m_texture, new Rect(i * width, 0, width, height), new Vector2(0.5f, 0.5f), pixelsPerUnit);
 
@@ -68,14 +72,14 @@ public class ProceduralAsteroid : MonoBehaviour
         m_collider = gameObject.AddComponent<PolygonCollider2D>();
     }
 
-    private void GenerateTexture() {
+    private Texture2D GenerateTexture() {
         //create the texture we will populate
-        m_texture = new Texture2D(width * numFrames, height, TextureFormat.ARGB32, false)
+        Texture2D result = new Texture2D(width * numFrames, height, TextureFormat.ARGB32, false)
         {
             filterMode = FilterMode.Point,
         };
 
-        Color32[] pixels = m_texture.GetPixels32();
+        Color32 [] pixels = result.GetPixels32();
 
         for (int texLeft = 0; texLeft < width * numFrames; texLeft += width)
         {
@@ -150,7 +154,7 @@ public class ProceduralAsteroid : MonoBehaviour
                         if (CompareColours(GetPixel(tex_x, tex_y, pixels), clear))
                         {
                             for (int x = tex_x - destructionNeighbourhood; 
-                                x <= (tex_x + destructionNeighbourhood >= m_texture.width-1 ? m_texture.width-1 : tex_x + destructionNeighbourhood); 
+                                x <= (tex_x + destructionNeighbourhood >= result.width-1 ? result.width-1 : tex_x + destructionNeighbourhood); 
                                 x++)
                             {
                                 for (int y = tex_y - destructionNeighbourhood <= 0 ? 0 : tex_y - destructionNeighbourhood; 
@@ -186,34 +190,31 @@ public class ProceduralAsteroid : MonoBehaviour
                 }
             }
         }
-
-        m_texture.SetPixels32(pixels);
-        m_texture.Apply();
-
-        ShadeInTexture();
+        ShadeInTexture(pixels);
+        result.SetPixels32(pixels);
+        result.Apply();
+        return result;
     }
 
-    private void ShadeInTexture() {
-        Color32[] pixels = m_texture.GetPixels32();
+    private void ShadeInTexture(Color32 [] pixels) {
         ShadePass(clear, baseColour, midColour1, pixels, mid1ShadingNeighbourhood);
         ShadePass(baseColour, midColour1, midColour2, pixels, mid2ShadingNeighbourhood);
         ShadePass(midColour1, midColour2, midColour3, pixels, mid3ShadingNeighbourhood);
         ShadePass(midColour2, midColour3, highlightColour, pixels, highlightShadingNeighbourhood);
-        m_texture.SetPixels32(pixels);
-        m_texture.Apply();
     }
 
     private void ShadePass(Color32 outsideColour, Color32 targetColour, Color32 newColour, Color32[] pixels, int neighbourhood) {
-        for (int x = neighbourhood; x < m_texture.width - neighbourhood; x++)
+        float texWidth = width * numFrames;
+        for (int x = neighbourhood; x < texWidth - neighbourhood; x++)
         {
-            for (int y = neighbourhood; y < m_texture.height - neighbourhood; y++)
+            for (int y = neighbourhood; y < height - neighbourhood; y++)
             {
                 if (CompareColours(GetPixel(x, y, pixels), targetColour))
                 { //for each filled in pixel
                     bool onEdge = false;
-                    for (int x2 = x - neighbourhood <= 0 ? 0 : x - neighbourhood; x2 <= (x + neighbourhood > m_texture.width - 1 ? m_texture.width - 1 : x + neighbourhood); x2++)
+                    for (int x2 = x - neighbourhood <= 0 ? 0 : x - neighbourhood; x2 <= (x + neighbourhood > texWidth - 1 ? texWidth - 1 : x + neighbourhood); x2++)
                     {
-                        for (int y2 = y - neighbourhood <= 0 ? 0 : y - neighbourhood; y2 <= (y + neighbourhood > m_texture.height - 1 ? m_texture.height - 1 : y + neighbourhood); y2++)
+                        for (int y2 = y - neighbourhood <= 0 ? 0 : y - neighbourhood; y2 <= (y + neighbourhood > height - 1 ? height - 1 : y + neighbourhood); y2++)
                         {
                             if (CompareColours(GetPixel(x2, y2, pixels), outsideColour))
                             {
@@ -241,11 +242,11 @@ public class ProceduralAsteroid : MonoBehaviour
     }
 
     private void SetPixel(int x, int y, Color32 c,  Color32[] pixels) {
-        pixels[x + y * m_texture.width] = c;
+        pixels[x + y * width * numFrames] = c;
     }
 
     private Color32 GetPixel(int x, int y,  Color32[] pixels) {
-        return pixels[x + y * m_texture.width];
+        return pixels[x + y * width * numFrames];
     }
 
     private byte NormalizeByte(byte val, byte min, byte max) {
@@ -255,7 +256,6 @@ public class ProceduralAsteroid : MonoBehaviour
         return result;
     }
 
-
     private void CopyPrevFrame(int newFrameX,  Color32[] pixels) {
         for (int x = newFrameX; x < newFrameX + width; x++) {
             for (int y = 0; y < height; y++) {
@@ -263,7 +263,6 @@ public class ProceduralAsteroid : MonoBehaviour
             }
         }
     }
-
 
     private byte DistanceToGrayscale(int x, int y, Vector2[] points) {
         float maxRealDistance = Mathf.Sqrt(width * width + height * height);
