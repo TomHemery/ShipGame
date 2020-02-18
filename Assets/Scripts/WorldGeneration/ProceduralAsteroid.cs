@@ -41,18 +41,23 @@ public class ProceduralAsteroid : MonoBehaviour
     public Color32 midColour1;
     public int mid2ShadingNeighbourhood = 2;
     public Color32 midColour2;
+    public int mid3ShadingNeighbourhood = 2;
+    public Color32 midColour3;
     public int highlightShadingNeighbourhood = 2;
     public Color32 highlightColour;
-
-    public bool refresh = false;
+    public float shadingNoise = 0.5f;
 
     private void Awake()
     {
         m_renderer = GetComponent<SpriteRenderer>();
         m_sprites = new Sprite[numFrames];
+        GenerateAsteroid();
+    }
+
+    private void GenerateAsteroid() {
         //generate the texture
         GenerateTexture();
-        //generate sprites from the texture
+
         for (int i = 0; i < numFrames; i++) m_sprites[i] = Sprite.Create(m_texture, new Rect(i * width, 0, width, height), new Vector2(0.5f, 0.5f), pixelsPerUnit);
 
         m_renderer.sprite = m_sprites[0];
@@ -61,7 +66,6 @@ public class ProceduralAsteroid : MonoBehaviour
         damageAnimation.sprites = m_sprites;
 
         m_collider = gameObject.AddComponent<PolygonCollider2D>();
-
     }
 
     private void GenerateTexture() {
@@ -193,7 +197,8 @@ public class ProceduralAsteroid : MonoBehaviour
         Color32[] pixels = m_texture.GetPixels32();
         ShadePass(clear, baseColour, midColour1, pixels, mid1ShadingNeighbourhood);
         ShadePass(baseColour, midColour1, midColour2, pixels, mid2ShadingNeighbourhood);
-        ShadePass(midColour1, midColour2, highlightColour, pixels, highlightShadingNeighbourhood);
+        ShadePass(midColour1, midColour2, midColour3, pixels, mid3ShadingNeighbourhood);
+        ShadePass(midColour2, midColour3, highlightColour, pixels, highlightShadingNeighbourhood);
         m_texture.SetPixels32(pixels);
         m_texture.Apply();
     }

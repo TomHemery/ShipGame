@@ -79,7 +79,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 6.4, y: 6.4}
+  m_Size: {x: 38.4, y: 6.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -102,18 +102,18 @@ MonoBehaviour:
   height: 64
   numFrames: 6
   numWhorleyNoisePoints: 20
-  minCraters: 3
+  minCraters: 2
   maxCraters: 6
   minCraterRadius: 3
   maxCraterRadius: 10
-  craterNoise: 2
-  minCratersDestruction: 1
+  craterNoise: 8
+  minCratersDestruction: 0
   maxCratersDestruction: 2
-  minCraterRadiusDestruction: 3
-  maxCraterRadiusDestruction: 7
+  minCraterRadiusDestruction: 2
+  maxCraterRadiusDestruction: 6
   craterNoiseDestruction: 1
   destructionNeighbourhood: 2
-  destructionNoise: 0.045
+  destructionNoise: 0.04
   whorleyNoisePointBounds:
     serializedVersion: 2
     x: 16
@@ -128,15 +128,19 @@ MonoBehaviour:
   midColour1:
     serializedVersion: 2
     rgba: 4278197813
-  mid2ShadingNeighbourhood: 3
+  mid2ShadingNeighbourhood: 2
   midColour2:
     serializedVersion: 2
     rgba: 4278201679
+  mid3ShadingNeighbourhood: 2
+  midColour3:
+    serializedVersion: 2
+    rgba: 4278663776
   highlightShadingNeighbourhood: 3
   highlightColour:
     serializedVersion: 2
-    rgba: 4278204777
-  refresh: 0
+    rgba: 4279520632
+  shadingNoise: 0.01
 --- !u!114 &673632786037268403
 MonoBehaviour:
   m_ObjectHideFlags: 0
