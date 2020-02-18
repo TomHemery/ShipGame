@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
 public class ProceduralAsteroid : MonoBehaviour
 {
 
     private SpriteRenderer m_renderer;
     private Texture2D m_texture;
-    private Sprite m_sprite;
+    private Sprite [] m_sprites;
+    private PolygonCollider2D m_collider;
+
+    private DamageAnimation damageAnimation;
 
     private readonly Color32 clear = new Color32(0, 0, 0, 0);
 
@@ -35,25 +37,31 @@ public class ProceduralAsteroid : MonoBehaviour
 
     public float threshold = 0.55f;
     public Color32 baseColour;
+    public int mid1ShadingNeighbourhood = 2;
     public Color32 midColour1;
+    public int mid2ShadingNeighbourhood = 2;
     public Color32 midColour2;
+    public int highlightShadingNeighbourhood = 2;
     public Color32 highlightColour;
-    public int shadingNeigbourhood = 1;
 
     public bool refresh = false;
 
     private void Awake()
     {
         m_renderer = GetComponent<SpriteRenderer>();
+        m_sprites = new Sprite[numFrames];
+        //generate the texture
         GenerateTexture();
-    }
+        //generate sprites from the texture
+        for (int i = 0; i < numFrames; i++) m_sprites[i] = Sprite.Create(m_texture, new Rect(i * width, 0, width, height), new Vector2(0.5f, 0.5f), pixelsPerUnit);
 
-    private void Update()
-    {
-        if (refresh) {
-            GenerateTexture();
-            refresh = false;
-        }
+        m_renderer.sprite = m_sprites[0];
+
+        damageAnimation = GetComponent<DamageAnimation>();
+        damageAnimation.sprites = m_sprites;
+
+        m_collider = gameObject.AddComponent<PolygonCollider2D>();
+
     }
 
     private void GenerateTexture() {
@@ -178,92 +186,44 @@ public class ProceduralAsteroid : MonoBehaviour
         m_texture.SetPixels32(pixels);
         m_texture.Apply();
 
-        ShadeTexture();
-
-        m_sprite = Sprite.Create(m_texture, new Rect(0, 0, width * numFrames, height), new Vector2(0.5f, 0.5f), pixelsPerUnit);
-        m_renderer.sprite = m_sprite;
+        ShadeInTexture();
     }
 
-    private void ShadeTexture() {
+    private void ShadeInTexture() {
         Color32[] pixels = m_texture.GetPixels32();
-        //pass 1 
-        for (int x = shadingNeigbourhood; x < m_texture.width - shadingNeigbourhood; x++) {
-            for (int y = shadingNeigbourhood; y < m_texture.height - shadingNeigbourhood; y++) {
-                bool onEdgeOfColourBand = false;
-                if (!CompareColours(GetPixel(x, y, pixels), Color.clear))
-                { //for each filled in pixel
-                    for (int x2 = x - shadingNeigbourhood; x2 <= x + shadingNeigbourhood; x2++)
-                    {
-                        for (int y2 = y - shadingNeigbourhood; y2 <= y + shadingNeigbourhood; y2++)
-                        {
-                            if (CompareColours(GetPixel(x2, y2, pixels), Color.clear))
-                            {
-                                onEdgeOfColourBand = true;
-                                break;
-                            }
-                        }
-                    }
-                    if (!onEdgeOfColourBand)
-                    {
-                        SetPixel(x, y, midColour1, pixels);
-                    }
-                }
-            }
-        }
-        //pass 2
-        for (int x = shadingNeigbourhood; x < m_texture.width - shadingNeigbourhood; x++)
-        {
-            for (int y = shadingNeigbourhood; y < m_texture.height - shadingNeigbourhood; y++)
-            {
-                if (CompareColours(GetPixel(x, y, pixels), midColour1))
-                { //for each filled in pixel
-                    bool onEdge = false;
-                    for (int x2 = x - shadingNeigbourhood <= 0 ? 0 : x - shadingNeigbourhood; x2 <= (x + shadingNeigbourhood > m_texture.width - 1 ? m_texture.width - 1 : x + shadingNeigbourhood); x2++)
-                    {
-                        for (int y2 = y - shadingNeigbourhood <= 0 ? 0 : y - shadingNeigbourhood; y2 <= (y + shadingNeigbourhood > m_texture.height - 1 ? m_texture.height - 1 : y + shadingNeigbourhood); y2++)
-                        {
-                            if (CompareColours(GetPixel(x2, y2, pixels), baseColour))
-                            {
-                                onEdge = true;
-                                break;
-                            }
-                        }
-                    }
-                    if (!onEdge)
-                    {
-                        SetPixel(x, y, midColour2, pixels);
-                    }
-                }
-            }
-        }
-        //pass 3
-        for (int x = shadingNeigbourhood; x < m_texture.width - shadingNeigbourhood; x++)
-        {
-            for (int y = shadingNeigbourhood; y < m_texture.height - shadingNeigbourhood; y++)
-            {
-                if (CompareColours(GetPixel(x, y, pixels), midColour2))
-                { //for each filled in pixel
-                    bool onEdge = false;
-                    for (int x2 = x - shadingNeigbourhood <= 0 ? 0 : x - shadingNeigbourhood; x2 <= (x + shadingNeigbourhood > m_texture.width - 1 ? m_texture.width - 1 : x + shadingNeigbourhood); x2++)
-                    {
-                        for (int y2 = y - shadingNeigbourhood <= 0 ? 0 : y - shadingNeigbourhood; y2 <= (y + shadingNeigbourhood > m_texture.height - 1 ? m_texture.height - 1 : y + shadingNeigbourhood); y2++)
-                        {
-                            if (CompareColours(GetPixel(x2, y2, pixels), midColour1))
-                            {
-                                onEdge = true;
-                                break;
-                            }
-                        }
-                    }
-                    if (!onEdge)
-                    {
-                        SetPixel(x, y, highlightColour, pixels);
-                    }
-                }
-            }
-        }
+        ShadePass(clear, baseColour, midColour1, pixels, mid1ShadingNeighbourhood);
+        ShadePass(baseColour, midColour1, midColour2, pixels, mid2ShadingNeighbourhood);
+        ShadePass(midColour1, midColour2, highlightColour, pixels, highlightShadingNeighbourhood);
         m_texture.SetPixels32(pixels);
         m_texture.Apply();
+    }
+
+    private void ShadePass(Color32 outsideColour, Color32 targetColour, Color32 newColour, Color32[] pixels, int neighbourhood) {
+        for (int x = neighbourhood; x < m_texture.width - neighbourhood; x++)
+        {
+            for (int y = neighbourhood; y < m_texture.height - neighbourhood; y++)
+            {
+                if (CompareColours(GetPixel(x, y, pixels), targetColour))
+                { //for each filled in pixel
+                    bool onEdge = false;
+                    for (int x2 = x - neighbourhood <= 0 ? 0 : x - neighbourhood; x2 <= (x + neighbourhood > m_texture.width - 1 ? m_texture.width - 1 : x + neighbourhood); x2++)
+                    {
+                        for (int y2 = y - neighbourhood <= 0 ? 0 : y - neighbourhood; y2 <= (y + neighbourhood > m_texture.height - 1 ? m_texture.height - 1 : y + neighbourhood); y2++)
+                        {
+                            if (CompareColours(GetPixel(x2, y2, pixels), outsideColour))
+                            {
+                                onEdge = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!onEdge)
+                    {
+                        SetPixel(x, y, newColour, pixels);
+                    }
+                }
+            }
+        }
     }
 
     private bool CompareColours(Color32 colourA, Color32 colourB){

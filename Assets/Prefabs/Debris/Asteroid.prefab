@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2676461446456613423}
   - component: {fileID: 2676461446456613421}
   - component: {fileID: 2676461446456613420}
-  - component: {fileID: 2676461446456613422}
   - component: {fileID: 2676461446456613419}
   - component: {fileID: 2676461446456613418}
   m_Layer: 0
@@ -176,22 +175,6 @@ MonoBehaviour:
   - {fileID: 2779235169817817105, guid: 7e544852a3bc6ef4cb7da936b247d701, type: 3}
   - {fileID: -844446307012220872, guid: 7e544852a3bc6ef4cb7da936b247d701, type: 3}
   - {fileID: -5021251683287042572, guid: 7e544852a3bc6ef4cb7da936b247d701, type: 3}
---- !u!114 &2676461446456613422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2676461446456613410}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2c8ae9770e10cb4ba371958c9bf5ef7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxHealth: 100
-  ResourceBarManager: {fileID: 0}
-  explosionPrefab: {fileID: 0}
-  MaxShields: 0
 --- !u!50 &2676461446456613419
 Rigidbody2D:
   serializedVersion: 4
