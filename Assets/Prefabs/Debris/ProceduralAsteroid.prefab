@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 673632786037268401}
   - component: {fileID: 673632786037268414}
   m_Layer: 0
-  m_Name: ProdecuralAsteroid
+  m_Name: ProceduralAsteroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,16 +102,16 @@ MonoBehaviour:
   height: 64
   numFrames: 6
   numWhorleyNoisePoints: 20
-  minCraters: 3
+  minCraters: 2
   maxCraters: 7
-  minCraterRadius: 3
+  minCraterRadius: 4
   maxCraterRadius: 10
   craterNoise: 8
   minCratersDestruction: 0
   maxCratersDestruction: 2
   minCraterRadiusDestruction: 2
   maxCraterRadiusDestruction: 6
-  craterNoiseDestruction: 1
+  craterNoiseDestruction: 4
   destructionNeighbourhood: 2
   destructionNoise: 0.04
   whorleyNoisePointBounds:
@@ -121,17 +121,17 @@ MonoBehaviour:
     width: 48
     height: 48
   threshold: 140
-  shadowValue: 50
+  shadowValue: 40
   mid1ShadingNeighbourhood: 2
   midValue1: 80
   mid2ShadingNeighbourhood: 2
-  midValue2: 110
+  midValue2: 120
   mid3ShadingNeighbourhood: 2
-  midValue3: 150
+  midValue3: 160
   highlightShadingNeighbourhood: 3
   highlightValue: 200
-  shadingNoise: 20
-  baseColour: {r: 0.8584906, g: 0.5742327, b: 0.13363297, a: 1}
+  shadingNoise: 35
+  baseColour: {r: 0.8490566, g: 0.54057765, b: 0.19624422, a: 1}
 --- !u!114 &673632786037268403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,4 +201,9 @@ MonoBehaviour:
     dropProbability: 1
     dropQuantityMax: 10
     dropQuantityMin: 5
+  - dropPrefab: {fileID: 1807095066810357143, guid: 822259b781180a74d8500e14f664779b,
+      type: 3}
+    dropProbability: 0.8
+    dropQuantityMax: 6
+    dropQuantityMin: 2
   spawnRange: 3

@@ -56,6 +56,11 @@ public class ProceduralAsteroid : MonoBehaviour
         GenerateAsteroid();
     }
 
+    //private void Update()
+    //{
+    //    GenerateAsteroid();
+    //}
+
     private void GenerateAsteroid() {
         //generate the texture
         m_texture = GenerateTexture();
@@ -242,7 +247,7 @@ public class ProceduralAsteroid : MonoBehaviour
                     }
                     if (!onEdge)
                     {
-                        SetPixel(x, y, (byte)(newColour + (byte)Random.Range(0, shadingNoise)), pixels);
+                        SetPixel(x, y, (byte)(newColour + Random.Range(0, shadingNoise)), pixels);
                     }
                 }
             }
