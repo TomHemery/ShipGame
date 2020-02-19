@@ -16,7 +16,7 @@ public class Inventory : MonoBehaviour
     /// <param name="quantity">The amount we're adding (default 1)</param>
     /// <returns>True if there is space, false otehrwise</returns>
     public bool TryAddItem(string item, int quantity = 1) {
-        if (MaxCapacity > FilledCapacity + quantity)
+        if (FilledCapacity + quantity <= MaxCapacity)
         {
             if (Contents.ContainsKey(item))
                 Contents[item] = Contents[item] + quantity;
@@ -25,6 +25,9 @@ public class Inventory : MonoBehaviour
             FilledCapacity += quantity;
             UpdateUIController();
             return true;
+        }
+        else {
+            Debug.Log("Inventory full!!");
         }
         return false;
     }
