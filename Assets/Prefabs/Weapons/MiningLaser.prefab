@@ -275,6 +275,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CooldownInterval: 1
-  beamPrefab: {fileID: 2283367496695640054, guid: 37fbf542a66007546be4c1f7a7d5f26f,
+  beamPrefab: {fileID: 952520058924134200, guid: 0133dbcc349e7a14c83e355b016ff206,
     type: 3}
   beamSource: {fileID: 8158006648133455013}
