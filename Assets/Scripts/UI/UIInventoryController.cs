@@ -16,6 +16,7 @@ public class UIInventoryController : MonoBehaviour
     {
         if (Instance == null) Instance = this;
         contentsRect = contents.GetComponent<RectTransform>();
+        Debug.Log("Contents rect width: " + contentsRect.rect.width);
     }
 
     public void UpdateContents() {
@@ -33,15 +34,17 @@ public class UIInventoryController : MonoBehaviour
             RectTransform itemRect = screenItem.GetComponent<RectTransform>();
             itemRect.localPosition = new Vector2(x * itemRect.rect.width, y * itemRect.rect.height);
 
-            GameObject screenItemContents = screenItem.transform.Find("Contents").gameObject;
-            screenItemContents.transform.Find("QuantityText").GetComponent<Text>().text = entry.Value.ToString();
-            screenItemContents.transform.Find("NameText").GetComponent<Text>().text = entry.Key;
-            screenItemContents.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("Sprites/Collectables/" + entry.Key);
+            Debug.Log("Item rect width: " + itemRect.rect.width);
+
+            GameObject itemSprite = screenItem.transform.Find("ItemSprite").gameObject;
+            itemSprite.transform.Find("QuantityText").GetComponent<Text>().text = entry.Value.ToString();
+            itemSprite.transform.Find("NameText").GetComponent<Text>().text = entry.Key;
+            itemSprite.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Collectables/" + entry.Key);
 
             x++;
-            if (x * itemRect.rect.width > contentsRect.rect.width) {
+            if (x * itemRect.rect.width >= contentsRect.rect.width) {
                 x = 0;
-                y++;
+                y--;
             }
         }
     }
