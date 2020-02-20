@@ -19,9 +19,10 @@ public class EnemyShipAI : BasicAI
     private float targetSpeed;
     private float distToTarget = float.MaxValue;
 
-    private float avoidRange = 15;
-    private ContactFilter2D obstacleAvoidanceFilter;
-    private readonly string[] OBSTACLE_AVOID_LAYERS = { "Asteroid", "Ship" };
+    private float avoidRange = 18;
+    private float avoidSpeed = 5;
+    private LayerMask obstacleAvoidanceLayerMask;
+    private readonly string[] OBSTACLE_AVOID_LAYERS = { "Obstacle" };
 
     private const int SEEK_TARGET_INDEX = 0;
     private const int AVOID_OBSTACLES_INDEX = 1;
@@ -44,10 +45,7 @@ public class EnemyShipAI : BasicAI
         controller = GetComponent<ShipController>();
         controller.maxSpeed = maxSpeed;
         controller.minSpeed = minSpeed;
-        obstacleAvoidanceFilter = new ContactFilter2D()
-        {
-            layerMask = LayerMask.GetMask(OBSTACLE_AVOID_LAYERS)
-        };
+        obstacleAvoidanceLayerMask = LayerMask.GetMask(OBSTACLE_AVOID_LAYERS);
     }
 
     private void Start()
@@ -74,7 +72,7 @@ public class EnemyShipAI : BasicAI
         //shoot if we're close
         foreach (Weapon w in controller.weapons)
         {
-            if (distToTarget < attackRange) w.EnableAutoFire();
+            if (distToTarget < attackRange && controlStructs[SEEK_TARGET_INDEX].subsume) w.EnableAutoFire();
             else w.DisableAutoFire();
         }
     }
@@ -102,6 +100,14 @@ public class EnemyShipAI : BasicAI
     private void AvoidObstacles() {
         //look for obstacles directly infront of us
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, avoidRange);
+        if (hit.collider != null)
+        {
+            if(hit.collider.gameObject == gameObject) Debug.Log(hit.collider);
+            controlStructs[AVOID_OBSTACLES_INDEX].subsume = true;
+            controlStructs[AVOID_OBSTACLES_INDEX].speed = avoidSpeed;
+            controlStructs[AVOID_OBSTACLES_INDEX].direction = Quaternion.Euler(0, 0, 2.0f * Time.deltaTime) * transform.up;
+        }
+        else controlStructs[AVOID_OBSTACLES_INDEX].subsume = false;
     }
 
     public struct ControlStruct {
