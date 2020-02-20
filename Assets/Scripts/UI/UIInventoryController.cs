@@ -10,6 +10,10 @@ public class UIInventoryController : MonoBehaviour
     public GameObject itemFrame;
     public Inventory playerInventory;
 
+    public Text CapacityText;
+    public Color CapacityTextNotFilled;
+    public Color CapacityTextFilled;
+
     private RectTransform contentsRect;
 
     private void Awake()
@@ -17,6 +21,11 @@ public class UIInventoryController : MonoBehaviour
         if (Instance == null) Instance = this;
         contentsRect = contents.GetComponent<RectTransform>();
         Debug.Log("Contents rect width: " + contentsRect.rect.width);
+    }
+
+    private void Start()
+    {
+        UpdateContents();
     }
 
     public void UpdateContents() {
@@ -46,6 +55,10 @@ public class UIInventoryController : MonoBehaviour
                 x = 0;
                 y--;
             }
+
         }
+
+        CapacityText.text = playerInventory.FilledCapacity.ToString() + "/" + playerInventory.MaxCapacity.ToString();
+        CapacityText.color = playerInventory.FilledCapacity == playerInventory.MaxCapacity ? CapacityTextFilled : CapacityTextNotFilled;
     }
 }
