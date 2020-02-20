@@ -20,7 +20,6 @@ public class UIInventoryController : MonoBehaviour
     {
         if (Instance == null) Instance = this;
         contentsRect = contents.GetComponent<RectTransform>();
-        Debug.Log("Contents rect width: " + contentsRect.rect.width);
     }
 
     private void Start()
@@ -42,8 +41,6 @@ public class UIInventoryController : MonoBehaviour
 
             RectTransform itemRect = screenItem.GetComponent<RectTransform>();
             itemRect.localPosition = new Vector2(x * itemRect.rect.width, y * itemRect.rect.height);
-
-            Debug.Log("Item rect width: " + itemRect.rect.width);
 
             GameObject itemSprite = screenItem.transform.Find("ItemSprite").gameObject;
             itemSprite.transform.Find("QuantityText").GetComponent<Text>().text = entry.Value.ToString();

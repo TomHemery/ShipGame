@@ -213,15 +213,10 @@ MonoBehaviour:
     dropQuantityMin: 2
   - dropPrefab: {fileID: 6888309240082012301, guid: d1990fce2ac31a34685339cfc270f104,
       type: 3}
-    dropProbability: 0.5
-    dropQuantityMax: 6
-    dropQuantityMin: 2
-  - dropPrefab: {fileID: 7872976196063824587, guid: 88a97272b8498fd40bbfc3032ae38af1,
-      type: 3}
-    dropProbability: 0.75
+    dropProbability: 25
     dropQuantityMax: 4
-    dropQuantityMin: 3
-  - dropPrefab: {fileID: 5447800882768667956, guid: eeb191af0e3e28e49977858483de5ab6,
+    dropQuantityMin: 1
+  - dropPrefab: {fileID: 7872976196063824587, guid: 88a97272b8498fd40bbfc3032ae38af1,
       type: 3}
     dropProbability: 0.75
     dropQuantityMax: 4

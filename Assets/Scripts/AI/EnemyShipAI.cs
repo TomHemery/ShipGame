@@ -14,17 +14,40 @@ public class EnemyShipAI : BasicAI
     public float maxSpeed = 28;
     public float maxDist = 20;
     public float targetDist = 5;
-    private float targetSpeed;
+    public float attackRange = 18;
 
+    private float targetSpeed;
     private float distToTarget = float.MaxValue;
 
-    public float attackRange = 18;
+    private float avoidRange = 15;
+    private ContactFilter2D obstacleAvoidanceFilter;
+    private readonly string[] OBSTACLE_AVOID_LAYERS = { "Asteroid", "Ship" };
+
+    private const int SEEK_TARGET_INDEX = 0;
+    private const int AVOID_OBSTACLES_INDEX = 1;
+
+    private ControlStruct[] controlStructs = {
+        new ControlStruct{ //SEEK TARGET
+            direction = new Vector2(),
+            speed = 0,
+            subsume = true
+        },
+        new ControlStruct{ //AVOID OBSTACLES
+            direction = new Vector2(),
+            speed = 0,
+            subsume = false
+        }
+    };
 
     void Awake()
     {
         controller = GetComponent<ShipController>();
         controller.maxSpeed = maxSpeed;
         controller.minSpeed = minSpeed;
+        obstacleAvoidanceFilter = new ContactFilter2D()
+        {
+            layerMask = LayerMask.GetMask(OBSTACLE_AVOID_LAYERS)
+        };
     }
 
     private void Start()
@@ -35,22 +58,18 @@ public class EnemyShipAI : BasicAI
 
     void Update()
     {
-        //find the target
-        targetPosition = playerShipTransform.position;
+        SeekTarget();
+        AvoidObstacles();
 
-        //work out how fast we want to go
-        distToTarget = Vector2.Distance(transform.position, targetPosition);
-        if (distToTarget < targetDist) targetSpeed = 0;
-        else if (distToTarget > maxDist) targetSpeed = maxSpeed;
-        else {
-            targetSpeed = distToTarget.Map(targetDist, maxDist, minSpeed, maxSpeed);
+        for (int i = controlStructs.Length - 1; i >= 0; i--) {
+            if (controlStructs[i].subsume) {
+                targetSpeed = controlStructs[i].speed;
+                transform.up = controlStructs[i].direction;
+                controller.thrustMode = controller.M_Rigidbody.velocity.magnitude < targetSpeed ? 
+                    ShipController.ThrustMode.Forward : ShipController.ThrustMode.None;
+                break;
+            }
         }
-
-        //move toward player (aiming for target speed)
-        controller.thrustMode = controller.M_Rigidbody.velocity.magnitude < targetSpeed ? ShipController.ThrustMode.Forward : ShipController.ThrustMode.None;
-
-        //point at the player
-        transform.up = targetPosition - transform.position;
 
         //shoot if we're close
         foreach (Weapon w in controller.weapons)
@@ -63,5 +82,31 @@ public class EnemyShipAI : BasicAI
     private void OnDestroy()
     {
         Radar.Instance.RemoveTarget(transform);
+    }
+
+    private void SeekTarget() {
+        //find the target
+        targetPosition = playerShipTransform.position;
+
+        //work out how fast we want to go
+        distToTarget = Vector2.Distance(transform.position, targetPosition);
+        float desiredSpeed;
+        if (distToTarget < targetDist) desiredSpeed = 0;
+        else if (distToTarget > maxDist) desiredSpeed = maxSpeed;
+        else desiredSpeed = distToTarget.Map(targetDist, maxDist, minSpeed, maxSpeed);
+
+        controlStructs[SEEK_TARGET_INDEX].direction = targetPosition - transform.position;
+        controlStructs[SEEK_TARGET_INDEX].speed = desiredSpeed;
+    }
+
+    private void AvoidObstacles() {
+        //look for obstacles directly infront of us
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, avoidRange);
+    }
+
+    public struct ControlStruct {
+        public Vector2 direction;
+        public float speed;
+        public bool subsume;
     }
 }
