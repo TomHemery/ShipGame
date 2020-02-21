@@ -8,7 +8,8 @@ public class ShipController : MonoBehaviour
     public Vector2 Acc { private set; get; } = new Vector2();
     public Rigidbody2D M_Rigidbody { private set; get; }
 
-    float rotation = 0;
+    public Vector2 desiredRotation = new Vector2();
+    public float rotationSpeed = 10;
 
     [HideInInspector]
     public ThrustMode thrustMode = ThrustMode.None;
@@ -34,7 +35,8 @@ public class ShipController : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.Rotate(0, 0, rotation);
+        float angleDelta = Vector2.SignedAngle(transform.up, desiredRotation);
+        transform.Rotate(0, 0, angleDelta * Time.fixedDeltaTime * rotationSpeed);
 
         switch (thrustMode) {
             case ThrustMode.Forward:
@@ -66,11 +68,6 @@ public class ShipController : MonoBehaviour
         {
             M_Rigidbody.velocity = VectorMethods.SetMagnitude(M_Rigidbody.velocity, minSpeed);
         }
-    }
-
-    public void SetRotation(float r)
-    {
-        rotation = r;
     }
 
     public enum ThrustMode {

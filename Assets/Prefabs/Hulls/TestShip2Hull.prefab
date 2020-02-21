@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5557758644923583888}
   - component: {fileID: 5557758644923583889}
   - component: {fileID: 1340557871938090164}
-  - component: {fileID: 2036220252527174021}
   m_Layer: 0
   m_Name: Renderer
   m_TagString: Untagged
@@ -89,7 +88,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5557758644923583903}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -118,32 +117,6 @@ PolygonCollider2D:
       - {x: 1.743445, y: -0.36657903}
       - {x: 1.1323013, y: 0.7390585}
       - {x: 0.2182535, y: 1.4020574}
---- !u!61 &2036220252527174021
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5557758644923583903}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 1
-  m_Offset: {x: 0, y: -0.15}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.6, y: 3.6}
-    newSize: {x: 0.36, y: 0.36}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 3.4, y: 3.1}
-  m_EdgeRadius: 0
 --- !u!1 &5557758645434833653
 GameObject:
   m_ObjectHideFlags: 0

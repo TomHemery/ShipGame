@@ -42,7 +42,7 @@ public class Beam : MonoBehaviour
         if (distanceToCollision < 0 || otherCollider == null)
         {
             impactEffect.SetActive(false);
-            targetLength = Vector2.Distance(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            targetLength = maxRange;
         }
         else
         {

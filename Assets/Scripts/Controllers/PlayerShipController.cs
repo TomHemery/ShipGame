@@ -19,7 +19,7 @@ public class PlayerShipController : ShipController
         Vector2 direction = (mouseWorldPosition - (Vector2)transform.position).normalized;
 
         // set vector of transform directly
-        transform.up = direction;
+        desiredRotation = direction;
 
         if (Input.GetButtonDown("Fire"))
         {
