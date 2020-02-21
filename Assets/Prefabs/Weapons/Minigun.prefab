@@ -127,7 +127,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CooldownInterval: 0.2
-  DoAutoFire: 0
   SpawnPoint: {fileID: 3547009111420234011}
   ProjectilePrefab: {fileID: 4774657909410250254, guid: c33779d46208c0b41a31d0528cfaa124,
     type: 3}
@@ -155,7 +154,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.07, y: 0.14}
+  m_Size: {x: 0.7, y: 1.4}
   m_EdgeRadius: 0
 --- !u!1 &3547009111420234012
 GameObject:

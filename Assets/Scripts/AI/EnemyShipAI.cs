@@ -18,7 +18,7 @@ public class EnemyShipAI : BasicAI
     private float targetSpeed;
     private float distToTarget = float.MaxValue;
     private Vector2 targetDirection = new Vector2(0, 0);
-    private float rotationDeadZone = 10.0f;
+    private float rotationDeadZone = 5.0f;
 
     private LayerMask obstacleAvoidanceLayerMask;
     private readonly string[] OBSTACLE_AVOID_LAYERS = { "Obstacle" };
@@ -87,12 +87,17 @@ public class EnemyShipAI : BasicAI
                 ShipController.ThrustMode.Forward : ShipController.ThrustMode.None;
 
         controller.desiredRotation = targetDirection;
-
-        //shoot if we're close
-        foreach (Weapon w in controller.weapons)
+        if (distToTarget < attackRange)
         {
-            if (distToTarget < attackRange) w.EnableAutoFire();
-            else w.DisableAutoFire();
+            RaycastHit2D [] hits = Physics2D.RaycastAll(transform.position, transform.up, attackRange);
+            if(hits.Length > 1 && hits[1].collider.gameObject == playerShipTransform.gameObject)
+                foreach (Weapon w in controller.weapons) w.EnableAutoFire();
+            else
+                foreach (Weapon w in controller.weapons) w.DisableAutoFire();
+        }
+        else
+        {
+            foreach (Weapon w in controller.weapons) w.DisableAutoFire();
         }
     }
 
@@ -118,7 +123,7 @@ public class EnemyShipAI : BasicAI
 
 
 
-        if (angle < rotationDeadZone && angle > -rotationDeadZone) controlStructs[SEEK_TARGET_INDEX].direction = transform.up;
+        if (angle < rotationDeadZone && angle > -rotationDeadZone) controlStructs[SEEK_TARGET_INDEX].direction = targetDir;
         else if (angle > rotationDeadZone) controlStructs[SEEK_TARGET_INDEX].direction = Quaternion.Euler(0, 0, 45) * transform.up;
         else controlStructs[SEEK_TARGET_INDEX].direction = Quaternion.Euler(0, 0, -45) * transform.up;
 
@@ -127,26 +132,25 @@ public class EnemyShipAI : BasicAI
 
     private void AvoidObstacles() {
         //look for obstacles directly infront of us
-        RaycastHit2D front = Physics2D.Raycast(frontSensor.position, frontSensor.up, frontSensorRange, obstacleAvoidanceLayerMask.value);
-        RaycastHit2D left = Physics2D.Raycast(leftSensor.position, leftSensor.up, leftSensorRange, obstacleAvoidanceLayerMask.value);
-        RaycastHit2D right = Physics2D.Raycast(rightSensor.position, rightSensor.up, rightSensorRange, obstacleAvoidanceLayerMask.value);
+        //0 = me.......... >:(
+        RaycastHit2D [] fronts = Physics2D.RaycastAll(frontSensor.position, frontSensor.up, frontSensorRange, obstacleAvoidanceLayerMask.value);
+        RaycastHit2D [] lefts = Physics2D.RaycastAll(leftSensor.position, leftSensor.up, leftSensorRange, obstacleAvoidanceLayerMask.value);
+        RaycastHit2D [] rights = Physics2D.RaycastAll(rightSensor.position, rightSensor.up, rightSensorRange, obstacleAvoidanceLayerMask.value);
 
-        Debug.Log(front.collider + ", " + left.collider + ", " + right.collider);
-
-        if (front.collider != null || left.collider != null && right.collider != null) //obstacle straight ahead
+        if (fronts.Length > 1 || lefts.Length > 1 && rights.Length > 1) //obstacle straight ahead
         {
-            float direction = left.collider == null ? 1 : -1;
-            controlStructs[AVOID_OBSTACLES_INDEX].direction = Quaternion.Euler(0, 0, direction * 90) * transform.up;
+            float direction = lefts.Length <= 1 ? 1 : -1;
+            controlStructs[AVOID_OBSTACLES_INDEX].direction = Quaternion.Euler(0, 0, direction * 45) * transform.up;
             controlStructs[AVOID_OBSTACLES_INDEX].weight = 99.9f;
         }
-        else if (left.collider != null)
+        else if (lefts.Length > 1)
         {
-            controlStructs[AVOID_OBSTACLES_INDEX].direction = Quaternion.Euler(0, 0, -90) * transform.up;
+            controlStructs[AVOID_OBSTACLES_INDEX].direction = Quaternion.Euler(0, 0, -45) * transform.up;
             controlStructs[AVOID_OBSTACLES_INDEX].weight = 99.9f;
         }
-        else if (right.collider != null)
+        else if (rights.Length > 1)
         {
-            controlStructs[AVOID_OBSTACLES_INDEX].direction = Quaternion.Euler(0, 0, 90) * transform.up;
+            controlStructs[AVOID_OBSTACLES_INDEX].direction = Quaternion.Euler(0, 0, 45) * transform.up;
             controlStructs[AVOID_OBSTACLES_INDEX].weight = 99.9f;
         }
         else 
