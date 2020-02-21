@@ -9,7 +9,7 @@ public class Beam : MonoBehaviour
     private Collider2D otherCollider = null;
 
     private float length = 0;
-    private readonly float lengthChangeRate = 20f;
+    private readonly float lengthChangeRate = 50f;
     private float distanceToCollision = -1;
 
     public float maxRange = 10;
@@ -18,6 +18,8 @@ public class Beam : MonoBehaviour
     public GameObject impactEffectPrefab;
     private GameObject impactEffect;
 
+    private Material m_material;
+
     private void Awake()
     {
         m_renderer = GetComponent<SpriteRenderer>();
@@ -25,13 +27,15 @@ public class Beam : MonoBehaviour
         Physics2D.IgnoreCollision(transform.root.GetComponent<Collider2D>(), m_collider, true);
         impactEffect = Instantiate(impactEffectPrefab, transform);
         impactEffect.SetActive(false);
+        m_material = m_renderer.material;
     }
 
     private void OnDisable()
     {
         length = 0;
-        m_renderer.size = new Vector2(m_renderer.size.x, length);
+        m_collider.offset = new Vector2(m_collider.offset.x, length / 2);
         m_collider.size = new Vector2(m_collider.size.x, length);
+        m_material.SetFloat("_Length", length * 1.2f);
         distanceToCollision = -1;
         impactEffect.SetActive(false);
     }
@@ -56,9 +60,11 @@ public class Beam : MonoBehaviour
         if (length < targetLength) length += Time.deltaTime * lengthChangeRate;
         if (length > targetLength) length = targetLength;
 
-        m_renderer.size = new Vector2(m_renderer.size.x, length);
+        //m_renderer.size = new Vector2(m_renderer.size.x, length);
         m_collider.size = new Vector2(m_collider.size.x, length);
         m_collider.offset = new Vector2(m_collider.offset.x, length / 2);
+        //transform.localScale = new Vector3(transform.localScale.x, length, transform.localScale.z);
+        m_material.SetFloat("_Length", length * 1.2f);
     }
 
     private void OnTriggerStay2D(Collider2D other)
