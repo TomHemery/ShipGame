@@ -9,6 +9,7 @@ TagManager:
   - WeaponAttachment
   - Hull
   - Collectable
+  - PlayerShip
   layers:
   - Default
   - TransparentFX

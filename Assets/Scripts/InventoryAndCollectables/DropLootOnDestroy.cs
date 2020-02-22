@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DropLootOnDestroy : MonoBehaviour
 {
@@ -8,16 +9,26 @@ public class DropLootOnDestroy : MonoBehaviour
     public List<LootDrop> lootDrops;
     public float spawnRange = 1.0f;
 
-    bool isQuitting = false;
+    bool spawnLoot = true;
+
+    private void Awake()
+    {
+        SceneManager.activeSceneChanged += ChangedActiveScene;
+    }
 
     void OnApplicationQuit()
     {
-        isQuitting = true;
+        spawnLoot = false;
+    }
+
+    private void ChangedActiveScene(Scene current, Scene next)
+    {
+        spawnLoot = false;
     }
 
     void OnDestroy()
     {
-        if (!isQuitting)
+        if (spawnLoot)
         {
             foreach (LootDrop ld in lootDrops)
             {

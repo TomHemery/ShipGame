@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameplayTest.unity
     guid: 2cafa07fe21034b4b8f70be06e94c1e6
+  - enabled: 1
+    path: Assets/Scenes/MiningStationInterior.unity
+    guid: 5b6619b23883e554a8aaee16095926dc
   m_configObjects: {}
