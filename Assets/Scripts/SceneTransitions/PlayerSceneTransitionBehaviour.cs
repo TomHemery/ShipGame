@@ -64,4 +64,26 @@ public class PlayerSceneTransitionBehaviour : MonoBehaviour
         transform.position = pos;
         transform.up = up;
     }
+
+    public void OnUnpause() {
+        Vector3 pos = new Vector3(0, 0, 0);
+        Vector3 up = new Vector3(0, 1, 0);
+        if (sceneEntryPoint != "")
+        {
+            Transform target = GameObject.Find(sceneEntryPoint).transform;
+            pos = target.position;
+            up = target.up;
+
+            playerShipController.desiredRotation = up;
+
+            sceneEntryPoint = "";
+        }
+        if (animateExit)
+        {
+            playerShipController.RespondToInput = false;
+            playerShipController.thrustMode = ShipController.ThrustMode.Forward;
+        }
+        transform.position = pos;
+        transform.up = up;
+    }
 }
