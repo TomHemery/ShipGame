@@ -8,6 +8,8 @@ public class UIInventoryController : MonoBehaviour
     public static UIInventoryController Instance { get; private set; } = null;
     public GameObject contents;
     public GameObject itemFrame;
+
+    [HideInInspector]
     public Inventory playerInventory;
 
     public Text CapacityText;
@@ -20,6 +22,10 @@ public class UIInventoryController : MonoBehaviour
     {
         if (Instance == null) Instance = this;
         contentsRect = contents.GetComponent<RectTransform>();
+
+        //hook to player inventory
+        playerInventory = GameObject.FindGameObjectWithTag("PlayerShip").GetComponent<Inventory>();
+        playerInventory.uiController = this;
     }
 
     private void Start()
@@ -57,5 +63,12 @@ public class UIInventoryController : MonoBehaviour
 
         CapacityText.text = playerInventory.FilledCapacity.ToString() + "/" + playerInventory.MaxCapacity.ToString();
         CapacityText.color = playerInventory.FilledCapacity == playerInventory.MaxCapacity ? CapacityTextFilled : CapacityTextNotFilled;
+    }
+
+    private void OnDestroy()
+    {
+        //remove from player inventory
+        Instance = null;
+        playerInventory.uiController = null;
     }
 }

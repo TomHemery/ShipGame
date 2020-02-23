@@ -7,6 +7,7 @@ public class Inventory : MonoBehaviour
     public Dictionary<string, int> Contents { get; private set; } = new Dictionary<string, int>();
     public int FilledCapacity { get; private set; } = 0;
     public int MaxCapacity = 100;
+    [HideInInspector]
     public UIInventoryController uiController;
 
     /// <summary>
