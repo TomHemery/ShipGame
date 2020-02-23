@@ -240,9 +240,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameText: {fileID: 5712239361925994755}
+  quantityText: {fileID: 7971450846284279831}
   itemFrameImage: {fileID: 7114726645731438126}
   baseColour: {r: 1, g: 1, b: 1, a: 0.39215687}
   onHighlightColour: {r: 1, g: 1, b: 1, a: 1}
+  parentController: {fileID: 0}
 --- !u!1 &7971450846284279831
 GameObject:
   m_ObjectHideFlags: 0

@@ -527,7 +527,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxCapacity: 100
-  uiController: {fileID: 0}
+  prettyName: Ship Inventory
+  uiControllers: []
 --- !u!66 &1163044660
 CompositeCollider2D:
   m_ObjectHideFlags: 0

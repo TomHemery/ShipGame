@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class UIInventoryController : MonoBehaviour
 {
-    public static UIInventoryController Instance { get; private set; } = null;
     public GameObject contents;
     public GameObject itemFrame;
 
-    [HideInInspector]
-    public Inventory playerInventory;
+    public Inventory targetInventory;
+    public bool attachToPlayerInventory;
 
-    public Text CapacityText;
+    public Text capacityText;
+    public Text nameText;
     public Color CapacityTextNotFilled;
     public Color CapacityTextFilled;
 
@@ -20,17 +20,9 @@ public class UIInventoryController : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
         contentsRect = contents.GetComponent<RectTransform>();
-
-        //hook to player inventory
-        playerInventory = GameObject.FindGameObjectWithTag("PlayerShip").GetComponent<Inventory>();
-        playerInventory.uiController = this;
-    }
-
-    private void Start()
-    {
-        UpdateContents();
+        if(attachToPlayerInventory) targetInventory = GameObject.FindGameObjectWithTag("PlayerShip").GetComponent<Inventory>();
+        nameText.text = targetInventory.prettyName;
     }
 
     public void UpdateContents() {
@@ -42,7 +34,7 @@ public class UIInventoryController : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (KeyValuePair<string, int> entry in playerInventory.Contents) {
+        foreach (KeyValuePair<string, int> entry in targetInventory.Contents) {
             GameObject screenItem = Instantiate(itemFrame, contents.transform);
 
             RectTransform itemRect = screenItem.GetComponent<RectTransform>();
@@ -53,6 +45,11 @@ public class UIInventoryController : MonoBehaviour
             itemSprite.transform.Find("NameText").GetComponent<Text>().text = entry.Key;
             itemSprite.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Collectables/" + entry.Key);
 
+            ItemFrame itemFrameBehaviour = screenItem.GetComponent<ItemFrame>();
+            itemFrameBehaviour.parentInventoryController = this;
+            itemFrameBehaviour.itemName = entry.Key;
+            itemFrameBehaviour.itemQuantity = entry.Value;
+
             x++;
             if (x * itemRect.rect.width >= contentsRect.rect.width) {
                 x = 0;
@@ -61,14 +58,18 @@ public class UIInventoryController : MonoBehaviour
 
         }
 
-        CapacityText.text = playerInventory.FilledCapacity.ToString() + "/" + playerInventory.MaxCapacity.ToString();
-        CapacityText.color = playerInventory.FilledCapacity == playerInventory.MaxCapacity ? CapacityTextFilled : CapacityTextNotFilled;
+        capacityText.text = targetInventory.FilledCapacity.ToString() + "/" + targetInventory.MaxCapacity.ToString();
+        capacityText.color = targetInventory.FilledCapacity == targetInventory.MaxCapacity ? CapacityTextFilled : CapacityTextNotFilled;
     }
 
-    private void OnDestroy()
+    private void OnEnable()
     {
-        //remove from player inventory
-        Instance = null;
-        playerInventory.uiController = null;
+        targetInventory.uiControllers.Add(this);
+        UpdateContents();
+    }
+
+    private void OnDisable()
+    {
+        targetInventory.uiControllers.Remove(this);
     }
 }
