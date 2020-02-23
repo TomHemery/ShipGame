@@ -1205,6 +1205,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fd2a20b9543c5e4a9e490595254ed50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!61 &616283040 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 8556093208819490210, guid: 8c71fc8f31f09ae40a7e94d9bb30f28a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1576222057}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &864429588
 GameObject:
   m_ObjectHideFlags: 0
@@ -1226,7 +1232,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &864429589
 Transform:
   m_ObjectHideFlags: 0
@@ -1325,7 +1331,51 @@ CompositeCollider2D:
   m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths: []
+  m_ColliderPaths:
+  - m_Collider: {fileID: 2051160684}
+    m_ColliderPaths:
+    - - X: 4182526
+        Y: -17575838
+      - X: 17434450
+        Y: -9354767
+      - X: 17434447
+        Y: -3665784
+      - X: 11323008
+        Y: 7390588
+      - X: 2182526
+        Y: 14020574
+      - X: -2141393
+        Y: 14020569
+      - X: -10313633
+        Y: 7172247
+      - X: -17434453
+        Y: -3948571
+      - X: -17575826
+        Y: -8889483
+      - X: -16717222
+        Y: -10323925
+      - X: -3778938
+        Y: -17575838
+  - m_Collider: {fileID: 1242171576}
+    m_ColliderPaths:
+    - - X: -10000033
+        Y: -13000000
+      - X: -10000033
+        Y: 3000000
+      - X: -17000004
+        Y: 2999971
+      - X: -16999975
+        Y: -13000000
+  - m_Collider: {fileID: 616283040}
+    m_ColliderPaths:
+    - - X: 16999975
+        Y: -13000000
+      - X: 16999975
+        Y: 3000000
+      - X: 10000004
+        Y: 2999971
+      - X: 10000033
+        Y: -13000000
   m_CompositePaths:
     m_Paths:
     - - {x: 0.4182518, y: -1.7575839}
@@ -1956,6 +2006,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthBar: {fileID: 2096735354}
   ShieldBar: {fileID: 418540324}
+--- !u!61 &1242171576 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 8556093208819490210, guid: 8c71fc8f31f09ae40a7e94d9bb30f28a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1132633024}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1280192080
 GameObject:
   m_ObjectHideFlags: 0
@@ -2001,6 +2057,7 @@ GameObject:
   - component: {fileID: 1287973645}
   - component: {fileID: 1287973646}
   - component: {fileID: 1287973651}
+  - component: {fileID: 1287973652}
   m_Layer: 8
   m_Name: AlienShip
   m_TagString: Untagged
@@ -2151,6 +2208,25 @@ MonoBehaviour:
   MaxHealth: 75
   ResourceBarManager: {fileID: 0}
   explosionPrefab: {fileID: 0}
+--- !u!114 &1287973652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287973644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db3db04d46a99a9429c72db94fd5c47d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootDrops:
+  - dropPrefab: {fileID: 5447800882768667956, guid: eeb191af0e3e28e49977858483de5ab6,
+      type: 3}
+    dropProbability: 1
+    dropQuantityMax: 8
+    dropQuantityMin: 5
+  spawnRange: 2
 --- !u!1 &1288730007
 GameObject:
   m_ObjectHideFlags: 0
@@ -2770,7 +2846,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e35f5bc998541c47b39be78d20a1a16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerShip: {fileID: 0}
   RadarPingObject: {fileID: 1992722413187019272, guid: 5d89b536a59fc314381afb6fbd406e32,
     type: 3}
   ObjectiveArrow: {fileID: 903145083}
@@ -2971,6 +3046,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e37506c70a6453540a43fde3e492a4b3, type: 3}
+--- !u!60 &2051160684 stripped
+PolygonCollider2D:
+  m_CorrespondingSourceObject: {fileID: 1340557871938090164, guid: 5f5b2cf411578a247892cc76ac3211b7,
+    type: 3}
+  m_PrefabInstance: {fileID: 5557758646650940200}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2055195314
 GameObject:
   m_ObjectHideFlags: 0

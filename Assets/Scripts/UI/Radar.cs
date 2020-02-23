@@ -10,7 +10,7 @@ public class Radar : MonoBehaviour
     private readonly List<GameObject> radarPings = new List<GameObject>();
     private float radarRange = 4000;
 
-    public Transform PlayerShip;
+    private Transform playerShipTransform;
     public GameObject RadarPingObject;
 
     public GameObject ObjectiveArrow;
@@ -18,6 +18,7 @@ public class Radar : MonoBehaviour
     private void Awake()
     {
         if (Instance == null) Instance = this;
+        playerShipTransform = GameObject.FindGameObjectWithTag("PlayerShip").transform;
     }
 
     private void Start()
@@ -33,7 +34,7 @@ public class Radar : MonoBehaviour
         {
             t = targets[i];
             GameObject ping = radarPings[i];
-            Vector2 between = t.position - PlayerShip.position;
+            Vector2 between = t.position - playerShipTransform.position;
             float distSquared = between.sqrMagnitude;
             if (distSquared < radarRange) { 
                 ping.SetActive(true);

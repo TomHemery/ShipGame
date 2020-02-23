@@ -10,6 +10,8 @@ public class HealthResourceManager : MonoBehaviour
     public ResourceBarManager ResourceBarManager;
     public GameObject explosionPrefab = null;
 
+    private bool exploded = false;
+
     private void Start()
     {
         SetHealth(MaxHealth);
@@ -64,7 +66,13 @@ public class HealthResourceManager : MonoBehaviour
 
     protected void Explode()
     {
-        if (explosionPrefab != null) Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-        Destroy(gameObject);
+        if (!exploded)
+        {
+            if (explosionPrefab != null) Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            LootDrops mLootDrops = GetComponent<LootDrops>();
+            if (mLootDrops != null) mLootDrops.DropLoot();
+            Destroy(gameObject);
+            exploded = true;
+        }
     }
 }

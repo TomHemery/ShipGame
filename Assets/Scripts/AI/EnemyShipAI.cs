@@ -58,6 +58,8 @@ public class EnemyShipAI : BasicAI
         leftSensorRange = (leftSensor.position - leftSensorEnd.position).magnitude;
         rightSensorRange = (rightSensor.position - rightSensorEnd.position).magnitude;
 
+        playerShipTransform = GameObject.FindGameObjectWithTag("PlayerShip").transform;
+
     }
 
     private void Start()
