@@ -238,7 +238,7 @@ GameObject:
   - component: {fileID: 550736263489251269}
   m_Layer: 0
   m_Name: WeaponAttachmentRight
-  m_TagString: Untagged
+  m_TagString: WeaponAttachment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -690,7 +690,7 @@ PolygonCollider2D:
       - {x: 1.8133727, y: 0.539964}
       - {x: 1.6261603, y: 0.7866276}
       - {x: 0.9767946, y: 1.4571596}
-      - {x: 0.9704113, y: 1.4928368}
+      - {x: 0.9536743, y: 1.4791565}
 --- !u!1 &9180603592468892538
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,7 +702,7 @@ GameObject:
   - component: {fileID: 9180603592468892541}
   m_Layer: 0
   m_Name: WeaponAttachmentLeft
-  m_TagString: Untagged
+  m_TagString: WeaponAttachment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -732,7 +732,7 @@ GameObject:
   - component: {fileID: 9180603593924555995}
   m_Layer: 0
   m_Name: TestShip4Hull
-  m_TagString: Untagged
+  m_TagString: Hull
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

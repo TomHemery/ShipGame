@@ -11,7 +11,7 @@ public class Inventory : MonoBehaviour
     public string prettyName = "";
 
     [HideInInspector]
-    public List<UIInventoryController> uiControllers = new List<UIInventoryController>();
+    public List<InventoryUIController> uiControllers = new List<InventoryUIController>();
 
     /// <summary>
     /// Checks if the inventory has space for "quantity" of "item", if it does then it increases the quantity of "item" by "quantity"
@@ -65,7 +65,7 @@ public class Inventory : MonoBehaviour
     }
 
     private void UpdateUIControllers() {
-        foreach(UIInventoryController uic in uiControllers)
+        foreach(InventoryUIController uic in uiControllers)
             uic.UpdateContents();
     }
 }

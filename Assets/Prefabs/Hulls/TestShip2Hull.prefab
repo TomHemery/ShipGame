@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 5557758645434833654}
   m_Layer: 0
   m_Name: WeaponAttachment_Right
-  m_TagString: Untagged
+  m_TagString: WeaponAttachment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 5557758645638778530}
   m_Layer: 0
   m_Name: WeaponAttachment_Left
-  m_TagString: Untagged
+  m_TagString: WeaponAttachment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 5557758646505077770}
   m_Layer: 0
   m_Name: TestShip2Hull
-  m_TagString: Untagged
+  m_TagString: Hull
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 2576642569972955214}
   m_Layer: 0
   m_Name: WeaponAttachment_Left
-  m_TagString: Untagged
+  m_TagString: WeaponAttachment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -196,7 +196,7 @@ GameObject:
   - component: {fileID: 2576642570875789930}
   m_Layer: 0
   m_Name: WeaponAttachment_Right
-  m_TagString: Untagged
+  m_TagString: WeaponAttachment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

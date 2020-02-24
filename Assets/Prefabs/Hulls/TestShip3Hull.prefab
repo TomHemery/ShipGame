@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 361929382258993636}
   m_Layer: 0
   m_Name: TestShip3Hull
-  m_TagString: Untagged
+  m_TagString: Hull
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 361929384016631363}
   m_Layer: 0
   m_Name: WeaponAttachment
-  m_TagString: Untagged
+  m_TagString: WeaponAttachment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

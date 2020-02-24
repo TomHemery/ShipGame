@@ -33,18 +33,21 @@ public class PauseAndShowUI : MonoBehaviour
 
         uiToShow.SetActive(true);
 
-        playerShip.GetComponent<PlayerShipController>().enabled = false;
-        playerShip.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        //playerShip.GetComponent<PlayerShipController>().enabled = false;
+        //playerShip.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        playerShip.SetActive(false);
         mainCamera.GetComponent<FollowTargetController>().enabled = false;
     }
 
     public virtual void UnPauseScene() {
-        foreach (GameObject g in toDisable) g.SetActive(true);
         uiToShow.SetActive(false);
 
-        playerShip.GetComponent<PlayerShipController>().enabled = true;
-        playerShip.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        //playerShip.GetComponent<PlayerShipController>().enabled = true;
+        //playerShip.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        playerShip.SetActive(true);
         mainCamera.GetComponent<FollowTargetController>().enabled = true;
+
+        foreach (GameObject g in toDisable) g.SetActive(true);
 
         PlayerSceneTransitionBehaviour playerSceneTransBehaviour = playerShip.GetComponent<PlayerSceneTransitionBehaviour>();
         if (overwritePlayerPos)

@@ -14,7 +14,7 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public GameObject quantityText;
 
     [HideInInspector]
-    public UIInventoryController parentInventoryController;
+    public InventoryUIController parentInventoryController;
 
     public Image itemFrameImage;
     public Color baseColour;
@@ -94,7 +94,7 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             GameObject potentialUI = result.gameObject.transform.parent.gameObject;
             if (result.gameObject.CompareTag("InventoryBackground") && potentialUI != parentInventoryController.gameObject)
             {
-                UIInventoryController targetController = potentialUI.GetComponent<UIInventoryController>();
+                InventoryUIController targetController = potentialUI.GetComponent<InventoryUIController>();
                 Inventory targetInventory = targetController.targetInventory;
                 if (targetInventory.TryAddItem(itemName, itemQuantity)) {
                     parentInventoryController.targetInventory.TryRemoveItem(itemName, itemQuantity);
