@@ -73,6 +73,7 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         dragStartPos = mTransform.position;
         mTransform.pivot = new Vector2(0.5f, 0.5f);
+        mTransform.SetParent(mTransform.root);
         eventData.Use();
     }
 
@@ -106,7 +107,9 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             }
         }
 
+
         mTransform.position = dragStartPos;
+        mTransform.SetParent(parentInventoryController.transform);
         eventData.Use();
     }
 }
