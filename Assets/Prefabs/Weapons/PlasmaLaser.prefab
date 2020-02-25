@@ -103,6 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a44b66f614aa6af489fc73f9315ee246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prettyName: Plasma Laser
   CooldownInterval: 1
   beamPrefab: {fileID: 2283367496695640054, guid: 37fbf542a66007546be4c1f7a7d5f26f,
     type: 3}

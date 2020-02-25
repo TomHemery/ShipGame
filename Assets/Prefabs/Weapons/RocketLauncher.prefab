@@ -76,6 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3369edce748456e44898df86fc622f9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prettyName: Rocket Launcher
   CooldownInterval: 1
   SpawnPoint: {fileID: 5153481981354218673}
   ProjectilePrefab: {fileID: 8646945756360900756, guid: 222a844e4efa83a419bbcf9c8b0a05e2,

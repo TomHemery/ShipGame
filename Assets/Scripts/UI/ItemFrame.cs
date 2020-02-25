@@ -6,8 +6,13 @@ using UnityEngine.EventSystems;
 
 public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
-
+    /// <summary>
+    /// System item name
+    /// </summary>
     public string itemName;
+    /// <summary>
+    /// System item quantity
+    /// </summary>
     public int itemQuantity;
 
     public GameObject nameText;
@@ -92,13 +97,17 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         foreach (RaycastResult result in results)
         {
             GameObject potentialUI = result.gameObject.transform.parent.gameObject;
-            if (result.gameObject.CompareTag("InventoryBackground") && potentialUI != parentInventoryController.gameObject)
+            if (result.gameObject.CompareTag("InventoryBackground") && 
+                (parentInventoryController == null || potentialUI != parentInventoryController.gameObject))
             {
                 InventoryUIController targetController = potentialUI.GetComponent<InventoryUIController>();
                 Inventory targetInventory = targetController.targetInventory;
                 if (targetInventory.TryAddItem(itemName, itemQuantity)) {
-                    parentInventoryController.targetInventory.TryRemoveItem(itemName, itemQuantity);
-                    parentInventoryController.UpdateContents();
+                    if (parentInventoryController != null)
+                    {
+                        parentInventoryController.targetInventory.TryRemoveItem(itemName, itemQuantity);
+                        parentInventoryController.UpdateContents();
+                    }
                     targetController.UpdateContents();
                     eventData.Use();
                     Destroy(gameObject);

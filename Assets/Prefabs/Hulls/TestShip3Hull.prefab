@@ -150,7 +150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 361929384016631363}
   m_Layer: 0
-  m_Name: WeaponAttachment
+  m_Name: Weapon Front
   m_TagString: WeaponAttachment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

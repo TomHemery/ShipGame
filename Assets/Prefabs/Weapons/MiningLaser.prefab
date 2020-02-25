@@ -274,6 +274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a44b66f614aa6af489fc73f9315ee246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prettyName: Mining Laser
   CooldownInterval: 1
   beamPrefab: {fileID: 952520058924134200, guid: 0133dbcc349e7a14c83e355b016ff206,
     type: 3}

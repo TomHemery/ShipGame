@@ -127,7 +127,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5557758645434833654}
   m_Layer: 0
-  m_Name: WeaponAttachment_Right
+  m_Name: Weapon Right
   m_TagString: WeaponAttachment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -157,7 +157,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5557758645638778530}
   m_Layer: 0
-  m_Name: WeaponAttachment_Left
+  m_Name: Weapon Left
   m_TagString: WeaponAttachment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

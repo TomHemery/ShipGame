@@ -138,6 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3369edce748456e44898df86fc622f9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prettyName: Plasma Cannon
   CooldownInterval: 0.25
   SpawnPoint: {fileID: 6383485714458437581}
   ProjectilePrefab: {fileID: 28332132658441498, guid: 6ebc27fdfe893554e8ef9cbdfb031622,

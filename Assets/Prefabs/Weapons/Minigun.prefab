@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3369edce748456e44898df86fc622f9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prettyName: Minigun
   CooldownInterval: 0.2
   SpawnPoint: {fileID: 3547009111420234011}
   ProjectilePrefab: {fileID: 4774657909410250254, guid: c33779d46208c0b41a31d0528cfaa124,

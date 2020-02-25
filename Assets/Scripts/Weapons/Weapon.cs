@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public abstract class Weapon : MonoBehaviour
 {
-
+    [SerializeField]
+    public string prettyName;
     protected ShipController parentShip_controller;
 
     public void Awake()

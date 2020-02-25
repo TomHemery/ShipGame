@@ -107,7 +107,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: af768acfeec5c2e408986c1989947c61, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -162,7 +162,7 @@ GameObject:
   m_Component:
   - component: {fileID: 230164675068497274}
   m_Layer: 0
-  m_Name: WeaponAttachmentLeft
+  m_Name: Left Weapon
   m_TagString: WeaponAttachment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -192,7 +192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 262721977183530128}
   m_Layer: 0
-  m_Name: WeaponAttachmentRight
+  m_Name: Right Weapon
   m_TagString: WeaponAttachment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

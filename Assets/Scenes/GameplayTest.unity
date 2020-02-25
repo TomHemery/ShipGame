@@ -1290,7 +1290,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 256, y: 64}
+  m_SizeDelta: {x: 128, y: 64}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &563330796
 MonoBehaviour:
@@ -1643,6 +1643,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   contents: {fileID: 162314856}
+  weaponFrame: {fileID: 6587939850998633503, guid: 41396a067a2a139498574b36cd9aaeb3,
+    type: 3}
+  itemFrame: {fileID: 7114726645731438124, guid: c6ee3f63895130340a88b59e241c9388,
+    type: 3}
 --- !u!1 &864429588
 GameObject:
   m_ObjectHideFlags: 0

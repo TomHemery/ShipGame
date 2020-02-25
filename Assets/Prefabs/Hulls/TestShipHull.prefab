@@ -29,7 +29,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2576642569841306690}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &3325728753029817414
 Light:
@@ -120,12 +120,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2576642571265498441}
-  - {fileID: 2576642569972955214}
   - {fileID: 2576642571640972802}
   - {fileID: 2576642571348551847}
-  - {fileID: 2576642570875789930}
   - {fileID: 937797619805499071}
   - {fileID: 1492691799026270572}
+  - {fileID: 2576642569972955214}
+  - {fileID: 2576642570875789930}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -165,7 +165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2576642569972955214}
   m_Layer: 0
-  m_Name: WeaponAttachment_Left
+  m_Name: Weapon Left
   m_TagString: WeaponAttachment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -183,7 +183,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2576642569841306690}
-  m_RootOrder: 1
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2576642570875789931
 GameObject:
@@ -195,7 +195,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2576642570875789930}
   m_Layer: 0
-  m_Name: WeaponAttachment_Right
+  m_Name: Weapon Right
   m_TagString: WeaponAttachment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -213,7 +213,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2576642569841306690}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2576642571265498447
 GameObject:
@@ -325,7 +325,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2576642569841306690}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &2576642571348551841
 ParticleSystem:
@@ -5077,7 +5077,7 @@ Transform:
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 2576642569841306690}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!96 &2576642571640972813
 TrailRenderer:
@@ -5213,7 +5213,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2576642569841306690}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!108 &5386957765666759521
 Light:
