@@ -6,23 +6,18 @@ using UnityEngine.EventSystems;
 
 public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
-    /// <summary>
-    /// System inventory item;
-    /// </summary>
     public InventoryItem m_inventoryItem;
+    public ItemFrameLayoutController parentController;
 
     public GameObject nameText;
     public GameObject quantityText;
-
-    [HideInInspector]
-    public InventoryUIController parentInventoryController;
 
     public Image itemFrameImage;
     public Color baseColour;
     public Color onHighlightColour;
 
     private RectTransform mTransform;
-
+    private Transform originalParentTransform;
     private Vector2 dragStartPos;
 
     private void Awake()
@@ -30,7 +25,6 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         mTransform = GetComponent<RectTransform>();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         if (nameText != null) nameText.SetActive(false);
@@ -74,6 +68,7 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         dragStartPos = mTransform.position;
         mTransform.pivot = new Vector2(0.5f, 0.5f);
+        originalParentTransform = mTransform.parent;
         mTransform.SetParent(mTransform.root);
         eventData.Use();
     }
@@ -92,47 +87,19 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
         foreach (RaycastResult result in results)
         {
-            GameObject potentialUI = result.gameObject.transform.parent.gameObject;
-            if (result.gameObject.CompareTag("InventoryBackground") &&
-                (parentInventoryController == null || potentialUI != parentInventoryController.gameObject))
+            if (result.gameObject.GetComponent<ItemFrameLayoutController>() != null)
             {
-                InventoryUIController targetController = potentialUI.GetComponent<InventoryUIController>();
-                Inventory targetInventory = targetController.targetInventory;
-                if (targetInventory.TryAddItem(m_inventoryItem))
-                {
-                    if (parentInventoryController != null)
-                    {
-                        parentInventoryController.targetInventory.TryRemoveItem(m_inventoryItem.systemName, m_inventoryItem.quantity);
-                        parentInventoryController.UpdateContents();
-                    }
-                    targetController.UpdateContents();
+                if (result.gameObject.GetComponent<ItemFrameLayoutController>().TryAddItemFrameFor(m_inventoryItem)) {
+                    parentController.TryRemoveItemFrameFor(m_inventoryItem);
                     eventData.Use();
                     Destroy(gameObject);
                     return;
                 }
             }
-            else if (result.gameObject.CompareTag("EquipSlot"))
-            {
-                GameObject weaponFrame = result.gameObject;
-                if (weaponFrame.transform.childCount == 1 && m_inventoryItem.equipable && m_inventoryItem.equipType == EquipType.Weapon) {
-                    transform.SetParent(weaponFrame.transform);
-                    transform.SetAsFirstSibling();
-                    transform.localPosition = Vector3.zero;
-                    if (parentInventoryController != null)
-                    {
-                        parentInventoryController.targetInventory.TryRemoveItem(m_inventoryItem.systemName, m_inventoryItem.quantity);
-                        parentInventoryController.UpdateContents();
-                    }
-                    parentInventoryController = null;
-                    eventData.Use();
-                    return;
-                }
-            }
         }
-
-
+        
         mTransform.position = dragStartPos;
-        if(parentInventoryController != null) mTransform.SetParent(parentInventoryController.transform);
+        mTransform.SetParent(originalParentTransform);
         eventData.Use();
     }
 }

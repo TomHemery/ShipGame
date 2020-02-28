@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3369edce748456e44898df86fc622f9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryItem:
+  m_inventoryItem:
     itemPrefab: {fileID: 6383485714011253149}
     inventorySprite: {fileID: 21300000, guid: 3b3d3686ecfed4f4ba5b46176a5f406b, type: 3}
     quantity: 1

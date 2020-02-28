@@ -1642,11 +1642,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3e96fe5dce148c43a3e540de983c92b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  contents: {fileID: 162314856}
-  weaponFrame: {fileID: 6587939850998633503, guid: 41396a067a2a139498574b36cd9aaeb3,
+  weaponFramePrefab: {fileID: 6587939850998633503, guid: 41396a067a2a139498574b36cd9aaeb3,
     type: 3}
-  itemFrame: {fileID: 7114726645731438124, guid: c6ee3f63895130340a88b59e241c9388,
-    type: 3}
+  contents: {fileID: 162314857}
 --- !u!1 &864429588
 GameObject:
   m_ObjectHideFlags: 0
@@ -2698,6 +2696,24 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2818572}
     m_Modifications:
+    - target: {fileID: 2713228348591206809, guid: ff0b99359c92e9e45a43d66277249cac,
+        type: 3}
+      propertyPath: attachToPlayerInventory
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: attachToPlayerInventory
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: contents
+      value: 
+      objectReference: {fileID: 1390072252}
+    - target: {fileID: 0}
+      propertyPath: itemFramePrefab
+      value: 
+      objectReference: {fileID: 7114726645731438124, guid: c6ee3f63895130340a88b59e241c9388,
+        type: 3}
     - target: {fileID: 1653049708054571178, guid: ff0b99359c92e9e45a43d66277249cac,
         type: 3}
       propertyPath: m_Name
@@ -2828,11 +2844,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1653049708054571180, guid: ff0b99359c92e9e45a43d66277249cac,
-        type: 3}
-      propertyPath: attachToPlayerInventory
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1653049708157807568, guid: ff0b99359c92e9e45a43d66277249cac,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2948,6 +2959,12 @@ PrefabInstance:
 --- !u!224 &1390072251 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1653049708054571179, guid: ff0b99359c92e9e45a43d66277249cac,
+    type: 3}
+  m_PrefabInstance: {fileID: 1390072250}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &1390072252 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1653049708114951305, guid: ff0b99359c92e9e45a43d66277249cac,
     type: 3}
   m_PrefabInstance: {fileID: 1390072250}
   m_PrefabAsset: {fileID: 0}
@@ -3698,6 +3715,28 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2818572}
     m_Modifications:
+    - target: {fileID: 2713228348591206809, guid: ff0b99359c92e9e45a43d66277249cac,
+        type: 3}
+      propertyPath: m_attachedInventory
+      value: 
+      objectReference: {fileID: 342301587}
+    - target: {fileID: 0}
+      propertyPath: targetInventory
+      value: 
+      objectReference: {fileID: 342301587}
+    - target: {fileID: 0}
+      propertyPath: contents
+      value: 
+      objectReference: {fileID: 2056752041}
+    - target: {fileID: 0}
+      propertyPath: itemFramePrefab
+      value: 
+      objectReference: {fileID: 7114726645731438124, guid: c6ee3f63895130340a88b59e241c9388,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_attachedInventory
+      value: 
+      objectReference: {fileID: 342301587}
     - target: {fileID: 1653049708054571178, guid: ff0b99359c92e9e45a43d66277249cac,
         type: 3}
       propertyPath: m_Name
@@ -3813,11 +3852,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 1653049708054571180, guid: ff0b99359c92e9e45a43d66277249cac,
-        type: 3}
-      propertyPath: targetInventory
-      value: 
-      objectReference: {fileID: 342301587}
     - target: {fileID: 1653049708157807583, guid: ff0b99359c92e9e45a43d66277249cac,
         type: 3}
       propertyPath: m_TagString
@@ -3828,6 +3862,12 @@ PrefabInstance:
 --- !u!224 &2056752040 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1653049708054571179, guid: ff0b99359c92e9e45a43d66277249cac,
+    type: 3}
+  m_PrefabInstance: {fileID: 2056752039}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &2056752041 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1653049708114951305, guid: ff0b99359c92e9e45a43d66277249cac,
     type: 3}
   m_PrefabInstance: {fileID: 2056752039}
   m_PrefabAsset: {fileID: 0}
@@ -4109,6 +4149,24 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 511833337}
     m_Modifications:
+    - target: {fileID: 2713228348591206809, guid: ff0b99359c92e9e45a43d66277249cac,
+        type: 3}
+      propertyPath: attachToPlayerInventory
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: attachToPlayerInventory
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: contents
+      value: 
+      objectReference: {fileID: 1653049709152919113}
+    - target: {fileID: 0}
+      propertyPath: itemFramePrefab
+      value: 
+      objectReference: {fileID: 7114726645731438124, guid: c6ee3f63895130340a88b59e241c9388,
+        type: 3}
     - target: {fileID: 1653049708054571178, guid: ff0b99359c92e9e45a43d66277249cac,
         type: 3}
       propertyPath: m_Name
@@ -4224,11 +4282,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 1653049708054571180, guid: ff0b99359c92e9e45a43d66277249cac,
-        type: 3}
-      propertyPath: attachToPlayerInventory
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1653049708157807583, guid: ff0b99359c92e9e45a43d66277249cac,
         type: 3}
       propertyPath: m_TagString
@@ -4236,6 +4289,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff0b99359c92e9e45a43d66277249cac, type: 3}
+--- !u!224 &1653049709152919113 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1653049708114951305, guid: ff0b99359c92e9e45a43d66277249cac,
+    type: 3}
+  m_PrefabInstance: {fileID: 1653049709152919112}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3768972677595633278
 PrefabInstance:
   m_ObjectHideFlags: 0

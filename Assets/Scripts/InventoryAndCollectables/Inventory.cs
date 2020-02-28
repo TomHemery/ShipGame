@@ -85,10 +85,30 @@ public class Inventory : MonoBehaviour
         bool result = CheckForItem(itemSystemName, quantity);
         if (result) {
             InventoryItem item = Contents[itemSystemName];
-            item.quantity = Contents[itemSystemName].quantity - quantity;
+            item.quantity = item.quantity - quantity;
             if (item.quantity <= 0) Contents.Remove(itemSystemName);
             else Contents[itemSystemName] = item;
             FilledCapacity -= quantity;
+            UpdateUIControllers();
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// Checks if item.quantity of item.systemName exists, if it does then it removes that amount from the inventory
+    /// </summary>
+    /// <param name="item">The item to be removed</param>
+    /// <returns></returns>
+    public bool TryRemoveItem(InventoryItem item)
+    {
+        bool result = CheckForItem(item.systemName, item.quantity);
+        if (result)
+        {
+            InventoryItem oldItem = Contents[item.systemName];
+            oldItem.quantity = oldItem.quantity - item.quantity;
+            if (oldItem.quantity <= 0) Contents.Remove(item.systemName);
+            else Contents[item.systemName] = oldItem;
+            FilledCapacity -= item.quantity;
             UpdateUIControllers();
         }
         return result;

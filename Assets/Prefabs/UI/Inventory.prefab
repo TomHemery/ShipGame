@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1653049708054571179}
-  - component: {fileID: 1653049708054571180}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Inventory
@@ -38,27 +37,6 @@ RectTransform:
   m_AnchoredPosition: {x: -40, y: 0}
   m_SizeDelta: {x: 384, y: 576}
   m_Pivot: {x: 1, y: 0.5}
---- !u!114 &1653049708054571180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1653049708054571178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5cdb1303e457204d94273b2a9d0d7b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  contents: {fileID: 1653049708114951304}
-  itemFrame: {fileID: 7114726645731438124, guid: c6ee3f63895130340a88b59e241c9388,
-    type: 3}
-  targetInventory: {fileID: 0}
-  attachToPlayerInventory: 0
-  capacityText: {fileID: 1653049709362843681}
-  nameText: {fileID: 2401149372589477161}
-  CapacityTextNotFilled: {r: 1, g: 1, b: 1, a: 1}
-  CapacityTextFilled: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1653049708114951304
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,6 +83,7 @@ GameObject:
   - component: {fileID: 1653049708157807568}
   - component: {fileID: 1653049708157807570}
   - component: {fileID: 1653049708157807569}
+  - component: {fileID: 2713228348591206809}
   m_Layer: 5
   m_Name: ContentsBackground
   m_TagString: InventoryBackground
@@ -168,6 +147,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 0.6666667
+--- !u!114 &2713228348591206809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653049708157807583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5cdb1303e457204d94273b2a9d0d7b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  contents: {fileID: 1653049708114951305}
+  itemFramePrefab: {fileID: 7114726645731438124, guid: c6ee3f63895130340a88b59e241c9388,
+    type: 3}
+  m_attachedInventory: {fileID: 0}
+  attachToPlayerInventory: 0
+  capacityText: {fileID: 1653049709362843681}
+  nameText: {fileID: 2401149372589477161}
+  CapacityTextNotFilled: {r: 1, g: 1, b: 1, a: 1}
+  CapacityTextFilled: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1653049709362843695
 GameObject:
   m_ObjectHideFlags: 0

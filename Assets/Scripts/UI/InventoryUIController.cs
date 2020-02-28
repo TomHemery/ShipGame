@@ -3,29 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryUIController : MonoBehaviour
+public class InventoryUIController : ItemFrameLayoutController
 {
-    public GameObject contents;
-    public GameObject itemFrame;
-
-    public Inventory targetInventory;
+    public Inventory m_attachedInventory;
     public bool attachToPlayerInventory;
 
     public Text capacityText;
     public Text nameText;
     public Color CapacityTextNotFilled;
     public Color CapacityTextFilled;
-
-    private RectTransform contentsRect;
-
-    private void Awake()
+    
+    protected virtual void Awake()
     {
-        contentsRect = contents.GetComponent<RectTransform>();
-        if(attachToPlayerInventory) targetInventory = GameObject.FindGameObjectWithTag("PlayerShip").GetComponent<Inventory>();
-        nameText.text = targetInventory.prettyName;
+        if(attachToPlayerInventory) m_attachedInventory = GameObject.FindGameObjectWithTag("PlayerShip").GetComponent<Inventory>();
+        nameText.text = m_attachedInventory.prettyName;
     }
 
-    public void UpdateContents() {
+    public override void UpdateContents() {
         int x = 0;
         int y = 0;
 
@@ -34,8 +28,8 @@ public class InventoryUIController : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (KeyValuePair<string, InventoryItem> entry in targetInventory.Contents) {
-            GameObject screenItem = Instantiate(itemFrame, contents.transform);
+        foreach (KeyValuePair<string, InventoryItem> entry in m_attachedInventory.Contents) {
+            GameObject screenItem = Instantiate(itemFramePrefab, contents.transform);
 
             RectTransform itemRect = screenItem.GetComponent<RectTransform>();
             itemRect.localPosition = new Vector2(x * itemRect.rect.width, y * itemRect.rect.height);
@@ -45,30 +39,39 @@ public class InventoryUIController : MonoBehaviour
             itemSprite.transform.Find("NameText").GetComponent<Text>().text = entry.Value.prettyName;
             itemSprite.GetComponent<Image>().sprite = entry.Value.inventorySprite;
 
-            ItemFrame itemFrameBehaviour = screenItem.GetComponent<ItemFrame>();
-            itemFrameBehaviour.parentInventoryController = this;
-            itemFrameBehaviour.m_inventoryItem = entry.Value;
+            ItemFrame frame = screenItem.GetComponent<ItemFrame>();
+            frame.m_inventoryItem = entry.Value;
+            frame.parentController = this;
 
             x++;
-            if (x * itemRect.rect.width >= contentsRect.rect.width) {
+            if (x * itemRect.rect.width >= contents.rect.width) {
                 x = 0;
                 y--;
             }
-
         }
 
-        capacityText.text = targetInventory.FilledCapacity.ToString() + "/" + targetInventory.MaxCapacity.ToString();
-        capacityText.color = targetInventory.FilledCapacity == targetInventory.MaxCapacity ? CapacityTextFilled : CapacityTextNotFilled;
+        capacityText.text = m_attachedInventory.FilledCapacity.ToString() + "/" + m_attachedInventory.MaxCapacity.ToString();
+        capacityText.color = m_attachedInventory.FilledCapacity == m_attachedInventory.MaxCapacity ? CapacityTextFilled : CapacityTextNotFilled;
     }
 
-    private void OnEnable()
+    public override bool TryAddItemFrameFor(InventoryItem item)
     {
-        targetInventory.uiControllers.Add(this);
+        return m_attachedInventory.TryAddItem(item);
+    }
+
+    public override bool TryRemoveItemFrameFor(InventoryItem item)
+    {
+        return m_attachedInventory.TryRemoveItem(item);
+    }
+
+    protected virtual void OnEnable()
+    {
+        m_attachedInventory.uiControllers.Add(this);
         UpdateContents();
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
-        targetInventory.uiControllers.Remove(this);
+        m_attachedInventory.uiControllers.Remove(this);
     }
 }

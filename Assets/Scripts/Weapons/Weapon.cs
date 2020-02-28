@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour
 {
     [SerializeField]
-    public InventoryItem inventoryItem;
+    public InventoryItem m_inventoryItem;
     protected ShipController parentShip_controller;
 
     public void Awake()
