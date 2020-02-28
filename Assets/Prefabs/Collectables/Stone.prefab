@@ -263,7 +263,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4054eb5f7be50904398e6cd497dcac06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryName: Stone
+  inventoryItem:
+    itemPrefab: {fileID: 2012091968841825849}
+    inventorySprite: {fileID: 21300000, guid: eb5842ef4a256f54796ea86c8520d967, type: 3}
+    quantity: 1
+    systemName: Stone
+    prettyName: Stone
+    equipable: 0
+    equipType: 1
 --- !u!58 &7769039787535958603
 CircleCollider2D:
   m_ObjectHideFlags: 0

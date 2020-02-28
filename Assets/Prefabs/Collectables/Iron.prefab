@@ -263,7 +263,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4054eb5f7be50904398e6cd497dcac06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryName: Iron
+  inventoryItem:
+    itemPrefab: {fileID: 7872976196063824587}
+    inventorySprite: {fileID: 21300000, guid: cb599b4a8137a3f4cb950a906c26526b, type: 3}
+    quantity: 1
+    systemName: Iron
+    prettyName: Iron
+    equipable: 0
+    equipType: 1
 --- !u!58 &2125453117053155001
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -7,13 +7,9 @@ using UnityEngine.EventSystems;
 public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     /// <summary>
-    /// System item name
+    /// System inventory item;
     /// </summary>
-    public string itemName;
-    /// <summary>
-    /// System item quantity
-    /// </summary>
-    public int itemQuantity;
+    public InventoryItem m_inventoryItem;
 
     public GameObject nameText;
     public GameObject quantityText;
@@ -102,10 +98,10 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             {
                 InventoryUIController targetController = potentialUI.GetComponent<InventoryUIController>();
                 Inventory targetInventory = targetController.targetInventory;
-                if (targetInventory.TryAddItem(itemName, itemQuantity)) {
+                if (targetInventory.TryAddItem(m_inventoryItem)) {
                     if (parentInventoryController != null)
                     {
-                        parentInventoryController.targetInventory.TryRemoveItem(itemName, itemQuantity);
+                        parentInventoryController.targetInventory.TryRemoveItem(m_inventoryItem.systemName, m_inventoryItem.quantity);
                         parentInventoryController.UpdateContents();
                     }
                     targetController.UpdateContents();

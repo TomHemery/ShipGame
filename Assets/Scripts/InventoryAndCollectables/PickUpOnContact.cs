@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PickUpOnContact : MonoBehaviour
 {
-    public string inventoryName;
+    public InventoryItem inventoryItem;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Inventory targetInv = collision.gameObject.GetComponent<Inventory>();
-        if (targetInv != null && targetInv.TryAddItem(inventoryName))
+        if (targetInv != null && targetInv.TryAddItem(inventoryItem))
         {
             Destroy(gameObject);
         }

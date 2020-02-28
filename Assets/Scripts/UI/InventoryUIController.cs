@@ -34,21 +34,20 @@ public class InventoryUIController : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (KeyValuePair<string, int> entry in targetInventory.Contents) {
+        foreach (KeyValuePair<string, InventoryItem> entry in targetInventory.Contents) {
             GameObject screenItem = Instantiate(itemFrame, contents.transform);
 
             RectTransform itemRect = screenItem.GetComponent<RectTransform>();
             itemRect.localPosition = new Vector2(x * itemRect.rect.width, y * itemRect.rect.height);
 
             GameObject itemSprite = screenItem.transform.Find("ItemSprite").gameObject;
-            itemSprite.transform.Find("QuantityText").GetComponent<Text>().text = entry.Value.ToString();
-            itemSprite.transform.Find("NameText").GetComponent<Text>().text = entry.Key;
-            itemSprite.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Collectables/" + entry.Key);
+            itemSprite.transform.Find("QuantityText").GetComponent<Text>().text = entry.Value.quantity.ToString();
+            itemSprite.transform.Find("NameText").GetComponent<Text>().text = entry.Value.prettyName;
+            itemSprite.GetComponent<Image>().sprite = entry.Value.inventorySprite;
 
             ItemFrame itemFrameBehaviour = screenItem.GetComponent<ItemFrame>();
             itemFrameBehaviour.parentInventoryController = this;
-            itemFrameBehaviour.itemName = entry.Key;
-            itemFrameBehaviour.itemQuantity = entry.Value;
+            itemFrameBehaviour.m_inventoryItem = entry.Value;
 
             x++;
             if (x * itemRect.rect.width >= contentsRect.rect.width) {

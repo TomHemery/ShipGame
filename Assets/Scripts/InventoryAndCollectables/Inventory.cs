@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public Dictionary<string, int> Contents { get; private set; } = new Dictionary<string, int>();
+    public Dictionary<string, InventoryItem> Contents { get; private set; } = new Dictionary<string, InventoryItem>();
     public int FilledCapacity { get; private set; } = 0;
     public int MaxCapacity = 100;
 
@@ -15,17 +15,29 @@ public class Inventory : MonoBehaviour
 
     /// <summary>
     /// Checks if the inventory has space for "quantity" of "item", if it does then it increases the quantity of "item" by "quantity"
+    /// Not recommended, try to add item using an actual InventoryItem struct if possible
     /// </summary>
-    /// <param name="item">The item we're adding</param>
+    /// <param name="itemSystemName">The system name (key) of the item we're adding</param>
     /// <param name="quantity">The amount we're adding (default 1)</param>
     /// <returns>True if there is space, false otehrwise</returns>
-    public bool TryAddItem(string item, int quantity = 1) {
+    public bool TryAddItem(string itemSystemName, int quantity = 1) {
         if (FilledCapacity + quantity <= MaxCapacity)
         {
-            if (Contents.ContainsKey(item))
-                Contents[item] = Contents[item] + quantity;
+            if (Contents.ContainsKey(itemSystemName))
+            {
+                InventoryItem inventoryItem = Contents[itemSystemName];
+                inventoryItem.quantity += quantity;
+                Contents[itemSystemName] = inventoryItem;
+            }
             else
-                Contents.Add(item, quantity);
+            {
+                InventoryItem newItem = new InventoryItem
+                {
+                    quantity = quantity,
+                    systemName = itemSystemName
+                };
+                Contents.Add(itemSystemName, newItem);
+            }
             FilledCapacity += quantity;
             UpdateUIControllers();
             return true;
@@ -37,17 +49,45 @@ public class Inventory : MonoBehaviour
     }
 
     /// <summary>
+    /// Checks if the inventory has space for an inventory item and its associated quantity, if it does then it stores it
+    /// </summary>
+    /// <param name="item">The item we want to add</param>
+    /// <returns>True if there is space and the item is added, false otehrwise</returns>
+    public bool TryAddItem(InventoryItem item) {
+        if (FilledCapacity + item.quantity <= MaxCapacity)
+        {
+            if (Contents.ContainsKey(item.systemName))
+            {
+                InventoryItem inventoryItem = Contents[item.systemName];
+                inventoryItem.quantity += item.quantity;
+                Contents[item.systemName] = inventoryItem;
+            }
+            else Contents.Add(item.systemName, item);
+            FilledCapacity += item.quantity;
+            UpdateUIControllers();
+            return true;
+        }
+        else
+        {
+            Debug.Log("Inventory full!!");
+        }
+        return false;
+    }
+
+    /// <summary>
     /// Checks if the inventory contains "quantity" of "item", if it does then it removes that amount of item from the inventory
     /// </summary>
-    /// <param name="item">The item we're looking for</param>
+    /// <param name="itemSystemName">The system name (key) of the item we're looking for</param>
     /// <param name="quantity">The amount of the item we want</param>
     /// <returns>True if there is enough of the item in the inventory, false otherwise</returns>
-    public bool TryRemoveItem(string item, int quantity = 1)
+    public bool TryRemoveItem(string itemSystemName, int quantity = 1)
     {
-        bool result = CheckForItem(item, quantity);
+        bool result = CheckForItem(itemSystemName, quantity);
         if (result) {
-            Contents[item] = Contents[item] - quantity;
-            if (Contents[item] <= 0) Contents.Remove(item);
+            InventoryItem item = Contents[itemSystemName];
+            item.quantity = Contents[itemSystemName].quantity - quantity;
+            if (item.quantity <= 0) Contents.Remove(itemSystemName);
+            else Contents[itemSystemName] = item;
             FilledCapacity -= quantity;
             UpdateUIControllers();
         }
@@ -55,13 +95,13 @@ public class Inventory : MonoBehaviour
     }
 
     /// <summary>
-    /// Checks if "quantiy" of "item" are present in the inventory
+    /// Checks if "quantity" of "item" are present in the inventory
     /// </summary>
-    /// <param name="item"></param>
+    /// <param name="itemSystemName">The system name (key) of the item we're looking for</param>
     /// <param name="quantity"></param>
     /// <returns></returns>
-    public bool CheckForItem(string item, int quantity = 1) {
-        return (Contents.ContainsKey(item) && Contents[item] >= quantity);
+    public bool CheckForItem(string itemSystemName, int quantity = 1) {
+        return (Contents.ContainsKey(itemSystemName) && Contents[itemSystemName].quantity >= quantity);
     }
 
     private void UpdateUIControllers() {

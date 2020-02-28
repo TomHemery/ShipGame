@@ -45,13 +45,13 @@ public class WeaponUIController : MonoBehaviour
                             screenItem.transform.SetAsFirstSibling();
 
                             GameObject itemSprite = screenItem.transform.Find("ItemSprite").gameObject;
+                            InventoryItem weaponInventoryItem = weaponObject.GetComponent<Weapon>().inventoryItem;
                             itemSprite.transform.Find("QuantityText").GetComponent<Text>().text = "";
-                            itemSprite.transform.Find("NameText").GetComponent<Text>().text = weaponObject.GetComponent<Weapon>().prettyName;
-                            itemSprite.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Weapons/" + weaponObject.name);
+                            itemSprite.transform.Find("NameText").GetComponent<Text>().text = weaponInventoryItem.prettyName;
+                            itemSprite.GetComponent<Image>().sprite = weaponInventoryItem.inventorySprite;
 
                             ItemFrame frame = screenItem.GetComponent<ItemFrame>();
-                            frame.itemName = weaponObject.name;
-                            frame.itemQuantity = 1;
+                            frame.m_inventoryItem = weaponInventoryItem;
                         }
                         x++;
                         if (x * equipRect.rect.width >= contentsRect.rect.width)
