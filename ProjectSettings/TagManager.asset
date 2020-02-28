@@ -11,6 +11,8 @@ TagManager:
   - Collectable
   - PlayerShip
   - InventoryBackground
+  - Inventory
+  - EquipSlot
   layers:
   - Default
   - TransparentFX

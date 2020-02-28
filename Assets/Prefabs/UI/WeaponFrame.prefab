@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 6587939850998633501}
   m_Layer: 5
   m_Name: WeaponFrame
-  m_TagString: Untagged
+  m_TagString: EquipSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -93,12 +93,13 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         foreach (RaycastResult result in results)
         {
             GameObject potentialUI = result.gameObject.transform.parent.gameObject;
-            if (result.gameObject.CompareTag("InventoryBackground") && 
+            if (result.gameObject.CompareTag("InventoryBackground") &&
                 (parentInventoryController == null || potentialUI != parentInventoryController.gameObject))
             {
                 InventoryUIController targetController = potentialUI.GetComponent<InventoryUIController>();
                 Inventory targetInventory = targetController.targetInventory;
-                if (targetInventory.TryAddItem(m_inventoryItem)) {
+                if (targetInventory.TryAddItem(m_inventoryItem))
+                {
                     if (parentInventoryController != null)
                     {
                         parentInventoryController.targetInventory.TryRemoveItem(m_inventoryItem.systemName, m_inventoryItem.quantity);
@@ -110,11 +111,28 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                     return;
                 }
             }
+            else if (result.gameObject.CompareTag("EquipSlot"))
+            {
+                GameObject weaponFrame = result.gameObject;
+                if (weaponFrame.transform.childCount == 1 && m_inventoryItem.equipable && m_inventoryItem.equipType == EquipType.Weapon) {
+                    transform.SetParent(weaponFrame.transform);
+                    transform.SetAsFirstSibling();
+                    transform.localPosition = Vector3.zero;
+                    if (parentInventoryController != null)
+                    {
+                        parentInventoryController.targetInventory.TryRemoveItem(m_inventoryItem.systemName, m_inventoryItem.quantity);
+                        parentInventoryController.UpdateContents();
+                    }
+                    parentInventoryController = null;
+                    eventData.Use();
+                    return;
+                }
+            }
         }
 
 
         mTransform.position = dragStartPos;
-        mTransform.SetParent(parentInventoryController.transform);
+        if(parentInventoryController != null) mTransform.SetParent(parentInventoryController.transform);
         eventData.Use();
     }
 }
