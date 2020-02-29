@@ -12,8 +12,14 @@ public abstract class Weapon : MonoBehaviour
     public void Awake()
     {
         parentShip_controller = transform.root.GetComponent<ShipController>();
-        parentShip_controller.weapons.Add(this);
+        if(parentShip_controller != null) parentShip_controller.weapons.Add(this);
     }
+
+    private void OnDestroy()
+    {
+        if (parentShip_controller != null) parentShip_controller.weapons.Remove(this);
+    }
+
     /// <summary>
     /// The interval with which this weapon will cooldown in seconds
     /// </summary>

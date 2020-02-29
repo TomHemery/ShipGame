@@ -62,7 +62,10 @@ public class Inventory : MonoBehaviour
                 inventoryItem.quantity += item.quantity;
                 Contents[item.systemName] = inventoryItem;
             }
-            else Contents.Add(item.systemName, item);
+            else
+            {
+                Contents.Add(item.systemName, item);
+            }
             FilledCapacity += item.quantity;
             UpdateUIControllers();
             return true;
@@ -101,17 +104,7 @@ public class Inventory : MonoBehaviour
     /// <returns></returns>
     public bool TryRemoveItem(InventoryItem item)
     {
-        bool result = CheckForItem(item.systemName, item.quantity);
-        if (result)
-        {
-            InventoryItem oldItem = Contents[item.systemName];
-            oldItem.quantity = oldItem.quantity - item.quantity;
-            if (oldItem.quantity <= 0) Contents.Remove(item.systemName);
-            else Contents[item.systemName] = oldItem;
-            FilledCapacity -= item.quantity;
-            UpdateUIControllers();
-        }
-        return result;
+        return TryRemoveItem(item.systemName, item.quantity);
     }
 
     /// <summary>

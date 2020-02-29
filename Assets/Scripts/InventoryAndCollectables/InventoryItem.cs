@@ -6,8 +6,6 @@ using UnityEngine;
 public struct InventoryItem
 {
     [SerializeField]
-    public GameObject itemPrefab;
-    [SerializeField]
     public Sprite inventorySprite;
     [SerializeField]
     public int quantity;
