@@ -32,9 +32,9 @@ RectTransform:
   m_Father: {fileID: 6587939850998633502}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 9, y: -37}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: -27, y: 35}
   m_SizeDelta: {x: 54, y: 26}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &6985089003214839103
@@ -88,9 +88,9 @@ GameObject:
   - component: {fileID: 6587939850998633502}
   - component: {fileID: 6587939850998633500}
   - component: {fileID: 6587939850998633501}
-  - component: {fileID: 5937620607593506025}
+  - component: {fileID: 2652322892199182304}
   m_Layer: 5
-  m_Name: WeaponFrame
+  m_Name: Slot
   m_TagString: EquipSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5937620607593506025
+--- !u!114 &2652322892199182304
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,7 +164,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d5f23d135e7d547965c0cad1efcb78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  contents: {fileID: 6587939850998633502}
+  m_equipType: 1
+  associatedInventory: {fileID: 0}
+  associatedEquipPoint: {fileID: 0}
   itemFramePrefab: {fileID: 7114726645731438124, guid: c6ee3f63895130340a88b59e241c9388,
     type: 3}
   slotText: {fileID: 3844637295645984188}

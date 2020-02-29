@@ -10,44 +10,6 @@ public class Inventory : MonoBehaviour
 
     public string prettyName = "";
 
-    [HideInInspector]
-    public List<InventoryUIController> uiControllers = new List<InventoryUIController>();
-
-    /// <summary>
-    /// Checks if the inventory has space for "quantity" of "item", if it does then it increases the quantity of "item" by "quantity"
-    /// Not recommended, try to add item using an actual InventoryItem struct if possible
-    /// </summary>
-    /// <param name="itemSystemName">The system name (key) of the item we're adding</param>
-    /// <param name="quantity">The amount we're adding (default 1)</param>
-    /// <returns>True if there is space, false otehrwise</returns>
-    public bool TryAddItem(string itemSystemName, int quantity = 1) {
-        if (FilledCapacity + quantity <= MaxCapacity)
-        {
-            if (Contents.ContainsKey(itemSystemName))
-            {
-                InventoryItem inventoryItem = Contents[itemSystemName];
-                inventoryItem.quantity += quantity;
-                Contents[itemSystemName] = inventoryItem;
-            }
-            else
-            {
-                InventoryItem newItem = new InventoryItem
-                {
-                    quantity = quantity,
-                    systemName = itemSystemName
-                };
-                Contents.Add(itemSystemName, newItem);
-            }
-            FilledCapacity += quantity;
-            UpdateUIControllers();
-            return true;
-        }
-        else {
-            Debug.Log("Inventory full!!");
-        }
-        return false;
-    }
-
     /// <summary>
     /// Checks if the inventory has space for an inventory item and its associated quantity, if it does then it stores it
     /// </summary>
@@ -67,7 +29,6 @@ public class Inventory : MonoBehaviour
                 Contents.Add(item.systemName, item);
             }
             FilledCapacity += item.quantity;
-            UpdateUIControllers();
             return true;
         }
         else
@@ -75,6 +36,37 @@ public class Inventory : MonoBehaviour
             Debug.Log("Inventory full!!");
         }
         return false;
+    }
+
+    /// <summary>
+    /// Adds as much of "item" as possible to the inventory
+    /// </summary>
+    /// <param name="item">The item to be added</param>
+    /// <returns>The total quantity of "item" that has been successfully stored in the inventory</returns>
+    public int AddMaxOf(InventoryItem item) {
+        if (FilledCapacity + item.quantity > MaxCapacity)
+            item.quantity = MaxCapacity - FilledCapacity;
+
+        if (item.quantity > 0)
+        {
+            AddToContents(item);
+            FilledCapacity += item.quantity;
+        }
+
+        return item.quantity;
+    }
+
+    private void AddToContents(InventoryItem item) {
+        if (Contents.ContainsKey(item.systemName))
+        {
+            InventoryItem inventoryItem = Contents[item.systemName];
+            inventoryItem.quantity += item.quantity;
+            Contents[item.systemName] = inventoryItem;
+        }
+        else
+        {
+            Contents.Add(item.systemName, item);
+        }
     }
 
     /// <summary>
@@ -92,7 +84,6 @@ public class Inventory : MonoBehaviour
             if (item.quantity <= 0) Contents.Remove(itemSystemName);
             else Contents[itemSystemName] = item;
             FilledCapacity -= quantity;
-            UpdateUIControllers();
         }
         return result;
     }
@@ -115,10 +106,5 @@ public class Inventory : MonoBehaviour
     /// <returns></returns>
     public bool CheckForItem(string itemSystemName, int quantity = 1) {
         return (Contents.ContainsKey(itemSystemName) && Contents[itemSystemName].quantity >= quantity);
-    }
-
-    private void UpdateUIControllers() {
-        foreach(InventoryUIController uic in uiControllers)
-            uic.UpdateContents();
     }
 }

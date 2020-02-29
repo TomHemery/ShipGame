@@ -4,10 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     public InventoryItem m_inventoryItem;
-    public ItemFrameLayoutController parentController;
 
     public GameObject nameText;
     public GameObject quantityText;
@@ -15,47 +14,37 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public Image itemFrameImage;
     public Color baseColour;
     public Color onHighlightColour;
+    private Image backgroundImage;
 
     private RectTransform mTransform;
-    private Transform originalParentTransform;
     private Vector2 dragStartPos;
 
     private void Awake()
     {
         mTransform = GetComponent<RectTransform>();
+        backgroundImage = GetComponent<Image>();
+        backgroundImage.color = baseColour;
     }
 
     void Start()
     {
         if (nameText != null) nameText.SetActive(false);
-        itemFrameImage.color = baseColour;
+
+        nameText.GetComponent<Text>().text = m_inventoryItem.prettyName;
+        quantityText.GetComponent<Text>().text = m_inventoryItem.quantity.ToString();
+        itemFrameImage.sprite = m_inventoryItem.inventorySprite;
     }
 
     public void OnPointerEnter(PointerEventData eventdata)
     {
         nameText.SetActive(true);
-        itemFrameImage.color = onHighlightColour;
+        backgroundImage.color = onHighlightColour;
     }
 
     public void OnPointerExit(PointerEventData eventdata)
     {
         nameText.SetActive(false);
-        itemFrameImage.color = baseColour;
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        eventData.Use();
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        eventData.Use();
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        eventData.Use();
+        backgroundImage.color = baseColour;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -68,7 +57,6 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         dragStartPos = mTransform.position;
         mTransform.pivot = new Vector2(0.5f, 0.5f);
-        originalParentTransform = mTransform.parent;
         mTransform.SetParent(mTransform.root);
         eventData.Use();
     }
@@ -87,17 +75,10 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
         foreach (RaycastResult result in results)
         {
-            if (result.gameObject.GetComponent<ItemFrameLayoutController>() != null &&
-                result.gameObject.GetComponent<ItemFrameLayoutController>().TryAddItem(m_inventoryItem)) {
-                parentController.TryRemoveItem(m_inventoryItem);
-                eventData.Use();
-                Destroy(gameObject);
-                return;
-            }
+            //TODO look for slot
         }
         
-        mTransform.position = dragStartPos;
-        mTransform.SetParent(originalParentTransform);
+        //TODO reset
         eventData.Use();
     }
 }
