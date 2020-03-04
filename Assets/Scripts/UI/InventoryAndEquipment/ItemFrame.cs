@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
-    public InventoryItem m_inventoryItem;
+    public InventoryItem m_InventoryItem;
 
     public GameObject nameText;
     public GameObject quantityText;
@@ -18,21 +18,28 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     private RectTransform mTransform;
     private Vector2 dragStartPos;
+    public Slot parentSlot;
 
     private void Awake()
     {
         mTransform = GetComponent<RectTransform>();
         backgroundImage = GetComponent<Image>();
         backgroundImage.color = baseColour;
+
+        mTransform.localPosition = Vector2.zero;
+        mTransform.anchoredPosition = Vector2.zero;
+        //mTransform.localScale = Vector2.zero;
+        mTransform.sizeDelta = Vector2.zero;
+        mTransform.ForceUpdateRectTransforms();
     }
 
     void Start()
     {
         if (nameText != null) nameText.SetActive(false);
 
-        nameText.GetComponent<Text>().text = m_inventoryItem.prettyName;
-        quantityText.GetComponent<Text>().text = m_inventoryItem.quantity.ToString();
-        itemFrameImage.sprite = m_inventoryItem.inventorySprite;
+        nameText.GetComponent<Text>().text = m_InventoryItem.prettyName;
+        quantityText.GetComponent<Text>().text = m_InventoryItem.quantity.ToString();
+        itemFrameImage.sprite = m_InventoryItem.inventorySprite;
     }
 
     public void OnPointerEnter(PointerEventData eventdata)
@@ -55,6 +62,7 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        parentSlot.RemoveItemFrame();
         dragStartPos = mTransform.position;
         mTransform.pivot = new Vector2(0.5f, 0.5f);
         mTransform.SetParent(mTransform.root);
@@ -63,6 +71,7 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        Debug.Log("Ending drag");
         mTransform.pivot = new Vector2(0, 1);
 
         GraphicRaycaster mRaycaster = transform.root.GetComponent<GraphicRaycaster>();
@@ -76,9 +85,48 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         foreach (RaycastResult result in results)
         {
             //TODO look for slot
+            if (result.gameObject.GetComponent<Slot>() != null) {
+                Debug.Log("Found slot in: " + gameObject);
+                Slot s = result.gameObject.GetComponent<Slot>();
+                int numStored = s.StoreItemFrame(this);
+                if (numStored == m_InventoryItem.quantity)
+                {
+                    Debug.Log("Fully stored in" + s.associatedInventory);
+                    DestroySelf();
+                    return;
+                }
+                else {
+                    Debug.Log("Less space in inventory than needed");
+                    m_InventoryItem.quantity -= numStored;
+                    break;
+                }
+            }
         }
-        
-        //TODO reset
-        eventData.Use();
+        Debug.Log("Resetting Drag");
+        ResetDrag();
+    }
+
+    private void ResetDrag()
+    {
+        mTransform.position = dragStartPos;
+        parentSlot.StoreItemFrame(this);
+        DestroySelf();
+    }
+
+    private void DestroySelf() {
+        Debug.Log("Destroying self");
+        transform.SetParent(null);
+        parentSlot.associatedInventory.ForceAlertListeners();
+        Destroy(gameObject);
+    }
+
+    public void SetQuantity(int newQuantity){
+        m_InventoryItem.quantity = newQuantity;
+        quantityText.GetComponent<Text>().text = m_InventoryItem.quantity.ToString();
+    }
+
+    public void SetInventoryItem(InventoryItem i) {
+        m_InventoryItem = i;
+        quantityText.GetComponent<Text>().text = i.quantity.ToString();
     }
 }

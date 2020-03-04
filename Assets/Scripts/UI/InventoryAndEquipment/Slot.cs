@@ -15,8 +15,15 @@ public class Slot : MonoBehaviour
 
     public ItemFrame StoredItemFrame { get; private set; } = null;
 
+    private RectTransform m_rectTransform;
+
+    private void Awake()
+    {
+        m_rectTransform = GetComponent<RectTransform>();
+    }
+
     /// <summary>
-    /// Attempts to store the passed frame 
+    /// Attempts to store the passed frame and updates the associated inventories 
     /// </summary>
     /// <param name="newFrame">The frame to be stored</param>
     /// <returns>The quantity of inventoryItems associated with the passed frame that this slot has stored</returns>
@@ -25,28 +32,33 @@ public class Slot : MonoBehaviour
         {
             if (m_equipType == EquipType.None) //we are not an equipment slot
             {
-                int quantityStored = associatedInventory.AddMaxOf(newFrame.m_inventoryItem);
+                int quantityStored = associatedInventory.SilentAddMaxOf(newFrame.m_InventoryItem);
                 if (quantityStored > 0) {
-                    StoredItemFrame = Instantiate(newFrame.gameObject, transform).GetComponent<ItemFrame>();
-                    StoredItemFrame.m_inventoryItem.quantity = quantityStored;
+                    StoredItemFrame = Instantiate(newFrame.gameObject, m_rectTransform).GetComponent<ItemFrame>();
+                    StoredItemFrame.parentSlot = this;
+                    StoredItemFrame.SetQuantity(quantityStored);
+
                 }
+                associatedInventory.ForceAlertListeners();
                 return quantityStored;
             }
-            else if (m_equipType == newFrame.m_inventoryItem.equipType) //we are an equipment slot of matching type 
+            else if (m_equipType == newFrame.m_InventoryItem.equipType) //we are an equipment slot of matching type 
             {
-                GameObject equipment = Instantiate(PrefabDatabase.PrefabDictionary[newFrame.m_inventoryItem.systemName], associatedEquipPoint);
-                StoredItemFrame = Instantiate(newFrame.gameObject, transform).GetComponent<ItemFrame>();
-                StoredItemFrame.m_inventoryItem.quantity = 1;
+                GameObject equipment = Instantiate(PrefabDatabase.PrefabDictionary[newFrame.m_InventoryItem.systemName], associatedEquipPoint);
+                StoredItemFrame = Instantiate(newFrame.gameObject, m_rectTransform).GetComponent<ItemFrame>();
+                StoredItemFrame.parentSlot = this;
+                StoredItemFrame.SetQuantity(1);
                 return 1;
             }
         }
         //not empty, but the passed frame matches the type of the already stored frame and it isn't equipment
-        else if (m_equipType == EquipType.None && StoredItemFrame.m_inventoryItem.systemName == newFrame.m_inventoryItem.systemName) {
-            int quantityStored = associatedInventory.AddMaxOf(newFrame.m_inventoryItem);
+        else if (m_equipType == EquipType.None && StoredItemFrame.m_InventoryItem.systemName == newFrame.m_InventoryItem.systemName) {
+            int quantityStored = associatedInventory.SilentAddMaxOf(newFrame.m_InventoryItem);
             if (quantityStored > 0)
             {
-                StoredItemFrame.m_inventoryItem.quantity += quantityStored;
+                StoredItemFrame.SetQuantity(StoredItemFrame.m_InventoryItem.quantity + quantityStored);
             }
+            associatedInventory.ForceAlertListeners();
             return quantityStored;
         }
         return 0;
@@ -62,15 +74,16 @@ public class Slot : MonoBehaviour
         if(StoredItemFrame == null && item.equipType == m_equipType){
             if (item.equipType == EquipType.None)
             {
-                StoredItemFrame = Instantiate(itemFramePrefab, transform).GetComponent<ItemFrame>();
-                StoredItemFrame.GetComponent<RectTransform>().sizeDelta = GetComponent<RectTransform>().sizeDelta;
-                StoredItemFrame.m_inventoryItem = item;
+                StoredItemFrame = Instantiate(itemFramePrefab, m_rectTransform).GetComponent<ItemFrame>();
+                StoredItemFrame.SetInventoryItem(item);
+                StoredItemFrame.parentSlot = this;
                 return true;
             }
             else if(item.quantity == 1)
             {
-                StoredItemFrame = Instantiate(itemFramePrefab, transform).GetComponent<ItemFrame>();
-                StoredItemFrame.m_inventoryItem = item;
+                StoredItemFrame = Instantiate(itemFramePrefab, m_rectTransform).GetComponent<ItemFrame>();
+                StoredItemFrame.SetInventoryItem(item);
+                StoredItemFrame.parentSlot = this;
                 return true;
             }
         }
@@ -79,9 +92,24 @@ public class Slot : MonoBehaviour
 
 
     /// <summary>
-    /// Removes (sets null) the stored item frame from this slot 
+    /// Removes (sets null) the stored item frame from this slot
+    ///  Updates associated inventories
     /// </summary>
     public void RemoveItemFrame() {
+        if (StoredItemFrame != null)
+        {
+            if (associatedInventory != null) 
+                associatedInventory.TryRemoveItem(StoredItemFrame.m_InventoryItem.systemName, 
+                                                  StoredItemFrame.m_InventoryItem.quantity);
+            StoredItemFrame = null;
+        }
+    }
+
+    /// <summary>
+    /// Removes (sets null) the stored item frame from this slot
+    /// Does not update associated inventories
+    /// </summary>
+    public void SilentRemoveItemFrame() {
         StoredItemFrame = null;
     }
 }

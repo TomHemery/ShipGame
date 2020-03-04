@@ -198,6 +198,7 @@ GameObject:
   m_Component:
   - component: {fileID: 280845222483470164}
   - component: {fileID: 1653049709152919115}
+  - component: {fileID: 1653049709152919114}
   m_Layer: 5
   m_Name: SlotContainer
   m_TagString: Untagged
@@ -276,6 +277,22 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &1653049709152919114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3167099401116906083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d28ea5ee9158e54aaf51f609fc3d773, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  associatedInventory: {fileID: 0}
+  attachToPlayerInventory: 1
+  slotPrefab: {fileID: 6587939850998633503, guid: 41396a067a2a139498574b36cd9aaeb3,
+    type: 3}
 --- !u!1 &3419086621386086727
 GameObject:
   m_ObjectHideFlags: 0
@@ -750,11 +767,11 @@ MonoBehaviour:
   m_Content: {fileID: 280845222483470164}
   m_Horizontal: 0
   m_Vertical: 1
-  m_MovementType: 2
+  m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 10
   m_Viewport: {fileID: 7552061193715597651}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 7761716379525898676}

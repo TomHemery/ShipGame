@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,10 +14,15 @@ public class InventoryInformationPanel : MonoBehaviour
     private void Awake()
     {
         if (attachToPlayer) associatedInventory = GameObject.FindGameObjectWithTag("PlayerShip").GetComponent<Inventory>();
+        associatedInventory.InventoryChangedEvent += OnAssociatedInventoryChanged;
     }
 
     private void OnEnable()
     {
+        Refresh();
+    }
+
+    public void OnAssociatedInventoryChanged(object sender, EventArgs e) {
         Refresh();
     }
 
