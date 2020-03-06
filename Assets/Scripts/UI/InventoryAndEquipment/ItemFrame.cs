@@ -71,7 +71,6 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("Ending drag");
         mTransform.pivot = new Vector2(0, 1);
 
         GraphicRaycaster mRaycaster = transform.root.GetComponent<GraphicRaycaster>();
@@ -86,23 +85,19 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         {
             //TODO look for slot
             if (result.gameObject.GetComponent<Slot>() != null) {
-                Debug.Log("Found slot in: " + gameObject);
                 Slot s = result.gameObject.GetComponent<Slot>();
                 int numStored = s.StoreItemFrame(this);
                 if (numStored == m_InventoryItem.quantity)
                 {
-                    Debug.Log("Fully stored in" + s.associatedInventory);
                     DestroySelf();
                     return;
                 }
                 else {
-                    Debug.Log("Less space in inventory than needed");
                     m_InventoryItem.quantity -= numStored;
                     break;
                 }
             }
         }
-        Debug.Log("Resetting Drag");
         ResetDrag();
     }
 
@@ -114,9 +109,8 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     }
 
     private void DestroySelf() {
-        Debug.Log("Destroying self");
         transform.SetParent(null);
-        parentSlot.associatedInventory.ForceAlertListeners();
+        if (parentSlot.associatedInventory != null) parentSlot.associatedInventory.ForceAlertListeners();
         Destroy(gameObject);
     }
 

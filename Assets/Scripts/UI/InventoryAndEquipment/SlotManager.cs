@@ -21,7 +21,7 @@ public class SlotManager : MonoBehaviour
     private void OnEnable()
     {
         associatedInventory.InventoryChangedEvent += OnAssociatedInventoryChanged;
-        ResetSlots();
+        SilentClearAllSlots();
         UpdateSlots();
     }
 
@@ -36,24 +36,25 @@ public class SlotManager : MonoBehaviour
         UpdateSlots();
     }
 
-    private void ResetSlots()
+    private void SilentClearAllSlots()
     {
+        //go through every slot
         foreach(Transform child in transform) {
-            child.GetComponent<Slot>().SilentRemoveItemFrame();
-            foreach (Transform grandChild in child) {
-                Destroy(grandChild.gameObject);
+            //if something is stored, silently destroy it
+            if (child.GetComponent<Slot>().StoredItemFrame != null)
+            {
+                GameObject frame = child.GetComponent<Slot>().StoredItemFrame.gameObject;
+                child.GetComponent<Slot>().SilentRemoveItemFrame();
+                Destroy(frame);
             }
         }
-
     }
 
     void UpdateSlots()
     {
-        Debug.Log("Updating slots for " + associatedInventory);
         //check every item in the inventory
         foreach (KeyValuePair<string, InventoryItem> pair in associatedInventory.Contents)
         {
-            Debug.Log(pair.Key + ": " + pair.Value.quantity);
             //check how much is stored in the inventory slots currently
             Slot s;
             int totalInSlots = 0;
@@ -65,16 +66,12 @@ public class SlotManager : MonoBehaviour
                 }
             }
 
-            Debug.Log("Total in slots: " + totalInSlots);
-
             //if we haven't stored it all then store the rest
             if (totalInSlots < pair.Value.quantity) {
                 //create an item with the right quantity
                 InventoryItem toAdd = pair.Value;
                 toAdd.quantity -= totalInSlots;
                 bool stored = false;
-
-                Debug.Log("To add: " + toAdd.quantity);
 
                 //try to store it in an already existing frame
                 foreach (Transform child in transform)

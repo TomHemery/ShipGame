@@ -21,5 +21,6 @@ public struct InventoryItem
 
 public enum EquipType { 
     Weapon,
+    SetItem,
     None
 }

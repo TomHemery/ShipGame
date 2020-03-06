@@ -47,13 +47,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryItem:
-    itemPrefab: {fileID: 8744863751882838978}
     inventorySprite: {fileID: 21300000, guid: 1741e7819aef43045a5d8794636dfc62, type: 3}
     quantity: 1
     systemName: Crystal
     prettyName: Crystal
     equipable: 0
-    equipType: 1
+    equipType: 2
 --- !u!58 &677423658710609840
 CircleCollider2D:
   m_ObjectHideFlags: 0
