@@ -11,10 +11,13 @@ public class OxygenResourceManager : MonoBehaviour
     /// </summary>
     public float Oxygen { get; private set; } = 100.0f;
 
+    /// <summary>
+    /// Is this resource full?
+    /// </summary>
     public bool Full { get; private set; } = true;
 
     /// <summary>
-    /// The base amount of oxygen used per second from this resource
+    /// The base amount of oxygen used per second by this resource
     /// </summary>
     public float baseOxygenUsageRate = 1.0f;
 
@@ -61,5 +64,10 @@ public class OxygenResourceManager : MonoBehaviour
     private void SetOxygen(float o) {
         Oxygen = o;
         Full = Oxygen == MaxOxygenCapacity;
+        if (Oxygen == 0.0f) OutOfOxygen();
+    }
+
+    private void OutOfOxygen() {
+        GameManager.Instance.OnPlayerDeath(PlayerDeathTypes.OutOfOxygen);
     }
 }

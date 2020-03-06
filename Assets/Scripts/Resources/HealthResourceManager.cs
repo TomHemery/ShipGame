@@ -14,6 +14,8 @@ public class HealthResourceManager : MonoBehaviour
 
     private bool exploded = false;
 
+    public bool isPlayerHealth = false;
+
     private void Start()
     {
         SetHealth(MaxHealth);
@@ -73,7 +75,14 @@ public class HealthResourceManager : MonoBehaviour
             if (explosionPrefab != null) Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             LootDrops mLootDrops = GetComponent<LootDrops>();
             if (mLootDrops != null) mLootDrops.DropLoot();
-            Destroy(gameObject);
+            if (isPlayerHealth)
+            {
+                GameManager.Instance.OnPlayerDeath(PlayerDeathTypes.Exploded);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
             exploded = true;
         }
     }
