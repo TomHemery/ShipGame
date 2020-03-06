@@ -13,7 +13,7 @@ public class OxygenGenerator : MonoBehaviour
     private float oxygenPerIce = 10.0f;
 
     private float elapsedSinceLastUse = 0.0f;
-    private float cooldownTime = 1.0f;
+    private float cooldownTime = 0.5f;
     bool cooldown = false;
 
     private void Awake()
@@ -30,7 +30,7 @@ public class OxygenGenerator : MonoBehaviour
                 oxygenResource.AddOxygen(oxygenPerIce * icePerCooldown);
                 iceSlot.StoredItemFrame.SetQuantity(iceSlot.StoredItemFrame.m_InventoryItem.quantity - icePerCooldown);
                 if (iceSlot.StoredItemFrame.m_InventoryItem.quantity <= 0) {
-                    Destroy(iceSlot.StoredItemFrame);
+                    Destroy(iceSlot.StoredItemFrame.gameObject);
                     iceSlot.SilentRemoveItemFrame();
                 }
                 cooldown = true;

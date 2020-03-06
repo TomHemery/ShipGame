@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class HealthAndShieldsResourceManager : HealthResourceManager
     public float Shields { get; private set; }
     public float MaxShields = 50;
     public float ShieldRechargeRate { get; private set; } = 10; //shields per second
+    public event EventHandler<ShieldChangedEventArgs> ShieldValueChangedEvent;
 
     void Start()
     {
@@ -26,7 +28,7 @@ public class HealthAndShieldsResourceManager : HealthResourceManager
     /// <param name="s">The value to set shields to</param>
     public void SetShields(float s) {
         Shields = Mathf.Clamp(s, 0, MaxShields);
-        if (ResourceBarManager != null) ResourceBarManager.UpdateShieldBar(Shields, MaxShields);
+        ShieldValueChangedEvent?.Invoke(this, new ShieldChangedEventArgs(Shields, MaxShields));
     }
 
     /// <summary>
@@ -66,4 +68,11 @@ public class HealthAndShieldsResourceManager : HealthResourceManager
         ReduceShields(shieldDamage);
         ReduceHealth(healthDamage);
     }
+}
+
+public class ShieldChangedEventArgs : EventArgs
+{
+    public ShieldChangedEventArgs(float _newShields, float _maxShields) { NewShields = _newShields; MaxShields = _maxShields; }
+    public float NewShields { get; } 
+    public float MaxShields { get; }
 }

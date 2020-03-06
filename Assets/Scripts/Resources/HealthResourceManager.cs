@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,8 +8,9 @@ public class HealthResourceManager : MonoBehaviour
     public float Health { get; private set; }
     public float MaxHealth = 100;
 
-    public ResourceBarManager ResourceBarManager;
     public GameObject explosionPrefab = null;
+
+    public event EventHandler<HealthChangedEventArgs> HealthValueChangedEvent;
 
     private bool exploded = false;
 
@@ -24,7 +26,7 @@ public class HealthResourceManager : MonoBehaviour
     public void SetHealth(float h)
     {
         Health = Mathf.Clamp(h, 0, MaxHealth);
-        if (ResourceBarManager != null) ResourceBarManager.UpdateHealthBar(Health, MaxHealth);
+        HealthValueChangedEvent?.Invoke(this, new HealthChangedEventArgs(Health, MaxHealth));
         if (Health <= 0) Explode();
     }
 
@@ -75,4 +77,11 @@ public class HealthResourceManager : MonoBehaviour
             exploded = true;
         }
     }
+}
+
+public class HealthChangedEventArgs : EventArgs
+{
+    public HealthChangedEventArgs(float _newHealth, float _maxHealth) { NewHealth = _newHealth; MaxHealth = _maxHealth; }
+    public float NewHealth { get; } 
+    public float MaxHealth { get; }
 }

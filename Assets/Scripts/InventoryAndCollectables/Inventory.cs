@@ -19,7 +19,8 @@ public class Inventory : MonoBehaviour
     /// </summary>
     /// <param name="item">The item we want to add</param>
     /// <returns>True if there is space and the item is added, false otehrwise</returns>
-    public bool TryAddItem(InventoryItem item) {
+    public bool TryAddItem(InventoryItem item)
+    {
         bool result = SilentTryAddItem(item);
         InventoryChangedEvent?.Invoke(this, null);
         return result;
@@ -31,7 +32,8 @@ public class Inventory : MonoBehaviour
     /// </summary>
     /// <param name="item">The item we want to add</param>
     /// <returns>True if there is space and the item is added, false otehrwise</returns>
-    public bool SilentTryAddItem(InventoryItem item) {
+    public bool SilentTryAddItem(InventoryItem item)
+    {
         if (FilledCapacity + item.quantity <= MaxCapacity)
         {
             AddToContents(item);
@@ -50,7 +52,8 @@ public class Inventory : MonoBehaviour
     /// </summary>
     /// <param name="item">The item to be added</param>
     /// <returns>The total quantity of "item" that has been successfully stored in the inventory</returns>
-    public int AddMaxOf(InventoryItem item) {
+    public int AddMaxOf(InventoryItem item)
+    {
         int result = SilentAddMaxOf(item);
         InventoryChangedEvent?.Invoke(this, null);
         return result;
@@ -62,7 +65,8 @@ public class Inventory : MonoBehaviour
     /// </summary>
     /// <param name="item">The item to be added</param>
     /// <returns>The total quantity of "item" that has been successfully stored in the inventory</returns>
-    public int SilentAddMaxOf(InventoryItem item) {
+    public int SilentAddMaxOf(InventoryItem item)
+    {
         if (FilledCapacity + item.quantity > MaxCapacity)
             item.quantity = MaxCapacity - FilledCapacity;
 
@@ -71,7 +75,8 @@ public class Inventory : MonoBehaviour
         return item.quantity;
     }
 
-    private void AddToContents(InventoryItem item) {
+    private void AddToContents(InventoryItem item)
+    {
         if (Contents.ContainsKey(item.systemName))
         {
             InventoryItem inventoryItem = Contents[item.systemName];
@@ -106,7 +111,8 @@ public class Inventory : MonoBehaviour
     /// <param name="itemSystemName">The system name (key) of the item we're looking for</param>
     /// <param name="quantity">The amount of the item we want</param>
     /// <returns>True if there is enough of the item in the inventory, false otherwise</returns>
-    public bool SilentTryRemoveItem(string itemSystemName, int quantity = 1) {
+    public bool SilentTryRemoveItem(string itemSystemName, int quantity = 1)
+    {
         bool result = CheckForItem(itemSystemName, quantity);
         if (result)
         {
@@ -116,7 +122,7 @@ public class Inventory : MonoBehaviour
             else Contents[itemSystemName] = item;
             FilledCapacity -= quantity;
         }
-        
+
         return result;
     }
 
@@ -148,17 +154,13 @@ public class Inventory : MonoBehaviour
     /// <param name="itemSystemName">The system name (key) of the item we're looking for</param>
     /// <param name="quantity"></param>
     /// <returns></returns>
-    public bool CheckForItem(string itemSystemName, int quantity = 1) {
+    public bool CheckForItem(string itemSystemName, int quantity = 1)
+    {
         return (Contents.ContainsKey(itemSystemName) && Contents[itemSystemName].quantity >= quantity);
     }
 
-    public void ForceAlertListeners() {
+    public void ForceAlertListeners()
+    {
         InventoryChangedEvent?.Invoke(this, null);
     }
-}
-
-public class InventoryEventArgs
-{
-    public InventoryEventArgs(string s) { Text = s; }
-    public string Text { get; } // readonly
 }

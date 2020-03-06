@@ -10,6 +10,60 @@ public class ResourceBarManager : MonoBehaviour
     Vector3 healthBarScale = new Vector3(1, 1, 1);
     Vector3 shieldBarScale = new Vector3(1, 1, 1);
 
+    public HealthAndShieldsResourceManager healthAndShieldsResource;
+    public HealthResourceManager healthResource;
+
+    public bool attachToPlayer = false;
+
+    private void Awake()
+    {
+        if (attachToPlayer)
+        {
+            healthAndShieldsResource =
+                GameObject.FindGameObjectWithTag("PlayerShip").GetComponent<HealthAndShieldsResourceManager>();
+        }
+    }
+
+    private void OnEnable()
+    {
+        if (healthAndShieldsResource != null)
+        {
+            healthAndShieldsResource.HealthValueChangedEvent += OnHealthChanged;
+            healthAndShieldsResource.ShieldValueChangedEvent += OnShieldsChanged;
+            //set initial values
+            UpdateHealthBar(healthAndShieldsResource.Health, healthAndShieldsResource.MaxHealth);
+            UpdateShieldBar(healthAndShieldsResource.Shields, healthAndShieldsResource.MaxShields);
+        }
+        else if (healthResource != null) {
+            healthResource.HealthValueChangedEvent += OnHealthChanged;
+            //set initial values
+            UpdateHealthBar(healthResource.Health, healthResource.MaxHealth);
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (healthAndShieldsResource != null)
+        {
+            healthAndShieldsResource.HealthValueChangedEvent -= OnHealthChanged;
+            healthAndShieldsResource.ShieldValueChangedEvent -= OnShieldsChanged;
+        }
+        else if (healthResource != null)
+        {
+            healthResource.HealthValueChangedEvent -= OnHealthChanged;
+        }
+    }
+
+    public void OnHealthChanged(object sender, HealthChangedEventArgs e)
+    {
+        UpdateHealthBar(e.NewHealth, e.MaxHealth);
+    }
+
+    public void OnShieldsChanged(object sender, ShieldChangedEventArgs e)
+    {
+        UpdateShieldBar(e.NewShields, e.MaxShields);
+    }
+
     public void UpdateHealthBar(float h, float maxH) {
         if (HealthBar != null)
         {

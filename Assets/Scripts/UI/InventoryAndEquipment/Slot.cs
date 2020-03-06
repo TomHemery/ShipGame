@@ -45,7 +45,6 @@ public class Slot : MonoBehaviour
                 return quantityStored;
             }
             else if (m_equipType == EquipType.SetItem && newFrame.m_InventoryItem.systemName == acceptedItemName) {
-                Debug.Log("Item matching the accepted item of this slot: " + acceptedItemName);
                 int quantityStored = associatedInventory == null ? 
                     newFrame.m_InventoryItem.quantity : associatedInventory.SilentAddMaxOf(newFrame.m_InventoryItem);
 
@@ -72,12 +71,14 @@ public class Slot : MonoBehaviour
         }
         //not empty, but the passed frame matches the type of the already stored frame and it isn't equipment
         else if ((m_equipType == EquipType.None || m_equipType == EquipType.SetItem) && StoredItemFrame.m_InventoryItem.systemName == newFrame.m_InventoryItem.systemName) {
-            int quantityStored = associatedInventory.SilentAddMaxOf(newFrame.m_InventoryItem);
+            int quantityStored = associatedInventory == null ? 
+                newFrame.m_InventoryItem.quantity : 
+                associatedInventory.SilentAddMaxOf(newFrame.m_InventoryItem);
             if (quantityStored > 0)
             {
                 StoredItemFrame.SetQuantity(StoredItemFrame.m_InventoryItem.quantity + quantityStored);
             }
-            associatedInventory.ForceAlertListeners();
+            if(associatedInventory != null) associatedInventory.ForceAlertListeners();
             return quantityStored;
         }
         return 0;
