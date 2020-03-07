@@ -1,34 +1,64 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AsteroidFieldSpawner : MonoBehaviour
 {
     public GameObject asteroidPrefab;
-    public int numAsteroidsPerCell = 6;
+    private int minAsteroidsPerCell = 6;
+    private int maxAsteroidsPerCell = 12;
     private Transform playerShipTransform;
 
-    private int cellSize = 64;
+    private readonly int cellSize = 128;
+    private readonly float halfCellSize = 64.0f;
 
     private Dictionary<int, Dictionary<int, bool>> cells;
+
+    private int prevX = int.MaxValue;
+    private int prevY = int.MaxValue;
+
+    public Text debugText;
 
     private void Awake()
     {
         playerShipTransform = GameObject.FindGameObjectWithTag("PlayerShip").transform;
-        cells = new Dictionary<int, Dictionary<int, bool>>();
-        SpawnAsteroidsInNeighbourhood(0, 0);
+        cells = new Dictionary<int, Dictionary<int, bool>>
+        {
+            { 0, new Dictionary<int, bool>() }
+        };
+        cells[0].Add(0, true);
     }
 
     private void Update()
     {
-        int x = (int)playerShipTransform.position.x / cellSize;
-        int y = (int)playerShipTransform.position.y / cellSize;
-        SpawnAsteroidsInNeighbourhood(x, y);
+        int x = (int)(playerShipTransform.position.x - halfCellSize) / cellSize;
+        int y = (int)(playerShipTransform.position.y + halfCellSize) / cellSize;
+
+        if (x != prevX || y != prevY)
+        {
+            SpawnAsteroidsInNeighbourhood(x, y);
+            prevX = x;
+            prevY = y;
+            Debug.Log("New neighbourhood");
+        }
+
+        if (debugText != null) debugText.text = x + ", " + y + "\n" + playerShipTransform.position;
+    }
+
+    void OnDrawGizmos()
+    {
+        // Draw a yellow cube at the transform position
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(new Vector3(prevX * cellSize, prevY * cellSize, 0), new Vector3(cellSize, cellSize, 0));
     }
 
     private void SpawnAteroidsInCell(int x, int y) {
-        for (int i = 0; i < numAsteroidsPerCell; i++) {
-            Vector2 pos = new Vector2(x * cellSize + Random.Range(0f, cellSize), y * cellSize + Random.Range(0f, cellSize));
+        int numAsteroids = Random.Range(minAsteroidsPerCell, maxAsteroidsPerCell + 1);
+        for (int i = 0; i < numAsteroids; i++) {
+            Vector2 pos = new Vector2(
+                x * cellSize + Random.Range(-halfCellSize, halfCellSize), 
+                y * cellSize + Random.Range(-halfCellSize, halfCellSize));
             Instantiate(asteroidPrefab, pos, Quaternion.identity);
         }
     }
@@ -46,6 +76,7 @@ public class AsteroidFieldSpawner : MonoBehaviour
                         SpawnAteroidsInCell(xIndex, yIndex);
                     }
                 }
+                
                 else
                 {
                     Dictionary<int, bool> row = new Dictionary<int, bool>

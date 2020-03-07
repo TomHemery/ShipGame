@@ -7,11 +7,15 @@ public class ProceduralAsteroid : MonoBehaviour
 {
 
     private SpriteRenderer m_renderer;
-    private Texture2D m_texture;
-    private Sprite [] m_sprites;
-    private Color32[] m_texture_colours;
+    //private Sprite [] m_sprites;
 
-    private bool generatedColours = false;
+    private static Color32[][] m_texture_colours;
+    private static Texture2D[] m_textures = null;
+    private static Sprite[][] m_sprites = null;
+    private const int NUM_ASTEROID_TEXTURES = 64;
+
+    private static bool generatingTextures = false;
+    private static bool generatedTextures = false;
     private bool assignedTexture = false;
 
     private DamageAnimation damageAnimation;
@@ -59,16 +63,15 @@ public class ProceduralAsteroid : MonoBehaviour
     private void Awake()
     {
         m_renderer = GetComponent<SpriteRenderer>();
-        m_sprites = new Sprite[numFrames];
+        
         maxRealDistance = Mathf.Sqrt(width * width + height * height);
         fullWidth = width * numFrames;
 
-        m_texture = new Texture2D(width * numFrames, height, TextureFormat.ARGB32, false)
+        if (!generatingTextures)
         {
-            filterMode = FilterMode.Point,
-        };
-
-        GenerateAsteroid();
+            generatingTextures = true;
+            GenerateAsteroids();
+        }
     }
 
     private void Start()
@@ -79,17 +82,29 @@ public class ProceduralAsteroid : MonoBehaviour
 
     private void Update()
     {
-        if (!assignedTexture && generatedColours)
+        //textures are ready now and we haven't picked one yet
+        if (!assignedTexture && generatedTextures)
         {
-            Debug.Log("Assigned texture");
-            m_texture.SetPixels32(m_texture_colours);
-            m_texture.Apply();
-            for (int i = 0; i < numFrames; i++) m_sprites[i] = Sprite.Create(m_texture, new Rect(i * width, 0, width, height), new Vector2(0.5f, 0.5f), pixelsPerUnit);
+            //if the textures haven't been set from the colour arrays, then do it
+            if (m_textures == null) {
+                m_sprites = new Sprite[NUM_ASTEROID_TEXTURES][];
+                m_textures = new Texture2D[NUM_ASTEROID_TEXTURES];
+                for (int tex = 0; tex < NUM_ASTEROID_TEXTURES; tex++) {
+                    m_textures[tex] = new Texture2D(width * numFrames, height, TextureFormat.ARGB32, false)
+                    {
+                        filterMode = FilterMode.Point,
+                    };
+                    m_textures[tex].SetPixels32(m_texture_colours[tex]);
+                    m_textures[tex].Apply();
+                    m_sprites[tex] = new Sprite[numFrames];
+                    for (int i = 0; i < numFrames; i++) m_sprites[tex][i] =
+                        Sprite.Create(m_textures[tex], new Rect(i * width, 0, width, height), new Vector2(0.5f, 0.5f), pixelsPerUnit);
+                }
+            }
 
-            m_renderer.sprite = m_sprites[0];
-
-            
-            damageAnimation.sprites = m_sprites;
+            Sprite[] chosenSprites = m_sprites[Random.Range(0, NUM_ASTEROID_TEXTURES)];
+            m_renderer.sprite = chosenSprites[0];
+            damageAnimation.sprites = chosenSprites;
             damageAnimation.enabled = true;
 
             gameObject.AddComponent<PolygonCollider2D>();
@@ -97,150 +112,152 @@ public class ProceduralAsteroid : MonoBehaviour
         }
     }
 
-    private void GenerateAsteroid() {
+    private void GenerateAsteroids() {
         rand = new System.Random(Random.Range(0, int.MaxValue));
+        m_texture_colours = new Color32[NUM_ASTEROID_TEXTURES][];
         //generate the texture
-        Thread t = new Thread(new ThreadStart(GenerateTexture));
-        Debug.Log("Starting thread");
+        Thread t = new Thread(new ThreadStart(GenerateTextures));
         t.Start();
-        Debug.Log("Started thread");
     }
 
-    private void GenerateTexture() {
-
-        byte[] pixels = new byte[width * numFrames * height];
-
-        for (int texLeft = 0; texLeft < width * numFrames; texLeft += width)
+    private void GenerateTextures() {
+        for (int num = 0; num < NUM_ASTEROID_TEXTURES; num++)
         {
-            if (texLeft == 0)
-            { //base case -> generate the first map of the asteroid 
-                //create some points in the area of the texture
-                Vector2[] whorleyNoisePoints = new Vector2[numWhorleyNoisePoints];
+            byte[] pixels = new byte[width * numFrames * height];
 
-                //assign every pixel a grayscale value based on distance from the nearest point 
-                byte brightest = 0;
-                byte darkest = byte.MaxValue;
-                for (int i = 0; i < numWhorleyNoisePoints; i++)
-                    whorleyNoisePoints[i] = new Vector2(
-                        ((float)rand.NextDouble()).Map(0, 1, whorleyNoisePointBounds.x, whorleyNoisePointBounds.width),
-                        ((float)rand.NextDouble()).Map(0, 1, whorleyNoisePointBounds.y, whorleyNoisePointBounds.height));
-                for (int x = 0; x < width; x++)
-                {
-                    for (int y = 0; y < height; y++)
-                    {
-                        byte value = DistanceToGrayscale(x, y, whorleyNoisePoints);
-                        if (value > brightest) brightest = value;
-                        if (value < darkest) darkest = value;
-                        SetPixel(x, y, value, pixels);
-                    }
-                }
+            for (int texLeft = 0; texLeft < width * numFrames; texLeft += width)
+            {
+                if (texLeft == 0)
+                { 
+                    //base case -> generate the first map of the asteroid 
+                    //create some points in the area of the texture
+                    Vector2[] whorleyNoisePoints = new Vector2[numWhorleyNoisePoints];
 
-                for (int x = 0; x < width; x++)
-                {
-                    for (int y = 0; y < width; y++)
+                    //assign every pixel a grayscale value based on distance from the nearest point 
+                    byte brightest = 0;
+                    byte darkest = byte.MaxValue;
+                    for (int i = 0; i < numWhorleyNoisePoints; i++)
+                        whorleyNoisePoints[i] = new Vector2(
+                            ((float)rand.NextDouble()).Map(0, 1, whorleyNoisePointBounds.x, whorleyNoisePointBounds.width),
+                            ((float)rand.NextDouble()).Map(0, 1, whorleyNoisePointBounds.y, whorleyNoisePointBounds.height));
+                    for (int x = 0; x < width; x++)
                     {
-                        byte normalizedValue = NormalizeByte(GetPixel(x, y, pixels), darkest, brightest);
-                        SetPixel(x, y, normalizedValue, pixels);
-                        if (normalizedValue > threshold)
+                        for (int y = 0; y < height; y++)
                         {
-                            SetPixel(x, y, shadowValue, pixels);
-                        }
-                        else
-                        {
-                            SetPixel(x, y, clear, pixels);
+                            byte value = DistanceToGrayscale(x, y, whorleyNoisePoints);
+                            if (value > brightest) brightest = value;
+                            if (value < darkest) darkest = value;
+                            SetPixel(x, y, value, pixels);
                         }
                     }
-                }
 
-                //punch out holes
-                int numCraters = rand.Next(minCraters, maxCraters + 1);
-                for (int i = 0; i < numCraters; i++)
-                {
-                    int radius = rand.Next(minCraterRadius, maxCraterRadius + 1);
-                    Vector2 pos = new Vector2(rand.Next(0, width), rand.Next(0, height));
-                    for (int x = (pos.x - radius < 0) ? 0 : (int)pos.x - radius; x <= (pos.x + radius > width - 1 ? width - 1 : pos.x + radius); x++)
+                    for (int x = 0; x < width; x++)
                     {
-                        for (int y = (pos.y - radius < 0) ? 0 : (int)pos.y - radius; y <= (pos.y + radius > height - 1 ? height - 1 : pos.y + radius); y++)
+                        for (int y = 0; y < width; y++)
                         {
-
-                            if ((pos.x - x) * (pos.x - x) + (pos.y - y) * (pos.y - y) <= radius * radius + rand.Next(-craterNoise, craterNoise))
+                            byte normalizedValue = NormalizeByte(GetPixel(x, y, pixels), darkest, brightest);
+                            SetPixel(x, y, normalizedValue, pixels);
+                            if (normalizedValue > threshold)
+                            {
+                                SetPixel(x, y, shadowValue, pixels);
+                            }
+                            else
                             {
                                 SetPixel(x, y, clear, pixels);
                             }
                         }
                     }
-                }
-            }
 
-            else
-            {
-                //copy previous "frame" with some noise that eats away at populated pixels with empty neighbours
-                CopyPrevFrame(texLeft, pixels);
-                for (int tex_x = texLeft; tex_x < texLeft + width; tex_x++)
-                {
-                    for (int tex_y = 0; tex_y < height; tex_y++)
+                    //punch out holes
+                    int numCraters = rand.Next(minCraters, maxCraters + 1);
+                    for (int i = 0; i < numCraters; i++)
                     {
-                        if (GetPixel(tex_x, tex_y, pixels) == clear)
+                        int radius = rand.Next(minCraterRadius, maxCraterRadius + 1);
+                        Vector2 pos = new Vector2(rand.Next(0, width), rand.Next(0, height));
+                        for (int x = (pos.x - radius < 0) ? 0 : (int)pos.x - radius; x <= (pos.x + radius > width - 1 ? width - 1 : pos.x + radius); x++)
                         {
-                            for (int x = tex_x - destructionNeighbourhood;
-                                x <= (tex_x + destructionNeighbourhood >= fullWidth - 1 ? fullWidth - 1 : tex_x + destructionNeighbourhood);
-                                x++)
+                            for (int y = (pos.y - radius < 0) ? 0 : (int)pos.y - radius; y <= (pos.y + radius > height - 1 ? height - 1 : pos.y + radius); y++)
                             {
-                                for (int y = tex_y - destructionNeighbourhood <= 0 ? 0 : tex_y - destructionNeighbourhood;
-                                    y <= (tex_y + destructionNeighbourhood >= height - 1 ? height - 1 : tex_y + destructionNeighbourhood);
-                                    y++)
+
+                                if ((pos.x - x) * (pos.x - x) + (pos.y - y) * (pos.y - y) <= radius * radius + rand.Next(-craterNoise, craterNoise))
                                 {
-                                    if (GetPixel(x, y, pixels) != clear && rand.NextDouble() < destructionNoise)
-                                    {
-                                        SetPixel(x, y, clear, pixels);
-                                    }
+                                    SetPixel(x, y, clear, pixels);
                                 }
                             }
                         }
                     }
                 }
-                //punch out more holes
-                int numCraters = rand.Next(minCratersDestruction, maxCratersDestruction + 1);
-                for (int i = 0; i < numCraters; i++)
-                {
-                    int radius = rand.Next(minCraterRadiusDestruction, maxCraterRadiusDestruction + 1);
-                    Vector2 pos = new Vector2(rand.Next(texLeft, texLeft + width), rand.Next(0, height));
-                    for (int x = (pos.x - radius < texLeft) ? texLeft : (int)pos.x - radius; x <= (pos.x + radius > texLeft + width - 1 ? texLeft + width - 1 : pos.x + radius); x++)
-                    {
-                        for (int y = (pos.y - radius < 0) ? 0 : (int)pos.y - radius; y <= (pos.y + radius > height - 1 ? height - 1 : pos.y + radius); y++)
-                        {
 
-                            if ((pos.x - x) * (pos.x - x) + (pos.y - y) * (pos.y - y) <= radius * radius + rand.Next(-craterNoiseDestruction, craterNoiseDestruction))
+                else
+                {
+                    //copy previous "frame" with some noise that eats away at populated pixels with empty neighbours
+                    CopyPrevFrame(texLeft, pixels);
+                    for (int tex_x = texLeft; tex_x < texLeft + width; tex_x++)
+                    {
+                        for (int tex_y = 0; tex_y < height; tex_y++)
+                        {
+                            if (GetPixel(tex_x, tex_y, pixels) == clear)
                             {
-                                SetPixel(x, y, clear, pixels);
+                                for (int x = tex_x - destructionNeighbourhood;
+                                    x <= (tex_x + destructionNeighbourhood >= fullWidth - 1 ? fullWidth - 1 : tex_x + destructionNeighbourhood);
+                                    x++)
+                                {
+                                    for (int y = tex_y - destructionNeighbourhood <= 0 ? 0 : tex_y - destructionNeighbourhood;
+                                        y <= (tex_y + destructionNeighbourhood >= height - 1 ? height - 1 : tex_y + destructionNeighbourhood);
+                                        y++)
+                                    {
+                                        if (GetPixel(x, y, pixels) != clear && rand.NextDouble() < destructionNoise)
+                                        {
+                                            SetPixel(x, y, clear, pixels);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //punch out more holes
+                    int numCraters = rand.Next(minCratersDestruction, maxCratersDestruction + 1);
+                    for (int i = 0; i < numCraters; i++)
+                    {
+                        int radius = rand.Next(minCraterRadiusDestruction, maxCraterRadiusDestruction + 1);
+                        Vector2 pos = new Vector2(rand.Next(texLeft, texLeft + width), rand.Next(0, height));
+                        for (int x = (pos.x - radius < texLeft) ? texLeft : (int)pos.x - radius; x <= (pos.x + radius > texLeft + width - 1 ? texLeft + width - 1 : pos.x + radius); x++)
+                        {
+                            for (int y = (pos.y - radius < 0) ? 0 : (int)pos.y - radius; y <= (pos.y + radius > height - 1 ? height - 1 : pos.y + radius); y++)
+                            {
+
+                                if ((pos.x - x) * (pos.x - x) + (pos.y - y) * (pos.y - y) <= radius * radius + rand.Next(-craterNoiseDestruction, craterNoiseDestruction))
+                                {
+                                    SetPixel(x, y, clear, pixels);
+                                }
                             }
                         }
                     }
                 }
             }
-        }
 
-        ShadeInTexture(pixels);
+            ShadeInTexture(pixels);
 
-        m_texture_colours = new Color32[width * numFrames * height];
+            m_texture_colours[num] = new Color32[width * numFrames * height];
 
-        for (int i = 0; i < pixels.Length; i++) {
-            if (pixels[i] != clear)
+            for (int i = 0; i < pixels.Length; i++)
             {
-                m_texture_colours[i] = new Color32(
-                    (byte)(baseColour.r * pixels[i]),
-                    (byte)(baseColour.g * pixels[i]),
-                    (byte)(baseColour.b * pixels[i]),
-                    byte.MaxValue
-                );
-            }
-            else
-            {
-                m_texture_colours[i] = Color.clear;
+                if (pixels[i] != clear)
+                {
+                    m_texture_colours[num][i] = new Color32(
+                        (byte)(baseColour.r * pixels[i]),
+                        (byte)(baseColour.g * pixels[i]),
+                        (byte)(baseColour.b * pixels[i]),
+                        byte.MaxValue
+                    );
+                }
+                else
+                {
+                    m_texture_colours[num][i] = Color.clear;
+                }
             }
         }
-        
-        generatedColours = true;
+        generatedTextures = true;
     }
 
     private void ShadeInTexture(byte [] pixels) {
