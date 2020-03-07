@@ -13,6 +13,7 @@ TagManager:
   - InventoryBackground
   - Inventory
   - EquipSlot
+  - MiningStation
   layers:
   - Default
   - TransparentFX

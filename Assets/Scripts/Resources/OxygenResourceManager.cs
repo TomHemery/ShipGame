@@ -9,7 +9,7 @@ public class OxygenResourceManager : MonoBehaviour
     /// <summary>
     /// The current amount of oxygen stored by this resource
     /// </summary>
-    public float Oxygen { get; private set; } = 100.0f;
+    public float Oxygen { get; private set; }
 
     /// <summary>
     /// Is this resource full?

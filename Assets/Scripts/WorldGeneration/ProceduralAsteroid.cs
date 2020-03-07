@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading;
 
 public class ProceduralAsteroid : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class ProceduralAsteroid : MonoBehaviour
     private SpriteRenderer m_renderer;
     private Texture2D m_texture;
     private Sprite [] m_sprites;
+    private Color32[] m_texture_colours;
+
+    private bool generatedColours = false;
+    private bool assignedTexture = false;
 
     private DamageAnimation damageAnimation;
 
@@ -17,6 +22,7 @@ public class ProceduralAsteroid : MonoBehaviour
     public int pixelsPerUnit = 10;
     public int width = 64;
     public int height = 64;
+    private int fullWidth;
     public int numFrames = 6;
     public int numWhorleyNoisePoints = 20;
     public int minCraters = 0;
@@ -48,39 +54,59 @@ public class ProceduralAsteroid : MonoBehaviour
 
     public Color baseColour;
 
+    private System.Random rand;
+
     private void Awake()
     {
         m_renderer = GetComponent<SpriteRenderer>();
         m_sprites = new Sprite[numFrames];
         maxRealDistance = Mathf.Sqrt(width * width + height * height);
-        GenerateAsteroid();
-    }
+        fullWidth = width * numFrames;
 
-    //private void Update()
-    //{
-    //    GenerateAsteroid();
-    //}
-
-    private void GenerateAsteroid() {
-        //generate the texture
-        m_texture = GenerateTexture();
-
-        for (int i = 0; i < numFrames; i++) m_sprites[i] = Sprite.Create(m_texture, new Rect(i * width, 0, width, height), new Vector2(0.5f, 0.5f), pixelsPerUnit);
-
-        m_renderer.sprite = m_sprites[0];
-
-        damageAnimation = GetComponent<DamageAnimation>();
-        damageAnimation.sprites = m_sprites;
-
-        gameObject.AddComponent<PolygonCollider2D>();
-    }
-
-    private Texture2D GenerateTexture() {
-        //create the texture we will populate
-        Texture2D result = new Texture2D(width * numFrames, height, TextureFormat.ARGB32, false)
+        m_texture = new Texture2D(width * numFrames, height, TextureFormat.ARGB32, false)
         {
             filterMode = FilterMode.Point,
         };
+
+        GenerateAsteroid();
+    }
+
+    private void Start()
+    {
+        damageAnimation = GetComponent<DamageAnimation>();
+        damageAnimation.enabled = false;
+    }
+
+    private void Update()
+    {
+        if (!assignedTexture && generatedColours)
+        {
+            Debug.Log("Assigned texture");
+            m_texture.SetPixels32(m_texture_colours);
+            m_texture.Apply();
+            for (int i = 0; i < numFrames; i++) m_sprites[i] = Sprite.Create(m_texture, new Rect(i * width, 0, width, height), new Vector2(0.5f, 0.5f), pixelsPerUnit);
+
+            m_renderer.sprite = m_sprites[0];
+
+            
+            damageAnimation.sprites = m_sprites;
+            damageAnimation.enabled = true;
+
+            gameObject.AddComponent<PolygonCollider2D>();
+            assignedTexture = true;
+        }
+    }
+
+    private void GenerateAsteroid() {
+        rand = new System.Random(Random.Range(0, int.MaxValue));
+        //generate the texture
+        Thread t = new Thread(new ThreadStart(GenerateTexture));
+        Debug.Log("Starting thread");
+        t.Start();
+        Debug.Log("Started thread");
+    }
+
+    private void GenerateTexture() {
 
         byte[] pixels = new byte[width * numFrames * height];
 
@@ -95,8 +121,9 @@ public class ProceduralAsteroid : MonoBehaviour
                 byte brightest = 0;
                 byte darkest = byte.MaxValue;
                 for (int i = 0; i < numWhorleyNoisePoints; i++)
-                    whorleyNoisePoints[i] = new Vector2(Random.Range(whorleyNoisePointBounds.x, whorleyNoisePointBounds.width),
-                                                        Random.Range(whorleyNoisePointBounds.y, whorleyNoisePointBounds.height));
+                    whorleyNoisePoints[i] = new Vector2(
+                        ((float)rand.NextDouble()).Map(0, 1, whorleyNoisePointBounds.x, whorleyNoisePointBounds.width),
+                        ((float)rand.NextDouble()).Map(0, 1, whorleyNoisePointBounds.y, whorleyNoisePointBounds.height));
                 for (int x = 0; x < width; x++)
                 {
                     for (int y = 0; y < height; y++)
@@ -126,17 +153,17 @@ public class ProceduralAsteroid : MonoBehaviour
                 }
 
                 //punch out holes
-                int numCraters = Random.Range(minCraters, maxCraters + 1);
+                int numCraters = rand.Next(minCraters, maxCraters + 1);
                 for (int i = 0; i < numCraters; i++)
                 {
-                    int radius = Random.Range(minCraterRadius, maxCraterRadius + 1);
-                    Vector2 pos = new Vector2(Random.Range(0, width), Random.Range(0, height));
+                    int radius = rand.Next(minCraterRadius, maxCraterRadius + 1);
+                    Vector2 pos = new Vector2(rand.Next(0, width), rand.Next(0, height));
                     for (int x = (pos.x - radius < 0) ? 0 : (int)pos.x - radius; x <= (pos.x + radius > width - 1 ? width - 1 : pos.x + radius); x++)
                     {
                         for (int y = (pos.y - radius < 0) ? 0 : (int)pos.y - radius; y <= (pos.y + radius > height - 1 ? height - 1 : pos.y + radius); y++)
                         {
 
-                            if ((pos.x - x) * (pos.x - x) + (pos.y - y) * (pos.y - y) <= radius * radius + Random.Range(-craterNoise, craterNoise))
+                            if ((pos.x - x) * (pos.x - x) + (pos.y - y) * (pos.y - y) <= radius * radius + rand.Next(-craterNoise, craterNoise))
                             {
                                 SetPixel(x, y, clear, pixels);
                             }
@@ -156,14 +183,14 @@ public class ProceduralAsteroid : MonoBehaviour
                         if (GetPixel(tex_x, tex_y, pixels) == clear)
                         {
                             for (int x = tex_x - destructionNeighbourhood;
-                                x <= (tex_x + destructionNeighbourhood >= result.width - 1 ? result.width - 1 : tex_x + destructionNeighbourhood);
+                                x <= (tex_x + destructionNeighbourhood >= fullWidth - 1 ? fullWidth - 1 : tex_x + destructionNeighbourhood);
                                 x++)
                             {
                                 for (int y = tex_y - destructionNeighbourhood <= 0 ? 0 : tex_y - destructionNeighbourhood;
                                     y <= (tex_y + destructionNeighbourhood >= height - 1 ? height - 1 : tex_y + destructionNeighbourhood);
                                     y++)
                                 {
-                                    if (GetPixel(x, y, pixels) != clear && Random.value < destructionNoise)
+                                    if (GetPixel(x, y, pixels) != clear && rand.NextDouble() < destructionNoise)
                                     {
                                         SetPixel(x, y, clear, pixels);
                                     }
@@ -173,17 +200,17 @@ public class ProceduralAsteroid : MonoBehaviour
                     }
                 }
                 //punch out more holes
-                int numCraters = Random.Range(minCratersDestruction, maxCratersDestruction + 1);
+                int numCraters = rand.Next(minCratersDestruction, maxCratersDestruction + 1);
                 for (int i = 0; i < numCraters; i++)
                 {
-                    int radius = Random.Range(minCraterRadiusDestruction, maxCraterRadiusDestruction + 1);
-                    Vector2 pos = new Vector2(Random.Range(texLeft, texLeft + width), Random.Range(0, height));
+                    int radius = rand.Next(minCraterRadiusDestruction, maxCraterRadiusDestruction + 1);
+                    Vector2 pos = new Vector2(rand.Next(texLeft, texLeft + width), rand.Next(0, height));
                     for (int x = (pos.x - radius < texLeft) ? texLeft : (int)pos.x - radius; x <= (pos.x + radius > texLeft + width - 1 ? texLeft + width - 1 : pos.x + radius); x++)
                     {
                         for (int y = (pos.y - radius < 0) ? 0 : (int)pos.y - radius; y <= (pos.y + radius > height - 1 ? height - 1 : pos.y + radius); y++)
                         {
 
-                            if ((pos.x - x) * (pos.x - x) + (pos.y - y) * (pos.y - y) <= radius * radius + Random.Range(-craterNoiseDestruction, craterNoiseDestruction))
+                            if ((pos.x - x) * (pos.x - x) + (pos.y - y) * (pos.y - y) <= radius * radius + rand.Next(-craterNoiseDestruction, craterNoiseDestruction))
                             {
                                 SetPixel(x, y, clear, pixels);
                             }
@@ -195,12 +222,12 @@ public class ProceduralAsteroid : MonoBehaviour
 
         ShadeInTexture(pixels);
 
-        Color32[] colours = new Color32[width * numFrames * height];
+        m_texture_colours = new Color32[width * numFrames * height];
 
         for (int i = 0; i < pixels.Length; i++) {
             if (pixels[i] != clear)
             {
-                colours[i] = new Color32(
+                m_texture_colours[i] = new Color32(
                     (byte)(baseColour.r * pixels[i]),
                     (byte)(baseColour.g * pixels[i]),
                     (byte)(baseColour.b * pixels[i]),
@@ -209,13 +236,11 @@ public class ProceduralAsteroid : MonoBehaviour
             }
             else
             {
-                colours[i] = Color.clear;
+                m_texture_colours[i] = Color.clear;
             }
         }
-
-        result.SetPixels32(colours);
-        result.Apply();
-        return result;
+        
+        generatedColours = true;
     }
 
     private void ShadeInTexture(byte [] pixels) {
@@ -247,7 +272,7 @@ public class ProceduralAsteroid : MonoBehaviour
                     }
                     if (!onEdge)
                     {
-                        SetPixel(x, y, (byte)(newColour + Random.Range(0, shadingNoise)), pixels);
+                        SetPixel(x, y, (byte)(newColour + rand.Next(0, shadingNoise)), pixels);
                     }
                 }
             }

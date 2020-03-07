@@ -9,15 +9,16 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; } = null;
     public string FirstScene;
     public GameObject DeathScreen;
+    bool playerDied = false;
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
-        DeathScreen.SetActive(false);
     }
 
     private void Start()
     {
+        DeathScreen.SetActive(false);
         if (Instance == this)
             LoadScene(FirstScene);
     }
@@ -28,10 +29,22 @@ public class GameManager : MonoBehaviour
     }
 
     public void OnPlayerDeath(PlayerDeathTypes deathType) {
-        DeathScreen.SetActive(true);
+        if (!playerDied)
+        {
+            Text deathText = DeathScreen.GetComponentInChildren<Text>();
+            deathText.text = deathType.ToString();
+            playerDied = true;
+            StartCoroutine(ShowDeathScreen());
+        }
+    }
 
-        Text deathText = DeathScreen.GetComponentInChildren<Text>();
-        deathText.text = deathType.ToString();
+    IEnumerator ShowDeathScreen()
+    {
+        Debug.Log("Showing Death Screen");
+        yield return new WaitForEndOfFrame();
+
+        DeathScreen.GetComponent<DeathScreen>().CaptureScreen();
+        DeathScreen.SetActive(true);
     }
 }
 
