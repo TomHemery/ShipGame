@@ -32,8 +32,9 @@ public class AsteroidFieldSpawner : MonoBehaviour
 
     private void Update()
     {
-        int x = (int)(playerShipTransform.position.x - halfCellSize) / cellSize;
-        int y = (int)(playerShipTransform.position.y + halfCellSize) / cellSize;
+
+        int x = Mathf.RoundToInt((playerShipTransform.position.x / halfCellSize) / 2);
+        int y = Mathf.RoundToInt((playerShipTransform.position.y / halfCellSize) / 2);
 
         if (x != prevX || y != prevY)
         {

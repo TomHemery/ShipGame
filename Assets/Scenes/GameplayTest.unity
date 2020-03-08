@@ -486,7 +486,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   asteroidPrefab: {fileID: 673632786037268407, guid: e37506c70a6453540a43fde3e492a4b3,
     type: 3}
-  numAsteroidsPerCell: 6
   debugText: {fileID: 1394858682}
 --- !u!4 &257482797
 Transform:
@@ -4377,7 +4376,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -397.71, y: -93.1}
+  m_AnchoredPosition: {x: -408.38, y: -93.15}
   m_SizeDelta: {x: 192, y: 83.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1394858682
