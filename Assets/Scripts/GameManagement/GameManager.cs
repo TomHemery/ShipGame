@@ -40,7 +40,6 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ShowDeathScreen()
     {
-        Debug.Log("Showing Death Screen");
         yield return new WaitForEndOfFrame();
 
         DeathScreen.GetComponent<DeathScreen>().CaptureScreen();

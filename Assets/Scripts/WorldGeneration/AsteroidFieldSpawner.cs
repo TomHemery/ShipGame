@@ -6,12 +6,12 @@ using UnityEngine.UI;
 public class AsteroidFieldSpawner : MonoBehaviour
 {
     public GameObject asteroidPrefab;
-    private int minAsteroidsPerCell = 6;
-    private int maxAsteroidsPerCell = 12;
+    private int minAsteroidsPerCell = 3;
+    private int maxAsteroidsPerCell = 6;
     private Transform playerShipTransform;
 
-    private readonly int cellSize = 128;
-    private readonly float halfCellSize = 64.0f;
+    private readonly int cellSize = 64;
+    private readonly float halfCellSize = 32f;
 
     private Dictionary<int, Dictionary<int, bool>> cells;
 
@@ -41,7 +41,6 @@ public class AsteroidFieldSpawner : MonoBehaviour
             SpawnAsteroidsInNeighbourhood(x, y);
             prevX = x;
             prevY = y;
-            Debug.Log("New neighbourhood");
         }
 
         if (debugText != null) debugText.text = x + ", " + y + "\n" + playerShipTransform.position;
