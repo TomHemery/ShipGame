@@ -39,10 +39,6 @@ public class Inventory : MonoBehaviour
             AddToContents(item);
             return true;
         }
-        else
-        {
-            Debug.Log("Inventory full!!");
-        }
         return false;
     }
 
