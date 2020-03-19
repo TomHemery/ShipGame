@@ -2,8 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public abstract class Weapon : MonoBehaviour
 {
+    [SerializeField]
+    public InventoryItem m_inventoryItem;
+    protected ShipController parentShip_controller;
+
+    public void Awake()
+    {
+        parentShip_controller = transform.root.GetComponent<ShipController>();
+        if(parentShip_controller != null) parentShip_controller.weapons.Add(this);
+    }
+
+    private void OnDestroy()
+    {
+        if (parentShip_controller != null) parentShip_controller.weapons.Remove(this);
+    }
 
     /// <summary>
     /// The interval with which this weapon will cooldown in seconds
@@ -20,9 +35,9 @@ public abstract class Weapon : MonoBehaviour
     /// <summary>
     /// Wether this weapon should auto fire using cooldown interval
     /// </summary>
-    public bool DoAutoFire = false;
+    public bool AutoFiring { get; private set; } = false;
 
-    private void Update()
+    protected virtual void Update()
     {
         if (OnCooldown)
         {
@@ -32,23 +47,23 @@ public abstract class Weapon : MonoBehaviour
                 CooldownTimer = 0;
             }
         }
-        else if (DoAutoFire) {
+        else if (AutoFiring) {
             TryFire();
         }
     }
 
     /// <summary>
-    /// Syntactic sugar - do auto fire true
+    /// Start auto firing this weapon
     /// </summary>
-    public void EnableAutoFire() {
-        DoAutoFire = true;
+    public virtual void EnableAutoFire() {
+        AutoFiring = true;
     }
 
     /// <summary>
-    /// Syntactic sugar - do auto fire false
+    /// Stop auto firing this weapon
     /// </summary>
-    public void DisableAutoFire() {
-        DoAutoFire = false;
+    public virtual void DisableAutoFire() {
+        AutoFiring = false;
     }
 
     /// <summary>
@@ -64,8 +79,8 @@ public abstract class Weapon : MonoBehaviour
         return false;
     }
     /// <summary>
-    /// The fire method, should be provided by implementations of the weapon interface 
+    /// The fire method, called by the "Try Fire" method, override if this weapon spawns a projectile or similar 
     /// </summary>
-    protected abstract void Fire();
+    protected virtual void Fire() { }
 
 }

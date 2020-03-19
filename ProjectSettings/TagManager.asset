@@ -6,6 +6,14 @@ TagManager:
   tags:
   - Projectile
   - Enemy
+  - WeaponAttachment
+  - Hull
+  - Collectable
+  - PlayerShip
+  - InventoryBackground
+  - Inventory
+  - EquipSlot
+  - MiningStation
   layers:
   - Default
   - TransparentFX
@@ -15,7 +23,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Obstacle
   - 
   - 
   - 

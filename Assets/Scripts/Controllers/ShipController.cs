@@ -5,52 +5,74 @@ using UnityEngine;
 public class ShipController : MonoBehaviour
 {
 
-    public Vector2 acc { private set; get; } = new Vector2();
-    public Rigidbody2D mRigidbody { private set; get; }
+    public Vector2 Acc { private set; get; } = new Vector2();
+    public Rigidbody2D M_Rigidbody { private set; get; }
 
-    float rotation = 0;
+    public Vector2 desiredRotation = new Vector2();
+    public float rotationSpeed = 10;
 
-    float accelerationRate = 50.0f;
+    [HideInInspector]
+    public ThrustMode thrustMode = ThrustMode.None;
+    float forwardThrustForce = 50.0f;
+    float activeDampening = 0.95f;
+    float passiveDampening = 0.99f;
 
-    float maxSpeed = 32;
-    float minSpeed = 1;
-    float targetSpeed;
+    public float maxSpeed = 32;
+    public float minSpeed = 1;
 
-    bool firstUpdate = false;
+    [HideInInspector]
+    public List<Weapon> weapons = new List<Weapon>();
 
     private void Awake()
     {
-        mRigidbody = GetComponent<Rigidbody2D>();
-        targetSpeed = minSpeed;
+        M_Rigidbody = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
+    private void Start()
+    {
+        M_Rigidbody.velocity = transform.up;
+    }
+
     void FixedUpdate()
     {
-        if (firstUpdate) firstUpdate = false;
-        else
-        {
-            transform.Rotate(0, 0, rotation);
-            ApplyForce();
+        float angleDelta = Vector2.SignedAngle(transform.up, desiredRotation);
+        transform.Rotate(0, 0, angleDelta * Time.fixedDeltaTime * rotationSpeed);
+
+        switch (thrustMode) {
+            case ThrustMode.Forward:
+                ApplyForwardThrust(forwardThrustForce);
+                break;
+            case ThrustMode.Backward:
+                M_Rigidbody.velocity = M_Rigidbody.velocity * activeDampening;
+                break;
+            case ThrustMode.None:
+                M_Rigidbody.velocity = M_Rigidbody.velocity * passiveDampening;
+                break;
         }
+
+        LimitVelocity();
     }
-    private void ApplyForce()
+
+    private void ApplyForwardThrust(float thrust)
     {
-        acc = VectorMethods.FromDegrees(transform.eulerAngles.z) * accelerationRate;
-        mRigidbody.AddForce(acc);
-        if (mRigidbody.velocity.magnitude > targetSpeed)
+        Acc = transform.up * thrust;
+        M_Rigidbody.AddForce(Acc);
+    }
+
+    private void LimitVelocity() {
+        if (M_Rigidbody.velocity.magnitude > maxSpeed)
         {
-            mRigidbody.velocity = VectorMethods.SetMagnitude(mRigidbody.velocity, targetSpeed);
+            M_Rigidbody.velocity = VectorMethods.SetMagnitude(M_Rigidbody.velocity, maxSpeed);
+        }
+        else if (M_Rigidbody.velocity.magnitude < minSpeed)
+        {
+            M_Rigidbody.velocity = VectorMethods.SetMagnitude(M_Rigidbody.velocity, minSpeed);
         }
     }
 
-    public void SetRotation(float r)
-    {
-        rotation = r;
-    }
-
-    public void SetTargetSpeed(float s, float min, float max)
-    {
-        targetSpeed = s.Map(min, max, minSpeed, maxSpeed);
+    public enum ThrustMode {
+        Forward,
+        Backward,
+        None
     }
 }

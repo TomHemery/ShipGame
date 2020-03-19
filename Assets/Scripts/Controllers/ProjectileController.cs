@@ -21,14 +21,16 @@ public class ProjectileController : MonoBehaviour
         mRigidBody = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (mRigidBody.velocity.magnitude < MaxSpeed)
             mRigidBody.AddForce(acc);
         if (mRigidBody.velocity.magnitude > MaxSpeed)
             mRigidBody.velocity = VectorMethods.SetMagnitude(mRigidBody.velocity, MaxSpeed);
+    }
 
+    private void Update()
+    {
         timeAlive += Time.deltaTime;
         if (timeAlive > lifeSpan)
             Explode(mRigidBody.velocity);
@@ -36,21 +38,17 @@ public class ProjectileController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     { 
-        if(collision.gameObject.tag != "Projectile")
+        HealthResourceManager resourceManager = collision.gameObject.GetComponent<HealthResourceManager>();
+        if(resourceManager != null)
         {
-            ShipResourceManager resourceManager = collision.gameObject.GetComponent<ShipResourceManager>();
-            if(resourceManager != null)
-            {
-                resourceManager.DoDamage(damage);
-            }
-            Rigidbody2D otherRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
-            Explode(otherRigidbody != null ? otherRigidbody.velocity : mRigidBody.velocity);
+            resourceManager.DoDamage(damage);
         }
+        Rigidbody2D otherRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
+        Explode(otherRigidbody != null ? otherRigidbody.velocity : mRigidBody.velocity);
     }
 
-    public void SetAcc(float _acc, float h) {
-        transform.Rotate(0, 0, h);
-        acc = VectorMethods.FromDegrees(transform.eulerAngles.z) * _acc;
+    public void SetAcc(float _acc, Vector3 dir) {
+        acc = dir * _acc;
     }
 
     private void Explode(Vector2 velocity) {
