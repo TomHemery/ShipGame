@@ -1,18 +1,60 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
-public class DialogueNode : MonoBehaviour
+/// <summary>
+/// individual "node" in a conversation - one prompt from the npc plus responses
+/// </summary>
+public class DialogueNode
 {
-    // Start is called before the first frame update
-    void Start()
+    //Dictionary for the possible responses for this prompt
+    public Dictionary<string, int> Responses { get; private set; }
+    //Dictionary for the possible new entry points for this conversation based on selected reply
+    public Dictionary<string, int> EntryPoints { get; private set; }
+    public string Prompt { get; private set; } = "";
+    public string Actor { get; private set; } = "";
+    public int Index { get; private set; } = -1;
+
+    private readonly DialogueGraph dialogueGraph;
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="g">The graph to which this node belongs</param>
+    public DialogueNode(DialogueGraph g)
     {
-        
+        Responses = new Dictionary<string, int>();
+        EntryPoints = new Dictionary<string, int>();
+        dialogueGraph = g;
+    }
+    /// <summary>
+    /// Adds a response to this node
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="nextDialogueIndex"></param>
+    /// <param name="newEntryIndex"></param>
+    public void AddResponse(string response, int nextDialogueIndex, int newEntryIndex = -1)
+    {
+        Responses.Add(response, nextDialogueIndex);
+        if (newEntryIndex >= 0)
+            EntryPoints.Add(response, newEntryIndex);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetIndex(int i)
+    { //can only be set once
+        if (Index < 0) Index = i;
+    }
+
+    public void SetPrompt(string p)
+    { //can only be set once
+        if (Prompt == "") Prompt = p;
+    }
+
+    public List<string> GetResponseList()
     {
-        
+        List<string> responses = new List<string>();
+        foreach (string response in Responses.Keys)
+        {
+            responses.Add(response);
+        }
+        return responses;
     }
 }

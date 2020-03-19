@@ -1,0 +1,38 @@
+<conversation entryNode="0">
+  <node index="0">
+    <prompt>Ah, you've arrived! Excellent!</prompt>
+    <continue target ="1"/>
+  </node>
+  <node index ="1">
+    <prompt>Welcome to your exciting future in the criminal rehabilitation program!</prompt>
+    <continue target="2"/>
+  </node>
+  <node index ="2">
+    <prompt>As you're obviously aware, you're the filthy criminal!</prompt>
+    <continue target ="3"/>
+  </node>
+  <node index ="3">
+    <prompt>Not to worry though, I am your F.R.I.E.N.D!</prompt>
+    <continue target ="4"/>
+  </node>
+  <node index ="4">
+    <prompt>As your F.R.I.E.N.D I am both responsible for you, and responsible for deeming when you will be fit to return to society!</prompt>
+    <continue target ="5"/>
+  </node>
+  <node index ="5">
+    <prompt>Now criminal, your exciting life as a galaxy rim asteroid miner can begin!</prompt>
+    <continue target ="6"/>
+  </node>
+  <node index ="6">
+    <prompt>Your job is to mine flux crystals and other useful minerals for the grand empire.</prompt>
+    <continue target ="7"/>
+  </node>
+  <node index ="7">
+    <prompt>Also it is suggested that you aim to gather some ice while you're out an about. That is if you value the ability to breathe.</prompt>
+    <continue target ="8"/>
+  </node>
+  <node index ="8">
+    <prompt>You'll notice of course that your oxygen supply is limited, so don't fly too far from the station! Go get 'em kid!</prompt>
+    <continue target ="-1"/>
+  </node>
+</conversation>
