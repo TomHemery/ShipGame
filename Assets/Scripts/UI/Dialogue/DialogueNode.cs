@@ -5,8 +5,8 @@
 /// </summary>
 public class DialogueNode
 {
-    //Dictionary for the possible responses for this prompt
-    public Dictionary<string, int> Responses { get; private set; }
+    //Dictionary for the possible targets for this node based on the selected reply
+    public Dictionary<string, int> ResponseTargets { get; private set; }
 
     //Dictionary for the possible new entry points for this conversation based on selected reply
     public Dictionary<string, int> EntryPoints { get; private set; }
@@ -33,7 +33,7 @@ public class DialogueNode
     /// <param name="g">The graph to which this node belongs</param>
     public DialogueNode(DialogueGraph g)
     {
-        Responses = new Dictionary<string, int>();
+        ResponseTargets = new Dictionary<string, int>();
         EntryPoints = new Dictionary<string, int>();
         dialogueGraph = g;
     }
@@ -46,7 +46,7 @@ public class DialogueNode
     /// <param name="newEntryIndex"></param>
     public void AddResponse(string response, int nextDialogueIndex, int newEntryIndex = -1)
     {
-        Responses.Add(response, nextDialogueIndex);
+        ResponseTargets.Add(response, nextDialogueIndex);
         if (newEntryIndex >= 0)
             EntryPoints.Add(response, newEntryIndex);
     }
@@ -64,7 +64,7 @@ public class DialogueNode
     public List<string> GetResponseList()
     {
         List<string> responses = new List<string>();
-        foreach (string response in Responses.Keys)
+        foreach (string response in ResponseTargets.Keys)
         {
             responses.Add(response);
         }

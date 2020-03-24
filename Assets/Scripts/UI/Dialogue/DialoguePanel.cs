@@ -7,11 +7,15 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
 {
     Text dialogueText;
     DialogueGraph currentDialogue = null;
-    DialogueStage prevStage = DialogueStage.PromptPlayer;
+    DialogueStage currentStage = DialogueStage.PromptPlayer;
 
-    private List<string> currentResponses;
-    public SelectionPanel selectionPanel;
     public GameObject characterPortrait;
+
+    public GameObject responsePanel;
+    public GameObject responseButtonPrefab;
+    public Transform responseContentTransform;
+
+    public GameObject continueArrow;
 
     public static DialoguePanel MainDialoguePanel { get; private set; } = null;
 
@@ -20,7 +24,7 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
         dialogueText = gameObject.GetComponentInChildren<Text>();
         MainDialoguePanel = this;
         gameObject.SetActive(false);
-        selectionPanel.Deactivate();
+        responsePanel.SetActive(false);
     }
 
     private void OnDestroy()
@@ -50,7 +54,7 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
         currentDialogue = dialogue;
         dialogueText.text = GetPrompt();
         gameObject.SetActive(true);
-        prevStage = DialogueStage.PromptPlayer;
+        currentStage = DialogueStage.PromptPlayer;
         if (currentDialogue.RequireSimPause) GameManager.PauseSim();
     }
 
@@ -62,7 +66,7 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
         if (currentDialogue.RequireSimPause) GameManager.UnPauseSim();
         dialogueText.text = "";
         currentDialogue = null;
-        selectionPanel.Deactivate();
+        responsePanel.SetActive(false);
         gameObject.SetActive(false);
     }
 
@@ -75,16 +79,24 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
         return gameObject.activeInHierarchy;
     }
 
-    //returns a response prompt for the player based on the current dialogue node
-    private string GenerateResponsePrompt(List<string> responseList)
+    //generates response buttons in the content of the response scroll view based on the passed in node
+    private void GenerateResponseButtons(DialogueNode node)
     {
-        string responses = "";
-        int counter = 1;
-        foreach (string response in responseList)
+        ClearResponseButtons();
+        foreach (string response in node.GetResponseList())
         {
-            responses += counter++ + ": " + response + "\n";
+            GameObject responseButton = Instantiate(responseButtonPrefab, responseContentTransform);
+
+            responseButton.GetComponent<ResponseButtonBehaviour>().targetIndex = currentDialogue.GetCurrentNode().ResponseTargets[response];
+            responseButton.GetComponent<ResponseButtonBehaviour>().SetPromptText(response);
         }
-        return responses;
+    }
+
+    private void ClearResponseButtons() {
+        foreach (Transform child in responseContentTransform) {
+            Destroy(child.gameObject);
+        }
+        responseContentTransform.DetachChildren();
     }
 
     //returns a prompt for the player based on the current dialogue node
@@ -93,60 +105,54 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
         return currentDialogue.GetCurrentNode().Prompt;
     }
 
-    //returns the selected response's outcome based on the currently highlighted response from the list
-    private int GetOutcome()
+    //moves to next stage of dialogue based on the index of the selected response
+    public void OnResponseSelected(string responseText, int targetIndex)
     {
-        return currentDialogue.GetCurrentNode().Responses[currentResponses[selectionPanel.Index]];
+        if (currentDialogue.GetCurrentNode().ResponseTargets.TryGetValue(
+                responseText, out int newEntryPoint)){
+            currentDialogue.EntryNodeIndex = newEntryPoint;
+        }
+
+        if (targetIndex >= 0)
+        {
+            currentDialogue.CurrentNodeIndex = targetIndex;
+            dialogueText.text = GetPrompt();
+            currentStage = DialogueStage.PromptPlayer;
+        }
+        else
+        {
+            ClearDialogue();
+        }
+
+        responsePanel.SetActive(false);
+        continueArrow.SetActive(true);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        switch (prevStage)
-        {
-            case DialogueStage.TakeResponse: //we just got a response, now prompt the player
-                int outcomeIndex = GetOutcome();
-                //if the selected prompt changes the entry point of the conversation
-                if (currentDialogue.GetCurrentNode().EntryPoints.TryGetValue(
-                    currentResponses[selectionPanel.Index], out int newEntryPoint))
-                    currentDialogue.EntryNodeIndex = newEntryPoint;
-                //if the outcome is within the conversation
-                if (outcomeIndex >= 0)
+        //we are currently showing a prompt, we now need to show either responses or the next prompt
+        if(currentStage == DialogueStage.PromptPlayer) { 
+            if (currentDialogue.GetCurrentNode().continueWithoutResponse)
+            {
+                int nextIndex = currentDialogue.GetCurrentNode().nextIndexOnContinue;
+                if (nextIndex >= 0)
                 {
-                    currentDialogue.CurrentNodeIndex = outcomeIndex;
+                    currentDialogue.CurrentNodeIndex = nextIndex;
                     dialogueText.text = GetPrompt();
-                    prevStage = DialogueStage.PromptPlayer;
-                    selectionPanel.Deactivate();
+                    currentStage = DialogueStage.PromptPlayer;
                 }
-                //time to quite dialogue
-                else
-                {
+                else {
                     ClearDialogue();
                 }
-                break;
-            case DialogueStage.PromptPlayer: //we just prompted the user, so now we show responses
-                if (currentDialogue.GetCurrentNode().continueWithoutResponse)
-                {
-                    int nextIndex = currentDialogue.GetCurrentNode().nextIndexOnContinue;
-                    if (nextIndex >= 0)
-                    {
-                        currentDialogue.CurrentNodeIndex = nextIndex;
-                        dialogueText.text = GetPrompt();
-                        prevStage = DialogueStage.PromptPlayer;
-                        selectionPanel.Deactivate();
-                    }
-                    else {
-                        ClearDialogue();
-                    }
-                }
-                else
-                {
-                    currentResponses = currentDialogue.GetCurrentNode().GetResponseList();
-                    dialogueText.text = GenerateResponsePrompt(currentResponses);
-                    prevStage = DialogueStage.TakeResponse;
-                    selectionPanel.Activate();
-                    selectionPanel.MaxIndex = currentResponses.Count - 1;
-                }
-                break;
+            }
+            else
+            {
+                responsePanel.SetActive(true);
+                continueArrow.SetActive(false);
+                dialogueText.text = "";
+                GenerateResponseButtons(currentDialogue.GetCurrentNode());
+                currentStage = DialogueStage.TakeResponse;
+            }
         }
     }
 

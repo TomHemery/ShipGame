@@ -38,9 +38,9 @@ Press W to accelerate, and S to slow down, click anywhere to laser it, and try n
   </node>
   <node index ="9">
     <prompt>Any questions before we get started?</prompt>
+    <response target ="14">No Sir! I am a model citizen of the empire and will do my duty in recompence for the crime I committed!</response>
     <response target ="10">Uh... yeah... would you mind telling me why I'm here?</response>
     <response target ="11">What the hell does 'F.R.I.E.N.D' stand for?</response>
-    <response target ="-1">No Sir! I am a model citizen of the empire and will do my duty in recompence for the crime I committed!</response>
     <response target ="12">Screw you! Let me go!</response>
   </node>
   <node index ="10">
@@ -59,7 +59,11 @@ Maybe you just like working for the empire though, such a good citizen!</prompt>
     <continue target ="13"/>
   </node>
   <node index ="13">
-    <prompt>F.R.I.E.N.D proceeds to read you the criminal code of conduct, it's very boring.</prompt>
+    <prompt>F.R.I.E.N.D proceeds to read you the criminal code of conduct... it's very boring...</prompt>
     <continue target ="9"/>
+  </node>
+  <node index ="14">
+    <prompt>Well done, do try to do a good job now criminal!</prompt>
+    <continue target ="-1"/>
   </node>
 </conversation>

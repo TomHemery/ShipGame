@@ -116,9 +116,9 @@ public class DialogueGraph
             }
             else
             {
-                foreach (string response in node.Responses.Keys)
+                foreach (string response in node.ResponseTargets.Keys)
                 {
-                    result += "\n\t\tResponse { " + response + "\n\t\t\tNext: " + node.Responses[response];
+                    result += "\n\t\tResponse { " + response + "\n\t\t\tNext: " + node.ResponseTargets[response];
                     if (node.EntryPoints.ContainsKey(response))
                         result += "\n\t\t\tNew Entry Point: " + node.EntryPoints[response];
                     result += "}";
