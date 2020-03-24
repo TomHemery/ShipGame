@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileController : MonoBehaviour
+public class ProjectileController : Controller
 {
 
     public float MaxSpeed = 50;
@@ -31,9 +31,12 @@ public class ProjectileController : MonoBehaviour
 
     private void Update()
     {
-        timeAlive += Time.deltaTime;
-        if (timeAlive > lifeSpan)
-            Explode(mRigidBody.velocity);
+        if (!GameManager.SimPaused)
+        {
+            timeAlive += Time.deltaTime;
+            if (timeAlive > lifeSpan)
+                Explode(mRigidBody.velocity);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

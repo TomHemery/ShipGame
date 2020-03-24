@@ -10,7 +10,7 @@ public class SwitchScene : MonoBehaviour
     public bool animateExit;
 
     public void LoadTargetScene() {
-        PlayerSceneTransitionBehaviour transitionBehaviour = GameObject.FindGameObjectWithTag("PlayerShip").GetComponent<PlayerSceneTransitionBehaviour>();
+        PlayerSpawnController transitionBehaviour = GameObject.FindGameObjectWithTag("PlayerShip").GetComponent<PlayerSpawnController>();
         transitionBehaviour.sceneEntryPoint = targetSceneEntryPoint;
         transitionBehaviour.animateExit = animateExit;
 

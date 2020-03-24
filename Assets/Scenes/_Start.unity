@@ -598,6 +598,8 @@ GameObject:
   - component: {fileID: 716273726}
   - component: {fileID: 716273724}
   - component: {fileID: 716273725}
+  - component: {fileID: 716273728}
+  - component: {fileID: 716273729}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -663,6 +665,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &716273728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716273723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52790caca3da55345a5fa6e75e7b5acb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allDialogues:
+  - {fileID: 4900000, guid: 5dd8a1db4cb39d748934ab76ac07b4f1, type: 3}
+--- !u!114 &716273729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716273723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c109f93e1107f4a4a9298c3861a59ce1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameplaySceneName: GameplayTest
 --- !u!1 &840242880
 GameObject:
   m_ObjectHideFlags: 0

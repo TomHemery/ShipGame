@@ -12,16 +12,20 @@ public class DialogueGraph
     //a dictionary taking indexes and returning dialogue node objects
     public Dictionary<int, DialogueNode> allNodes = null;
 
-    //tags and attributes for reading in XML objects
-    private static readonly string NODE_TAG = "node";
-    private static readonly string RESPONSE_TAG = "response";
-    private static readonly string PROMPT_TAG = "prompt";
-    private static readonly string CONVERSATION_TAG = "conversation";
+    public bool RequireSimPause { get; private set; } = false;
 
-    private static readonly string INDEX_ATTRIBUTE = "index";
-    private static readonly string TARGET_ATTRIBUTE = "target";
-    private static readonly string ENTRY_NODE_ATTRIBUTE = "entryNode";
-    private static readonly string NEW_ENTRY_NODE_ATTRIBUTE = "newEntryNode";
+    //tags and attributes for reading in XML objects
+    private const string NODE_TAG = "node";
+    private const string RESPONSE_TAG = "response";
+    private const string PROMPT_TAG = "prompt";
+    private const string CONTINUE_TAG = "continue";
+    private const string CONVERSATION_TAG = "conversation";
+
+    private const string INDEX_ATTRIBUTE = "index";
+    private const string TARGET_ATTRIBUTE = "target";
+    private const string ENTRY_NODE_ATTRIBUTE = "entryNode";
+    private const string NEW_ENTRY_NODE_ATTRIBUTE = "newEntryNode";
+    private const string REQUIRE_PAUSE_ATTRIBUTE = "requirePause";
 
     //constructor is private to prevent just creating a dialogue graph - needs to be made from XML
     private DialogueGraph()
@@ -45,33 +49,38 @@ public class DialogueGraph
             result.allNodes.Add(newNode.Index, newNode);
 
             //extract each response and the prompt from the node element
-            foreach (XmlNode responseOrPrompt in node.ChildNodes)
+            foreach (XmlNode childNode in node.ChildNodes)
             {
-                if (responseOrPrompt.Name == RESPONSE_TAG)
-                {
-                    //a response that results in the conversation having a new entry point
-                    XmlNode temp = responseOrPrompt.Attributes[NEW_ENTRY_NODE_ATTRIBUTE];
-                    if (temp != null)
-                    {
-                        newNode.AddResponse(
-                            responseOrPrompt.InnerText.Trim(), int.Parse(responseOrPrompt.Attributes[TARGET_ATTRIBUTE].Value),
-                            int.Parse(temp.InnerText.Trim())
-                            );
-                    }
-                    //a standard response
-                    else
-                    {
-                        newNode.AddResponse(
-                            responseOrPrompt.InnerText.Trim(), int.Parse(responseOrPrompt.Attributes[TARGET_ATTRIBUTE].Value));
-                    }
-                }
-                else if (responseOrPrompt.Name == PROMPT_TAG)
-                {
-                    newNode.SetPrompt(responseOrPrompt.InnerText.Trim());
+                switch (childNode.Name) {
+                    case RESPONSE_TAG:
+                        //a response that results in the conversation having a new entry point
+                        XmlNode temp = childNode.Attributes[NEW_ENTRY_NODE_ATTRIBUTE];
+                        if (temp != null)
+                        {
+                            newNode.AddResponse(
+                                childNode.InnerText.Trim(), int.Parse(childNode.Attributes[TARGET_ATTRIBUTE].Value),
+                                int.Parse(temp.InnerText.Trim())
+                                );
+                        }
+                        //a standard response
+                        else
+                        {
+                            newNode.AddResponse(
+                                childNode.InnerText.Trim(), int.Parse(childNode.Attributes[TARGET_ATTRIBUTE].Value));
+                        }
+                        break;
+                    case PROMPT_TAG:
+                        newNode.SetPrompt(childNode.InnerText.Trim());
+                        break;
+                    case CONTINUE_TAG:
+                        newNode.continueWithoutResponse = true;
+                        newNode.nextIndexOnContinue = int.Parse(childNode.Attributes[TARGET_ATTRIBUTE].Value);
+                        break;
                 }
             }
         }
         result.EntryNodeIndex = int.Parse(xml.GetElementsByTagName(CONVERSATION_TAG)[0].Attributes[ENTRY_NODE_ATTRIBUTE].InnerText.Trim());
+        result.RequireSimPause = bool.Parse(xml.GetElementsByTagName(CONVERSATION_TAG)[0].Attributes[REQUIRE_PAUSE_ATTRIBUTE].InnerText.Trim());
         return result;
     }
 
@@ -101,12 +110,19 @@ public class DialogueGraph
         {
             result += "\n\tNode [" + node.Index + "]";
             result += "\n\t\tPrompt: " + node.Prompt;
-            foreach (string response in node.Responses.Keys)
+            if (node.continueWithoutResponse)
             {
-                result += "\n\t\tResponse { " + response + "\n\t\t\tNext: " + node.Responses[response];
-                if (node.EntryPoints.ContainsKey(response))
-                    result += "\n\t\t\tNew Entry Point: " + node.EntryPoints[response];
-                result += "}";
+                result += "\n\t\tContinues without response to: " + node.nextIndexOnContinue;
+            }
+            else
+            {
+                foreach (string response in node.Responses.Keys)
+                {
+                    result += "\n\t\tResponse { " + response + "\n\t\t\tNext: " + node.Responses[response];
+                    if (node.EntryPoints.ContainsKey(response))
+                        result += "\n\t\t\tNew Entry Point: " + node.EntryPoints[response];
+                    result += "}";
+                }
             }
         }
         return result;

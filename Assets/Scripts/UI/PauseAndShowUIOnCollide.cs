@@ -19,11 +19,6 @@ public class PauseAndShowUIOnCollide : PauseAndShowUI
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-
-    }
-
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (sleepBehaviour) sleepBehaviour = false;

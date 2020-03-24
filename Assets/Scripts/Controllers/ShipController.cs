@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipController : MonoBehaviour
+public class ShipController : Controller
 {
 
     public Vector2 Acc { private set; get; } = new Vector2();
@@ -35,22 +35,27 @@ public class ShipController : MonoBehaviour
 
     void FixedUpdate()
     {
-        float angleDelta = Vector2.SignedAngle(transform.up, desiredRotation);
-        transform.Rotate(0, 0, angleDelta * Time.fixedDeltaTime * rotationSpeed);
+        if (!GameManager.SimPaused)
+        {
+            float angleDelta = Vector2.SignedAngle(transform.up, desiredRotation);
 
-        switch (thrustMode) {
-            case ThrustMode.Forward:
-                ApplyForwardThrust(forwardThrustForce);
-                break;
-            case ThrustMode.Backward:
-                M_Rigidbody.velocity = M_Rigidbody.velocity * activeDampening;
-                break;
-            case ThrustMode.None:
-                M_Rigidbody.velocity = M_Rigidbody.velocity * passiveDampening;
-                break;
+            transform.Rotate(0, 0, angleDelta * Time.fixedDeltaTime * rotationSpeed);
+
+            switch (thrustMode)
+            {
+                case ThrustMode.Forward:
+                    ApplyForwardThrust(forwardThrustForce);
+                    break;
+                case ThrustMode.Backward:
+                    M_Rigidbody.velocity = M_Rigidbody.velocity * activeDampening;
+                    break;
+                case ThrustMode.None:
+                    M_Rigidbody.velocity = M_Rigidbody.velocity * passiveDampening;
+                    break;
+            }
+
+            LimitVelocity();
         }
-
-        LimitVelocity();
     }
 
     private void ApplyForwardThrust(float thrust)

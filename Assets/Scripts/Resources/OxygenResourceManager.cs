@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class OxygenResourceManager : MonoBehaviour
+public class OxygenResourceManager : Resource
 {
     /// <summary>
     /// Maximum oxygen capacity for this oxygen resource
@@ -24,14 +24,6 @@ public class OxygenResourceManager : MonoBehaviour
     private void Awake()
     {
         InstantFillOxygen();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Oxygen > 0.0f) {
-            ReduceOxygen(baseOxygenUsageRate * Time.deltaTime);
-        }
     }
 
     /// <summary>
@@ -69,5 +61,13 @@ public class OxygenResourceManager : MonoBehaviour
 
     private void OutOfOxygen() {
         GameManager.Instance.OnPlayerDeath(PlayerDeathTypes.OutOfOxygen);
+    }
+
+    public override void updateResource()
+    {
+        if (Oxygen > 0.0f)
+        {
+            ReduceOxygen(baseOxygenUsageRate * Time.deltaTime);
+        }
     }
 }

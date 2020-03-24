@@ -10,6 +10,7 @@ public class PrefabDatabase : MonoBehaviour
 
     [SerializeField]
     private GameObject [] allPrefabs;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;

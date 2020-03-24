@@ -1,6 +1,7 @@
-<conversation entryNode="0">
+<conversation entryNode="0" requirePause="true">
   <node index="0">
-    <prompt>Ah, you've arrived! Excellent!</prompt>
+    <prompt>Ah, you've arrived! Excellent!
+Long distance cryo travel can be disorientating and I'm sure you've got a lot of questions, so give a tap on my panel and I'll take you through everything you need to know!</prompt>
     <continue target ="1"/>
   </node>
   <node index ="1">
@@ -8,15 +9,12 @@
     <continue target="2"/>
   </node>
   <node index ="2">
-    <prompt>As you're obviously aware, you're the filthy criminal!</prompt>
+    <prompt>But I don't need to tell you that, you're the filthy criminal, you know what horrifying thing you did!</prompt>
     <continue target ="3"/>
   </node>
   <node index ="3">
-    <prompt>Not to worry though, I am your F.R.I.E.N.D!</prompt>
-    <continue target ="4"/>
-  </node>
-  <node index ="4">
-    <prompt>As your F.R.I.E.N.D I am both responsible for you, and responsible for deeming when you will be fit to return to society!</prompt>
+    <prompt>Not to worry though, I am your F.R.I.E.N.D!
+As your F.R.I.E.N.D I am both responsible for you, and responsible for deeming when you will be fit to return to society!</prompt>
     <continue target ="5"/>
   </node>
   <node index ="5">
@@ -24,15 +22,44 @@
     <continue target ="6"/>
   </node>
   <node index ="6">
-    <prompt>Your job is to mine flux crystals and other useful minerals for the grand empire.</prompt>
+    <prompt>Your job is to mine flux crystals and other useful minerals for the grand empire, then take them back to your mining station, see it just below you there?</prompt>
     <continue target ="7"/>
   </node>
   <node index ="7">
-    <prompt>Also it is suggested that you aim to gather some ice while you're out an about. That is if you value the ability to breathe.</prompt>
+    <prompt>Also it is suggested that you aim to gather some ice while you're out'n'about... 
+Only if you value the ability to breathe of course!</prompt>
     <continue target ="8"/>
   </node>
   <node index ="8">
-    <prompt>You'll notice of course that your oxygen supply is limited, so don't fly too far from the station! Go get 'em kid!</prompt>
-    <continue target ="-1"/>
+    <prompt>You'll notice of course that your oxygen supply is limited, so don't fly too far from the station! Go get 'em kid!
+Press W to accelerate, and S to slow down, click anywhere to laser it, and try not to fly into anything...    
+    </prompt>
+    <continue target ="9"/>
+  </node>
+  <node index ="9">
+    <prompt>Any questions before we get started?</prompt>
+    <response target ="10">Uh... yeah... would you mind telling me why I'm here?</response>
+    <response target ="11">What the hell does 'F.R.I.E.N.D' stand for?</response>
+    <response target ="-1">No Sir! I am a model citizen of the empire and will do my duty in recompence for the crime I committed!</response>
+    <response target ="12">Screw you! Let me go!</response>
+  </node>
+  <node index ="10">
+    <prompt>Of course not silly! All criminals have their memories erased so they can begin their life anew!</prompt>
+    <continue target ="9"/>
+  </node>
+  <node index ="11">
+    <prompt>Don't worry about such silly things!
+Just remember that I'm your F.R.I.E.N.D!</prompt>
+    <continue target ="9"/>
+  </node>
+  <node index ="12">
+    <prompt>I have to warn you criminal that for every transgression against our code you will receive
+*** 8 DAYS *** added to your sentence.
+Maybe you just like working for the empire though, such a good citizen!</prompt>
+    <continue target ="13"/>
+  </node>
+  <node index ="13">
+    <prompt>F.R.I.E.N.D proceeds to read you the criminal code of conduct, it's very boring.</prompt>
+    <continue target ="9"/>
   </node>
 </conversation>

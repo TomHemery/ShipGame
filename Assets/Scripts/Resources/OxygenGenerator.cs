@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OxygenGenerator : MonoBehaviour
+public class OxygenGenerator : Resource
 {
     public Slot iceSlot;
 
@@ -16,26 +16,22 @@ public class OxygenGenerator : MonoBehaviour
     private float cooldownTime = 0.5f;
     bool cooldown = false;
 
-    private void Awake()
+    public override void updateResource()
     {
-        oxygenResource = GameObject.FindGameObjectWithTag("PlayerShip").GetComponent<OxygenResourceManager>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (iceSlot != null && iceSlot.StoredItemFrame != null) {
-            if (!cooldown && !oxygenResource.Full) 
+        if (iceSlot != null && iceSlot.StoredItemFrame != null)
+        {
+            if (!cooldown && !oxygenResource.Full)
             {
                 oxygenResource.AddOxygen(oxygenPerIce * icePerCooldown);
                 iceSlot.StoredItemFrame.SetQuantity(iceSlot.StoredItemFrame.m_InventoryItem.quantity - icePerCooldown);
-                if (iceSlot.StoredItemFrame.m_InventoryItem.quantity <= 0) {
+                if (iceSlot.StoredItemFrame.m_InventoryItem.quantity <= 0)
+                {
                     Destroy(iceSlot.StoredItemFrame.gameObject);
                     iceSlot.SilentRemoveItemFrame();
                 }
                 cooldown = true;
             }
-            else if(cooldown)
+            else if (cooldown)
             {
                 elapsedSinceLastUse += Time.deltaTime;
                 if (elapsedSinceLastUse > cooldownTime)
@@ -45,5 +41,10 @@ public class OxygenGenerator : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void Awake()
+    {
+        oxygenResource = GameObject.FindGameObjectWithTag("PlayerShip").GetComponent<OxygenResourceManager>();
     }
 }

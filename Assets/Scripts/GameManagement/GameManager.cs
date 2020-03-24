@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -9,11 +10,20 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; } = null;
     public string FirstScene;
     public GameObject DeathScreen;
+
     bool playerDied = false;
+
+    public static bool SimPaused { get; private set; } = false;
+    public static UnityEvent onSimPause = null;
+    public static UnityEvent onSimUnPause = null;
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
+        if (onSimPause == null) {
+            onSimPause = new UnityEvent();
+            onSimUnPause = new UnityEvent();
+        }
     }
 
     private void Start()
@@ -44,6 +54,16 @@ public class GameManager : MonoBehaviour
 
         DeathScreen.GetComponent<DeathScreen>().CaptureScreen();
         DeathScreen.SetActive(true);
+    }
+
+    public static void PauseSim() {
+        SimPaused = true;
+        onSimPause.Invoke();
+    }
+
+    public static void UnPauseSim() {
+        SimPaused = false;
+        onSimUnPause.Invoke();
     }
 }
 

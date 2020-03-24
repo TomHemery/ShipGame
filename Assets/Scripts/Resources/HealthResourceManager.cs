@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthResourceManager : MonoBehaviour
+public class HealthResourceManager : Resource
 {
     public float Health { get; private set; }
     public float MaxHealth = 100;
@@ -85,6 +85,11 @@ public class HealthResourceManager : MonoBehaviour
             }
             exploded = true;
         }
+    }
+
+    public override void updateResource()
+    {
+        return;
     }
 }
 

@@ -7,12 +7,24 @@ public class DialogueNode
 {
     //Dictionary for the possible responses for this prompt
     public Dictionary<string, int> Responses { get; private set; }
+
     //Dictionary for the possible new entry points for this conversation based on selected reply
     public Dictionary<string, int> EntryPoints { get; private set; }
+
+    //the prompt shown 
     public string Prompt { get; private set; } = "";
-    public string Actor { get; private set; } = "";
+
+    //the index of this dialogue
     public int Index { get; private set; } = -1;
 
+    //continue without needing a response from the player? 
+    public bool continueWithoutResponse = false;
+    public int nextIndexOnContinue = -1;
+
+    //the actor name assocaitedw with this prompt
+    public string Actor { get; private set; } = "";
+
+    //the dialogue graph to which this node belongs
     private readonly DialogueGraph dialogueGraph;
 
     /// <summary>
@@ -25,6 +37,7 @@ public class DialogueNode
         EntryPoints = new Dictionary<string, int>();
         dialogueGraph = g;
     }
+
     /// <summary>
     /// Adds a response to this node
     /// </summary>

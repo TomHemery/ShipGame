@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class SelectionPanel : MonoBehaviour
 {
-    public RectTransform highlightObject;
+    [HideInInspector]
+    public RectTransform rectTransform = null;
     public float offset = -20;
     public int Index { get; private set; } = 0;
     public int MaxIndex = 3;
 
     bool inputFlag = false;
+
+    private void Awake()
+    {
+        rectTransform = gameObject.GetComponent<RectTransform>();
+    }
 
     void Update()
     {
@@ -43,6 +49,8 @@ public class SelectionPanel : MonoBehaviour
     public void SetIndex(int i)
     {
         Index = i;
-        highlightObject.anchoredPosition = new Vector3(highlightObject.anchoredPosition.x, Index * offset);
+        if (rectTransform == null) rectTransform = gameObject.GetComponent<RectTransform>();
+
+        rectTransform.anchoredPosition = new Vector3(rectTransform.anchoredPosition.x, Index * offset);
     }
 }
