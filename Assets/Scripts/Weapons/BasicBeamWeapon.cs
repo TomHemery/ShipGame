@@ -15,7 +15,7 @@ public class BasicBeamWeapon : Weapon
 
     public override void EnableAutoFire()
     {
-        beamPrefab.SetActive(true);
+        if(!GameManager.SimPaused) beamPrefab.SetActive(true);
     }
 
     public override void DisableAutoFire()

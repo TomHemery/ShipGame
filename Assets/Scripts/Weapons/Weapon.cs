@@ -71,7 +71,7 @@ public abstract class Weapon : MonoBehaviour
     /// </summary>
     /// <returns>True only if the weapon fires sucessfully</returns>
     public bool TryFire() {
-        if (!OnCooldown) {
+        if (!OnCooldown && !GameManager.SimPaused) {
             Fire();
             OnCooldown = true;
             return true;
