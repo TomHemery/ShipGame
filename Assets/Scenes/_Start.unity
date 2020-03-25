@@ -821,6 +821,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allDialogues:
   - {fileID: 4900000, guid: 5dd8a1db4cb39d748934ab76ac07b4f1, type: 3}
+  - {fileID: 4900000, guid: d27702554119ab745a865b4b27dba0fd, type: 3}
 --- !u!114 &716273729
 MonoBehaviour:
   m_ObjectHideFlags: 0

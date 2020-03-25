@@ -1,0 +1,13 @@
+<conversation entryNode="0" requirePause="false">
+  <node index="0">
+    <prompt>Good, you've picked up some minerals from that asteroid! Press I to open your inventory and have a look!
+Maybe you got lucky and got some precious, precious ice! Silly humans and their inefficient lungs!</prompt>
+    <continue target ="1"/>
+  </node>
+  <node index ="1">
+    <prompt>When you're full up on resources, or running out of air to fuel your meat sack, fly back to the mining station!
+I'll explain more when you get there, you have fun criminal! 
+F.R.I.E.N.D out!</prompt>
+    <continue target ="-1"/>
+  </node>
+</conversation>

@@ -37,7 +37,7 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
     }
 
     /// <summary>
-    /// Opens a new dialogue and pauses the game state
+    /// Opens a new dialogue and pauses the game state if required by the dialogue
     /// </summary>
     /// <param name="dialogueName">The system name of the DialogueGraph to be openend</param>
     public void OpenDialogue(string dialogueName) {
