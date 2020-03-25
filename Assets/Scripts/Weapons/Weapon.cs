@@ -9,6 +9,8 @@ public abstract class Weapon : MonoBehaviour
     public InventoryItem m_inventoryItem;
     protected ShipController parentShip_controller;
 
+    public AudioSource mAudioSource = null;
+
     public void Awake()
     {
         parentShip_controller = transform.root.GetComponent<ShipController>();

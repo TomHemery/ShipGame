@@ -16,6 +16,11 @@ public class HullRepairer : Resource
     private float cooldownTime = 0.5f;
     bool cooldown = false;
 
+    protected override void Update()
+    {
+        updateResource();
+    }
+
     public override void updateResource()
     {
         if (ironSlot != null && ironSlot.StoredItemFrame != null)

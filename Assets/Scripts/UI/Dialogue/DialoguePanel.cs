@@ -19,6 +19,8 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
 
     public static DialoguePanel MainDialoguePanel { get; private set; } = null;
 
+    public AudioClip buttonPressSound;
+
     private void Awake()
     {
         dialogueText = gameObject.GetComponentInChildren<Text>();
@@ -126,6 +128,7 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
 
         responsePanel.SetActive(false);
         continueArrow.SetActive(true);
+        SoundEffectPlayer.SoundEffectSource.PlayOneShot(buttonPressSound);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -154,6 +157,7 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
                 currentStage = DialogueStage.TakeResponse;
             }
         }
+        SoundEffectPlayer.SoundEffectSource.PlayOneShot(buttonPressSound);
     }
 
     public enum DialogueStage

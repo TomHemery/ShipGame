@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Resource : MonoBehaviour
 {
 
-    private void Update()
+    protected virtual void Update()
     {
         if(!GameManager.SimPaused) updateResource();
     }

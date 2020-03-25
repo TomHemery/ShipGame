@@ -924,6 +924,8 @@ MonoBehaviour:
     type: 3}
   responseContentTransform: {fileID: 1217611367}
   continueArrow: {fileID: 122987475}
+  buttonPressSound: {fileID: 8300000, guid: 7804242de1823974d9eaca2879949095, type: 3}
+  uiAudioSource: {fileID: 0}
 --- !u!1 &418540323
 GameObject:
   m_ObjectHideFlags: 0

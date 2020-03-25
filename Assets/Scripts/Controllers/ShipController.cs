@@ -23,6 +23,8 @@ public class ShipController : Controller
     [HideInInspector]
     public List<Weapon> weapons = new List<Weapon>();
 
+    public AudioSource engineAudioSource;
+
     private void Awake()
     {
         M_Rigidbody = GetComponent<Rigidbody2D>();
@@ -45,16 +47,26 @@ public class ShipController : Controller
             {
                 case ThrustMode.Forward:
                     ApplyForwardThrust(forwardThrustForce);
+                    if (!engineAudioSource.isPlaying)
+                    {
+                        engineAudioSource.Play();
+                    }
                     break;
                 case ThrustMode.Backward:
                     M_Rigidbody.velocity = M_Rigidbody.velocity * activeDampening;
+                    if (engineAudioSource.isPlaying) engineAudioSource.Stop();
                     break;
                 case ThrustMode.None:
                     M_Rigidbody.velocity = M_Rigidbody.velocity * passiveDampening;
+                    if (engineAudioSource.isPlaying) engineAudioSource.Stop();
                     break;
             }
 
             LimitVelocity();
+        }
+        else
+        {
+            if (engineAudioSource.isPlaying) engineAudioSource.Stop();
         }
     }
 
