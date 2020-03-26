@@ -15,7 +15,7 @@ public class PauseAndShowUIOnCollide : PauseAndShowUI
     {
         if (!sleepBehaviour && collision.gameObject.CompareTag("PlayerShip"))
         {
-            PauseScene();
+            PauseAndShow();
         }
     }
 
@@ -24,9 +24,10 @@ public class PauseAndShowUIOnCollide : PauseAndShowUI
         if (sleepBehaviour) sleepBehaviour = false;
     }
 
-    public override void UnPauseScene()
+    public override void UnPauseAndHide()
     {
-        base.UnPauseScene();
+        base.UnPauseAndHide();
         sleepBehaviour = true;
+        onHideUI.Invoke();
     }
 }

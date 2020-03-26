@@ -1,0 +1,6 @@
+<conversation entryNode="0" requirePause="false">
+  <node index="0" character ="FriendBot">
+    <prompt>You came back to the station already? You can't hide in here crimininal! Go out there and do your duty, come back when you've mined some minerals from the asteroids!</prompt>
+    <continue target ="-1"/>
+  </node>
+</conversation>

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -9,7 +8,8 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
     DialogueGraph currentDialogue = null;
     DialogueStage currentStage = DialogueStage.PromptPlayer;
 
-    public GameObject characterPortrait;
+    public GameObject characterPortraitFrame;
+    private Animator characterAnimator;
 
     public GameObject responsePanel;
     public GameObject responseButtonPrefab;
@@ -27,6 +27,8 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
         MainDialoguePanel = this;
         gameObject.SetActive(false);
         responsePanel.SetActive(false);
+        characterPortraitFrame.SetActive(false);
+        characterAnimator = characterPortraitFrame.GetComponentInChildren<Animator>();
     }
 
     private void OnDestroy()
@@ -57,6 +59,8 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
         dialogueText.text = GetPrompt();
         gameObject.SetActive(true);
         currentStage = DialogueStage.PromptPlayer;
+        characterPortraitFrame.SetActive(true);
+        characterAnimator.runtimeAnimatorController = AnimationDatabase.AnimatorDictionary[currentDialogue.GetCurrentNode().characterName];
         if (currentDialogue.RequireSimPause) GameManager.PauseSim();
     }
 
@@ -120,6 +124,7 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
             currentDialogue.CurrentNodeIndex = targetIndex;
             dialogueText.text = GetPrompt();
             currentStage = DialogueStage.PromptPlayer;
+            characterAnimator.runtimeAnimatorController = AnimationDatabase.AnimatorDictionary[currentDialogue.GetCurrentNode().characterName];
         }
         else
         {
@@ -128,6 +133,7 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
 
         responsePanel.SetActive(false);
         continueArrow.SetActive(true);
+        characterPortraitFrame.SetActive(true);
         SoundEffectPlayer.SoundEffectSource.PlayOneShot(buttonPressSound);
     }
 
@@ -143,6 +149,7 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
                     currentDialogue.CurrentNodeIndex = nextIndex;
                     dialogueText.text = GetPrompt();
                     currentStage = DialogueStage.PromptPlayer;
+                    characterAnimator.runtimeAnimatorController = AnimationDatabase.AnimatorDictionary[currentDialogue.GetCurrentNode().characterName];
                 }
                 else {
                     ClearDialogue();
@@ -152,6 +159,7 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
             {
                 responsePanel.SetActive(true);
                 continueArrow.SetActive(false);
+                characterPortraitFrame.SetActive(false);
                 dialogueText.text = "";
                 GenerateResponseButtons(currentDialogue.GetCurrentNode());
                 currentStage = DialogueStage.TakeResponse;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PauseAndShowUI : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class PauseAndShowUI : MonoBehaviour
     private GameObject playerShip;
     private GameObject mainCamera;
 
+    public UnityEvent onShowUI = new UnityEvent();
+    public UnityEvent onHideUI = new UnityEvent();
+
     protected virtual void Awake()
     {
         playerShip = GameObject.FindGameObjectWithTag("PlayerShip");
@@ -20,12 +24,13 @@ public class PauseAndShowUI : MonoBehaviour
         uiToShow.SetActive(false);
     }
 
-    public void PauseScene() {
+    public void PauseAndShow() {
         GameManager.PauseSim();
         uiToShow.SetActive(true);
+        onShowUI.Invoke();
     }
 
-    public virtual void UnPauseScene() {
+    public virtual void UnPauseAndHide() {
         uiToShow.SetActive(false);
 
         GameManager.UnPauseSim();
@@ -37,5 +42,6 @@ public class PauseAndShowUI : MonoBehaviour
             playerSceneTransBehaviour.animateExit = animatePlayerSpawn;
         }
         playerSceneTransBehaviour.GotoSpawnPoint();
+        onHideUI.Invoke();
     }
 }

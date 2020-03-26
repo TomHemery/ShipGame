@@ -11,7 +11,7 @@ public class CanvasImageAnimator : MonoBehaviour
 
     void Start()
     {
-        // avoid the SpriteRenderer to be rendered
+        // prevent the sprite renderer from being used
         spriteRendererSource.enabled = false;
     }
 

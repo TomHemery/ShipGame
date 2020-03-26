@@ -1,0 +1,19 @@
+<conversation entryNode="0" requirePause="false">
+  <node index="0" character ="FriendBot">
+    <prompt>You made it back to the station in one piece, well done criminal!
+If you need oxygen, put some ice in the O2 generator. If you ever manage to damage the hull of your ship, you can repair it by putting Iron in the hull repairer!
+Store all the minerals you collect in this station, I'll let you get to filling up the station, then we'll move on, okay buddy?</prompt>
+    <response target ="1">I have to fill up the whole station!?</response>
+    <response target ="-1">Sure thing! I am just a cog in the grand empirical machine after all!</response>
+  </node>
+  <node index ="1" character ="FriendBot">
+    <prompt>That's right! Isn't that exciting criminal?</prompt>
+    <response target ="-1">It sure is, I can't wait to do my duty!</response>
+    <response target ="2">No! That's ridiculous!</response>
+  </node>
+  <node index ="2" character ="FriendBot">
+    <prompt>That's not the right attitude criminal, how about we try that again? 
+Sentence extended by ***8 DAYS***</prompt>
+    <continue target ="1"/>
+  </node>
+</conversation>

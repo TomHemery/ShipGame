@@ -22,7 +22,7 @@ public class DialogueNode
     public int nextIndexOnContinue = -1;
 
     //the actor name assocaitedw with this prompt
-    public string Actor { get; private set; } = "";
+    public string characterName = "";
 
     //the dialogue graph to which this node belongs
     private readonly DialogueGraph dialogueGraph;
