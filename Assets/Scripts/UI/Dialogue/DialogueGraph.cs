@@ -27,6 +27,7 @@ public class DialogueGraph
     private const string NEW_ENTRY_NODE_ATTRIBUTE = "newEntryNode";
     private const string REQUIRE_PAUSE_ATTRIBUTE = "requirePause";
     private const string CHARACTER_ATTRIBUTE = "character";
+    private const string MUSIC_ATTRIBUTE = "music";
 
     //constructor is private to prevent just creating a dialogue graph - needs to be made from XML
     private DialogueGraph()
@@ -80,6 +81,16 @@ public class DialogueGraph
                 }
             }
             newNode.characterName = node.Attributes[CHARACTER_ATTRIBUTE].InnerText.Trim();
+
+            newNode.changesMusic = node.Attributes[MUSIC_ATTRIBUTE] != null;
+            foreach(XmlAttribute a in node.Attributes) Debug.Log(a.InnerText.Trim());
+            if (newNode.changesMusic)
+            {
+                Debug.Log("New music from node: " + node.Attributes[MUSIC_ATTRIBUTE].InnerText.Trim());
+                newNode.newMusicState =
+                    (MusicPlayer.MusicState)System.Enum.Parse(typeof(MusicPlayer.MusicState), node.Attributes[MUSIC_ATTRIBUTE].InnerText.Trim());
+                Debug.Log("New node music state: " + newNode.newMusicState);
+            }
         }
         result.EntryNodeIndex = int.Parse(xml.GetElementsByTagName(CONVERSATION_TAG)[0].Attributes[ENTRY_NODE_ATTRIBUTE].InnerText.Trim());
         result.RequireSimPause = bool.Parse(xml.GetElementsByTagName(CONVERSATION_TAG)[0].Attributes[REQUIRE_PAUSE_ATTRIBUTE].InnerText.Trim());

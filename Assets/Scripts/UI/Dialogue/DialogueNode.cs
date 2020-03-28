@@ -21,8 +21,11 @@ public class DialogueNode
     public bool continueWithoutResponse = false;
     public int nextIndexOnContinue = -1;
 
-    //the actor name assocaitedw with this prompt
+    //the actor name assocaited with this prompt
     public string characterName = "";
+
+    public bool changesMusic = false;
+    public MusicPlayer.MusicState newMusicState = MusicPlayer.MusicState.None;
 
     //the dialogue graph to which this node belongs
     private readonly DialogueGraph dialogueGraph;

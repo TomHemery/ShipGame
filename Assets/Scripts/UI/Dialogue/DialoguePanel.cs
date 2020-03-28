@@ -21,6 +21,8 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
 
     public AudioClip buttonPressSound;
 
+    private const string NO_CHARACTER = "None";
+
     private void Awake()
     {
         dialogueText = gameObject.GetComponentInChildren<Text>();
@@ -56,11 +58,20 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
     {
         dialogue.CurrentNodeIndex = dialogue.EntryNodeIndex;
         currentDialogue = dialogue;
-        dialogueText.text = GetPrompt();
+
         gameObject.SetActive(true);
+        responsePanel.SetActive(false);
+        continueArrow.SetActive(true);
+
+        dialogueText.text = GetPrompt();
         currentStage = DialogueStage.PromptPlayer;
-        characterPortraitFrame.SetActive(true);
-        characterAnimator.runtimeAnimatorController = AnimationDatabase.AnimatorDictionary[currentDialogue.GetCurrentNode().characterName];
+
+        ShowCharacterPanel(currentDialogue.GetCurrentNode().characterName);
+
+        if (currentDialogue.GetCurrentNode().changesMusic) {
+            MusicPlayer.Instance.ForceSetPlayerState(currentDialogue.GetCurrentNode().newMusicState);
+        }
+
         if (currentDialogue.RequireSimPause) GameManager.PauseSim();
     }
 
@@ -111,6 +122,24 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
         return currentDialogue.GetCurrentNode().Prompt;
     }
 
+    //shows a character panel for the passed in name if one exists, otherwise hides the character frame
+    private void ShowCharacterPanel(string characterName) {
+        if (characterName != NO_CHARACTER)
+        {
+            characterPortraitFrame.SetActive(true);
+            characterAnimator.runtimeAnimatorController = AnimationDatabase.AnimatorDictionary[characterName];
+        }
+        else {
+            HideCharacterPanel();
+        }
+    }
+
+    //hides the character panel
+    private void HideCharacterPanel() {
+        characterPortraitFrame.SetActive(false);
+    }
+
+
     //moves to next stage of dialogue based on the index of the selected response
     public void OnResponseSelected(string responseText, int targetIndex)
     {
@@ -124,16 +153,18 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
             currentDialogue.CurrentNodeIndex = targetIndex;
             dialogueText.text = GetPrompt();
             currentStage = DialogueStage.PromptPlayer;
-            characterAnimator.runtimeAnimatorController = AnimationDatabase.AnimatorDictionary[currentDialogue.GetCurrentNode().characterName];
+            ShowCharacterPanel(currentDialogue.GetCurrentNode().characterName);
+            responsePanel.SetActive(false);
+            continueArrow.SetActive(true);
+            if (currentDialogue.GetCurrentNode().changesMusic)
+            {
+                MusicPlayer.Instance.ForceSetPlayerState(currentDialogue.GetCurrentNode().newMusicState);
+            }
         }
         else
         {
             ClearDialogue();
         }
-
-        responsePanel.SetActive(false);
-        continueArrow.SetActive(true);
-        characterPortraitFrame.SetActive(true);
         SoundEffectPlayer.SoundEffectSource.PlayOneShot(buttonPressSound);
     }
 
@@ -149,7 +180,11 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
                     currentDialogue.CurrentNodeIndex = nextIndex;
                     dialogueText.text = GetPrompt();
                     currentStage = DialogueStage.PromptPlayer;
-                    characterAnimator.runtimeAnimatorController = AnimationDatabase.AnimatorDictionary[currentDialogue.GetCurrentNode().characterName];
+                    ShowCharacterPanel(currentDialogue.GetCurrentNode().characterName);
+                    if (currentDialogue.GetCurrentNode().changesMusic)
+                    {
+                        MusicPlayer.Instance.ForceSetPlayerState(currentDialogue.GetCurrentNode().newMusicState);
+                    }
                 }
                 else {
                     ClearDialogue();
@@ -159,7 +194,7 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
             {
                 responsePanel.SetActive(true);
                 continueArrow.SetActive(false);
-                characterPortraitFrame.SetActive(false);
+                HideCharacterPanel();
                 dialogueText.text = "";
                 GenerateResponseButtons(currentDialogue.GetCurrentNode());
                 currentStage = DialogueStage.TakeResponse;

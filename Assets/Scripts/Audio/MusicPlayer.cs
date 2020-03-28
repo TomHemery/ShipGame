@@ -8,21 +8,32 @@ public class MusicPlayer : MonoBehaviour
     public AudioClip[] introTracks;
     public AudioClip[] lowTracks;
     public AudioClip[] midTracks;
+    public AudioClip[] transitionTracks;
     public AudioClip[] highTracks;
 
+    private Dictionary<MusicState, AudioClip[]> stateToTrackMap;
     private AudioClip[] activeTracks;
     private int trackIndex = -1;
 
     [HideInInspector]
-    public MusicState playerState = MusicState.None;
+    public MusicState PlayerState { get; private set; } = MusicState.None;
 
-    public MusicPlayer Instance { get; private set; } = null;
+    public static MusicPlayer Instance { get; private set; } = null;
     public AudioSource MusicSource { get; private set; } = null;
 
     private void Awake()
     {
         Instance = this;
         MusicSource = GetComponent<AudioSource>();
+        stateToTrackMap = new Dictionary<MusicState, AudioClip[]>()
+        {
+            {MusicState.Intro, introTracks },
+            {MusicState.Low, lowTracks },
+            {MusicState.Mid, midTracks },
+            {MusicState.High, highTracks },
+            {MusicState.Transition, transitionTracks },
+            {MusicState.None, new AudioClip[0] }
+        };
     }
 
     private void OnEnable()
@@ -37,13 +48,13 @@ public class MusicPlayer : MonoBehaviour
             Debug.Log("Loaded gameplay test, setting music");
             activeTracks = introTracks;
             trackIndex = -1;
-            playerState = MusicState.Intro;
+            PlayerState = MusicState.Intro;
         }
     }
 
     private void FixedUpdate()
     {
-        if (playerState != MusicState.None && !MusicSource.isPlaying) {
+        if (PlayerState != MusicState.None && !MusicSource.isPlaying) {
             if (trackIndex < activeTracks.Length - 1)
             {
                 trackIndex++;
@@ -51,11 +62,16 @@ public class MusicPlayer : MonoBehaviour
 
             else
             {
-                switch (playerState)
+                switch (PlayerState)
                 {
                     case MusicState.Intro:
-                        playerState = MusicState.Low;
+                        PlayerState = MusicState.Low;
                         activeTracks = lowTracks;
+                        trackIndex = 0;
+                        break;
+                    case MusicState.Transition:
+                        PlayerState = MusicState.High;
+                        activeTracks = highTracks;
                         trackIndex = 0;
                         break;
                 }
@@ -64,7 +80,22 @@ public class MusicPlayer : MonoBehaviour
             MusicSource.clip = activeTracks[trackIndex];
             MusicSource.Play();
         }
+    }
 
+    public void ForceSetPlayerState(MusicState state) {
+        PlayerState = state;
+        activeTracks = stateToTrackMap[state];
+        trackIndex = 0;
+
+        if (state == MusicState.None)
+        {
+            MusicSource.clip = null;
+            MusicSource.Stop();
+        }
+        else {
+            MusicSource.clip = activeTracks[0];
+            MusicSource.Play();
+        }
     }
 
     public enum MusicState {
@@ -72,6 +103,7 @@ public class MusicPlayer : MonoBehaviour
         Low,
         Mid,
         High,
+        Transition,
         None
     }
 

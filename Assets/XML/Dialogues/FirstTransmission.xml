@@ -1,0 +1,43 @@
+<conversation entryNode="0" requirePause="true">
+  <node index="0" character ="MysteriousFigure">
+    <prompt>*bbzzzz*</prompt>
+    <continue target ="1"/>
+  </node>
+  <node index ="1" character ="None">
+    <prompt>Barely comprehensible words spill out amongst the static </prompt>
+    <continue target ="2"/>
+  </node>
+  <node index ="2" character ="MysteriousFigure">
+    <prompt>Hello? Ca.. *zzbzbzzzz* .. hear me?
+You've been... *zzzz* .. aptured...</prompt>
+    <continue target ="3"/>
+  </node>
+  <node index ="3" character ="MysteriousFigure">
+    <prompt>We're coming, try to ... *zzzzzzz*</prompt>
+    <continue target ="4"/>
+  </node>
+  <node index ="4" character ="None">
+    <prompt>The signal becomes completely unintelligible</prompt>
+    <continue target ="5"/>
+  </node>
+  <node index ="5" character ="FriendBot">
+    <prompt>What was that criminal? Someone just hijacked the comms link to your ship!</prompt>
+    <response target ="6">It was nothing, must have been a bug in the system?</response>
+    <response target ="7">Someone was talking to me? I think?</response>
+    <response target ="8">Remain silent.</response>
+  </node>
+  <node index ="6" character ="FriendBot">
+    <prompt>Highly unusual... I'll report this and then shut down long range communications for a while.
+Keep an eye out for other criminal scum like yourself! F.R.I.E.N.D out!</prompt>
+    <continue target="-1"/>
+  </node>
+  <node index="7" character ="FriendBot">
+    <prompt>That sounds very unlikely... probably just a tiny weeny little issue with our long range comms relays. I'll shut them down for now, don't worry criminal! F.R.I.E.N.D out!</prompt>
+    <continue target="-1"/>
+  </node>
+  <node index="8" character ="FriendBot">
+    <prompt>Criminal? Not answering your F.R.I.E.N.D violates subsection 5a-2 of the criminal code of conduct you know!</prompt>
+    <response target ="6">It was nothing, must have been a bug in the system?</response>
+    <response target ="7">Someone was talking to me? I think?</response>
+  </node>
+</conversation>

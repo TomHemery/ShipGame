@@ -740,6 +740,7 @@ GameObject:
   - component: {fileID: 716273726}
   - component: {fileID: 716273724}
   - component: {fileID: 716273729}
+  - component: {fileID: 716273725}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -759,6 +760,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ab9c320b031f24baf5e30babf7c560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &716273725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716273723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7dfdd8f92bab70498fe91253b8dfc09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allEnemyPrefabs:
+  - {fileID: 3040169793755783779, guid: e98f3f7b4cfa0ee4fb34dca5388b7eff, type: 3}
+  - {fileID: 6856419688612756925, guid: 2266a8b3832f53b4aa743ef13b4dc314, type: 3}
 --- !u!114 &716273726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -851,8 +867,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d3b81945516c87c4d8394d76af7d4aac, type: 3}
   midTracks:
   - {fileID: 8300000, guid: f1357bf674429e248ace4905a3c05d5e, type: 3}
-  highTracks: []
-  playerState: 4
+  transitionTracks:
+  - {fileID: 8300000, guid: 89cdf73568c05214b97ac2a281f96053, type: 3}
+  highTracks:
+  - {fileID: 8300000, guid: 1f53c1b7bf8d13c49a73d0699b19a08f, type: 3}
 --- !u!82 &796492127
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1501,6 +1519,7 @@ MonoBehaviour:
   allAnimators:
   - {fileID: 9100000, guid: a466326dea4799b4f88b21f727751932, type: 2}
   - {fileID: 9100000, guid: ec864d4a6d0d19c49b6361333faeb6d9, type: 2}
+  - {fileID: 9100000, guid: 68125628c8529cb44be74e66acf50336, type: 2}
 --- !u!114 &1181497866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1530,6 +1549,9 @@ MonoBehaviour:
   - {fileID: 4900000, guid: d27702554119ab745a865b4b27dba0fd, type: 3}
   - {fileID: 4900000, guid: 4fed7e3c0ca5a2743afce5d39b03d56a, type: 3}
   - {fileID: 4900000, guid: feb640ba04fe38944b722dd90481969c, type: 3}
+  - {fileID: 4900000, guid: 51df1b196bea7a4439776079a37677b8, type: 3}
+  - {fileID: 4900000, guid: 44a03de849150e94f8430dc9834f5e9f, type: 3}
+  - {fileID: 4900000, guid: 5ae0fb5dfe5063f47bd770c2f23dc4bb, type: 3}
 --- !u!114 &1181497868
 MonoBehaviour:
   m_ObjectHideFlags: 0

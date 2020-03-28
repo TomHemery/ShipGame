@@ -9,7 +9,7 @@ public class Radar : MonoBehaviour
     private readonly List<Transform> targets = new List<Transform>();
     private readonly List<GameObject> radarPings = new List<GameObject>();
 
-    private float radarRange = 4000;
+    private float radarRange = 8000;
     private float pointAtStationDist = 100;
     private float radarRadius = 64f;
 
@@ -42,7 +42,7 @@ public class Radar : MonoBehaviour
             Vector2 between = t.position - playerShipTransform.position;
             if (between.sqrMagnitude < radarRange) { 
                 ping.SetActive(true);
-                ping.GetComponent<RectTransform>().anchoredPosition = between * 1.1f;
+                ping.GetComponent<RectTransform>().anchoredPosition = between * 0.8f;
             }
             else ping.SetActive(false);
         }

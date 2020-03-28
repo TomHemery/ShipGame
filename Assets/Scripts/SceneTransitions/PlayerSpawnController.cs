@@ -24,7 +24,7 @@ public class PlayerSpawnController : MonoBehaviour
 
     private void Update()
     {
-        if (animateExit) {
+        if (animateExit && !GameManager.SimPaused) {
             elapsedExitTime += Time.deltaTime;
 
             if (elapsedExitTime > animatedExitTime)
