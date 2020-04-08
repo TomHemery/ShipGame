@@ -170,7 +170,7 @@ PrefabInstance:
     - target: {fileID: 230164673997613958, guid: 3e3e150aea5a4f847b248a81e8410932,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 230164673997613958, guid: 3e3e150aea5a4f847b248a81e8410932,
         type: 3}
@@ -775,6 +775,7 @@ MonoBehaviour:
   allEnemyPrefabs:
   - {fileID: 3040169793755783779, guid: e98f3f7b4cfa0ee4fb34dca5388b7eff, type: 3}
   - {fileID: 6856419688612756925, guid: 2266a8b3832f53b4aa743ef13b4dc314, type: 3}
+  - {fileID: 3040169793755783779, guid: 544cd51812f8c254b89ab46f80f5c60d, type: 3}
 --- !u!114 &716273726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1552,6 +1553,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 51df1b196bea7a4439776079a37677b8, type: 3}
   - {fileID: 4900000, guid: 44a03de849150e94f8430dc9834f5e9f, type: 3}
   - {fileID: 4900000, guid: 5ae0fb5dfe5063f47bd770c2f23dc4bb, type: 3}
+  - {fileID: 4900000, guid: cb2cf70fba9989949965d37cf5c0bd66, type: 3}
 --- !u!114 &1181497868
 MonoBehaviour:
   m_ObjectHideFlags: 0

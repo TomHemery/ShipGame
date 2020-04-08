@@ -1,0 +1,12 @@
+<conversation entryNode="0" requirePause="false">
+  <node index ="0" character="FriendBot">
+    <prompt>Well done criminal! You took down those filthy pirates!
+Don't worry though, we'll erase your memory of this event soon enough so you don't go spreading any nonsense to the empire!
+Remember, F.R.I.E.N.D says, there's no such thing as a non empire ship in this galaxy!</prompt>
+    <continue target="1"/>
+  </node>
+  <node index="1" character="FriendBot">
+    <prompt>F.R.I.E.N.D out!</prompt>
+    <continue target="-1"/>
+  </node>
+</conversation>

@@ -83,13 +83,10 @@ public class DialogueGraph
             newNode.characterName = node.Attributes[CHARACTER_ATTRIBUTE].InnerText.Trim();
 
             newNode.changesMusic = node.Attributes[MUSIC_ATTRIBUTE] != null;
-            foreach(XmlAttribute a in node.Attributes) Debug.Log(a.InnerText.Trim());
             if (newNode.changesMusic)
             {
-                Debug.Log("New music from node: " + node.Attributes[MUSIC_ATTRIBUTE].InnerText.Trim());
                 newNode.newMusicState =
                     (MusicPlayer.MusicState)System.Enum.Parse(typeof(MusicPlayer.MusicState), node.Attributes[MUSIC_ATTRIBUTE].InnerText.Trim());
-                Debug.Log("New node music state: " + newNode.newMusicState);
             }
         }
         result.EntryNodeIndex = int.Parse(xml.GetElementsByTagName(CONVERSATION_TAG)[0].Attributes[ENTRY_NODE_ATTRIBUTE].InnerText.Trim());

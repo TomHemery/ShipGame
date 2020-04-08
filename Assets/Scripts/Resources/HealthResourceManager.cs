@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthResourceManager : Resource
@@ -15,6 +13,8 @@ public class HealthResourceManager : Resource
     private bool exploded = false;
 
     public bool isPlayerHealth = false;
+
+    public event EventHandler OnExploded;
 
     private void Start()
     {
@@ -84,6 +84,7 @@ public class HealthResourceManager : Resource
                 Destroy(gameObject);
             }
             exploded = true;
+            OnExploded?.Invoke(this, null);
         }
     }
 

@@ -118,11 +118,8 @@ public class EnemyShipAI : BasicAI
         else if (distToTarget > maxDist) desiredSpeed = controller.maxSpeed;
         else desiredSpeed = distToTarget.Map(targetDist, maxDist, controller.minSpeed, controller.maxSpeed);
 
-        //controlStructs[SEEK_TARGET_INDEX].direction = (targetPosition - transform.position);
         Vector3 targetDir = targetPosition - transform.position;
         float angle = Vector2.SignedAngle(transform.up, targetDir);
-
-
 
         if (angle < rotationDeadZone && angle > -rotationDeadZone) controlStructs[SEEK_TARGET_INDEX].direction = targetDir;
         else if (angle > rotationDeadZone) controlStructs[SEEK_TARGET_INDEX].direction = Quaternion.Euler(0, 0, 45) * transform.up;
@@ -162,6 +159,7 @@ public class EnemyShipAI : BasicAI
         if (controlStructs[AVOID_OBSTACLES_INDEX].weight != 0.0f) controlStructs[AVOID_OBSTACLES_INDEX].speed = avoidSpeed;
     }
 
+    //control structure, loosely based on Brooke's subsumption architecture, but uses behaviour fusion with a weighted contribution (thanks ARS)
     public struct ControlStruct {
         public Vector2 direction;
         public float speed;

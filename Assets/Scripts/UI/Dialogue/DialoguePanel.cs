@@ -69,7 +69,7 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
         ShowCharacterPanel(currentDialogue.GetCurrentNode().characterName);
 
         if (currentDialogue.GetCurrentNode().changesMusic) {
-            MusicPlayer.Instance.ForceSetPlayerState(currentDialogue.GetCurrentNode().newMusicState);
+            MusicPlayer.Instance.FadeToNewState(1.0f, currentDialogue.GetCurrentNode().newMusicState);
         }
 
         if (currentDialogue.RequireSimPause) GameManager.PauseSim();
@@ -158,7 +158,7 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
             continueArrow.SetActive(true);
             if (currentDialogue.GetCurrentNode().changesMusic)
             {
-                MusicPlayer.Instance.ForceSetPlayerState(currentDialogue.GetCurrentNode().newMusicState);
+                MusicPlayer.Instance.FadeToNewState(1.0f, currentDialogue.GetCurrentNode().newMusicState);
             }
         }
         else
@@ -183,7 +183,7 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
                     ShowCharacterPanel(currentDialogue.GetCurrentNode().characterName);
                     if (currentDialogue.GetCurrentNode().changesMusic)
                     {
-                        MusicPlayer.Instance.ForceSetPlayerState(currentDialogue.GetCurrentNode().newMusicState);
+                        MusicPlayer.Instance.FadeToNewState(1.0f, currentDialogue.GetCurrentNode().newMusicState);
                     }
                 }
                 else {

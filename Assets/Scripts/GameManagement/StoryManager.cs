@@ -22,6 +22,7 @@ public class StoryManager : MonoBehaviour
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         playerShip.GetComponent<Inventory>().InventoryChangedEvent += OnPlayerInventoryChange;
+        EnemySpawner.AllEnemiesDestroyed.AddListener(OnAllEnemiesDestroyed);
     }
 
     private void OnDisable()
@@ -57,12 +58,9 @@ public class StoryManager : MonoBehaviour
         else if (stage == Stage.FirstPirateEncounter) {
             Vector2 offset = UnityEngine.Random.insideUnitCircle.normalized * 100;
             Vector2 pos = playerShip.transform.position;
-            pos += offset;
-            for (int i = 0; i < 2; i++) {
-                Instantiate(EnemySpawner.EnemyPrefabs["BasicRebelShip"], pos + UnityEngine.Random.insideUnitCircle.normalized * 2, Quaternion.identity);
-            }
+            EnemySpawner.SpawnOnRadiusAt(pos + offset, 2, "BasicPirateShip");
             DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotOnFirstPirateEncounter");
-            stage = Stage.End;
+            stage = Stage.EndFirstPirateEncounter;
         }
     }
 
@@ -86,6 +84,13 @@ public class StoryManager : MonoBehaviour
         }
     }
 
+    void OnAllEnemiesDestroyed() {
+        if (stage == Stage.EndFirstPirateEncounter) {
+            DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotPostFirstPirateEncounter");
+            stage = Stage.End;
+        }
+    }
+
     //stages go here in chronological (I can't spell) order
     public enum Stage {
         Intro,
@@ -93,6 +98,7 @@ public class StoryManager : MonoBehaviour
         StationTutorial,
         PirateTransmission,
         FirstPirateEncounter,
+        EndFirstPirateEncounter,
         End
     }
 }

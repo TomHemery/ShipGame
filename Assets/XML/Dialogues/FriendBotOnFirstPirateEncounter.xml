@@ -4,7 +4,7 @@
     <continue target="1"/>
   </node>
   <node index="1" character="FriendBot">
-    <prompt>There are two enemy signals nearby, they'll show up on your radar soon I'm sure.
+    <prompt>There's an enemy signal nearby, it'll show up on your radar soon I'm sure.
 Prepare to defend yourself and the honour of the empire criminal!
 Your mining laser should be enough to take down these weaklings, just... try not to explode...</prompt>
     <continue target="2"/>
@@ -12,7 +12,7 @@ Your mining laser should be enough to take down these weaklings, just... try not
   <node index="2" character="FriendBot">
     <prompt>Your ship can take a few hits thanks to the shield (see the purple bar?).
 But any hull damage beyond that (the red bar) is permanent.
-You can repair the hull in the station if you need to with some iron.
+You can repair the hull with a little iron in the station if you need to.
 Good luck criminal!</prompt>
     <continue target="3"/>
   </node>

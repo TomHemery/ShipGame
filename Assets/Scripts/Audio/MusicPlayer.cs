@@ -98,6 +98,42 @@ public class MusicPlayer : MonoBehaviour
         }
     }
 
+    public void FadeOut(float fadeTime) {
+        StartCoroutine(FadeOutCoroutine(fadeTime));
+    }
+
+    private IEnumerator FadeOutCoroutine(float fadeTime)
+    {
+        float startVolume = MusicSource.volume;
+
+        while (MusicSource.volume > 0)
+        {
+            MusicSource.volume -= startVolume * Time.deltaTime / fadeTime;
+
+            yield return null;
+        }
+
+        MusicSource.Stop();
+        MusicSource.volume = startVolume;
+    }
+
+    public void FadeToNewState(float fadeTime, MusicState newState) {
+        StartCoroutine(FadeToNewStateCoroutine(fadeTime, newState));
+    }
+
+    private IEnumerator FadeToNewStateCoroutine(float fadeTime, MusicState newState) {
+        float startVolume = MusicSource.volume;
+
+        while (MusicSource.volume > 0) {
+            MusicSource.volume -= startVolume * Time.deltaTime / fadeTime;
+            yield return null;
+        }
+
+        MusicSource.Stop();
+        MusicSource.volume = startVolume;
+        ForceSetPlayerState(newState);
+    }
+
     public enum MusicState {
         Intro,
         Low,

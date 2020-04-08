@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
-    // Start is called before the first frame update
     private void OnEnable()
     {
         GameManager.onSimPause.AddListener(OnSimPause);
