@@ -7,8 +7,8 @@ public abstract class Resource : MonoBehaviour
 
     protected virtual void Update()
     {
-        if(!GameManager.SimPaused) updateResource();
+        if(!GameManager.SimPaused) UpdateResource();
     }
 
-    public abstract void updateResource();
+    public abstract void UpdateResource();
 }

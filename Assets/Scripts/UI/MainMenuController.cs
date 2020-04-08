@@ -1,0 +1,55 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class MainMenuController : MonoBehaviour
+{
+
+    public static MainMenuController Instance { get; private set; } = null;
+
+    public Dropdown loadGameDropdown;
+    public Button loadGameButton;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    private void OnEnable()
+    {
+        GameManager.PauseSim();
+
+        loadGameDropdown.ClearOptions();
+        string[] saveNames = Save.GetAllSaveNames();
+        if (saveNames.Length > 0)
+        {
+            List<Dropdown.OptionData> options = new List<Dropdown.OptionData>();
+
+            foreach (string saveName in saveNames)
+            {
+                options.Add(new Dropdown.OptionData(saveName));
+            }
+            loadGameDropdown.AddOptions(options);
+        }
+        else {
+            loadGameButton.gameObject.SetActive(false);
+            loadGameDropdown.gameObject.SetActive(false);
+        }
+    }
+
+    private void OnDisable()
+    {
+        GameManager.UnPauseSim();
+    }
+
+    public void OnLoadGameButtonPressed() {
+        GameManager.Instance.LoadGameFromSave(
+            Save.LoadGame(loadGameDropdown.options[loadGameDropdown.value].text)
+        );
+    }
+
+    public void OnNewGameButtonPressed() {
+        GameManager.Instance.StartNewGame();
+    }
+}

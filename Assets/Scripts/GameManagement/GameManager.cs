@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; } = null;
     public string FirstScene;
     public GameObject DeathScreen;
+    public GameObject MainMenu;
 
     bool playerDied = false;
 
@@ -30,7 +31,7 @@ public class GameManager : MonoBehaviour
     {
         DeathScreen.SetActive(false);
         if (Instance == this)
-            LoadScene(FirstScene);
+            MainMenu.SetActive(true);
     }
 
     public static void LoadScene(string sceneName)
@@ -46,6 +47,13 @@ public class GameManager : MonoBehaviour
             playerDied = true;
             StartCoroutine(ShowDeathScreen());
         }
+    }
+
+    public void LoadGameFromSave(Save save) {
+        Debug.Log("Loading game from save");
+        Debug.Log("Story Stage: " + save.storyStage);
+        Debug.Log("Player Inventory: " + save.playerInventoryContents);
+        Debug.Log("MiningStaiton Inventory: " + save.miningStationInventoryContents);
     }
 
     IEnumerator ShowDeathScreen()
@@ -64,6 +72,11 @@ public class GameManager : MonoBehaviour
     public static void UnPauseSim() {
         SimPaused = false;
         onSimUnPause.Invoke();
+    }
+
+    public void StartNewGame() {
+        LoadScene(FirstScene);
+        MainMenu.gameObject.SetActive(false);
     }
 }
 

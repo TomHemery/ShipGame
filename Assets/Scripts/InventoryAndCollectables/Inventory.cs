@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class Inventory : MonoBehaviour
 {
     public Dictionary<string, InventoryItem> Contents { get; private set; } = new Dictionary<string, InventoryItem>();

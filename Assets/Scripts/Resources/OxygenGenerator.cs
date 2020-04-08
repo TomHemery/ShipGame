@@ -17,10 +17,10 @@ public class OxygenGenerator : Resource
     bool cooldown = false;
 
     protected override void Update() {
-        updateResource();
+        UpdateResource();
     }
 
-    public override void updateResource()
+    public override void UpdateResource()
     {
         if (iceSlot != null && iceSlot.StoredItemFrame != null)
         {

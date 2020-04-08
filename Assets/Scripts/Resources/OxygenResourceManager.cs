@@ -63,7 +63,7 @@ public class OxygenResourceManager : Resource
         GameManager.Instance.OnPlayerDeath(PlayerDeathTypes.OutOfOxygen);
     }
 
-    public override void updateResource()
+    public override void UpdateResource()
     {
         if (Oxygen > 0.0f)
         {

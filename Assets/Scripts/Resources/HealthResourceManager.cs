@@ -88,7 +88,7 @@ public class HealthResourceManager : Resource
         }
     }
 
-    public override void updateResource()
+    public override void UpdateResource()
     {
         return;
     }

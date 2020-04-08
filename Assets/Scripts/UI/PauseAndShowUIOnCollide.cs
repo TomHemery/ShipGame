@@ -28,6 +28,5 @@ public class PauseAndShowUIOnCollide : PauseAndShowUI
     {
         base.UnPauseAndHide();
         sleepBehaviour = true;
-        onHideUI.Invoke();
     }
 }

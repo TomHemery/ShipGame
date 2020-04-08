@@ -8,7 +8,7 @@ public class StoryManager : MonoBehaviour
 {
     public string gameplaySceneName;
 
-    private Stage stage = Stage.Intro;
+    public static Stage StoryStage { get; private set; } = Stage.Intro;
 
     private GameObject playerShip;
     private PauseAndShowUIOnCollide stationUIController;
@@ -37,40 +37,40 @@ public class StoryManager : MonoBehaviour
             stationUIController.onShowUI.AddListener(OnShowStationUI);
             stationUIController.onHideUI.AddListener(OnHideStationUI);
 
-            if (stage == Stage.Intro)
+            if (StoryStage == Stage.Intro)
             {
                 DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotIntro");
-                stage = Stage.InventoryTutorial;
+                StoryStage = Stage.InventoryTutorial;
             }
         }
     }
 
     void OnPlayerInventoryChange(object sender, EventArgs e)
     {
-        if (stage == Stage.InventoryTutorial)
+        if (StoryStage == Stage.InventoryTutorial)
         {
             if (playerShip.GetComponent<Inventory>().Contents.ContainsKey("Stone"))
             {
                 DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotOnFirstPickup");
-                stage = Stage.StationTutorial;
+                StoryStage = Stage.StationTutorial;
             }
         }
-        else if (stage == Stage.FirstPirateEncounter) {
+        else if (StoryStage == Stage.FirstPirateEncounter) {
             Vector2 offset = UnityEngine.Random.insideUnitCircle.normalized * 100;
             Vector2 pos = playerShip.transform.position;
             EnemySpawner.SpawnOnRadiusAt(pos + offset, 2, "BasicPirateShip");
             DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotOnFirstPirateEncounter");
-            stage = Stage.EndFirstPirateEncounter;
+            StoryStage = Stage.EndFirstPirateEncounter;
         }
     }
 
     void OnShowStationUI() {
-        if (stage == Stage.StationTutorial)
+        if (StoryStage == Stage.StationTutorial)
         { //ready to show the station tutorial
             DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotOnFirstEnterStation");
-            stage = Stage.PirateTransmission;
+            StoryStage = Stage.PirateTransmission;
         }
-        else if(stage < Stage.StationTutorial)
+        else if(StoryStage < Stage.StationTutorial)
         { //cheeky git tryna hide in the station
             DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotEarlyVisitStation");
             stationUIController.UnPauseAndHide();
@@ -78,20 +78,24 @@ public class StoryManager : MonoBehaviour
     }
 
     void OnHideStationUI() {
-        if (stage == Stage.PirateTransmission) {
+        if (StoryStage == Stage.PirateTransmission) {
             DialoguePanel.MainDialoguePanel.OpenDialogue("PirateTransmission");
-            stage = Stage.FirstPirateEncounter;
+            StoryStage = Stage.FirstPirateEncounter;
         }
+
+        //saves the game 
+        Save.SaveGame();
     }
 
     void OnAllEnemiesDestroyed() {
-        if (stage == Stage.EndFirstPirateEncounter) {
+        if (StoryStage == Stage.EndFirstPirateEncounter) {
             DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotPostFirstPirateEncounter");
-            stage = Stage.End;
+            StoryStage = Stage.End;
         }
     }
 
     //stages go here in chronological (I can't spell) order
+    [Serializable]
     public enum Stage {
         Intro,
         InventoryTutorial,

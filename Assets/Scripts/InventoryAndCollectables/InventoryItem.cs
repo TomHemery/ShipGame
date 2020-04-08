@@ -19,6 +19,7 @@ public struct InventoryItem
     public EquipType equipType;
 }
 
+[System.Serializable]
 public enum EquipType { 
     Weapon,
     SetItem,

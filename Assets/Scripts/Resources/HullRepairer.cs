@@ -18,10 +18,10 @@ public class HullRepairer : Resource
 
     protected override void Update()
     {
-        updateResource();
+        UpdateResource();
     }
 
-    public override void updateResource()
+    public override void UpdateResource()
     {
         if (ironSlot != null && ironSlot.StoredItemFrame != null)
         {
