@@ -8,7 +8,7 @@ public class StoryManager : MonoBehaviour
 {
     public string gameplaySceneName;
 
-    public static Stage StoryStage { get; private set; } = Stage.Intro;
+    public static Stage StoryStage = Stage.Intro;
 
     private GameObject playerShip;
     private PauseAndShowUIOnCollide stationUIController;
@@ -21,8 +21,9 @@ public class StoryManager : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        playerShip.GetComponent<Inventory>().InventoryChangedEvent += OnPlayerInventoryChange;
+
         EnemySpawner.AllEnemiesDestroyed.AddListener(OnAllEnemiesDestroyed);
+        AsteroidDestroyedEvent.OnDestroyEvent.AddListener(OnAsteroidDestroyed);
     }
 
     private void OnDisable()
@@ -45,15 +46,12 @@ public class StoryManager : MonoBehaviour
         }
     }
 
-    void OnPlayerInventoryChange(object sender, EventArgs e)
+    void OnAsteroidDestroyed()
     {
         if (StoryStage == Stage.InventoryTutorial)
         {
-            if (playerShip.GetComponent<Inventory>().Contents.ContainsKey("Stone"))
-            {
-                DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotOnFirstPickup");
-                StoryStage = Stage.StationTutorial;
-            }
+            DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotOnFirstPickup");
+            StoryStage = Stage.StationTutorial;
         }
         else if (StoryStage == Stage.FirstPirateEncounter) {
             Vector2 offset = UnityEngine.Random.insideUnitCircle.normalized * 100;

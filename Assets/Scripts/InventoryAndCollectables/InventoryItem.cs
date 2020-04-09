@@ -17,6 +17,10 @@ public struct InventoryItem
     public bool equipable;
     [SerializeField]
     public EquipType equipType;
+
+    public override string ToString() {
+        return "Inventory Item: " + systemName + ", " + prettyName + "; " + quantity + "\nEquipable? " + equipable + ", equip type: " + equipType;
+    }
 }
 
 [System.Serializable]

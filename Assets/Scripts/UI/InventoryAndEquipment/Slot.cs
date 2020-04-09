@@ -105,11 +105,14 @@ public class Slot : MonoBehaviour
     public void CreateFrameForEquipPoint() {
         if (StoredItemFrame == null) {
             if (m_equipType == EquipType.Weapon) {
-                Weapon w = associatedEquipPoint.GetChild(0).GetComponent<Weapon>();
                 slotText.text = associatedEquipPoint.name;
-                StoredItemFrame = Instantiate(itemFramePrefab, m_rectTransform).GetComponent<ItemFrame>();
-                StoredItemFrame.SetInventoryItem(w.m_inventoryItem);
-                StoredItemFrame.parentSlot = this;
+                if (associatedEquipPoint.childCount > 0)
+                {
+                    StoredItemFrame = Instantiate(itemFramePrefab, m_rectTransform).GetComponent<ItemFrame>();
+                    Weapon w = associatedEquipPoint.GetChild(0).GetComponent<Weapon>();
+                    StoredItemFrame.SetInventoryItem(w.m_inventoryItem);
+                    StoredItemFrame.parentSlot = this;
+                }
             }
         }
     }

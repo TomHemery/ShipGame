@@ -50,10 +50,24 @@ public class GameManager : MonoBehaviour
     }
 
     public void LoadGameFromSave(Save save) {
-        Debug.Log("Loading game from save");
-        Debug.Log("Story Stage: " + save.storyStage);
-        Debug.Log("Player Inventory: " + save.playerInventoryContents);
-        Debug.Log("MiningStaiton Inventory: " + save.miningStationInventoryContents);
+        GameObject player = GameObject.FindGameObjectWithTag("PlayerShip");
+        GameObject miningStation = GameObject.FindGameObjectWithTag("MiningStation");
+
+        player.GetComponent<HullSpawner>().hull = save.playerHull;
+        player.GetComponent<HullSpawner>().weapons = save.playerWeapons;
+        player.GetComponent<HullSpawner>().SpawnHull();
+
+        player.GetComponent<HealthAndShieldsResourceManager>().SetHealth(save.playerHealth);
+        player.GetComponent<HealthAndShieldsResourceManager>().SetMaxHealth(save.playerMaxHealth);
+        player.GetComponent<HealthAndShieldsResourceManager>().SetMaxShields(save.playerMaxShields);
+
+        player.GetComponent<Inventory>().SetContents(save.playerInventoryContents);
+        miningStation.GetComponent<Inventory>().SetContents(save.miningStationInventoryContents);
+
+        StoryManager.StoryStage = save.storyStage;
+
+        LoadScene(FirstScene);
+        MainMenu.gameObject.SetActive(false);
     }
 
     IEnumerator ShowDeathScreen()
@@ -77,6 +91,7 @@ public class GameManager : MonoBehaviour
     public void StartNewGame() {
         LoadScene(FirstScene);
         MainMenu.gameObject.SetActive(false);
+        GameObject.FindGameObjectWithTag("PlayerShip").GetComponent<HullSpawner>().SpawnHull();
     }
 }
 

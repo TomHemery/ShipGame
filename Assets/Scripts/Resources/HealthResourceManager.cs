@@ -4,7 +4,7 @@ using UnityEngine;
 public class HealthResourceManager : Resource
 {
     public float Health { get; private set; }
-    public float MaxHealth = 100;
+    public float MaxHealth { get; private set; } = 100;
 
     public GameObject explosionPrefab = null;
 
@@ -30,6 +30,15 @@ public class HealthResourceManager : Resource
         Health = Mathf.Clamp(h, 0, MaxHealth);
         HealthValueChangedEvent?.Invoke(this, new HealthChangedEventArgs(Health, MaxHealth));
         if (Health <= 0) Explode();
+    }
+
+    /// <summary>
+    /// Sets max health to the value of mh, constraints health between 0 and mh
+    /// </summary>
+    /// <param name="mh">The value to set max health to</param>
+    public void SetMaxHealth(float mh) {
+        MaxHealth = mh;
+        SetHealth(Health);
     }
 
     /// <summary>

@@ -1,7 +1,8 @@
 <conversation entryNode="0" requirePause="false">
   <node index="0" character ="FriendBot">
-    <prompt>Good, you've picked up some minerals from that asteroid! Press I to open your inventory and have a look!
-Maybe you got lucky and got some precious, precious ice! Silly humans and their inefficient lungs!</prompt>
+    <prompt>Good job criminal, you've destroyed that asteroid! Fly over the debris and you'll collect all those lovely minerals.
+Maybe you'll even get some Ice? Silly humans and their oxygen dependency!
+Press "I" to open your intentory and have a look at what you pick up!</prompt>
     <continue target ="1"/>
   </node>
   <node index ="1" character ="FriendBot">

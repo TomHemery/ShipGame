@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 673632786037268400}
   - component: {fileID: 673632786037268401}
   - component: {fileID: 673632786037268414}
+  - component: {fileID: 8313646964341588548}
   m_Layer: 8
   m_Name: ProceduralAsteroid
   m_TagString: Untagged
@@ -144,9 +145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b1615f89c6991148a0eaee12a795fb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 200
-  ResourceBarManager: {fileID: 0}
   explosionPrefab: {fileID: 0}
+  isPlayerHealth: 0
 --- !u!114 &673632786037268400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,3 +222,15 @@ MonoBehaviour:
     dropQuantityMax: 4
     dropQuantityMin: 3
   spawnRange: 3
+--- !u!114 &8313646964341588548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673632786037268407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d33797b577aef04e9a908be869f7ceb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

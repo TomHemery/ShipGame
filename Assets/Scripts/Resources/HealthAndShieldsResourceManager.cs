@@ -30,6 +30,16 @@ public class HealthAndShieldsResourceManager : HealthResourceManager
         ShieldValueChangedEvent?.Invoke(this, new ShieldChangedEventArgs(Shields, MaxShields));
     }
 
+
+    /// <summary>
+    /// Sets max shields to the value of ms, constrains shields between 0 and ms
+    /// </summary>
+    /// <param name="ms">The value to set max shields to</param>
+    public void SetMaxShields(float ms) {
+        MaxShields = ms;
+        SetShields(Shields);
+    }
+
     /// <summary>
     /// Modifies shields by the value of s (shields are constrained between 0 amd max
     /// </summary>

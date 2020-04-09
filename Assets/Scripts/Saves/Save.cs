@@ -35,11 +35,20 @@ public class Save
             playerInventoryContents = new Dictionary<string, int>(),
             miningStationInventoryContents = new Dictionary<string, int>(),
             playerHull = playerShip.GetComponent<HullSpawner>().hull,
-            playerWeapons = playerShip.GetComponent<HullSpawner>().weapons,
             playerHealth = playerShip.GetComponent<HealthAndShieldsResourceManager>().Health,
             playerMaxShields = playerShip.GetComponent<HealthAndShieldsResourceManager>().MaxShields,
             playerMaxHealth = playerShip.GetComponent<HealthAndShieldsResourceManager>().MaxHealth
         };
+
+        List<string> playerWeaponNames = new List<string>();
+        foreach (Transform hullChild in playerShip.transform.GetChild(0)) {
+            if (hullChild.CompareTag("WeaponAttachment") && hullChild.childCount > 0) {
+                playerWeaponNames.Add(
+                    hullChild.GetChild(0).gameObject.GetComponent<Weapon>().m_inventoryItem.systemName);
+            }
+        }
+        if (playerWeaponNames.Count > 0)
+            save.playerWeapons = playerWeaponNames.ToArray();
 
         foreach (KeyValuePair<string, InventoryItem> pair in 
             GameObject.FindGameObjectWithTag("PlayerShip").GetComponent<Inventory>().Contents)
@@ -56,7 +65,7 @@ public class Save
         BinaryFormatter bf = new BinaryFormatter();
 
         string dateAndTime = System.DateTime.Now.ToString();
-        Regex pattern = new Regex("[:// ]");
+        Regex pattern = new Regex("[://]");
         dateAndTime = pattern.Replace(dateAndTime, "_");
 
         FileStream file = File.Create(path + "save " + dateAndTime + extension);
@@ -97,7 +106,13 @@ public class Save
                 result.Add(Path.GetFileNameWithoutExtension(file));
             }
         }
-
-        return result.ToArray();
+        string[] saveNames = result.ToArray();
+        Debug.Log("Save names: ");
+        foreach (string s in saveNames) Debug.Log(s);
+        System.Array.Sort(saveNames);
+        System.Array.Reverse(saveNames);
+        Debug.Log("Sorted save names: ");
+        foreach (string s in saveNames) Debug.Log(s);
+        return saveNames;
     }
 }

@@ -160,4 +160,35 @@ public class Inventory : MonoBehaviour
     {
         InventoryChangedEvent?.Invoke(this, null);
     }
+
+    public void ClearContents() {
+        Contents.Clear();
+        FilledCapacity = 0;
+        InventoryChangedEvent?.Invoke(this, null);
+    }
+
+    public void SetContents(Dictionary<string, int> newContents) {
+        Debug.Log("Setting inventory contents");
+        ClearContents();
+        foreach (KeyValuePair<string, int> pair in newContents)
+        {
+
+            GameObject itemGameObject = PrefabDatabase.PrefabDictionary[pair.Key];
+            if (itemGameObject.GetComponent<Weapon>() != null)
+            {
+                InventoryItem item = itemGameObject.GetComponent<Weapon>().m_inventoryItem;
+                item.quantity = pair.Value;
+                Debug.Log("Adding " + item);
+                AddToContents(item);
+            }
+            else if (itemGameObject.GetComponent<PickUpOnContact>() != null)
+            {
+                InventoryItem item = itemGameObject.GetComponent<PickUpOnContact>().m_inventoryItem;
+                item.quantity = pair.Value;
+                Debug.Log("Adding " + item);
+                AddToContents(item);
+            }
+        }
+        InventoryChangedEvent?.Invoke(this, null);
+    }
 }
