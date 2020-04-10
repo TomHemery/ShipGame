@@ -4,10 +4,35 @@ using UnityEngine;
 
 public class HullSpawner : MonoBehaviour
 {
+    public const string DEFAULT_HULL = "MiningShip";
+    public static readonly string[] DEFAULT_WEAPONS = {
+        "MiningLaser",
+        "MiningLaser"
+    };
+
     public string hull;
     public string[] weapons;
 
+    public void DestroyHull() {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+        transform.DetachChildren();
+    }
+
     public void SpawnHull() {
+        SpawnHull(hull, weapons);   
+    }
+
+    public void SpawnDefaultHull() {
+        SpawnHull(DEFAULT_HULL, DEFAULT_WEAPONS);
+    }
+
+    private void SpawnHull(string hull, string[] weapons) {
+        
+        if (transform.childCount > 0) DestroyHull();
+
         GameObject ship = Instantiate(PrefabDatabase.PrefabDictionary[hull], transform);
         if (weapons != null && weapons.Length > 0)
         {

@@ -16,7 +16,8 @@ public class OxygenGenerator : Resource
     private float cooldownTime = 0.5f;
     bool cooldown = false;
 
-    protected override void Update() {
+    protected override void Update()
+    {
         UpdateResource();
     }
 

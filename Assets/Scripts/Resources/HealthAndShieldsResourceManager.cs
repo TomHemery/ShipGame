@@ -10,14 +10,17 @@ public class HealthAndShieldsResourceManager : HealthResourceManager
     public float ShieldRechargeRate { get; private set; } = 10; //shields per second
     public event EventHandler<ShieldChangedEventArgs> ShieldValueChangedEvent;
 
+    public const float DEFAULT_MAX_SHIELDS = 50;
+
     void Start()
     {
         SetShields(MaxShields);
         SetHealth(MaxHealth);
     }
 
-    private void Update()
+    public override void UpdateResource()
     {
+        base.UpdateResource();
         AddShields(Time.deltaTime * ShieldRechargeRate);
     }
 

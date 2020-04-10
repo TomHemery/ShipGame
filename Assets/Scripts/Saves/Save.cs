@@ -107,12 +107,8 @@ public class Save
             }
         }
         string[] saveNames = result.ToArray();
-        Debug.Log("Save names: ");
-        foreach (string s in saveNames) Debug.Log(s);
         System.Array.Sort(saveNames);
         System.Array.Reverse(saveNames);
-        Debug.Log("Sorted save names: ");
-        foreach (string s in saveNames) Debug.Log(s);
         return saveNames;
     }
 }

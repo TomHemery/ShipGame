@@ -114,6 +114,8 @@ public class MusicPlayer : MonoBehaviour
         }
 
         MusicSource.Stop();
+        PlayerState = MusicState.None;
+        activeTracks = null;
         MusicSource.volume = startVolume;
     }
 

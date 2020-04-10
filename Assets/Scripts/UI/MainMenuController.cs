@@ -22,7 +22,7 @@ public class MainMenuController : MonoBehaviour
 
         loadGameDropdown.ClearOptions();
         string[] saveNames = Save.GetAllSaveNames();
-        if (saveNames.Length > 0)
+        if (saveNames.Length > 0)   
         {
             List<Dropdown.OptionData> options = new List<Dropdown.OptionData>();
 
@@ -33,7 +33,7 @@ public class MainMenuController : MonoBehaviour
             loadGameDropdown.AddOptions(options);
         }
         else {
-            loadGameButton.gameObject.SetActive(false);
+            loadGameButton.interactable = false;
             loadGameDropdown.gameObject.SetActive(false);
         }
     }

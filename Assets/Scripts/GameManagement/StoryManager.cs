@@ -11,11 +11,15 @@ public class StoryManager : MonoBehaviour
     public static Stage StoryStage = Stage.Intro;
 
     private GameObject playerShip;
+    private GameObject miningStation;
     private PauseAndShowUIOnCollide stationUIController;
 
     private void Awake()
     {
         playerShip = GameObject.FindGameObjectWithTag("PlayerShip");
+        miningStation = GameObject.FindGameObjectWithTag("MiningStation");
+
+        stationUIController = miningStation.GetComponent<PauseAndShowUIOnCollide>();
     }
 
     private void OnEnable()
@@ -24,6 +28,8 @@ public class StoryManager : MonoBehaviour
 
         EnemySpawner.AllEnemiesDestroyed.AddListener(OnAllEnemiesDestroyed);
         AsteroidDestroyedEvent.OnDestroyEvent.AddListener(OnAsteroidDestroyed);
+        stationUIController.onShowUI.AddListener(OnShowStationUI);
+        stationUIController.onHideUI.AddListener(OnHideStationUI);
     }
 
     private void OnDisable()
@@ -34,15 +40,12 @@ public class StoryManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.name == gameplaySceneName) {
-            stationUIController = GameObject.FindGameObjectWithTag("MiningStation").GetComponent<PauseAndShowUIOnCollide>();
-            stationUIController.onShowUI.AddListener(OnShowStationUI);
-            stationUIController.onHideUI.AddListener(OnHideStationUI);
-
             if (StoryStage == Stage.Intro)
             {
                 DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotIntro");
                 StoryStage = Stage.InventoryTutorial;
             }
+            playerShip.GetComponent<PlayerSpawnController>().GotoSpawnPoint();
         }
     }
 

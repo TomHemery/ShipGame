@@ -6,11 +6,13 @@ public class HealthResourceManager : Resource
     public float Health { get; private set; }
     public float MaxHealth { get; private set; } = 100;
 
+    public const float DEFAULT_MAX_HEALTH = 100;
+
     public GameObject explosionPrefab = null;
 
     public event EventHandler<HealthChangedEventArgs> HealthValueChangedEvent;
 
-    private bool exploded = false;
+    public bool exploded = false;
 
     public bool isPlayerHealth = false;
 

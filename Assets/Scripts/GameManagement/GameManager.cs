@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public GameObject DeathScreen;
     public GameObject MainMenu;
 
+    private GameObject playerShip;
+
     bool playerDied = false;
 
     public static bool SimPaused { get; private set; } = false;
@@ -25,13 +27,13 @@ public class GameManager : MonoBehaviour
             onSimPause = new UnityEvent();
             onSimUnPause = new UnityEvent();
         }
+        playerShip = GameObject.FindGameObjectWithTag("PlayerShip");
     }
 
     private void Start()
     {
         DeathScreen.SetActive(false);
-        if (Instance == this)
-            MainMenu.SetActive(true);
+        ShowMainMenu();
     }
 
     public static void LoadScene(string sceneName)
@@ -49,19 +51,27 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ShowMainMenu() {
+        DeathScreen.SetActive(false);
+        MainMenu.SetActive(true);
+    }
+
     public void LoadGameFromSave(Save save) {
-        GameObject player = GameObject.FindGameObjectWithTag("PlayerShip");
+        playerDied = false;
         GameObject miningStation = GameObject.FindGameObjectWithTag("MiningStation");
 
-        player.GetComponent<HullSpawner>().hull = save.playerHull;
-        player.GetComponent<HullSpawner>().weapons = save.playerWeapons;
-        player.GetComponent<HullSpawner>().SpawnHull();
+        playerShip.transform.position = playerShip.GetComponent<PlayerSpawnController>().spawnPoint.position;
 
-        player.GetComponent<HealthAndShieldsResourceManager>().SetHealth(save.playerHealth);
-        player.GetComponent<HealthAndShieldsResourceManager>().SetMaxHealth(save.playerMaxHealth);
-        player.GetComponent<HealthAndShieldsResourceManager>().SetMaxShields(save.playerMaxShields);
+        playerShip.GetComponent<HullSpawner>().hull = save.playerHull;
+        playerShip.GetComponent<HullSpawner>().weapons = save.playerWeapons;
+        playerShip.GetComponent<HullSpawner>().SpawnHull();
 
-        player.GetComponent<Inventory>().SetContents(save.playerInventoryContents);
+        playerShip.GetComponent<HealthAndShieldsResourceManager>().SetHealth(save.playerHealth);
+        playerShip.GetComponent<HealthAndShieldsResourceManager>().SetMaxHealth(save.playerMaxHealth);
+        playerShip.GetComponent<HealthAndShieldsResourceManager>().SetMaxShields(save.playerMaxShields);
+        playerShip.GetComponent<HealthAndShieldsResourceManager>().exploded = false;
+
+        playerShip.GetComponent<Inventory>().SetContents(save.playerInventoryContents);
         miningStation.GetComponent<Inventory>().SetContents(save.miningStationInventoryContents);
 
         StoryManager.StoryStage = save.storyStage;
@@ -70,12 +80,29 @@ public class GameManager : MonoBehaviour
         MainMenu.gameObject.SetActive(false);
     }
 
-    IEnumerator ShowDeathScreen()
+    public void StartNewGame()
     {
+        playerDied = false;
+        LoadScene(FirstScene);
+        MainMenu.gameObject.SetActive(false);
+
+        playerShip.GetComponent<HullSpawner>().SpawnDefaultHull();
+        playerShip.GetComponent<HealthAndShieldsResourceManager>().exploded = false;
+        playerShip.GetComponent<HealthAndShieldsResourceManager>().SetMaxHealth(HealthResourceManager.DEFAULT_MAX_HEALTH);
+        playerShip.GetComponent<HealthAndShieldsResourceManager>().SetHealth(HealthResourceManager.DEFAULT_MAX_HEALTH);
+        playerShip.GetComponent<HealthAndShieldsResourceManager>().SetMaxShields(HealthAndShieldsResourceManager.DEFAULT_MAX_SHIELDS);
+        playerShip.GetComponent<HealthAndShieldsResourceManager>().SetShields(HealthAndShieldsResourceManager.DEFAULT_MAX_SHIELDS);
+    }
+
+    IEnumerator ShowDeathScreen()
+    { 
         yield return new WaitForEndOfFrame();
 
         DeathScreen.GetComponent<DeathScreen>().CaptureScreen();
         DeathScreen.SetActive(true);
+
+        playerShip.GetComponent<HullSpawner>().DestroyHull();
+        MusicPlayer.Instance.FadeOut(2.0f);
     }
 
     public static void PauseSim() {
@@ -86,12 +113,6 @@ public class GameManager : MonoBehaviour
     public static void UnPauseSim() {
         SimPaused = false;
         onSimUnPause.Invoke();
-    }
-
-    public void StartNewGame() {
-        LoadScene(FirstScene);
-        MainMenu.gameObject.SetActive(false);
-        GameObject.FindGameObjectWithTag("PlayerShip").GetComponent<HullSpawner>().SpawnHull();
     }
 }
 

@@ -17,6 +17,12 @@ public class InventoryInformationPanel : MonoBehaviour
         associatedInventory.InventoryChangedEvent += OnAssociatedInventoryChanged;
     }
 
+    private void OnDestroy()
+    {
+        associatedInventory.InventoryChangedEvent -= OnAssociatedInventoryChanged;
+        associatedInventory = null;
+    }
+
     private void OnEnable()
     {
         Refresh();

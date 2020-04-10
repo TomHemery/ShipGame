@@ -29,4 +29,8 @@ public class PauseAndShowUIOnCollide : PauseAndShowUI
         base.UnPauseAndHide();
         sleepBehaviour = true;
     }
+
+    public void PauseBehaviourUntilCollisionExit() {
+        sleepBehaviour = true;
+    }
 }
