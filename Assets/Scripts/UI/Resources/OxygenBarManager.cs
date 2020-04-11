@@ -5,13 +5,13 @@ using UnityEngine;
 public class OxygenBarManager : MonoBehaviour
 {
 
-    private OxygenResourceManager oxygenResource;
+    private OxygenResource oxygenResource;
     public RectTransform oxygenBar;
     Vector3 oxygenBarScale = Vector3.one;
 
     private void Awake()
     {
-        oxygenResource = GameObject.FindGameObjectWithTag("PlayerShip").GetComponent<OxygenResourceManager>();
+        oxygenResource = GameObject.FindGameObjectWithTag("PlayerShip").GetComponent<OxygenResource>();
 
     }
 
@@ -20,7 +20,7 @@ public class OxygenBarManager : MonoBehaviour
     {
         if (oxygenBar != null && oxygenResource != null)
         {
-            oxygenBarScale.x = oxygenResource.Oxygen.Map(0, oxygenResource.MaxOxygenCapacity, 0, 1);
+            oxygenBarScale.x = oxygenResource.Value.Map(0, oxygenResource.MaxValue, 0, 1);
             oxygenBar.localScale = oxygenBarScale;
         }
     }

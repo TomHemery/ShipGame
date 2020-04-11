@@ -35,9 +35,9 @@ public class Save
             playerInventoryContents = new Dictionary<string, int>(),
             miningStationInventoryContents = new Dictionary<string, int>(),
             playerHull = playerShip.GetComponent<HullSpawner>().hull,
-            playerHealth = playerShip.GetComponent<HealthAndShieldsResourceManager>().Health,
-            playerMaxShields = playerShip.GetComponent<HealthAndShieldsResourceManager>().MaxShields,
-            playerMaxHealth = playerShip.GetComponent<HealthAndShieldsResourceManager>().MaxHealth
+            playerHealth = playerShip.GetComponent<HealthAndShieldsResource>().HealthValue,
+            playerMaxShields = playerShip.GetComponent<HealthAndShieldsResource>().MaxShieldValue,
+            playerMaxHealth = playerShip.GetComponent<HealthAndShieldsResource>().MaxHealthValue
         };
 
         List<string> playerWeaponNames = new List<string>();

@@ -41,7 +41,7 @@ public class ProjectileController : Controller
 
     private void OnCollisionEnter2D(Collision2D collision)
     { 
-        HealthResourceManager resourceManager = collision.gameObject.GetComponent<HealthResourceManager>();
+        HealthResource resourceManager = collision.gameObject.GetComponent<HealthResource>();
         if(resourceManager != null)
         {
             resourceManager.DoDamage(damage);

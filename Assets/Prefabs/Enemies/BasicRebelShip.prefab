@@ -357,9 +357,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b1615f89c6991148a0eaee12a795fb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 150
+  MaxHealthValue: 150
+  HealthValue: 0
   explosionPrefab: {fileID: 1933057997586368794, guid: 2da328153fbfa1e4f9633a4dbabd9367,
     type: 3}
+  exploded: 0
   isPlayerHealth: 0
 --- !u!114 &3040169793755783787
 MonoBehaviour:
@@ -904,17 +906,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5557758645638778529, guid: 5f5b2cf411578a247892cc76ac3211b7,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5557758645434833653, guid: 5f5b2cf411578a247892cc76ac3211b7,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5557758644923583903, guid: 5f5b2cf411578a247892cc76ac3211b7,
+    - target: {fileID: 5914833867649985647, guid: 5f5b2cf411578a247892cc76ac3211b7,
         type: 3}
       propertyPath: m_Layer
       value: 8
@@ -924,7 +916,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 5914833867649985647, guid: 5f5b2cf411578a247892cc76ac3211b7,
+    - target: {fileID: 5557758644923583903, guid: 5f5b2cf411578a247892cc76ac3211b7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5557758645434833653, guid: 5f5b2cf411578a247892cc76ac3211b7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5557758645638778529, guid: 5f5b2cf411578a247892cc76ac3211b7,
         type: 3}
       propertyPath: m_Layer
       value: 8

@@ -66,10 +66,10 @@ public class GameManager : MonoBehaviour
         playerShip.GetComponent<HullSpawner>().weapons = save.playerWeapons;
         playerShip.GetComponent<HullSpawner>().SpawnHull();
 
-        playerShip.GetComponent<HealthAndShieldsResourceManager>().SetHealth(save.playerHealth);
-        playerShip.GetComponent<HealthAndShieldsResourceManager>().SetMaxHealth(save.playerMaxHealth);
-        playerShip.GetComponent<HealthAndShieldsResourceManager>().SetMaxShields(save.playerMaxShields);
-        playerShip.GetComponent<HealthAndShieldsResourceManager>().exploded = false;
+        playerShip.GetComponent<HealthAndShieldsResource>().SetHealth(save.playerHealth);
+        playerShip.GetComponent<HealthAndShieldsResource>().SetMaxHealth(save.playerMaxHealth);
+        playerShip.GetComponent<HealthAndShieldsResource>().SetMaxShieldValue(save.playerMaxShields);
+        playerShip.GetComponent<HealthAndShieldsResource>().exploded = false;
 
         playerShip.GetComponent<Inventory>().SetContents(save.playerInventoryContents);
         miningStation.GetComponent<Inventory>().SetContents(save.miningStationInventoryContents);
@@ -87,11 +87,12 @@ public class GameManager : MonoBehaviour
         MainMenu.gameObject.SetActive(false);
 
         playerShip.GetComponent<HullSpawner>().SpawnDefaultHull();
-        playerShip.GetComponent<HealthAndShieldsResourceManager>().exploded = false;
-        playerShip.GetComponent<HealthAndShieldsResourceManager>().SetMaxHealth(HealthResourceManager.DEFAULT_MAX_HEALTH);
-        playerShip.GetComponent<HealthAndShieldsResourceManager>().SetHealth(HealthResourceManager.DEFAULT_MAX_HEALTH);
-        playerShip.GetComponent<HealthAndShieldsResourceManager>().SetMaxShields(HealthAndShieldsResourceManager.DEFAULT_MAX_SHIELDS);
-        playerShip.GetComponent<HealthAndShieldsResourceManager>().SetShields(HealthAndShieldsResourceManager.DEFAULT_MAX_SHIELDS);
+        playerShip.GetComponent<HealthAndShieldsResource>().exploded = false;
+
+        playerShip.GetComponent<HealthAndShieldsResource>().SetMaxHealth(HealthResource.DEFAULT_MAX_HEALTH);
+        playerShip.GetComponent<HealthAndShieldsResource>().SetMaxShieldValue(HealthAndShieldsResource.DEFAULT_MAX_SHIELDS);
+
+        playerShip.GetComponent<HealthAndShieldsResource>().FillResource();
     }
 
     IEnumerator ShowDeathScreen()

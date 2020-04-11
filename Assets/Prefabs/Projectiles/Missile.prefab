@@ -162,7 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxSpeed: 50
   lifeSpan: 2
-  damage: 10
+  damage: 30
   explosionPrefab: {fileID: 3813318767767790973, guid: 018b1ecd48998fd49982f28eda841c20,
     type: 3}
 --- !u!61 &4900950272314888817
@@ -203,10 +203,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b1615f89c6991148a0eaee12a795fb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 20
-  ResourceBarManager: {fileID: 0}
+  MaxHealthValue: 100
+  HealthValue: 0
   explosionPrefab: {fileID: 3813318767767790973, guid: 018b1ecd48998fd49982f28eda841c20,
     type: 3}
+  exploded: 0
+  isPlayerHealth: 0
 --- !u!1 &8646945756678351744
 GameObject:
   m_ObjectHideFlags: 0

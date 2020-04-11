@@ -134,6 +134,7 @@ MonoBehaviour:
   maxSpeed: 25
   minSpeed: 1
   weapons: []
+  engineAudioSource: {fileID: 0}
 --- !u!114 &6856419688612756924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,11 +147,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2c8ae9770e10cb4ba371958c9bf5ef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 100
+  MaxHealthValue: 200
+  HealthValue: 0
   explosionPrefab: {fileID: 3813318767767790973, guid: 018b1ecd48998fd49982f28eda841c20,
     type: 3}
+  exploded: 0
   isPlayerHealth: 0
-  MaxShields: 50
+  MaxShieldValue: 50
 --- !u!66 &6856419688612756927
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -589,12 +592,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 361929384016631364, guid: 43e7604191aacb548ad113aa4e73731e,
+    - target: {fileID: 361929383792644927, guid: 43e7604191aacb548ad113aa4e73731e,
         type: 3}
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 361929383792644927, guid: 43e7604191aacb548ad113aa4e73731e,
+    - target: {fileID: 361929384016631364, guid: 43e7604191aacb548ad113aa4e73731e,
         type: 3}
       propertyPath: m_Layer
       value: 8

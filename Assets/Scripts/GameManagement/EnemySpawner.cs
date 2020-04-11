@@ -30,7 +30,7 @@ public class EnemySpawner : MonoBehaviour
         {
             GameObject enemyShip = Instantiate(EnemyPrefabs[name], pos, Quaternion.identity);
             activeEnemies.Add(enemyShip);
-            enemyShip.GetComponent<HealthResourceManager>().OnExploded += OnEnemyShipDestroyed;
+            enemyShip.GetComponent<HealthResource>().OnExploded += OnEnemyShipDestroyed;
         }
     }
 
@@ -39,7 +39,7 @@ public class EnemySpawner : MonoBehaviour
     }
 
     public static void OnEnemyShipDestroyed(object sender, EventArgs e) {
-        activeEnemies.Remove(((HealthResourceManager)sender).gameObject);
+        activeEnemies.Remove(((HealthResource)sender).gameObject);
         if (activeEnemies.Count <= 0) {
             AllEnemiesDestroyed.Invoke();
             if (MusicPlayer.Instance.PlayerState == MusicPlayer.MusicState.High) {

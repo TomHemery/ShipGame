@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HullRepairer : Resource
+public class HullRepairer : MonoBehaviour
 {
     public Slot ironSlot;
 
-    private HealthAndShieldsResourceManager playerhrm;
+    private HealthAndShieldsResource playerhrm;
 
     //iron used per cooldown
     private int ironPerCooldown = 1;
@@ -16,15 +16,16 @@ public class HullRepairer : Resource
     private float cooldownTime = 0.5f;
     bool cooldown = false;
 
-    protected override void Update() {
-        UpdateResource();
+    private void Awake()
+    {
+        playerhrm = GameObject.FindGameObjectWithTag("PlayerShip").GetComponent<HealthAndShieldsResource>();
     }
 
-    public override void UpdateResource()
+    public void Update()
     {
         if (ironSlot != null && ironSlot.StoredItemFrame != null)
         {
-            if (!cooldown && playerhrm.Health < playerhrm.MaxHealth)
+            if (!cooldown && !playerhrm.IsFull())
             {
                 playerhrm.AddHealth(healthPerIron * ironPerCooldown);
                 ironSlot.StoredItemFrame.SetQuantity(ironSlot.StoredItemFrame.m_InventoryItem.quantity - ironPerCooldown);
@@ -45,10 +46,5 @@ public class HullRepairer : Resource
                 }
             }
         }
-    }
-
-    private void Awake()
-    {
-        playerhrm = GameObject.FindGameObjectWithTag("PlayerShip").GetComponent<HealthAndShieldsResourceManager>();
     }
 }

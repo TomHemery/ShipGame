@@ -3,34 +3,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthAndShieldsResourceManager : HealthResourceManager
+public class HealthAndShieldsResource : HealthResource
 {
-    public float Shields { get; private set; }
-    public float MaxShields = 50;
-    public float ShieldRechargeRate { get; private set; } = 10; //shields per second
+    public const float DEFAULT_MAX_SHIELDS = 50;
+    
+    public float MaxShieldValue = DEFAULT_MAX_SHIELDS;
+    public float ShieldValue { get; private set; }
+
+    public float ShieldRechargeRate { get; private set; } = 10; //shield value added per second
     public event EventHandler<ShieldChangedEventArgs> ShieldValueChangedEvent;
 
-    public const float DEFAULT_MAX_SHIELDS = 50;
-
-    void Start()
+    protected override void Update()
     {
-        SetShields(MaxShields);
-        SetHealth(MaxHealth);
+        base.Update();
+        if(!GameManager.SimPaused)
+            AddShields(Time.deltaTime * ShieldRechargeRate);
     }
 
-    public override void UpdateResource()
+    public override void FillResource()
     {
-        base.UpdateResource();
-        AddShields(Time.deltaTime * ShieldRechargeRate);
+        base.FillResource();
+        ShieldValue = MaxShieldValue;
     }
 
     /// <summary>
     /// Sets shields to the value of s (shields are constrained between 0 and max)
     /// </summary>
     /// <param name="s">The value to set shields to</param>
-    public void SetShields(float s) {
-        Shields = Mathf.Clamp(s, 0, MaxShields);
-        ShieldValueChangedEvent?.Invoke(this, new ShieldChangedEventArgs(Shields, MaxShields));
+    public void SetShieldValue(float s) {
+        ShieldValue = Mathf.Clamp(s, 0, MaxShieldValue);
+        ShieldValueChangedEvent?.Invoke(this, new ShieldChangedEventArgs(ShieldValue, MaxShieldValue));
     }
 
 
@@ -38,17 +40,17 @@ public class HealthAndShieldsResourceManager : HealthResourceManager
     /// Sets max shields to the value of ms, constrains shields between 0 and ms
     /// </summary>
     /// <param name="ms">The value to set max shields to</param>
-    public void SetMaxShields(float ms) {
-        MaxShields = ms;
-        SetShields(Shields);
+    public void SetMaxShieldValue(float ms) {
+        MaxShieldValue = ms;
+        SetShieldValue(ShieldValue);
     }
 
     /// <summary>
     /// Modifies shields by the value of s (shields are constrained between 0 amd max
     /// </summary>
     /// <param name="s">The value to modify shields by</param>
-    public void ModifyShields(float s) {
-        SetShields(Shields + s);
+    public void ModifyShieldValue(float s) {
+        SetShieldValue(ShieldValue + s);
     }
 
     /// <summary>
@@ -56,15 +58,15 @@ public class HealthAndShieldsResourceManager : HealthResourceManager
     /// </summary>
     /// <param name="s">The value to increase shields by</param>
     public void AddShields(float s) {
-        ModifyShields(Mathf.Abs(s));
+        ModifyShieldValue(Mathf.Abs(s));
     }
 
     /// <summary>
     /// Reduces health by the absolute value of s (shields cannot go below 0)
     /// </summary>
     /// <param name="s">The value to reduce shields by</param>
-    public void ReduceShields(float s) {
-        ModifyShields(-Mathf.Abs(s));
+    public void SubtractShields(float s) {
+        ModifyShieldValue(-Mathf.Abs(s));
     }
 
     /// <summary>
@@ -74,11 +76,11 @@ public class HealthAndShieldsResourceManager : HealthResourceManager
     public override void DoDamage(float d)
     {
         d = Mathf.Abs(d);
-        float healthDamage = d - Shields;
+        float healthDamage = d - ShieldValue;
         if (healthDamage < 0) healthDamage = 0;
         float shieldDamage = d - healthDamage;
-        ReduceShields(shieldDamage);
-        ReduceHealth(healthDamage);
+        SubtractShields(shieldDamage);
+        SubtractHealth(healthDamage);
     }
 }
 

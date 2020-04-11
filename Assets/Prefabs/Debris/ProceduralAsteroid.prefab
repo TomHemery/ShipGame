@@ -146,6 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionPrefab: {fileID: 0}
+  exploded: 0
   isPlayerHealth: 0
 --- !u!114 &673632786037268400
 MonoBehaviour:
@@ -159,7 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e237f30eb7bdf644aff5c534b581d78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthResourceManager: {fileID: 673632786037268403}
+  healthResource: {fileID: 673632786037268403}
   spriteRenderer: {fileID: 673632786037268404}
   sprites: []
 --- !u!50 &673632786037268401

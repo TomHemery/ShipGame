@@ -71,7 +71,7 @@ public class Beam : MonoBehaviour
     {
         if (!other.gameObject.CompareTag("Collectable"))
         {
-            HealthResourceManager hrm = other.gameObject.GetComponent<HealthResourceManager>();
+            HealthResource hrm = other.gameObject.GetComponent<HealthResource>();
             if (hrm != null) hrm.DoDamage(dps * Time.deltaTime);
             distanceToCollision = Vector2.Distance(transform.position, other.ClosestPoint(transform.position));
             otherCollider = other;

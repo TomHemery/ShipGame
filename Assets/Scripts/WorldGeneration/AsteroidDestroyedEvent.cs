@@ -9,7 +9,7 @@ public class AsteroidDestroyedEvent : MonoBehaviour
 
     private void Awake()
     {
-        GetComponent<HealthResourceManager>().OnExploded += AsteroidDestroyedEvent_OnExploded;
+        GetComponent<HealthResource>().OnExploded += AsteroidDestroyedEvent_OnExploded;
     }
 
     private void AsteroidDestroyedEvent_OnExploded(object sender, System.EventArgs e)

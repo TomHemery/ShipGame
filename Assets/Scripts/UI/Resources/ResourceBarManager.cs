@@ -10,8 +10,8 @@ public class ResourceBarManager : MonoBehaviour
     Vector3 healthBarScale = new Vector3(1, 1, 1);
     Vector3 shieldBarScale = new Vector3(1, 1, 1);
 
-    public HealthAndShieldsResourceManager healthAndShieldsResource;
-    public HealthResourceManager healthResource;
+    public HealthAndShieldsResource healthAndShieldsResource;
+    public HealthResource healthResource;
 
     public bool attachToPlayer = false;
 
@@ -20,7 +20,7 @@ public class ResourceBarManager : MonoBehaviour
         if (attachToPlayer)
         {
             healthAndShieldsResource =
-                GameObject.FindGameObjectWithTag("PlayerShip").GetComponent<HealthAndShieldsResourceManager>();
+                GameObject.FindGameObjectWithTag("PlayerShip").GetComponent<HealthAndShieldsResource>();
         }
     }
 
@@ -31,13 +31,13 @@ public class ResourceBarManager : MonoBehaviour
             healthAndShieldsResource.HealthValueChangedEvent += OnHealthChanged;
             healthAndShieldsResource.ShieldValueChangedEvent += OnShieldsChanged;
             //set initial values
-            UpdateHealthBar(healthAndShieldsResource.Health, healthAndShieldsResource.MaxHealth);
-            UpdateShieldBar(healthAndShieldsResource.Shields, healthAndShieldsResource.MaxShields);
+            UpdateHealthBar(healthAndShieldsResource.HealthValue, healthAndShieldsResource.MaxHealthValue);
+            UpdateShieldBar(healthAndShieldsResource.ShieldValue, healthAndShieldsResource.MaxShieldValue);
         }
         else if (healthResource != null) {
             healthResource.HealthValueChangedEvent += OnHealthChanged;
             //set initial values
-            UpdateHealthBar(healthResource.Health, healthResource.MaxHealth);
+            UpdateHealthBar(healthResource.HealthValue, healthResource.MaxHealthValue);
         }
     }
 
