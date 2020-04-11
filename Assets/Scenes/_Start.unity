@@ -341,7 +341,7 @@ GameObject:
   - component: {fileID: 134312117}
   m_Layer: 5
   m_Name: OxygenGenerator
-  m_TagString: Untagged
+  m_TagString: OxygenGenerator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -720,7 +720,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 912f46b2cc8f2864798e10b6ec2dbbfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScrollSpeedModifier: 0.015
+  ScrollSpeedModifier: 0.002
   playerShipContoller: {fileID: 1163044661}
 --- !u!64 &220564519
 MeshCollider:
@@ -2378,7 +2378,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 331207198}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 331207196}
+        m_MethodName: OnJumpButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &331207198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5185,6 +5196,7 @@ GameObject:
   - component: {fileID: 749523237}
   - component: {fileID: 749523238}
   - component: {fileID: 749523242}
+  - component: {fileID: 749523243}
   m_Layer: 0
   m_Name: MiningStation
   m_TagString: MiningStation
@@ -5212,6 +5224,7 @@ MonoBehaviour:
   onHideUI:
     m_PersistentCalls:
       m_Calls: []
+  behaviourEnabled: 1
 --- !u!114 &749523237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5313,6 +5326,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7536e0cb704a9f4f8ea9b2f21cd0802, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &749523243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749523235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ac6f52a89bacc64f8ef1b1436348f34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HullRepairer: {fileID: 1409064371}
+  m_O2Gen: {fileID: 134312117}
+  m_JumpDriveFueler: {fileID: 1146550729}
 --- !u!1 &796492124
 GameObject:
   m_ObjectHideFlags: 0
@@ -6285,8 +6313,8 @@ GameObject:
   - component: {fileID: 1146550730}
   - component: {fileID: 1146550729}
   m_Layer: 5
-  m_Name: JumpRefuel
-  m_TagString: Untagged
+  m_Name: JumpRefueler
+  m_TagString: JumpRefueler
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7185,7 +7213,7 @@ GameObject:
   - component: {fileID: 1409064371}
   m_Layer: 5
   m_Name: HullRepairer
-  m_TagString: Untagged
+  m_TagString: HullRepairer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7223,7 +7251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00e48649eca41624b8ea201f344e4f00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ironSlot: {fileID: 281277543}
+  slot: {fileID: 281277543}
 --- !u!114 &1409064372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7641,7 +7669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 912f46b2cc8f2864798e10b6ec2dbbfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScrollSpeedModifier: 0.01
+  ScrollSpeedModifier: 0.001
   playerShipContoller: {fileID: 1163044661}
 --- !u!64 &1628914825
 MeshCollider:

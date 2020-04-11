@@ -32,6 +32,10 @@ public class EnemySpawner : MonoBehaviour
             activeEnemies.Add(enemyShip);
             enemyShip.GetComponent<HealthResource>().OnExploded += OnEnemyShipDestroyed;
         }
+
+        if (activeEnemies.Count > 0) {
+            GameObject.FindGameObjectWithTag("MiningStation").GetComponent<PauseAndShowUIOnCollide>().behaviourEnabled = false;
+        }
     }
 
     public static void SpawnOnRadiusAt(Vector2 pos, float radius, string name, int num = 1) {
@@ -42,6 +46,7 @@ public class EnemySpawner : MonoBehaviour
         activeEnemies.Remove(((HealthResource)sender).gameObject);
         if (activeEnemies.Count <= 0) {
             AllEnemiesDestroyed.Invoke();
+            GameObject.FindGameObjectWithTag("MiningStation").GetComponent<PauseAndShowUIOnCollide>().behaviourEnabled = true;
             if (MusicPlayer.Instance.PlayerState == MusicPlayer.MusicState.High) {
                 MusicPlayer.Instance.FadeToNewState(1.0f, MusicPlayer.MusicState.Mid);
             }

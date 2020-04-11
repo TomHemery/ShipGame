@@ -92,12 +92,13 @@ public class Slot : MonoBehaviour
     /// <returns>True if successful</returns>
     public bool TryCreateFrameFor(InventoryItem item) {
         //if we haven't stored something already, and we are of a matching equip type, or the "none" type
-        if(StoredItemFrame == null && (m_equipType == EquipType.None || item.equipType == m_equipType)){
-            //create a frame for the item
-            StoredItemFrame = Instantiate(itemFramePrefab, m_rectTransform).GetComponent<ItemFrame>();
-            StoredItemFrame.SetInventoryItem(item);
-            StoredItemFrame.parentSlot = this;
-            return true;
+        if(StoredItemFrame == null && (m_equipType == EquipType.None || item.equipType == m_equipType ||
+            m_equipType == EquipType.SetItem && item.systemName == acceptedItemName)){
+                //create a frame for the item
+                StoredItemFrame = Instantiate(itemFramePrefab, m_rectTransform).GetComponent<ItemFrame>();
+                StoredItemFrame.SetInventoryItem(item);
+                StoredItemFrame.parentSlot = this;
+                return true;
         }
         return false;
     }

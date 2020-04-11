@@ -45,7 +45,6 @@ public class MusicPlayer : MonoBehaviour
     {
         if (scene.name == "GameplayTest")
         {
-            Debug.Log("Loaded gameplay test, setting music");
             activeTracks = introTracks;
             trackIndex = -1;
             PlayerState = MusicState.Intro;

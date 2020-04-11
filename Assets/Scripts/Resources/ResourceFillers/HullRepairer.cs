@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HullRepairer : MonoBehaviour
 {
-    public Slot ironSlot;
+    public Slot slot;
 
     private HealthAndShieldsResource playerhrm;
 
@@ -23,16 +23,16 @@ public class HullRepairer : MonoBehaviour
 
     public void Update()
     {
-        if (ironSlot != null && ironSlot.StoredItemFrame != null)
+        if (slot != null && slot.StoredItemFrame != null)
         {
             if (!cooldown && !playerhrm.IsFull())
             {
                 playerhrm.AddHealth(healthPerIron * ironPerCooldown);
-                ironSlot.StoredItemFrame.SetQuantity(ironSlot.StoredItemFrame.m_InventoryItem.quantity - ironPerCooldown);
-                if (ironSlot.StoredItemFrame.m_InventoryItem.quantity <= 0)
+                slot.StoredItemFrame.SetQuantity(slot.StoredItemFrame.m_InventoryItem.quantity - ironPerCooldown);
+                if (slot.StoredItemFrame.m_InventoryItem.quantity <= 0)
                 {
-                    Destroy(ironSlot.StoredItemFrame.gameObject);
-                    ironSlot.SilentRemoveItemFrame();
+                    Destroy(slot.StoredItemFrame.gameObject);
+                    slot.SilentRemoveItemFrame();
                 }
                 cooldown = true;
             }

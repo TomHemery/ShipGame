@@ -5,6 +5,7 @@ using UnityEngine;
 public class PauseAndShowUIOnCollide : PauseAndShowUI
 {
     private bool sleepBehaviour = false;
+    public bool behaviourEnabled = true;
 
     protected override void Awake()
     {
@@ -13,7 +14,7 @@ public class PauseAndShowUIOnCollide : PauseAndShowUI
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!sleepBehaviour && collision.gameObject.CompareTag("PlayerShip"))
+        if (behaviourEnabled && !sleepBehaviour && collision.gameObject.CompareTag("PlayerShip"))
         {
             PauseAndShow();
         }

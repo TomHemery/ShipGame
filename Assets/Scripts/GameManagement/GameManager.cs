@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public GameObject MainMenu;
 
     private GameObject playerShip;
+    private GameObject miningStation;
 
     bool playerDied = false;
 
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
             onSimUnPause = new UnityEvent();
         }
         playerShip = GameObject.FindGameObjectWithTag("PlayerShip");
+        miningStation = GameObject.FindGameObjectWithTag("MiningStation");
     }
 
     private void Start()
@@ -58,7 +60,6 @@ public class GameManager : MonoBehaviour
 
     public void LoadGameFromSave(Save save) {
         playerDied = false;
-        GameObject miningStation = GameObject.FindGameObjectWithTag("MiningStation");
 
         playerShip.transform.position = playerShip.GetComponent<PlayerSpawnController>().spawnPoint.position;
 
@@ -70,9 +71,37 @@ public class GameManager : MonoBehaviour
         playerShip.GetComponent<HealthAndShieldsResource>().SetMaxHealth(save.playerMaxHealth);
         playerShip.GetComponent<HealthAndShieldsResource>().SetMaxShieldValue(save.playerMaxShields);
         playerShip.GetComponent<HealthAndShieldsResource>().exploded = false;
+        playerShip.GetComponent<OxygenResource>().SetResource(save.playerO2Levels);
 
         playerShip.GetComponent<Inventory>().SetContents(save.playerInventoryContents);
         miningStation.GetComponent<Inventory>().SetContents(save.miningStationInventoryContents);
+        miningStation.GetComponent<JumpResource>().SetResource(save.jumpDriveFillLevel);
+
+        if (save.hullRepairerContents > 0) {
+            InventoryItem ironItem = PrefabDatabase.PrefabDictionary["Iron"].GetComponent<PickUpOnContact>().m_inventoryItem;
+            ironItem.quantity = save.hullRepairerContents;
+            miningStation.GetComponent<MiningStationController>().m_HullRepairer.slot.TryCreateFrameFor(
+                ironItem     
+            );
+        }
+
+        if (save.jumpDriveContents > 0)
+        {
+            InventoryItem crystalItem = PrefabDatabase.PrefabDictionary["Crystal"].GetComponent<PickUpOnContact>().m_inventoryItem;
+            crystalItem.quantity = save.jumpDriveContents;
+            miningStation.GetComponent<MiningStationController>().m_JumpDriveFueler.slot.TryCreateFrameFor(
+                crystalItem
+            );
+        }
+
+        if (save.o2GenContents > 0)
+        {
+            InventoryItem iceItem = PrefabDatabase.PrefabDictionary["Ice"].GetComponent<PickUpOnContact>().m_inventoryItem;
+            iceItem.quantity = save.o2GenContents;
+            miningStation.GetComponent<MiningStationController>().m_O2Gen.slot.TryCreateFrameFor(
+                iceItem
+            );
+        }
 
         StoryManager.StoryStage = save.storyStage;
 

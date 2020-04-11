@@ -17,7 +17,8 @@ Good luck criminal!</prompt>
     <continue target="3"/>
   </node>
   <node index="3" character="FriendBot">
-    <prompt>F.R.I.E.N.D out!</prompt>
+    <prompt>I'll lock up the station till the pirates are gone, so don't you try hiding in there now!
+F.R.I.E.N.D out!</prompt>
     <continue target="-1"/>
   </node>
 </conversation>

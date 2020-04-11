@@ -12,12 +12,18 @@ public class Save
     public Dictionary<string, int> playerInventoryContents;
     public Dictionary<string, int> miningStationInventoryContents;
 
+    public int o2GenContents;
+    public int hullRepairerContents;
+    public int jumpDriveContents;
+
     public string playerHull;
     public string[] playerWeapons;
 
     public float playerHealth;
     public float playerMaxHealth;
     public float playerMaxShields;
+    public float playerO2Levels;
+    public float jumpDriveFillLevel;
 
     private const string extension = ".save";
     private static readonly string path = Application.persistentDataPath + "/Saves/";
@@ -29,6 +35,7 @@ public class Save
     /// </summary>
     public static void SaveGame() {
         GameObject playerShip = GameObject.FindGameObjectWithTag("PlayerShip");
+        GameObject miningStation = GameObject.FindGameObjectWithTag("MiningStation");
         Save save = new Save
         {
             storyStage = StoryManager.StoryStage,
@@ -37,8 +44,19 @@ public class Save
             playerHull = playerShip.GetComponent<HullSpawner>().hull,
             playerHealth = playerShip.GetComponent<HealthAndShieldsResource>().HealthValue,
             playerMaxShields = playerShip.GetComponent<HealthAndShieldsResource>().MaxShieldValue,
-            playerMaxHealth = playerShip.GetComponent<HealthAndShieldsResource>().MaxHealthValue
+            playerMaxHealth = playerShip.GetComponent<HealthAndShieldsResource>().MaxHealthValue,
+            playerO2Levels = playerShip.GetComponent<OxygenResource>().Value,
+            jumpDriveFillLevel = miningStation.GetComponent<JumpResource>().Value
         };
+
+        ItemFrame o2Frame = MiningStationController.Instance.m_O2Gen.slot.StoredItemFrame;
+        save.o2GenContents = o2Frame == null ? 0 : o2Frame.m_InventoryItem.quantity;
+
+        ItemFrame ironFrame = MiningStationController.Instance.m_HullRepairer.slot.StoredItemFrame;
+        save.hullRepairerContents = ironFrame == null ? 0 : ironFrame.m_InventoryItem.quantity;
+
+        ItemFrame jumpFrame = MiningStationController.Instance.m_JumpDriveFueler.slot.StoredItemFrame;
+        save.jumpDriveContents = jumpFrame == null ? 0 : jumpFrame.m_InventoryItem.quantity;
 
         List<string> playerWeaponNames = new List<string>();
         foreach (Transform hullChild in playerShip.transform.GetChild(0)) {
