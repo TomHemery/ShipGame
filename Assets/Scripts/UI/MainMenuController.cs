@@ -44,12 +44,14 @@ public class MainMenuController : MonoBehaviour
     }
 
     public void OnLoadGameButtonPressed() {
+        gameObject.SetActive(false);
         GameManager.Instance.LoadGameFromSave(
             Save.LoadGame(loadGameDropdown.options[loadGameDropdown.value].text)
         );
     }
 
     public void OnNewGameButtonPressed() {
+        gameObject.SetActive(false);
         GameManager.Instance.StartNewGame();
     }
 }

@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; } = null;
 
-    public Area firstArea;
+    public string firstArea;
     public static Area CurrentArea { get; private set; }
 
     public GameObject DeathScreen;
@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     public static bool SimPaused { get; private set; } = false;
     public static UnityEvent onSimPause = null;
     public static UnityEvent onSimUnPause = null;
+
+    public static UnityEvent OnAreaLoaded { get; private set; } = new UnityEvent();
 
     private void Awake()
     {
@@ -45,6 +47,7 @@ public class GameManager : MonoBehaviour
     {
         CurrentArea = area;
         SceneManager.LoadScene(area.systemName);
+        OnAreaLoaded.Invoke();
     }
 
     public void OnPlayerDeath(PlayerDeathTypes deathType) {
@@ -109,15 +112,13 @@ public class GameManager : MonoBehaviour
 
         StoryManager.StoryStage = save.storyStage;
 
-        LoadArea(firstArea);
-        MainMenu.gameObject.SetActive(false);
+        LoadArea(AreaDatabase.AreaDictionary[firstArea]);
     }
 
     public void StartNewGame()
     {
         playerDied = false;
-        LoadArea(firstArea);
-        MainMenu.gameObject.SetActive(false);
+        LoadArea(AreaDatabase.AreaDictionary[firstArea]);
 
         playerShip.GetComponent<HullSpawner>().SpawnDefaultHull();
         playerShip.GetComponent<HealthAndShieldsResource>().exploded = false;

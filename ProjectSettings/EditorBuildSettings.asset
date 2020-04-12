@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Areas/Area_0_Start.unity
     guid: 2cafa07fe21034b4b8f70be06e94c1e6
   - enabled: 1
-    path: Assets/Scenes/MiningStationInterior.unity
-    guid: 5b6619b23883e554a8aaee16095926dc
+    path: Assets/Scenes/Areas/Area_1_InnerBelt.unity
+    guid: 1ae92a4a1cb36ab439045a186fbe3644
   m_configObjects: {}

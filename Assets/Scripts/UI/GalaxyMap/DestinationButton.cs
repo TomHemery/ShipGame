@@ -3,36 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class JumpTargetButton : MonoBehaviour
+public class DestinationButton : MonoBehaviour
 {
     private Button m_Button;
 
-    public Sprite validTargetTexture;
-    public Sprite currentTargetTexture;
+    public Sprite validDestSprite;
+    public Sprite currentDestSprite;
 
     public Image m_overlayImage;
 
-    public string associatedAreaName;
+    public string areaName;
+    public DestinationButton[] neighbours;
 
     private void Awake()
     {
         m_Button = GetComponent<Button>();
     }
 
-    private void OnEnable()
-    {
-        SetAsInvalidTarget();
-    }
-
     public void SetAsCurrent() {
         m_overlayImage.color = Color.white;
-        m_overlayImage.sprite = currentTargetTexture;
+        m_overlayImage.sprite = currentDestSprite;
+
         m_Button.interactable = false;
     }
 
     public void SetAsValidTarget() {
         m_overlayImage.color = Color.white;
-        m_overlayImage.sprite = validTargetTexture;
+        m_overlayImage.sprite = validDestSprite;
         m_Button.interactable = true;
     }
 
@@ -42,4 +39,8 @@ public class JumpTargetButton : MonoBehaviour
         m_Button.interactable = false;
     }
 
+    public void OnPressed()
+    {
+        GalaxyMap.Instance.DestinationSelected(areaName);
+    }
 }

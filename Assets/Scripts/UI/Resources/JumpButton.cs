@@ -24,6 +24,6 @@ public class JumpButton : MonoBehaviour
     }
 
     public void OnJumpButtonPressed() {
-
+        GalaxyMap.Instance.ShowMap();
     }
 }

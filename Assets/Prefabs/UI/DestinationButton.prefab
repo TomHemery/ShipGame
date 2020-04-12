@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 622969043382424620}
   - component: {fileID: 1025446599355670184}
   m_Layer: 5
-  m_Name: JumpTargetButton
+  m_Name: DestinationButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,7 +118,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 622969043382424621}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1025446599355670184}
+        m_MethodName: OnPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1025446599355670184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,11 +142,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8757472836ead12489b317439e0536b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  validTargetTexture: {fileID: 21300000, guid: 46a24fc4fe560c54ab1c4197f68808b3, type: 3}
-  currentTargetTexture: {fileID: 21300000, guid: 994313aa52e0bfd4195cb3032178092c,
-    type: 3}
+  validDestSprite: {fileID: 21300000, guid: 46a24fc4fe560c54ab1c4197f68808b3, type: 3}
+  currentDestSprite: {fileID: 21300000, guid: 994313aa52e0bfd4195cb3032178092c, type: 3}
   m_overlayImage: {fileID: 7212704054682411653}
-  associatedAreaName: 
+  areaName: 
+  neighbours: []
 --- !u!1 &2328984000911132824
 GameObject:
   m_ObjectHideFlags: 0

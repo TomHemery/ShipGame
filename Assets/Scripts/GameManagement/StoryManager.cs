@@ -18,26 +18,20 @@ public class StoryManager : MonoBehaviour
         miningStation = GameObject.FindGameObjectWithTag("MiningStation");
 
         stationUIController = miningStation.GetComponent<PauseAndShowUIOnCollide>();
+        GameManager.OnAreaLoaded.AddListener(OnAreaLoaded);
     }
 
     private void OnEnable()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-
         EnemySpawner.AllEnemiesDestroyed.AddListener(OnAllEnemiesDestroyed);
         AsteroidDestroyedEvent.OnDestroyEvent.AddListener(OnAsteroidDestroyed);
         stationUIController.onShowUI.AddListener(OnShowStationUI);
         stationUIController.onHideUI.AddListener(OnHideStationUI);
     }
 
-    private void OnDisable()
+    void OnAreaLoaded()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (scene.name == GameManager.Instance.firstArea.systemName) {
+        if (GameManager.CurrentArea.systemName == GameManager.Instance.firstArea) {
             if (StoryStage == Stage.Intro)
             {
                 DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotIntro");
@@ -82,8 +76,9 @@ public class StoryManager : MonoBehaviour
             StoryStage = Stage.FirstPirateEncounter;
         }
 
-        //saves the game 
-        Save.SaveGame();
+        //saves the game if we have completed the station tutorial
+        if(StoryStage >= Stage.StationTutorial)
+            Save.SaveGame();
     }
 
     void OnAllEnemiesDestroyed() {

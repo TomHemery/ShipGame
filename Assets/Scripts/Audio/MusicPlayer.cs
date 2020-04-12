@@ -43,7 +43,7 @@ public class MusicPlayer : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "GameplayTest")
+        if (scene.name == "Area_0_Start")
         {
             activeTracks = introTracks;
             trackIndex = -1;
