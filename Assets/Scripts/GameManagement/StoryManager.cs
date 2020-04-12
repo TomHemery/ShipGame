@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class StoryManager : MonoBehaviour
 {
-    public string gameplaySceneName;
-
     public static Stage StoryStage = Stage.Intro;
 
     private GameObject playerShip;
@@ -39,7 +37,7 @@ public class StoryManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == gameplaySceneName) {
+        if (scene.name == GameManager.Instance.firstArea.systemName) {
             if (StoryStage == Stage.Intro)
             {
                 DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotIntro");

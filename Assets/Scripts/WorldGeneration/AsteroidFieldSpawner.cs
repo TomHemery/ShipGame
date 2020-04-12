@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class AsteroidFieldSpawner : MonoBehaviour
 {
     public GameObject asteroidPrefab;
-    private int minAsteroidsPerCell = 3;
-    private int maxAsteroidsPerCell = 6;
+    public int minAsteroidsPerCell = 3;
+    public int maxAsteroidsPerCell = 6;
     private Transform playerShipTransform;
 
     private readonly int cellSize = 64;
@@ -42,15 +42,6 @@ public class AsteroidFieldSpawner : MonoBehaviour
             prevX = x;
             prevY = y;
         }
-
-        if (debugText != null) debugText.text = x + ", " + y + "\n" + playerShipTransform.position;
-    }
-
-    void OnDrawGizmos()
-    {
-        // Draw a yellow cube at the transform position
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(new Vector3(prevX * cellSize, prevY * cellSize, 0), new Vector3(cellSize, cellSize, 0));
     }
 
     private void SpawnAteroidsInCell(int x, int y) {

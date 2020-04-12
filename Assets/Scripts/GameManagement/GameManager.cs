@@ -8,7 +8,10 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; } = null;
-    public string FirstScene;
+
+    public Area firstArea;
+    public static Area CurrentArea { get; private set; }
+
     public GameObject DeathScreen;
     public GameObject MainMenu;
 
@@ -38,9 +41,10 @@ public class GameManager : MonoBehaviour
         ShowMainMenu();
     }
 
-    public static void LoadScene(string sceneName)
+    public static void LoadArea(Area area)
     {
-        SceneManager.LoadScene(sceneName);
+        CurrentArea = area;
+        SceneManager.LoadScene(area.systemName);
     }
 
     public void OnPlayerDeath(PlayerDeathTypes deathType) {
@@ -105,14 +109,14 @@ public class GameManager : MonoBehaviour
 
         StoryManager.StoryStage = save.storyStage;
 
-        LoadScene(FirstScene);
+        LoadArea(firstArea);
         MainMenu.gameObject.SetActive(false);
     }
 
     public void StartNewGame()
     {
         playerDied = false;
-        LoadScene(FirstScene);
+        LoadArea(firstArea);
         MainMenu.gameObject.SetActive(false);
 
         playerShip.GetComponent<HullSpawner>().SpawnDefaultHull();

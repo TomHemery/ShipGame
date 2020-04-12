@@ -14,8 +14,12 @@ public class JumpButton : MonoBehaviour
 
     private void OnResourceChanged(object sender, ResourceChangedEventArgs e)
     {
-        if (e.NewValue >= e.MaxValue) {
+        if (e.NewValue >= e.MaxValue)
+        {
             gameObject.SetActive(true);
+        }
+        else {
+            gameObject.SetActive(false);
         }
     }
 
