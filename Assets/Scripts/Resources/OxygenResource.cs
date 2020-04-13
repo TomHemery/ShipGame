@@ -23,7 +23,7 @@ public class OxygenResource : Resource
     }
 
     private void OutOfOxygen() {
-        GameManager.Instance.OnPlayerDeath(PlayerDeathTypes.OutOfOxygen);
+        GameManager.Instance.KillPlayerBy(PlayerDeathTypes.OutOfOxygen);
     }
 
     public override void UpdateResource()

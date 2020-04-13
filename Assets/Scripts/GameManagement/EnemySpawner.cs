@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -23,6 +22,17 @@ public class EnemySpawner : MonoBehaviour
         if (Instance == null) Instance = this;
 
         foreach (GameObject g in allEnemyPrefabs) EnemyPrefabs.Add(g.name, g);
+
+        GameManager.OnPlayerDeath.AddListener(OnPlayerDeath);
+        GameManager.OnAreaLoaded.AddListener(OnAreaLoaded);
+    }
+
+    public void OnPlayerDeath() {
+        DestroyAllEnemyGameObjects();
+    }
+
+    public void OnAreaLoaded() {
+        DestroyAllEnemyGameObjects();
     }
 
     public static void SpawnAt(Vector2 pos, string name, int num = 1) {
@@ -45,11 +55,25 @@ public class EnemySpawner : MonoBehaviour
     public static void OnEnemyShipDestroyed(object sender, EventArgs e) {
         activeEnemies.Remove(((HealthResource)sender).gameObject);
         if (activeEnemies.Count <= 0) {
-            AllEnemiesDestroyed.Invoke();
-            GameObject.FindGameObjectWithTag("MiningStation").GetComponent<PauseAndShowUIOnCollide>().behaviourEnabled = true;
-            if (MusicPlayer.Instance.PlayerState == MusicPlayer.MusicState.High) {
-                MusicPlayer.Instance.FadeToNewState(1.0f, MusicPlayer.MusicState.Mid);
-            }
+            OnAllEnemiesDefeated();
+        }
+    }
+
+    private static void DestroyAllEnemyGameObjects() {
+        foreach (GameObject g in activeEnemies)
+        {
+            Destroy(g);
+        }
+        activeEnemies.Clear();
+        GameObject.FindGameObjectWithTag("MiningStation").GetComponent<PauseAndShowUIOnCollide>().behaviourEnabled = true;
+    }
+
+    private static void OnAllEnemiesDefeated() {
+        AllEnemiesDestroyed.Invoke();
+        GameObject.FindGameObjectWithTag("MiningStation").GetComponent<PauseAndShowUIOnCollide>().behaviourEnabled = true;
+        if (MusicPlayer.Instance.PlayerState == MusicPlayer.MusicState.High || MusicPlayer.Instance.PlayerState == MusicPlayer.MusicState.Transition)
+        {
+            MusicPlayer.Instance.FadeToNewState(1.0f, MusicPlayer.MusicState.Mid);
         }
     }
 }

@@ -6,6 +6,7 @@ public class PauseAndShowUIOnCollide : PauseAndShowUI
 {
     private bool sleepBehaviour = false;
     public bool behaviourEnabled = true;
+    public ToggleTargetOnKeypress playerInventoryToggle;
 
     protected override void Awake()
     {
@@ -28,6 +29,7 @@ public class PauseAndShowUIOnCollide : PauseAndShowUI
     public override void UnPauseAndHide()
     {
         base.UnPauseAndHide();
+        playerInventoryToggle.ForceHideTarget();
         sleepBehaviour = true;
     }
 

@@ -79,7 +79,7 @@ public class HealthResource : MonoBehaviour
             if (mLootDrops != null) mLootDrops.DropLoot();
             if (isPlayerHealth)
             {
-                GameManager.Instance.OnPlayerDeath(PlayerDeathTypes.Exploded);
+                GameManager.Instance.KillPlayerBy(PlayerDeathTypes.Exploded);
             }
             else
             {

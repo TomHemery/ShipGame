@@ -21,18 +21,15 @@ public class GameManager : MonoBehaviour
     bool playerDied = false;
 
     public static bool SimPaused { get; private set; } = false;
-    public static UnityEvent onSimPause = null;
-    public static UnityEvent onSimUnPause = null;
+    public static UnityEvent OnSimPause { get; private set; } = new UnityEvent();
+    public static UnityEvent OnSimUnPause { get; private set; } = new UnityEvent();
 
     public static UnityEvent OnAreaLoaded { get; private set; } = new UnityEvent();
+    public static UnityEvent OnPlayerDeath { get; private set; } = new UnityEvent();
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
-        if (onSimPause == null) {
-            onSimPause = new UnityEvent();
-            onSimUnPause = new UnityEvent();
-        }
         playerShip = GameObject.FindGameObjectWithTag("PlayerShip");
         miningStation = GameObject.FindGameObjectWithTag("MiningStation");
     }
@@ -50,13 +47,13 @@ public class GameManager : MonoBehaviour
         OnAreaLoaded.Invoke();
     }
 
-    public void OnPlayerDeath(PlayerDeathTypes deathType) {
+    public void KillPlayerBy(PlayerDeathTypes deathType) {
         if (!playerDied)
         {
             Text deathText = DeathScreen.GetComponentInChildren<Text>();
             deathText.text = deathType.ToString();
             playerDied = true;
-            StartCoroutine(ShowDeathScreen());
+            StartCoroutine(PlayerDeath());
         }
     }
 
@@ -129,7 +126,7 @@ public class GameManager : MonoBehaviour
         playerShip.GetComponent<HealthAndShieldsResource>().FillResource();
     }
 
-    IEnumerator ShowDeathScreen()
+    IEnumerator PlayerDeath()
     { 
         yield return new WaitForEndOfFrame();
 
@@ -138,16 +135,18 @@ public class GameManager : MonoBehaviour
 
         playerShip.GetComponent<HullSpawner>().DestroyHull();
         MusicPlayer.Instance.FadeOut(2.0f);
+
+        OnPlayerDeath.Invoke();
     }
 
     public static void PauseSim() {
         SimPaused = true;
-        onSimPause.Invoke();
+        OnSimPause.Invoke();
     }
 
     public static void UnPauseSim() {
         SimPaused = false;
-        onSimUnPause.Invoke();
+        OnSimUnPause.Invoke();
     }
 }
 

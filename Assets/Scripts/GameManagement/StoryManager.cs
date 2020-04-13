@@ -12,6 +12,8 @@ public class StoryManager : MonoBehaviour
     private GameObject miningStation;
     private PauseAndShowUIOnCollide stationUIController;
 
+    public GameObject jumpPanelCover;
+
     private void Awake()
     {
         playerShip = GameObject.FindGameObjectWithTag("PlayerShip");
@@ -27,6 +29,7 @@ public class StoryManager : MonoBehaviour
         AsteroidDestroyedEvent.OnDestroyEvent.AddListener(OnAsteroidDestroyed);
         stationUIController.onShowUI.AddListener(OnShowStationUI);
         stationUIController.onHideUI.AddListener(OnHideStationUI);
+        GalaxyMap.Instance.OnShowMap.AddListener(OnShowGalaxyMap);
     }
 
     void OnAreaLoaded()
@@ -58,7 +61,12 @@ public class StoryManager : MonoBehaviour
     }
 
     void OnShowStationUI() {
-        if (StoryStage == Stage.StationTutorial)
+        if (StoryStage == Stage.JumpTutorial) {
+            jumpPanelCover.SetActive(false);
+            DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotJumpTutorial");
+            StoryStage = Stage.GalaxyMapTutorial;
+        }
+        else if (StoryStage == Stage.StationTutorial)
         { //ready to show the station tutorial
             DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotOnFirstEnterStation");
             StoryStage = Stage.PirateTransmission;
@@ -81,10 +89,17 @@ public class StoryManager : MonoBehaviour
             Save.SaveGame();
     }
 
+    void OnShowGalaxyMap() {
+        if (StoryStage == Stage.GalaxyMapTutorial) {
+            DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotGalaxyMapTutorial");
+            StoryStage = Stage.End;
+        }
+    }
+
     void OnAllEnemiesDestroyed() {
         if (StoryStage == Stage.EndFirstPirateEncounter) {
             DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotPostFirstPirateEncounter");
-            StoryStage = Stage.End;
+            StoryStage = Stage.JumpTutorial;
         }
     }
 
@@ -97,6 +112,8 @@ public class StoryManager : MonoBehaviour
         PirateTransmission,
         FirstPirateEncounter,
         EndFirstPirateEncounter,
+        JumpTutorial,
+        GalaxyMapTutorial,
         End
     }
 }

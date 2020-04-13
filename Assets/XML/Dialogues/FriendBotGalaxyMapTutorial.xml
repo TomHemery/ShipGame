@@ -1,0 +1,11 @@
+<conversation entryNode="0" requirePause="false">
+  <node index="0" character ="FriendBot">
+    <prompt>Here we are criminal! Well... actually you're at the purple marker, see it there?</prompt>
+    <continue target="1"/>
+  </node>
+  <node index="1" character="FriendBot">
+    <prompt>Jumping is as easy as selecting a valid target (see the one in green?) and tapping on it!
+Just click that and we'll be away from those pesky pirates faster than you can scream for mercy in 19 different languages!</prompt>
+    <continue target="-1"/>
+  </node>
+</conversation>

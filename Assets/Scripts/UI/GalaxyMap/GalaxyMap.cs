@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GalaxyMap : MonoBehaviour
 {
@@ -9,6 +10,11 @@ public class GalaxyMap : MonoBehaviour
 
     private List<DestinationButton> destinationButtons = new List<DestinationButton>();
     private JumpResource stationJumpResource;
+
+    public GameObject lineObject;
+
+    public UnityEvent OnShowMap { get; private set; } = new UnityEvent();
+    public UnityEvent OnHideMap { get; private set; } = new UnityEvent();
 
     private void Awake()
     {
@@ -22,6 +28,10 @@ public class GalaxyMap : MonoBehaviour
                 if (child.GetComponent<DestinationButton>() != null)
                 {
                     destinationButtons.Add(child.GetComponent<DestinationButton>());
+                    foreach (DestinationButton neighbour in child.GetComponent<DestinationButton>().neighbours) {
+                        GameObject line = Instantiate(lineObject, transform);
+                        line.GetComponent<Line>().Set(child.transform.position, neighbour.transform.position, 1.0f, GetComponent<Canvas>());
+                    }
                 }
             }
             stationJumpResource = GameObject.FindGameObjectWithTag("MiningStation").GetComponent<JumpResource>();
@@ -51,10 +61,12 @@ public class GalaxyMap : MonoBehaviour
 
     public void ShowMap() {
         gameObject.SetActive(true);
+        OnShowMap.Invoke();
     }
 
     public void HideMap() {
         gameObject.SetActive(false);
+        OnHideMap.Invoke();
     }
 
     public void DestinationSelected(string areaName) {

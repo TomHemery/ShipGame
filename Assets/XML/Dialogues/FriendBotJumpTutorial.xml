@@ -1,0 +1,22 @@
+<conversation entryNode="0" requirePause="false">
+  <node index="0" character ="FriendBot">
+    <prompt>Well this is a situation isn't it criminal?
+I'll have to uncover the controls for the jump drive after we're done talking...
+We're gonna have to fuel it up and get out of here sharpish!</prompt>
+    <continue target="1"/>
+  </node>
+  <node index="1" character="FriendBot">
+    <prompt>I say we... of course I'm not physically here, wouldn't want to risk expensive empire tech haha!</prompt>
+    <continue target="2"/>
+  </node>
+  <node index="2" character="FriendBot">
+    <prompt>Try filling up the jump drive fueler with crystals, they're found in asteroids fairly frequently.
+If you don't have any then you'd better go and find some before you're murdered by bloodthirsty pirates bent on revenge!</prompt>
+    <continue target="3"/>
+  </node>
+  <node index="3" character="FriendBot">
+    <prompt>Once you've filled it up you can click the jump button that'll show up and I'll explain how to operate the galaxy map!
+F.R.I.E.N.D out!</prompt>
+    <continue target="-1"/>
+  </node>
+</conversation>

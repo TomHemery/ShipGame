@@ -6,6 +6,16 @@ Remember, F.R.I.E.N.D says, there's no such thing as a non empire ship in this g
     <continue target="1"/>
   </node>
   <node index="1" character="FriendBot">
+    <prompt>Chances are those imaginary pirates might come back though... We'd better move a few lightyears just to be on the safe side!</prompt>
+    <continue target="2"/>
+  </node>
+  <node index="2" character="FriendBot">
+    <prompt>Head back to the station and I'll explain how to work the jump drive.
+*sigh*
+Thank goodness you'll have this embarrassing little memory erased criminal!</prompt>
+    <continue target="3"/>
+  </node>
+  <node index="3" character ="FriendBot">
     <prompt>F.R.I.E.N.D out!</prompt>
     <continue target="-1"/>
   </node>

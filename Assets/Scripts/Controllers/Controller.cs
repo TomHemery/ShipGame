@@ -6,8 +6,8 @@ public class Controller : MonoBehaviour
 {
     private void OnEnable()
     {
-        GameManager.onSimPause.AddListener(OnSimPause);
-        GameManager.onSimUnPause.AddListener(OnSimUnPause);
+        GameManager.OnSimPause.AddListener(OnSimPause);
+        GameManager.OnSimUnPause.AddListener(OnSimUnPause);
         if (GameManager.SimPaused) {
             OnSimPause();
         }
@@ -15,8 +15,8 @@ public class Controller : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.onSimPause.RemoveListener(OnSimPause);
-        GameManager.onSimUnPause.RemoveListener(OnSimUnPause);
+        GameManager.OnSimPause.RemoveListener(OnSimPause);
+        GameManager.OnSimUnPause.RemoveListener(OnSimUnPause);
     }
 
     private void OnSimPause()
