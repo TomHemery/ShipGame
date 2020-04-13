@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
             );
         }
 
-        StoryManager.StoryStage = save.storyStage;
+        StoryManager.Instance.SetStage(save.storyStage);
 
         LoadArea(AreaDatabase.AreaDictionary[firstArea]);
     }

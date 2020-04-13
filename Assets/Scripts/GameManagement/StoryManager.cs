@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class StoryManager : MonoBehaviour
 {
-    public static Stage StoryStage = Stage.Intro;
+    public static Stage StoryStage { get; private set; } = Stage.Intro;
 
     private GameObject playerShip;
     private GameObject miningStation;
@@ -14,8 +14,11 @@ public class StoryManager : MonoBehaviour
 
     public GameObject jumpPanelCover;
 
+    public static StoryManager Instance { get; private set; } = null;
+
     private void Awake()
     {
+        if (Instance == null) Instance = this;
         playerShip = GameObject.FindGameObjectWithTag("PlayerShip");
         miningStation = GameObject.FindGameObjectWithTag("MiningStation");
 
@@ -101,6 +104,12 @@ public class StoryManager : MonoBehaviour
             DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotPostFirstPirateEncounter");
             StoryStage = Stage.JumpTutorial;
         }
+    }
+
+    public void SetStage(Stage s) {
+        StoryStage = s;
+        if (s >= Stage.JumpTutorial)
+            jumpPanelCover.SetActive(false);
     }
 
     //stages go here in chronological (I can't spell) order
