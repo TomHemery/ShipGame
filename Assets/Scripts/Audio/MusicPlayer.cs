@@ -36,21 +36,6 @@ public class MusicPlayer : MonoBehaviour
         };
     }
 
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (scene.name == "Area_0_Start")
-        {
-            activeTracks = introTracks;
-            trackIndex = -1;
-            PlayerState = MusicState.Intro;
-        }
-    }
-
     private void FixedUpdate()
     {
         if (PlayerState != MusicState.None && !MusicSource.isPlaying) {
@@ -135,6 +120,7 @@ public class MusicPlayer : MonoBehaviour
         ForceSetPlayerState(newState);
     }
 
+    [System.Serializable]
     public enum MusicState {
         Intro,
         Low,

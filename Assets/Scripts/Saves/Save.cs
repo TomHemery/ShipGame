@@ -9,9 +9,11 @@ using UnityEngine;
 public class Save
 {
     public StoryManager.Stage storyStage;
+    public string areaName;
+
     public Dictionary<string, int> playerInventoryContents;
     public Dictionary<string, int> miningStationInventoryContents;
-
+    
     public int o2GenContents;
     public int hullRepairerContents;
     public int jumpDriveContents;
@@ -39,6 +41,7 @@ public class Save
         Save save = new Save
         {
             storyStage = StoryManager.StoryStage,
+            areaName = GameManager.CurrentArea.systemName,
             playerInventoryContents = new Dictionary<string, int>(),
             miningStationInventoryContents = new Dictionary<string, int>(),
             playerHull = playerShip.GetComponent<HullSpawner>().hull,

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -22,6 +23,8 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
     public AudioClip buttonPressSound;
 
     private const string NO_CHARACTER = "None";
+
+    public UnityEvent OnDialoguePanelClosed { get; private set; } = new UnityEvent();
 
     private void Awake()
     {
@@ -85,6 +88,7 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
         currentDialogue = null;
         responsePanel.SetActive(false);
         gameObject.SetActive(false);
+        OnDialoguePanelClosed.Invoke();
     }
 
     /// <summary>

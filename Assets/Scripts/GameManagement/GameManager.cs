@@ -44,6 +44,10 @@ public class GameManager : MonoBehaviour
     {
         CurrentArea = area;
         SceneManager.LoadScene(area.systemName);
+
+        if(MusicPlayer.Instance.PlayerState != area.musicState)
+            MusicPlayer.Instance.FadeToNewState(1.0f, area.musicState);
+
         OnAreaLoaded.Invoke();
     }
 
@@ -85,7 +89,7 @@ public class GameManager : MonoBehaviour
             InventoryItem ironItem = PrefabDatabase.PrefabDictionary["Iron"].GetComponent<PickUpOnContact>().m_inventoryItem;
             ironItem.quantity = save.hullRepairerContents;
             miningStation.GetComponent<MiningStationController>().m_HullRepairer.slot.TryCreateFrameFor(
-                ironItem     
+                ironItem
             );
         }
 
@@ -109,7 +113,7 @@ public class GameManager : MonoBehaviour
 
         StoryManager.Instance.SetStage(save.storyStage);
 
-        LoadArea(AreaDatabase.AreaDictionary[firstArea]);
+        LoadArea(AreaDatabase.AreaDictionary[save.areaName]);
     }
 
     public void StartNewGame()

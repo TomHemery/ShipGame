@@ -13,6 +13,9 @@ public class StoryManager : MonoBehaviour
     private PauseAndShowUIOnCollide stationUIController;
 
     public GameObject jumpPanelCover;
+    public GameObject jumpRefueler;
+
+    public GameObject saveGameText;
 
     public static StoryManager Instance { get; private set; } = null;
 
@@ -24,6 +27,7 @@ public class StoryManager : MonoBehaviour
 
         stationUIController = miningStation.GetComponent<PauseAndShowUIOnCollide>();
         GameManager.OnAreaLoaded.AddListener(OnAreaLoaded);
+        DialoguePanel.MainDialoguePanel.OnDialoguePanelClosed.AddListener(OnDialogueClosed);
     }
 
     private void OnEnable()
@@ -41,7 +45,7 @@ public class StoryManager : MonoBehaviour
             if (StoryStage == Stage.Intro)
             {
                 DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotIntro");
-                StoryStage = Stage.InventoryTutorial;
+                SetStage(Stage.InventoryTutorial);
             }
             playerShip.GetComponent<PlayerSpawnController>().GotoSpawnPoint();
         }
@@ -52,27 +56,26 @@ public class StoryManager : MonoBehaviour
         if (StoryStage == Stage.InventoryTutorial)
         {
             DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotOnFirstPickup");
-            StoryStage = Stage.StationTutorial;
+            SetStage(Stage.StationTutorial);
         }
         else if (StoryStage == Stage.FirstPirateEncounter) {
             Vector2 offset = UnityEngine.Random.insideUnitCircle.normalized * 100;
             Vector2 pos = playerShip.transform.position;
             EnemySpawner.SpawnOnRadiusAt(pos + offset, 2, "BasicPirateShip");
             DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotOnFirstPirateEncounter");
-            StoryStage = Stage.EndFirstPirateEncounter;
+            SetStage(Stage.EndFirstPirateEncounter);
         }
     }
 
     void OnShowStationUI() {
         if (StoryStage == Stage.JumpTutorial) {
-            jumpPanelCover.SetActive(false);
             DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotJumpTutorial");
-            StoryStage = Stage.GalaxyMapTutorial;
+            SetStage(Stage.GalaxyMapTutorial);
         }
         else if (StoryStage == Stage.StationTutorial)
         { //ready to show the station tutorial
             DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotOnFirstEnterStation");
-            StoryStage = Stage.PirateTransmission;
+            SetStage(Stage.PirateTransmission);
         }
         else if(StoryStage < Stage.StationTutorial)
         { //cheeky git tryna hide in the station
@@ -82,34 +85,63 @@ public class StoryManager : MonoBehaviour
     }
 
     void OnHideStationUI() {
-        if (StoryStage == Stage.PirateTransmission) {
+        if (StoryStage == Stage.PirateTransmission)
+        {
             DialoguePanel.MainDialoguePanel.OpenDialogue("PirateTransmission");
-            StoryStage = Stage.FirstPirateEncounter;
+            SetStage(Stage.FirstPirateEncounter);
+        }
+
+        else if (StoryStage == Stage.FirstRebelContact) {
+            DialoguePanel.MainDialoguePanel.OpenDialogue("FirstRebelContact");
+            SetStage(Stage.SecondRebelContact);
         }
 
         //saves the game if we have completed the station tutorial
-        if(StoryStage >= Stage.StationTutorial)
+        if (StoryStage >= Stage.StationTutorial)
+        {
             Save.SaveGame();
+            saveGameText.SetActive(true);
+        }
+    }
+
+    public void OnDialogueClosed() {
+        if (StoryStage == Stage.SecondPirateEncounter) {
+            StartCoroutine("SecondPirateEncounter");
+        }
+    }
+
+    private IEnumerable SecondPirateEncounter()
+    {
+        yield return new WaitForSeconds(5.0f);
+        DialoguePanel.MainDialoguePanel.OpenDialogue("SecondPirateEncounter");
+        SetStage(Stage.SecondRebelContact);
     }
 
     void OnShowGalaxyMap() {
         if (StoryStage == Stage.GalaxyMapTutorial) {
             DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotGalaxyMapTutorial");
-            StoryStage = Stage.End;
+            SetStage(Stage.FirstRebelContact);
         }
     }
 
     void OnAllEnemiesDestroyed() {
         if (StoryStage == Stage.EndFirstPirateEncounter) {
             DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotPostFirstPirateEncounter");
-            StoryStage = Stage.JumpTutorial;
+            SetStage(Stage.JumpTutorial);
         }
     }
 
     public void SetStage(Stage s) {
         StoryStage = s;
         if (s >= Stage.JumpTutorial)
+        {
             jumpPanelCover.SetActive(false);
+            jumpRefueler.SetActive(true);
+        }
+        else {
+            jumpPanelCover.SetActive(true);
+            jumpRefueler.SetActive(false);
+        }
     }
 
     //stages go here in chronological (I can't spell) order
@@ -123,6 +155,9 @@ public class StoryManager : MonoBehaviour
         EndFirstPirateEncounter,
         JumpTutorial,
         GalaxyMapTutorial,
+        FirstRebelContact,
+        SecondPirateEncounter,
+        SecondRebelContact,
         End
     }
 }

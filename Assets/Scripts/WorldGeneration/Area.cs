@@ -6,4 +6,6 @@ public struct Area {
     public string systemName;
     [SerializeField]
     public string prettyName;
+    [SerializeField]
+    public MusicPlayer.MusicState musicState;
 }
