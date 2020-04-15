@@ -13,13 +13,13 @@ public class PlayerSpawnController : MonoBehaviour
     public Transform spawnPoint;
 
     private PlayerShipController playerShipController;
-    private PauseAndShowUIOnCollide miningStationUITrigger;
+    private MiningStationUIToggle miningStationUITrigger;
 
     private void Awake()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         playerShipController = GetComponent<PlayerShipController>();
-        miningStationUITrigger = GameObject.FindGameObjectWithTag("MiningStation").GetComponent<PauseAndShowUIOnCollide>();
+        miningStationUITrigger = GameObject.FindGameObjectWithTag("MiningStation").GetComponent<MiningStationUIToggle>();
     }
 
     private void Update()
@@ -57,6 +57,8 @@ public class PlayerSpawnController : MonoBehaviour
         animateSpawn = true;
         playerShipController.RespondToInput = false;
         playerShipController.thrustMode = ShipController.ThrustMode.Forward;
+        playerShipController.M_Rigidbody.velocity = Vector2.zero;
+
         transform.position = pos;
         transform.up = up;
         miningStationUITrigger.PauseBehaviourUntilCollisionExit();

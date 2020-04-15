@@ -44,7 +44,7 @@ public class EnemySpawner : MonoBehaviour
         }
 
         if (activeEnemies.Count > 0) {
-            GameObject.FindGameObjectWithTag("MiningStation").GetComponent<PauseAndShowUIOnCollide>().behaviourEnabled = false;
+            GameObject.FindGameObjectWithTag("MiningStation").GetComponent<MiningStationUIToggle>().SetBehaviourEnabled(false);
         }
     }
 
@@ -65,12 +65,12 @@ public class EnemySpawner : MonoBehaviour
             Destroy(g);
         }
         activeEnemies.Clear();
-        GameObject.FindGameObjectWithTag("MiningStation").GetComponent<PauseAndShowUIOnCollide>().behaviourEnabled = true;
+        GameObject.FindGameObjectWithTag("MiningStation").GetComponent<MiningStationUIToggle>().SetBehaviourEnabled(true);
     }
 
     private static void OnAllEnemiesDefeated() {
         AllEnemiesDestroyed.Invoke();
-        GameObject.FindGameObjectWithTag("MiningStation").GetComponent<PauseAndShowUIOnCollide>().behaviourEnabled = true;
+        GameObject.FindGameObjectWithTag("MiningStation").GetComponent<MiningStationUIToggle>().SetBehaviourEnabled(true);
         if (MusicPlayer.Instance.PlayerState == MusicPlayer.MusicState.High || MusicPlayer.Instance.PlayerState == MusicPlayer.MusicState.Transition)
         {
             MusicPlayer.Instance.FadeToNewState(1.0f, MusicPlayer.MusicState.Mid);

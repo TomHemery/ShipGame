@@ -2,15 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PauseAndShowUIOnCollide : PauseAndShowUI
+public class MiningStationUIToggle : PauseAndShowUI
 {
     private bool sleepBehaviour = false;
-    public bool behaviourEnabled = true;
+    private bool behaviourEnabled = true;
     public ToggleTargetOnKeypress playerInventoryToggle;
+
+    public Light[] indicatorLights;
+    public Color enabledColour;
+    public Color disabledColour;
 
     protected override void Awake()
     {
         base.Awake();
+
+        foreach (Light light in indicatorLights)
+        {
+            light.color = enabledColour;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -35,5 +44,13 @@ public class PauseAndShowUIOnCollide : PauseAndShowUI
 
     public void PauseBehaviourUntilCollisionExit() {
         sleepBehaviour = true;
+    }
+
+    public void SetBehaviourEnabled(bool active) {
+        behaviourEnabled = active;
+        foreach (Light light in indicatorLights) {
+            if (active) light.color = enabledColour;
+            else light.color = disabledColour;
+        }
     }
 }

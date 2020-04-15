@@ -10,7 +10,7 @@ public class StoryManager : MonoBehaviour
 
     private GameObject playerShip;
     private GameObject miningStation;
-    private PauseAndShowUIOnCollide stationUIController;
+    private MiningStationUIToggle stationUIController;
 
     public GameObject jumpPanelCover;
     public GameObject jumpRefueler;
@@ -25,7 +25,7 @@ public class StoryManager : MonoBehaviour
         playerShip = GameObject.FindGameObjectWithTag("PlayerShip");
         miningStation = GameObject.FindGameObjectWithTag("MiningStation");
 
-        stationUIController = miningStation.GetComponent<PauseAndShowUIOnCollide>();
+        stationUIController = miningStation.GetComponent<MiningStationUIToggle>();
         GameManager.OnAreaLoaded.AddListener(OnAreaLoaded);
         DialoguePanel.MainDialoguePanel.OnDialoguePanelClosed.AddListener(OnDialogueClosed);
     }
