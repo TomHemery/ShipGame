@@ -22,8 +22,11 @@ public class MainMenuController : MonoBehaviour
 
         loadGameDropdown.ClearOptions();
         string[] saveNames = Save.GetAllSaveNames();
+
         if (saveNames.Length > 0)   
         {
+            loadGameButton.interactable = true;
+            loadGameDropdown.gameObject.SetActive(true);
             List<Dropdown.OptionData> options = new List<Dropdown.OptionData>();
 
             foreach (string saveName in saveNames)

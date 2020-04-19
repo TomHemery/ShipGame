@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void KillPlayerBy(PlayerDeathTypes deathType) {
+        Debug.Log("Killing player by: " + deathType);
         if (!playerDied)
         {
             Text deathText = DeathScreen.GetComponentInChildren<Text>();

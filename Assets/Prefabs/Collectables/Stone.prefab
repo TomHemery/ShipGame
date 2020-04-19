@@ -269,7 +269,7 @@ MonoBehaviour:
     systemName: Stone
     prettyName: Stone
     equipable: 0
-    equipType: 2
+    equipType: 3
 --- !u!58 &7769039787535958603
 CircleCollider2D:
   m_ObjectHideFlags: 0

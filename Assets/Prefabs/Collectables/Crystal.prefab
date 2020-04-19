@@ -52,7 +52,7 @@ MonoBehaviour:
     systemName: Crystal
     prettyName: Crystal
     equipable: 0
-    equipType: 2
+    equipType: 3
 --- !u!58 &677423658710609840
 CircleCollider2D:
   m_ObjectHideFlags: 0

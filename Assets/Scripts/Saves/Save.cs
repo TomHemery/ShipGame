@@ -112,8 +112,6 @@ public class Save
     }
 
     public static string[] GetAllSaveNames() {
-        Debug.Log("Getting all saves from: " + path);
-
         if (!Directory.Exists(path)) {
             Directory.CreateDirectory(path);
         }
@@ -122,14 +120,16 @@ public class Save
         List<string> result = new List<string>();
 
         foreach (string file in files) {
-            if (Path.GetExtension(file) == Save.extension)
+            if (Path.GetExtension(file) == extension)
             {
                 result.Add(Path.GetFileNameWithoutExtension(file));
             }
         }
+
         string[] saveNames = result.ToArray();
         System.Array.Sort(saveNames);
         System.Array.Reverse(saveNames);
+
         return saveNames;
     }
 }

@@ -18,6 +18,8 @@ public class Slot : MonoBehaviour
 
     private RectTransform m_rectTransform;
 
+    public event System.Action SlotContentsChanged;
+
     private void Awake()
     {
         m_rectTransform = GetComponent<RectTransform>();
@@ -39,13 +41,15 @@ public class Slot : MonoBehaviour
                     StoredItemFrame = Instantiate(newFrame.gameObject, m_rectTransform).GetComponent<ItemFrame>();
                     StoredItemFrame.parentSlot = this;
                     StoredItemFrame.SetQuantity(quantityStored);
+                    SlotContentsChanged?.Invoke();
                 }
                 //outputs the "Inventory changed" event
                 associatedInventory.ForceAlertListeners();
                 return quantityStored;
             }
-            else if (m_equipType == EquipType.SetItem && newFrame.m_InventoryItem.systemName == acceptedItemName) {
-                int quantityStored = associatedInventory == null ? 
+            else if (m_equipType == EquipType.SetItem && newFrame.m_InventoryItem.systemName == acceptedItemName)
+            {
+                int quantityStored = associatedInventory == null ?
                     newFrame.m_InventoryItem.quantity : associatedInventory.SilentAddMaxOf(newFrame.m_InventoryItem);
 
                 if (quantityStored > 0)
@@ -53,20 +57,35 @@ public class Slot : MonoBehaviour
                     StoredItemFrame = Instantiate(newFrame.gameObject, m_rectTransform).GetComponent<ItemFrame>();
                     StoredItemFrame.parentSlot = this;
                     StoredItemFrame.SetQuantity(quantityStored);
+                    SlotContentsChanged?.Invoke();
                 }
 
                 //outputs the "Inventory changed" event
-                if(associatedInventory != null) associatedInventory.ForceAlertListeners();
+                if (associatedInventory != null) associatedInventory.ForceAlertListeners();
                 return quantityStored;
             }
-            //we are an equipment slot of matching type and this is equipment
-            else if (m_equipType == newFrame.m_InventoryItem.equipType && newFrame.m_InventoryItem.equipable)  
+            //we are a slot of some matching equipType
+            else if (m_equipType == newFrame.m_InventoryItem.equipType)
             {
-                GameObject equipment = Instantiate(PrefabDatabase.PrefabDictionary[newFrame.m_InventoryItem.systemName], associatedEquipPoint);
-                StoredItemFrame = Instantiate(newFrame.gameObject, m_rectTransform).GetComponent<ItemFrame>();
-                StoredItemFrame.parentSlot = this;
-                StoredItemFrame.SetQuantity(1);
-                return 1;
+                //this is equipment
+                if (newFrame.m_InventoryItem.equipable)
+                {
+                    GameObject equipment = Instantiate(PrefabDatabase.PrefabDictionary[newFrame.m_InventoryItem.systemName], associatedEquipPoint);
+                    StoredItemFrame = Instantiate(newFrame.gameObject, m_rectTransform).GetComponent<ItemFrame>();
+                    StoredItemFrame.parentSlot = this;
+                    StoredItemFrame.SetQuantity(1);
+                    SlotContentsChanged?.Invoke();
+                    return 1;
+                }
+
+                //this is a blueprint
+                else if (m_equipType == EquipType.Blueprint) {
+                    StoredItemFrame = Instantiate(newFrame.gameObject, m_rectTransform).GetComponent<ItemFrame>();
+                    StoredItemFrame.parentSlot = this;
+                    int quantity = StoredItemFrame.m_InventoryItem.quantity;
+                    SlotContentsChanged?.Invoke();
+                    return quantity;
+                }
             }
         }
         //not empty, but the passed frame matches the type of the already stored frame and it isn't equipment
@@ -77,6 +96,7 @@ public class Slot : MonoBehaviour
             if (quantityStored > 0)
             {
                 StoredItemFrame.SetQuantity(StoredItemFrame.m_InventoryItem.quantity + quantityStored);
+                SlotContentsChanged?.Invoke();
             }
             if(associatedInventory != null) associatedInventory.ForceAlertListeners();
             return quantityStored;
@@ -131,6 +151,8 @@ public class Slot : MonoBehaviour
                                                   StoredItemFrame.m_InventoryItem.quantity);
 
             if (associatedEquipPoint != null) Destroy(associatedEquipPoint.GetChild(0).gameObject);
+
+            SlotContentsChanged?.Invoke();
 
             StoredItemFrame = null;
         }

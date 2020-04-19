@@ -239,13 +239,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d067b9e1b8f187f408a5d4eeaa5d89c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_inventoryItem:
+  m_InventoryItem:
     inventorySprite: {fileID: 0}
     quantity: 0
     systemName: 
     prettyName: 
     equipable: 0
-    equipType: 0
+    equipType: 3
   nameText: {fileID: 5712239361925994755}
   quantityText: {fileID: 7971450846284279831}
   itemFrameImage: {fileID: 6410793325927006115}
