@@ -12,6 +12,9 @@ public class BasicProjectileWeapon : Weapon
     /// Fires the weapon
     /// </summary>
     override protected void Fire() {
+        if (mAudioSource != null) {
+            mAudioSource.Play();
+        }
         //instantiate the projectile at the spawn point
         GameObject projectile = Instantiate(ProjectilePrefab, SpawnPoint.position, SpawnPoint.rotation);
         //prevent collisions between this bullet and the spawning ship

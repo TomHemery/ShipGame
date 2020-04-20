@@ -1285,79 +1285,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 102203766}
   m_CullTransparentMesh: 0
---- !u!1 &106113149
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 106113150}
-  - component: {fileID: 106113152}
-  - component: {fileID: 106113151}
-  m_Layer: 5
-  m_Name: Item Checkmark
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &106113150
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 106113149}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1607473197}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 10, y: 0}
-  m_SizeDelta: {x: 20, y: 20}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &106113151
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 106113149}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &106113152
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 106113149}
-  m_CullTransparentMesh: 0
 --- !u!1 &108281258
 GameObject:
   m_ObjectHideFlags: 0
@@ -1413,6 +1340,7 @@ MonoBehaviour:
   acceptedItemName: 
   associatedInventory: {fileID: 0}
   associatedEquipPoint: {fileID: 0}
+  outputOnly: 1
   itemFramePrefab: {fileID: 7114726645731438124, guid: c6ee3f63895130340a88b59e241c9388,
     type: 3}
   slotText: {fileID: 387273173}
@@ -3405,6 +3333,7 @@ MonoBehaviour:
   acceptedItemName: Iron
   associatedInventory: {fileID: 0}
   associatedEquipPoint: {fileID: 0}
+  outputOnly: 0
   itemFramePrefab: {fileID: 7114726645731438124, guid: c6ee3f63895130340a88b59e241c9388,
     type: 3}
   slotText: {fileID: 2043478924}
@@ -5237,6 +5166,7 @@ MonoBehaviour:
   acceptedItemName: Crystal
   associatedInventory: {fileID: 0}
   associatedEquipPoint: {fileID: 0}
+  outputOnly: 0
   itemFramePrefab: {fileID: 7114726645731438124, guid: c6ee3f63895130340a88b59e241c9388,
     type: 3}
   slotText: {fileID: 1178046396}
@@ -5649,7 +5579,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -18, y: 0}
+  m_SizeDelta: {x: -17, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &587344383
 MonoBehaviour:
@@ -5884,7 +5814,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.2}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6108,6 +6038,7 @@ MonoBehaviour:
   acceptedItemName: Ice
   associatedInventory: {fileID: 0}
   associatedEquipPoint: {fileID: 0}
+  outputOnly: 0
   itemFramePrefab: {fileID: 7114726645731438124, guid: c6ee3f63895130340a88b59e241c9388,
     type: 3}
   slotText: {fileID: 746574482}
@@ -9678,7 +9609,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 619272437}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.2
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9774,6 +9705,7 @@ MonoBehaviour:
   acceptedItemName: 
   associatedInventory: {fileID: 0}
   associatedEquipPoint: {fileID: 0}
+  outputOnly: 0
   itemFramePrefab: {fileID: 7114726645731438124, guid: c6ee3f63895130340a88b59e241c9388,
     type: 3}
   slotText: {fileID: 596428038}
@@ -11287,6 +11219,8 @@ MonoBehaviour:
   - {fileID: 5447800882768667956, guid: eeb191af0e3e28e49977858483de5ab6, type: 3}
   - {fileID: 2012091968841825849, guid: 214cc533b631ce3439a6920f545192d4, type: 3}
   - {fileID: 6888309240082012301, guid: d1990fce2ac31a34685339cfc270f104, type: 3}
+  - {fileID: 5388365813647930734, guid: 71090e1a00558a141b3128adfa9f7c88, type: 3}
+  - {fileID: 3205307170627632913, guid: 059084f09b07daf4ba5af73c9dc89a37, type: 3}
 --- !u!4 &1181497869
 Transform:
   m_ObjectHideFlags: 0
@@ -11336,11 +11270,17 @@ MonoBehaviour:
   - systemName: MinigunBlueprint
     prettyName: Minigun Blueprint
     materials:
-    - Iron
+    - Stone
+    quantities: 01000000
+    output: Minigun
+  - systemName: PlasmaBeamBlueprint
+    prettyName: Plasma Beam Blueprint
+    materials:
     - Scrap
     - Uranium
-    quantities: 030000000500000002000000
-    output: Minigun
+    - Crystal
+    quantities: 050000000100000002000000
+    output: PlasmaLaser
 --- !u!1 &1183756878
 GameObject:
   m_ObjectHideFlags: 0
@@ -13054,7 +12994,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1337482982}
-  - {fileID: 106113150}
   - {fileID: 1847311285}
   m_Father: {fileID: 1110023408}
   m_RootOrder: 0
@@ -13105,7 +13044,7 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 1337482983}
   toggleTransition: 1
-  graphic: {fileID: 106113151}
+  graphic: {fileID: 0}
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
@@ -13769,12 +13708,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1607473197}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 5, y: -0.5}
-  m_SizeDelta: {x: -30, y: -3}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -10, y: -2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1847311286
 MonoBehaviour:
@@ -13796,10 +13735,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 12
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 3
     m_AlignByGeometry: 0

@@ -112,6 +112,8 @@ public class GameManager : MonoBehaviour
             );
         }
 
+        CraftingSystem.Instance.SetUnlockedBlueprints(save.unlockedBlueprints);
+
         StoryManager.Instance.SetStage(save.storyStage);
 
         LoadArea(AreaDatabase.AreaDictionary[save.areaName]);

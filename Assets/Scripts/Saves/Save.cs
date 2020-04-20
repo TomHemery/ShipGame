@@ -27,6 +27,8 @@ public class Save
     public float playerO2Levels;
     public float jumpDriveFillLevel;
 
+    public List<Blueprint> unlockedBlueprints;
+
     private const string extension = ".save";
     private static readonly string path = Application.persistentDataPath + "/Saves/";
 
@@ -49,7 +51,8 @@ public class Save
             playerMaxShields = playerShip.GetComponent<HealthAndShieldsResource>().MaxShieldValue,
             playerMaxHealth = playerShip.GetComponent<HealthAndShieldsResource>().MaxHealthValue,
             playerO2Levels = playerShip.GetComponent<OxygenResource>().Value,
-            jumpDriveFillLevel = miningStation.GetComponent<JumpResource>().Value
+            jumpDriveFillLevel = miningStation.GetComponent<JumpResource>().Value,
+            unlockedBlueprints = CraftingSystem.Instance.UnlockedBlueprints
         };
 
         ItemFrame o2Frame = MiningStationController.Instance.m_O2Gen.slot.StoredItemFrame;
@@ -115,6 +118,8 @@ public class Save
         if (!Directory.Exists(path)) {
             Directory.CreateDirectory(path);
         }
+
+        Debug.Log("Getting all saves in: " + path);
 
         string[] files = Directory.GetFiles(path);
         List<string> result = new List<string>();

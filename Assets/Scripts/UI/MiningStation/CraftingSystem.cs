@@ -7,6 +7,7 @@ using static UnityEngine.UI.Dropdown;
 
 public class CraftingSystem : MonoBehaviour
 {
+    public static CraftingSystem Instance { get; private set; } = null;
     public GameObject CentralPanel;
 
     public Slot blueprintSlot;
@@ -16,18 +17,25 @@ public class CraftingSystem : MonoBehaviour
     public Inventory associatedInventory;
     public Text craftButtonLabel;
 
-    private List<Blueprint> unlockedBlueprints = new List<Blueprint>();
+    public List<Blueprint> UnlockedBlueprints { get; private set; } = new List<Blueprint>();
     private bool canCraft = false;
+
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+    }
 
     private void OnEnable()
     {
         blueprintSlot.SlotContentsChanged += OnBlueprintSlotContentsChange;
+        outputSlot.SlotContentsChanged += OnOutputSlotContentsChange;
         associatedInventory.InventoryChangedEvent += OnAssociatedInventoryChanged;
     }
 
     private void OnDisable()
     {
         blueprintSlot.SlotContentsChanged -= OnBlueprintSlotContentsChange;
+        outputSlot.SlotContentsChanged -= OnOutputSlotContentsChange;
         associatedInventory.InventoryChangedEvent -= OnAssociatedInventoryChanged;
     }
 
@@ -62,34 +70,39 @@ public class CraftingSystem : MonoBehaviour
     }
 
     public void CheckMaterials() {
-        canCraft = true;
-
-        Blueprint bp = unlockedBlueprints[blueprintDropdown.value];
-
-        string requirementsDesc = "<b>Requirements</b>\n";
-
-        for (int i = 0; i < bp.materials.Length; i++)
+        if (blueprintDropdown.value >= 0)
         {
-            if (associatedInventory.Contents.ContainsKey(bp.materials[i]) && associatedInventory.Contents[bp.materials[i]].quantity >= bp.quantities[i])
+            canCraft = true;
+
+            Blueprint bp = UnlockedBlueprints[blueprintDropdown.value];
+
+            string requirementsDesc = "<b>Requirements</b>\n";
+
+            for (int i = 0; i < bp.materials.Length; i++)
             {
-                requirementsDesc += "<color=green>";
+                if (associatedInventory.Contents.ContainsKey(bp.materials[i]) && associatedInventory.Contents[bp.materials[i]].quantity >= bp.quantities[i])
+                {
+                    requirementsDesc += "<color=green>";
+                }
+                else
+                {
+                    requirementsDesc += "<color=red>";
+                    canCraft = false;
+                }
+                requirementsDesc += "<b>" + bp.materials[i] + ":</b> " + bp.quantities[i] + "</color>\n";
             }
-            else
-            {
-                requirementsDesc += "<color=red>";
-                canCraft = false;
-            }
-            requirementsDesc += "<b>" + bp.materials[i] + ":</b> " + bp.quantities[i] + "</color>\n";
+
+            canCraft = canCraft ? outputSlot.StoredItemFrame == null : false;
+
+            materialsText.text = requirementsDesc;
+
+            craftButtonLabel.color = canCraft ? Color.green : Color.red;
         }
-
-        materialsText.text = requirementsDesc;
-
-        craftButtonLabel.color = canCraft ? Color.green : Color.red;
     }
 
     public void Craft() {
         if (canCraft) {
-            Blueprint bp = unlockedBlueprints[blueprintDropdown.value];
+            Blueprint bp = UnlockedBlueprints[blueprintDropdown.value];
             for (int i = 0; i < bp.materials.Length; i++) {
                 associatedInventory.TryRemoveItem(bp.materials[i], bp.quantities[i]);
             }
@@ -102,6 +115,8 @@ public class CraftingSystem : MonoBehaviour
                 outputSlot.TryCreateFrameFor(output.GetComponent<PickUpOnContact>().m_inventoryItem);
             }
         }
+
+        CheckMaterials();
     }
 
     private void OnBlueprintSlotContentsChange() {
@@ -114,7 +129,7 @@ public class CraftingSystem : MonoBehaviour
             blueprintSlot.SilentRemoveItemFrame();
             Destroy(blueprintObject);
 
-            unlockedBlueprints.Add(bp);
+            UnlockedBlueprints.Add(bp);
 
             List<OptionData> newOptions = new List<OptionData>
             {
@@ -123,6 +138,26 @@ public class CraftingSystem : MonoBehaviour
 
             blueprintDropdown.AddOptions(newOptions);
         }
+        blueprintDropdown.value = blueprintDropdown.options.Count - 1;
+        OnBlueprintDropdownSelection();
+    }
+
+    private void OnOutputSlotContentsChange() {
+        Debug.Log("Output slot contents changed");
+        CheckMaterials();
+    }
+
+    public void SetUnlockedBlueprints(List<Blueprint> bps) {
+        UnlockedBlueprints = bps;
+
+        blueprintDropdown.ClearOptions();
+
+        List<OptionData> newOptions = new List<OptionData>();
+        foreach (Blueprint bp in bps) {
+            newOptions.Add(new OptionData(bp.output));
+        }
+
+        blueprintDropdown.AddOptions(newOptions);
         blueprintDropdown.value = blueprintDropdown.options.Count - 1;
         OnBlueprintDropdownSelection();
     }

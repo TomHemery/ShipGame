@@ -104,7 +104,7 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private void ResetDrag()
     {
         mTransform.position = dragStartPos;
-        parentSlot.StoreItemFrame(this);
+        parentSlot.RestoreChildFrame(this);
         DestroySelf();
     }
 
