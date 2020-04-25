@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
     public static bool SimPaused { get; private set; } = false;
     public static UnityEvent OnSimPause { get; private set; } = new UnityEvent();
     public static UnityEvent OnSimUnPause { get; private set; } = new UnityEvent();
-
     public static UnityEvent OnAreaLoaded { get; private set; } = new UnityEvent();
     public static UnityEvent OnPlayerDeath { get; private set; } = new UnityEvent();
 
@@ -131,6 +130,12 @@ public class GameManager : MonoBehaviour
         playerShip.GetComponent<HealthAndShieldsResource>().SetMaxShieldValue(HealthAndShieldsResource.DEFAULT_MAX_SHIELDS);
 
         playerShip.GetComponent<HealthAndShieldsResource>().FillResource();
+
+        List<Blueprint> defaultBlueprints = new List<Blueprint>
+        {
+            BlueprintDatabase.BlueprintDictionary["FuelCellBlueprint"]
+        };
+        CraftingSystem.Instance.SetUnlockedBlueprints(defaultBlueprints);
     }
 
     IEnumerator PlayerDeath()

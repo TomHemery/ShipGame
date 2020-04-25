@@ -70,7 +70,7 @@ public class StoryManager : MonoBehaviour
     void OnShowStationUI() {
         if (StoryStage == Stage.JumpTutorial) {
             DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotJumpTutorial");
-            SetStage(Stage.GalaxyMapTutorial);
+            SetStage(Stage.CraftingTutorial);
         }
         else if (StoryStage == Stage.StationTutorial)
         { //ready to show the station tutorial
@@ -101,6 +101,15 @@ public class StoryManager : MonoBehaviour
         {
             Save.SaveGame();
             saveGameText.SetActive(true);
+        }
+    }
+
+    public void OnToggleCraftingPanel()
+    {
+        if(StoryStage == Stage.CraftingTutorial)
+        {
+            DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotCraftingTutorial");
+            SetStage(Stage.GalaxyMapTutorial);
         }
     }
 
@@ -154,6 +163,7 @@ public class StoryManager : MonoBehaviour
         FirstPirateEncounter,
         EndFirstPirateEncounter,
         JumpTutorial,
+        CraftingTutorial,
         GalaxyMapTutorial,
         FirstRebelContact,
         SecondPirateEncounter,

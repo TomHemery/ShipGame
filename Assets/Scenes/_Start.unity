@@ -4131,7 +4131,7 @@ RectTransform:
   - {fileID: 303307618}
   - {fileID: 108281259}
   m_Father: {fileID: 454192602}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4661,7 +4661,6 @@ RectTransform:
   - {fileID: 272632864}
   - {fileID: 748685178}
   - {fileID: 941685054}
-  - {fileID: 972972450}
   - {fileID: 386410203}
   m_Father: {fileID: 0}
   m_RootOrder: 8
@@ -5124,7 +5123,7 @@ GameObject:
   - component: {fileID: 510352338}
   - component: {fileID: 510352337}
   m_Layer: 5
-  m_Name: CrystalSlot
+  m_Name: FuelCellSlot
   m_TagString: EquipSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5163,7 +5162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_equipType: 1
-  acceptedItemName: Crystal
+  acceptedItemName: FuelCell
   associatedInventory: {fileID: 0}
   associatedEquipPoint: {fileID: 0}
   outputOnly: 0
@@ -8881,17 +8880,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 972972449}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1433863478}
-  m_Father: {fileID: 454192602}
-  m_RootOrder: 4
+  m_Father: {fileID: 748685178}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 306, y: -243}
+  m_AnchoredPosition: {x: -0.0020751953, y: -263.5}
   m_SizeDelta: {x: 384, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &972972451
@@ -8939,6 +8938,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 386410206}
         m_MethodName: Toggle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 716273729}
+        m_MethodName: OnToggleCraftingPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11188,6 +11198,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: cb2cf70fba9989949965d37cf5c0bd66, type: 3}
   - {fileID: 4900000, guid: eca428dde8638a1429c0f91d10f8e1d0, type: 3}
   - {fileID: 4900000, guid: f430cb1d82364c7428d06b6e09956005, type: 3}
+  - {fileID: 4900000, guid: d13b61d0737c4ee448cdf552a9b93655, type: 3}
 --- !u!114 &1181497868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11221,6 +11232,7 @@ MonoBehaviour:
   - {fileID: 6888309240082012301, guid: d1990fce2ac31a34685339cfc270f104, type: 3}
   - {fileID: 5388365813647930734, guid: 71090e1a00558a141b3128adfa9f7c88, type: 3}
   - {fileID: 3205307170627632913, guid: 059084f09b07daf4ba5af73c9dc89a37, type: 3}
+  - {fileID: 9176007282643195007, guid: 42e449a7cd100c14894abba916885217, type: 3}
 --- !u!4 &1181497869
 Transform:
   m_ObjectHideFlags: 0
@@ -11281,6 +11293,13 @@ MonoBehaviour:
     - Crystal
     quantities: 050000000100000002000000
     output: PlasmaLaser
+  - systemName: FuelCellBlueprint
+    prettyName: Fuel Cell Blueprint
+    materials:
+    - Crystal
+    - Uranium
+    quantities: 0100000001000000
+    output: FuelCell
 --- !u!1 &1183756878
 GameObject:
   m_ObjectHideFlags: 0
@@ -12705,7 +12724,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 303388517}
   m_Direction: 2
   m_Value: 0.9971439
-  m_Size: 0.41666666
+  m_Size: 0.41666663
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -13410,7 +13429,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1749919435}
   m_HandleRect: {fileID: 1749919434}
   m_Direction: 2
-  m_Value: 1.0000013
+  m_Value: 1.0000014
   m_Size: 0.29999998
   m_NumberOfSteps: 0
   m_OnValueChanged:

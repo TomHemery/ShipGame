@@ -1,7 +1,7 @@
 <conversation entryNode="0" requirePause="false">
   <node index="0" character ="FriendBot">
     <prompt>Well this is a situation isn't it criminal?
-I'll have to uncover the controls for the jump drive after we're done talking...
+I'll have to uncover the controls for the jump drive and the crafting system after we're done talking...
 We're gonna have to fuel it up and get out of here sharpish!</prompt>
     <continue target="1"/>
   </node>
@@ -10,7 +10,7 @@ We're gonna have to fuel it up and get out of here sharpish!</prompt>
     <continue target="2"/>
   </node>
   <node index="2" character="FriendBot">
-    <prompt>Try filling up the jump drive fueler with crystals, they're found in asteroids fairly frequently.
+    <prompt>You'll need to make at least 4 fuel cells with the crafter, using Uranium and Crystals. You've probably picked some up from the asteroids... at least I hope you have ahahaha... haha
 If you don't have any then you'd better go and find some before you're murdered by bloodthirsty pirates bent on revenge!</prompt>
     <continue target="3"/>
   </node>
