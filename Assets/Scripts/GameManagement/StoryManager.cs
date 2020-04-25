@@ -15,6 +15,8 @@ public class StoryManager : MonoBehaviour
     public GameObject jumpPanelCover;
     public GameObject jumpRefueler;
 
+    public GameObject toggleCraftingPanelButton;
+
     public GameObject saveGameText;
 
     public static StoryManager Instance { get; private set; } = null;
@@ -142,15 +144,11 @@ public class StoryManager : MonoBehaviour
 
     public void SetStage(Stage s) {
         StoryStage = s;
-        if (s >= Stage.JumpTutorial)
-        {
-            jumpPanelCover.SetActive(false);
-            jumpRefueler.SetActive(true);
-        }
-        else {
-            jumpPanelCover.SetActive(true);
-            jumpRefueler.SetActive(false);
-        }
+
+        jumpPanelCover.SetActive(s < Stage.JumpTutorial);
+
+        jumpRefueler.SetActive(s >= Stage.JumpTutorial);
+        toggleCraftingPanelButton.SetActive(s >= Stage.JumpTutorial);
     }
 
     //stages go here in chronological (I can't spell) order

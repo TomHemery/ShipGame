@@ -6484,6 +6484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpPanelCover: {fileID: 1251733201}
   jumpRefueler: {fileID: 1146550727}
+  toggleCraftingPanelButton: {fileID: 972972449}
   saveGameText: {fileID: 449870044}
 --- !u!1 &727846352
 GameObject:
@@ -11116,7 +11117,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Crystal In
+  m_Text: Fuel Cell In
 --- !u!222 &1178046397
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11282,8 +11283,10 @@ MonoBehaviour:
   - systemName: MinigunBlueprint
     prettyName: Minigun Blueprint
     materials:
-    - Stone
-    quantities: 01000000
+    - Iron
+    - Uranium
+    - Scrap
+    quantities: 0a0000000500000005000000
     output: Minigun
   - systemName: PlasmaBeamBlueprint
     prettyName: Plasma Beam Blueprint
@@ -11291,7 +11294,7 @@ MonoBehaviour:
     - Scrap
     - Uranium
     - Crystal
-    quantities: 050000000100000002000000
+    quantities: 050000000a00000002000000
     output: PlasmaLaser
   - systemName: FuelCellBlueprint
     prettyName: Fuel Cell Blueprint

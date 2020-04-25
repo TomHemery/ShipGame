@@ -171,7 +171,6 @@ public class Inventory : MonoBehaviour
         ClearContents();
         foreach (KeyValuePair<string, int> pair in newContents)
         {
-            Debug.Log("looking for: " + pair.Key + " in the prefab dictionary");
             GameObject itemGameObject = PrefabDatabase.PrefabDictionary[pair.Key];
             if (itemGameObject.GetComponent<Weapon>() != null)
             {
