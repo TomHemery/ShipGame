@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_inventoryItem:
-    inventorySprite: {fileID: 21300000, guid: f4308202b55d1594eb963c8cf0a18efb, type: 3}
+    inventorySprite: {fileID: 21300000, guid: cfcd9f0bedc138247ba4872f954c2f4b, type: 3}
     quantity: 1
     systemName: Scrap
     prettyName: Scrap
@@ -275,7 +275,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f4308202b55d1594eb963c8cf0a18efb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cfcd9f0bedc138247ba4872f954c2f4b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
