@@ -10,12 +10,12 @@ public class EnemySpawner : MonoBehaviour
 
     [SerializeField]
     private GameObject[] allEnemyPrefabs; //assigned in inspector
-
     private static Dictionary<string, GameObject> EnemyPrefabs = new Dictionary<string, GameObject>();
-
     private static List<GameObject> activeEnemies = new List<GameObject>();
 
     public static UnityEvent AllEnemiesDestroyed { get; private set; } = new UnityEvent();
+
+    private const float ENEMY_SPACING = 5.0f;
 
     private void Awake()
     {
@@ -35,21 +35,22 @@ public class EnemySpawner : MonoBehaviour
         DestroyAllEnemyGameObjects();
     }
 
-    public static void SpawnAt(Vector2 pos, string name, int num = 1) {
-        for (int i = 0; i < num; i++)
-        {
-            GameObject enemyShip = Instantiate(EnemyPrefabs[name], pos, Quaternion.identity);
-            activeEnemies.Add(enemyShip);
-            enemyShip.GetComponent<HealthResource>().OnExploded += OnEnemyShipDestroyed;
-        }
+    public static void SpawnAt(Vector2 pos, string name) {
+        GameObject enemyShip = Instantiate(EnemyPrefabs[name], pos, Quaternion.identity);
+        activeEnemies.Add(enemyShip);
+        enemyShip.GetComponent<HealthResource>().OnExploded += OnEnemyShipDestroyed;
 
         if (activeEnemies.Count > 0) {
             GameObject.FindGameObjectWithTag("MiningStation").GetComponent<MiningStationUIToggle>().SetBehaviourEnabled(false);
         }
     }
 
-    public static void SpawnOnRadiusAt(Vector2 pos, float radius, string name, int num = 1) {
-        for (int i = 0; i < num; i++) SpawnAt(pos + UnityEngine.Random.insideUnitCircle.normalized * radius, name);
+    public static void SpawnAt(Vector2 pos, string name, int num) {
+        Vector2 offset = new Vector2();
+        for (int i = 0; i < num; i++) {
+            SpawnAt(pos + offset, name);
+            offset.Set(offset.x + ENEMY_SPACING, offset.y);
+        }
     }
 
     public static void OnEnemyShipDestroyed(object sender, EventArgs e) {

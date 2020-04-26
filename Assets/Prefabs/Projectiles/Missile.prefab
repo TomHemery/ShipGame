@@ -162,7 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxSpeed: 50
   lifeSpan: 2
-  damage: 30
+  damage: 60
   explosionPrefab: {fileID: 3813318767767790973, guid: 018b1ecd48998fd49982f28eda841c20,
     type: 3}
 --- !u!61 &4900950272314888817

@@ -63,7 +63,7 @@ public class StoryManager : MonoBehaviour
         else if (StoryStage == Stage.FirstPirateEncounter) {
             Vector2 offset = UnityEngine.Random.insideUnitCircle.normalized * 100;
             Vector2 pos = playerShip.transform.position;
-            EnemySpawner.SpawnOnRadiusAt(pos + offset, 2, "BasicPirateShip");
+            EnemySpawner.SpawnAt(pos + offset, "BasicPirateShip");
             DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotOnFirstPirateEncounter");
             SetStage(Stage.EndFirstPirateEncounter);
         }
@@ -95,7 +95,7 @@ public class StoryManager : MonoBehaviour
 
         else if (StoryStage == Stage.FirstRebelContact) {
             DialoguePanel.MainDialoguePanel.OpenDialogue("FirstRebelContact");
-            SetStage(Stage.SecondRebelContact);
+            SetStage(Stage.SecondPirateEncounter);
         }
 
         //saves the game if we have completed the station tutorial
@@ -116,15 +116,17 @@ public class StoryManager : MonoBehaviour
     }
 
     public void OnDialogueClosed() {
-        if (StoryStage == Stage.SecondPirateEncounter) {
-            StartCoroutine("SecondPirateEncounter");
-        }
+        
     }
 
-    private IEnumerable SecondPirateEncounter()
+    private IEnumerator SecondPirateEncounter()
     {
         yield return new WaitForSeconds(5.0f);
         DialoguePanel.MainDialoguePanel.OpenDialogue("SecondPirateEncounter");
+        Vector2 offset = UnityEngine.Random.insideUnitCircle.normalized * 100;
+        Vector2 pos = playerShip.transform.position;
+        EnemySpawner.SpawnAt(pos + offset, "BasicPirateShip", 2);
+        EnemySpawner.SpawnAt(pos + offset + UnityEngine.Random.insideUnitCircle.normalized * 5.0f, "RocketLauncherPirateShip", 1);
         SetStage(Stage.SecondRebelContact);
     }
 
@@ -149,6 +151,12 @@ public class StoryManager : MonoBehaviour
 
         jumpRefueler.SetActive(s >= Stage.JumpTutorial);
         toggleCraftingPanelButton.SetActive(s >= Stage.JumpTutorial);
+
+
+        if (s == Stage.SecondPirateEncounter)
+        {
+            StartCoroutine(SecondPirateEncounter());
+        }
     }
 
     //stages go here in chronological (I can't spell) order

@@ -1,17 +1,17 @@
 <conversation entryNode="0" requirePause="true">
-  <node index ="0" character="FriendBot">
-    <prompt>I'm picking up some alarming radio chatter criminal... hang on I'll send it through to you!</prompt>
+  <node index ="0" character="FriendBot" music="Transition">
+    <prompt>Ah... slight problemo criminal...</prompt>
     <continue target="1"/>
   </node>
   <node index ="1" character="PirateSkull">
-    <prompt>... zzzzzztttt ... yeah it's another empire mining outpost
-Some poor brainwashed bastard no doubt, yeah it'll be easy pickings...</prompt>
+    <prompt>... zzzzzztttt ... They killed Rick, they tried to jump away but we managed to track 'em...
+Send in the big guns boys!</prompt>
     <continue target="2"/>
   </node>
   <node index ="2" character="FriendBot">
-    <prompt>Pirates! You'd better be on the lookout criminal.
-Your ship is equipped for these sorts of incursions, so be on the lookout, but keep working.
-You wouldn't want to let the empire down now would you? F.R.I.E.N.D out!</prompt>
+    <prompt>So... jumping might not have been the escape I thought it would be...
+Do try not to die criminal! I'll figure out something in a jiffy I'm sure!
+F.R.I.E.N.D out!</prompt>
     <continue target="-1"/>
   </node>
 </conversation>

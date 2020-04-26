@@ -6441,6 +6441,7 @@ MonoBehaviour:
   - {fileID: 3040169793755783779, guid: e98f3f7b4cfa0ee4fb34dca5388b7eff, type: 3}
   - {fileID: 6856419688612756925, guid: 2266a8b3832f53b4aa743ef13b4dc314, type: 3}
   - {fileID: 3040169793755783779, guid: 544cd51812f8c254b89ab46f80f5c60d, type: 3}
+  - {fileID: 5815092714895180223, guid: db6a087ebab5d26439f3b5418420b88c, type: 3}
 --- !u!114 &716273726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11200,6 +11201,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: eca428dde8638a1429c0f91d10f8e1d0, type: 3}
   - {fileID: 4900000, guid: f430cb1d82364c7428d06b6e09956005, type: 3}
   - {fileID: 4900000, guid: d13b61d0737c4ee448cdf552a9b93655, type: 3}
+  - {fileID: 4900000, guid: 37844736d29af66408049d4809f16270, type: 3}
 --- !u!114 &1181497868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11234,6 +11236,8 @@ MonoBehaviour:
   - {fileID: 5388365813647930734, guid: 71090e1a00558a141b3128adfa9f7c88, type: 3}
   - {fileID: 3205307170627632913, guid: 059084f09b07daf4ba5af73c9dc89a37, type: 3}
   - {fileID: 9176007282643195007, guid: 42e449a7cd100c14894abba916885217, type: 3}
+  - {fileID: 56650215875833374, guid: 1a70a946a38541b44a426115065990b2, type: 3}
+  - {fileID: 6604485648512248379, guid: 08af0a4ba7eefae42820d0cc40104e15, type: 3}
 --- !u!4 &1181497869
 Transform:
   m_ObjectHideFlags: 0
@@ -11303,6 +11307,20 @@ MonoBehaviour:
     - Uranium
     quantities: 0100000001000000
     output: FuelCell
+  - systemName: RocketLauncherBlueprint
+    prettyName: Rocket Launcher Blueprint
+    materials:
+    - Scrap
+    - Uranium
+    - Minerals
+    quantities: 0a000000050000000a000000
+    output: RocketLauncher
+  - systemName: MineralBlueprint
+    prettyName: Mineral Blueprint
+    materials:
+    - Stone
+    quantities: 05000000
+    output: Minerals
 --- !u!1 &1183756878
 GameObject:
   m_ObjectHideFlags: 0
@@ -12727,7 +12745,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 303388517}
   m_Direction: 2
   m_Value: 0.9971439
-  m_Size: 0.41666663
+  m_Size: 0.41666666
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -13432,7 +13450,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1749919435}
   m_HandleRect: {fileID: 1749919434}
   m_Direction: 2
-  m_Value: 1.0000014
+  m_Value: 1.0000013
   m_Size: 0.29999998
   m_NumberOfSteps: 0
   m_OnValueChanged:

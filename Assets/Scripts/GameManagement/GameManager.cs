@@ -133,7 +133,8 @@ public class GameManager : MonoBehaviour
 
         List<Blueprint> defaultBlueprints = new List<Blueprint>
         {
-            BlueprintDatabase.BlueprintDictionary["FuelCellBlueprint"]
+            BlueprintDatabase.BlueprintDictionary["FuelCellBlueprint"],
+            BlueprintDatabase.BlueprintDictionary["MineralBlueprint"]
         };
         CraftingSystem.Instance.SetUnlockedBlueprints(defaultBlueprints);
     }

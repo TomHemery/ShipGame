@@ -92,7 +92,9 @@ public class CraftingSystem : MonoBehaviour
                 requirementsDesc += "<b>" + bp.materials[i] + ":</b> " + bp.quantities[i] + "</color>\n";
             }
 
-            canCraft = canCraft ? outputSlot.StoredItemFrame == null : false;
+            if (canCraft) {
+                canCraft = outputSlot.StoredItemFrame == null || outputSlot.StoredItemFrame.m_InventoryItem.systemName == bp.output;
+            }
 
             materialsText.text = requirementsDesc;
 
@@ -103,16 +105,25 @@ public class CraftingSystem : MonoBehaviour
     public void Craft() {
         if (canCraft) {
             Blueprint bp = UnlockedBlueprints[blueprintDropdown.value];
-            for (int i = 0; i < bp.materials.Length; i++) {
+            for (int i = 0; i < bp.materials.Length; i++)
+            {
                 associatedInventory.TryRemoveItem(bp.materials[i], bp.quantities[i]);
             }
-
-            GameObject output = PrefabDatabase.PrefabDictionary[bp.output];
-            if (output.GetComponent<Weapon>() != null) {
-                outputSlot.TryCreateFrameFor(output.GetComponent<Weapon>().m_inventoryItem);
+            if (outputSlot.StoredItemFrame == null)
+            {
+                GameObject output = PrefabDatabase.PrefabDictionary[bp.output];
+                if (output.GetComponent<Weapon>() != null)
+                {
+                    outputSlot.TryCreateFrameFor(output.GetComponent<Weapon>().m_inventoryItem);
+                }
+                else if (output.GetComponent<PickUpOnContact>() != null)
+                {
+                    outputSlot.TryCreateFrameFor(output.GetComponent<PickUpOnContact>().m_inventoryItem);
+                }
             }
-            else if (output.GetComponent<PickUpOnContact>() != null) {
-                outputSlot.TryCreateFrameFor(output.GetComponent<PickUpOnContact>().m_inventoryItem);
+            else
+            {
+                outputSlot.StoredItemFrame.SetQuantity(outputSlot.StoredItemFrame.m_InventoryItem.quantity + 1);
             }
         }
 
@@ -129,21 +140,23 @@ public class CraftingSystem : MonoBehaviour
             blueprintSlot.SilentRemoveItemFrame();
             Destroy(blueprintObject);
 
-            UnlockedBlueprints.Add(bp);
-
-            List<OptionData> newOptions = new List<OptionData>
+            if (!HasUnlockedBlueprint(bp))
             {
-                new OptionData(bp.output)
-            };
+                UnlockedBlueprints.Add(bp);
 
-            blueprintDropdown.AddOptions(newOptions);
+                List<OptionData> newOptions = new List<OptionData>
+                {
+                    new OptionData(bp.output)
+                };
+
+                blueprintDropdown.AddOptions(newOptions);
+            }
         }
         blueprintDropdown.value = blueprintDropdown.options.Count - 1;
         OnBlueprintDropdownSelection();
     }
 
     private void OnOutputSlotContentsChange() {
-        Debug.Log("Output slot contents changed");
         CheckMaterials();
     }
 
@@ -160,5 +173,12 @@ public class CraftingSystem : MonoBehaviour
         blueprintDropdown.AddOptions(newOptions);
         blueprintDropdown.value = blueprintDropdown.options.Count - 1;
         OnBlueprintDropdownSelection();
+    }
+
+    private bool HasUnlockedBlueprint(Blueprint bp) {
+        foreach(Blueprint curr in UnlockedBlueprints) {
+            if (bp.systemName == curr.systemName) return true;
+        }
+        return false;
     }
 }
