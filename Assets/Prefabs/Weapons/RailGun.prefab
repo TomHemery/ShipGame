@@ -257,7 +257,7 @@ MonoBehaviour:
     equipable: 1
     equipType: 0
   mAudioSource: {fileID: 5138463257343684249}
-  CooldownInterval: 0.25
+  CooldownInterval: 0.5
   SpawnPoint: {fileID: 3403034328388050556}
   ProjectilePrefab: {fileID: 3023812596015843538, guid: b19f0e7c091c1d34c9e2148030f0dadc,
     type: 3}
@@ -297,9 +297,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 58f57b22b86c8844e9a9fe442c90395a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d13cdc27cd51a4b4babc11115d039841, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.1
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 0
   Mute: 0
