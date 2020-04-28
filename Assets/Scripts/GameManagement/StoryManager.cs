@@ -39,6 +39,7 @@ public class StoryManager : MonoBehaviour
         stationUIController.onShowUI.AddListener(OnShowStationUI);
         stationUIController.onHideUI.AddListener(OnHideStationUI);
         GalaxyMap.Instance.OnShowMap.AddListener(OnShowGalaxyMap);
+        GameManager.OnPlayerDeath.AddListener(OnPlayerDied);
     }
 
     void OnAreaLoaded()
@@ -121,7 +122,14 @@ public class StoryManager : MonoBehaviour
 
     private IEnumerator SecondPirateEncounter()
     {
-        yield return new WaitForSeconds(5.0f);
+        float t = 0.0f;
+
+        while (t < 5.0f) {
+            yield return null;
+            if(!GameManager.SimPaused)
+                t += Time.deltaTime;
+        }
+
         DialoguePanel.MainDialoguePanel.OpenDialogue("SecondPirateEncounter");
         Vector2 offset = UnityEngine.Random.insideUnitCircle.normalized * 100;
         Vector2 pos = playerShip.transform.position;
@@ -142,6 +150,12 @@ public class StoryManager : MonoBehaviour
             DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotPostFirstPirateEncounter");
             SetStage(Stage.JumpTutorial);
         }
+    }
+
+    void OnPlayerDied()
+    {
+        //stop all running coroutines to prevent any awkward stuff happening post player death
+        StopAllCoroutines();
     }
 
     public void SetStage(Stage s) {

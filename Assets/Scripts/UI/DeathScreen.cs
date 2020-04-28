@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class DeathScreen : MonoBehaviour
 {
-    private Texture2D m_texture;
+    private Texture2D m_texture = null;
     public float maxNoise = 200;
     private Color32[] pixels = null;
 
@@ -51,13 +51,18 @@ public class DeathScreen : MonoBehaviour
     }
 
     public void CaptureScreen() {
+        Debug.Log("Death screen capture screen");
         int resWidth = Screen.width;
         int resHeight = Screen.height;
         RenderTexture rt = new RenderTexture(resWidth, resHeight, 24);
         Camera.main.targetTexture = rt;
+        
+        m_texture = null;
         m_texture = new Texture2D(resWidth, resHeight, TextureFormat.RGB24, false);
-        Camera.main.Render();
+        
         RenderTexture.active = rt;
+        Camera.main.Render();
+        
         m_texture.ReadPixels(new Rect(0, 0, resWidth, resHeight), 0, 0);
         m_texture.Apply();
 
