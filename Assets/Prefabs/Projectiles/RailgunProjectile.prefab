@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1775e8dba74d0db4787b27706f8e35d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxSpeed: 50
+  MaxSpeed: 80
   lifeSpan: 1
   damage: 20
   explosionPrefab: {fileID: 1933057997586368794, guid: 2da328153fbfa1e4f9633a4dbabd9367,
