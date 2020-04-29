@@ -11,7 +11,7 @@ public abstract class Weapon : MonoBehaviour
 
     public AudioSource mAudioSource = null;
 
-    public void Awake()
+    public virtual void Awake()
     {
         parentShip_controller = transform.root.GetComponent<ShipController>();
         if(parentShip_controller != null) parentShip_controller.weapons.Add(this);
