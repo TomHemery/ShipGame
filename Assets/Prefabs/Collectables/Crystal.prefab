@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8744863751882838979}
   - component: {fileID: 7833995738407239666}
   - component: {fileID: 677423658710609840}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Crystal
   m_TagString: Collectable
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 8744863752275628821}
   - component: {fileID: 8744863752275628818}
   - component: {fileID: 2338935633980172902}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,7 +216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8744863752522362247}
   - component: {fileID: 8744863752522362244}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

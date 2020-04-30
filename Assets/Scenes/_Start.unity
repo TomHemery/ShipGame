@@ -11182,8 +11182,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hull: MiningShip
   weapons:
-  - MiningLaser
-  - MiningLaser
+  - LaserCannon
+  - LaserCannon
 --- !u!1 &1172111410
 GameObject:
   m_ObjectHideFlags: 0
@@ -11447,6 +11447,7 @@ MonoBehaviour:
   - {fileID: 6604485648512248379, guid: 08af0a4ba7eefae42820d0cc40104e15, type: 3}
   - {fileID: 3403034328781754412, guid: 46f81ebfa6a8dbe4fa88254acaa914b6, type: 3}
   - {fileID: 646913464080788194, guid: 1126559a07b7bbf4587a8ad6028708d4, type: 3}
+  - {fileID: 7404570130594227401, guid: 39b0efdd227eee8479b5a5dd1c1c65ac, type: 3}
 --- !u!4 &1181497869
 Transform:
   m_ObjectHideFlags: 0
@@ -11539,6 +11540,15 @@ MonoBehaviour:
     - Uranium
     quantities: 050000000a000000050000000a000000
     output: Railgun
+  - systemName: LaserCannonBlueprint
+    prettyName: Laser Cannon Blueprint
+    materials:
+    - Scrap
+    - Ice
+    - Minerals
+    - Uranium
+    quantities: 0a000000050000000a00000005000000
+    output: LaserCannon
 --- !u!1 &1183756878
 GameObject:
   m_ObjectHideFlags: 0
@@ -12963,7 +12973,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 303388517}
   m_Direction: 2
   m_Value: 0.9971439
-  m_Size: 0.41666663
+  m_Size: 0.41666666
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -13669,7 +13679,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1749919434}
   m_Direction: 2
   m_Value: 1.0000013
-  m_Size: 0.29999995
+  m_Size: 0.29999998
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

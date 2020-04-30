@@ -41,16 +41,21 @@ public abstract class Weapon : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (OnCooldown)
+        if (!GameManager.SimPaused)
         {
-            CooldownTimer += Time.deltaTime;
-            if (CooldownTimer >= CooldownInterval) {
-                OnCooldown = false;
-                CooldownTimer = 0;
+            if (OnCooldown)
+            {
+                CooldownTimer += Time.deltaTime;
+                if (CooldownTimer >= CooldownInterval)
+                {
+                    OnCooldown = false;
+                    CooldownTimer = 0;
+                }
             }
-        }
-        else if (AutoFiring) {
-            TryFire();
+            else if (AutoFiring)
+            {
+                TryFire();
+            }
         }
     }
 

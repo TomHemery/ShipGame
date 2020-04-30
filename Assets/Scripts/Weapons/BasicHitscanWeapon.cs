@@ -8,47 +8,47 @@ public class BasicHitscanWeapon : Weapon
 
     public float damage;
     public float range;
-    public AnimationCurve graphicFadeCurve;
 
-    public SpriteRenderer m_graphic;
+    public GameObject graphicPrefab;
+
+    [SerializeField]
+    protected LayerMask hitscanLayerMask;
 
     public override void Awake()
     {
         base.Awake();
-        m_graphic.gameObject.SetActive(false);
     }
 
     protected override void Fire()
     {
+        Debug.Log("Fire hitscan weapon");
         if (mAudioSource != null)
         {
             mAudioSource.Play();
         }
-        RaycastHit2D hit = Physics2D.Raycast(SpawnPoint.position, SpawnPoint.up, range);
+
+        int currentLayer = transform.root.gameObject.layer;
+        Debug.Log("Setting layer of root to: " + LayerMask.NameToLayer("Ignore Raycast"));
+        transform.root.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+
+        RaycastHit2D hit = Physics2D.Raycast(SpawnPoint.position, SpawnPoint.up, range, hitscanLayerMask);
         if (hit.collider != null)
         {
             if (hit.collider.gameObject.GetComponent<HealthResource>() != null)
             {
                 hit.collider.gameObject.GetComponent<HealthResource>().DoDamage(damage);
             }
-            StartCoroutine(ShowGraphic(((Vector2)SpawnPoint.position - (Vector2)hit.collider.transform.position).magnitude));
+            ShowGraphic(((Vector2)SpawnPoint.position - (Vector2)hit.collider.transform.position).magnitude);
         }
         else
-            StartCoroutine(ShowGraphic(range));
+            ShowGraphic(range);
+
+        transform.root.gameObject.layer = currentLayer;
     }
 
-    private IEnumerator ShowGraphic(float length) {
-        m_graphic.gameObject.SetActive(true);
-        m_graphic.transform.localScale = new Vector3(m_graphic.transform.localScale.x, length, m_graphic.transform.localScale.z);
-        float time = 0.0f;
-        float alpha;
-        do {
-            time += Time.deltaTime;
-            alpha = graphicFadeCurve.Evaluate(time);
-            m_graphic.color = new Color(m_graphic.color.r, m_graphic.color.g, m_graphic.color.b, alpha);
-            yield return null;
-        }
-        while (alpha > 0);
-        m_graphic.gameObject.SetActive(false);
+    private void ShowGraphic(float length) {
+        GameObject graphicObject = Instantiate(graphicPrefab, SpawnPoint.position + SpawnPoint.up * length, SpawnPoint.rotation);
+        SpriteRenderer graphicSprite = graphicObject.GetComponent<SpriteRenderer>();
+        graphicSprite.size = new Vector2(graphicSprite.size.x, length);
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9176007282643195006}
   - component: {fileID: 7690939662459549775}
   - component: {fileID: 1110969070264969229}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FuelCell
   m_TagString: Collectable
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 9176007282837083304}
   - component: {fileID: 9176007282837083311}
   - component: {fileID: 2772481038957866459}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,7 +216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9176007283077425722}
   - component: {fileID: 9176007283077425721}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

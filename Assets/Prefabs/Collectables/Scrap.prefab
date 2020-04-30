@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5447800882768667957}
   - component: {fileID: 6806756341436713220}
   - component: {fileID: 4298462026997619014}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Scrap
   m_TagString: Collectable
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 5447800883024946659}
   - component: {fileID: 5447800883024946660}
   - component: {fileID: 1347725119651503248}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,7 +216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5447800883265805169}
   - component: {fileID: 5447800883265805170}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

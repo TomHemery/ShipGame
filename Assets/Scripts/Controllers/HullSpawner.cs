@@ -6,11 +6,13 @@ public class HullSpawner : MonoBehaviour
 {
     public const string DEFAULT_HULL = "MiningShip";
     public static readonly string[] DEFAULT_WEAPONS = {
-        "MiningLaser",
-        "MiningLaser"
+        "LaserCannon",
+        "LaserCannon"
     };
 
+    [HideInInspector]
     public string hull;
+    [HideInInspector]
     public string[] weapons;
 
     public void DestroyHull() {

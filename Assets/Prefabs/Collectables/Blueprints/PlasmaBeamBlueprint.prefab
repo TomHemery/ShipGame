@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5388365813276576555}
   - component: {fileID: 5388365813276576552}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 5388365813647930735}
   - component: {fileID: 6857677071411485022}
   - component: {fileID: 4249740340608190748}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlasmaBeamBlueprint
   m_TagString: Collectable
   m_Icon: {fileID: 0}
@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 5388365814110451129}
   - component: {fileID: 5388365814110451134}
   - component: {fileID: 1434744999552568522}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}

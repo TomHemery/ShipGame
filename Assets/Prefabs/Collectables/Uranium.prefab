@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6888309240082012300}
   - component: {fileID: 5364981346850862269}
   - component: {fileID: 3433289621590484223}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Uranium
   m_TagString: Collectable
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 6888309240140634202}
   - component: {fileID: 6888309240140634205}
   - component: {fileID: 483677446054322473}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,7 +216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6888309240386250440}
   - component: {fileID: 6888309240386250443}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
