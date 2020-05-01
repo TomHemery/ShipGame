@@ -1,0 +1,48 @@
+<conversation entryNode="0" requirePause="true">
+  <node index="0" character ="MysteriousFigure">
+    <prompt>*bbzzzz*</prompt>
+    <continue target ="1"/>
+  </node>
+  <node index ="1" character ="None">
+    <prompt>Static once again spews out of your communicator</prompt>
+    <continue target ="2"/>
+  </node>
+  <node index ="2" character ="MysteriousFigure">
+    <prompt>Is this thing working? Hello?
+You've been captured by Imperial enforcers! Don't believe anything they say!
+*bzzzz*</prompt>
+    <continue target ="3"/>
+  </node>
+  <node index ="3" character ="MysteriousFigure">
+    <prompt>We're going to try and hack the F.R.I.E.N.D unit *vvvzbbzzVzz* your station.
+I'll send you new jump coordinates then you can rendezvous with *zzz... zz zzz*</prompt>
+    <continue target ="4"/>
+  </node>
+  <node index ="4" character ="None">
+    <prompt>The signal becomes completely unintelligible</prompt>
+    <continue target ="5"/>
+  </node>
+  <node index ="5" character ="FriendBot">
+    <prompt>Well criminal... this is a concerning development...</prompt>
+    <continue target="6"/>
+  </node>
+  <node index ="6" character ="FriendBot">
+    <prompt>Just running an assessment subroutine criminal, don't worry about a thing!</prompt>
+    <continue target="7"/>
+  </node>
+  <node index ="7" character ="None">
+    <prompt>A few moments pass in silence, all you can hear is your own breathing and the faint hum of the ship's engine.</prompt>
+    <continue target="8"/>
+  </node>
+  <node index ="8" character="FriendBot">
+    <prompt>Okay criminal, I've weighed up the options and I'm afraid that the algorithm has decided your fate!
+A striker team has been dispatched to our location, please prepare for immediate termination! </prompt>
+    <continue target="9"/>
+  </node>
+  <node index="9" character="FriendBot">
+    <prompt>Don't worry I'll disable your ship so you aren't tempted to do anything silly like fight back!
+This will all be over in a jiffy!
+F.R.I.E.N.D out!</prompt>
+    <continue target="-1"/>
+  </node>
+</conversation>

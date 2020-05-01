@@ -51,7 +51,6 @@ public class DeathScreen : MonoBehaviour
     }
 
     public void CaptureScreen() {
-        Debug.Log("Death screen capture screen");
         int resWidth = Screen.width;
         int resHeight = Screen.height;
         RenderTexture rt = new RenderTexture(resWidth, resHeight, 24);

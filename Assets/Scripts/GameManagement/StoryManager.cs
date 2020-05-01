@@ -146,9 +146,13 @@ public class StoryManager : MonoBehaviour
     }
 
     void OnAllEnemiesDestroyed() {
-        if (StoryStage == Stage.EndFirstPirateEncounter) {
+        if (StoryStage == Stage.EndFirstPirateEncounter)
+        {
             DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotPostFirstPirateEncounter");
             SetStage(Stage.JumpTutorial);
+        }
+        else if (StoryStage == Stage.SecondRebelContact) {
+            DialoguePanel.MainDialoguePanel.OpenDialogue("SecondRebelContact");
         }
     }
 
