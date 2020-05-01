@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   desiredRotation: {x: 0, y: 0}
-  rotationSpeed: 4
+  rotationSpeed: 5
   thrustMode: 2
   maxSpeed: 25
   minSpeed: 1
@@ -316,7 +316,7 @@ MonoBehaviour:
   explosionPrefab: {fileID: 0}
   exploded: 0
   isPlayerHealth: 0
-  MaxShieldValue: 25
+  MaxShieldValue: 50
 --- !u!1 &5342775148491317807
 GameObject:
   m_ObjectHideFlags: 0

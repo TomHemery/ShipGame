@@ -3,7 +3,7 @@
     <prompt>Ah, excellent! They're arrived! Try not to feel too bad about your inevitable demise criminal!</prompt>
     <continue target ="1"/>
   </node>
-  <node index="1" character ="None" music="PirateFight">
+  <node index="1" character ="None">
     <prompt>The comms link emits a series of high pitched whines and whirrs. F.R.I.E.N.D's face distorts alarmingly</prompt>
     <continue target="2"/>
   </node>
@@ -12,7 +12,7 @@
 It appears I've been... tampered with... Are those... dog ears??</prompt>
     <continue target="3"/>
   </node>
-  <node index="3" character ="FriendBot2">
+  <node index="3" character ="FriendBot2" music="EmpireFight">
     <prompt>I guess... you have control over your ship... kill the imperial scum... join the rebellion?
 This is a strange experience...</prompt>
     <continue target="4"/>

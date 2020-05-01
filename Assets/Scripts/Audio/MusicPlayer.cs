@@ -16,6 +16,8 @@ public class MusicPlayer : MonoBehaviour
 
     public const string NO_TRACK = "None";
 
+    private float startVolume;
+
     private void Awake()
     {
         Instance = this;
@@ -24,13 +26,12 @@ public class MusicPlayer : MonoBehaviour
         foreach (MusicTrack track in allMusicTracks) {
             TrackDictionary.Add(track.systemName, track);
         }
-
+        startVolume = MusicSource.volume;
     }
 
     private void FixedUpdate()
     {
         if (!MusicSource.isPlaying && activeTrack != null) {
-            Debug.Log("Music source not playing");
             MusicSource.clip = activeTrack.GetNextClip();
             MusicSource.Play();
         } 
@@ -61,13 +62,12 @@ public class MusicPlayer : MonoBehaviour
     }
 
     public void FadeOut(float fadeTime) {
+        StopAllCoroutines();
         StartCoroutine(FadeOutCoroutine(fadeTime));
     }
 
     private IEnumerator FadeOutCoroutine(float fadeTime)
     {
-        float startVolume = MusicSource.volume;
-
         while (MusicSource.volume > 0)
         {
             MusicSource.volume -= startVolume * Time.deltaTime / fadeTime;
@@ -80,11 +80,11 @@ public class MusicPlayer : MonoBehaviour
     }
 
     public void FadeToNewTrack(float fadeTime, string newTrack) {
+        StopAllCoroutines();
         StartCoroutine(FadeToNewTrackCoroutine(fadeTime, newTrack));
     }
 
     private IEnumerator FadeToNewTrackCoroutine(float fadeTime, string newTrack) {
-        float startVolume = MusicSource.volume;
 
         while (MusicSource.volume > 0) {
             MusicSource.volume -= startVolume * Time.deltaTime / fadeTime;

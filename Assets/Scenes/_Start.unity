@@ -8260,6 +8260,10 @@ MonoBehaviour:
   - systemName: HeldDissonance
     audioClips:
     - {fileID: 8300000, guid: f016125c9a575d24e86c22170ba6ba5c, type: 3}
+  - systemName: EmpireFight
+    audioClips:
+    - {fileID: 8300000, guid: e4c79fd6691a5094e93baab7b1d6191d, type: 3}
+    - {fileID: 8300000, guid: b3ef8a6706a610b4ea11c3463a83faf0, type: 3}
 --- !u!82 &796492127
 AudioSource:
   m_ObjectHideFlags: 0
