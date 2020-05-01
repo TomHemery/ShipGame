@@ -44,8 +44,8 @@ public class GameManager : MonoBehaviour
         CurrentArea = area;
         SceneManager.LoadScene(area.systemName);
 
-        if(MusicPlayer.Instance.PlayerState != area.musicState)
-            MusicPlayer.Instance.FadeToNewState(1.0f, area.musicState);
+        if(!MusicPlayer.Instance.IsPlayingTrack(area.defaultMusic))
+            MusicPlayer.Instance.FadeToNewTrack(1.0f, area.defaultMusic);
 
         OnAreaLoaded.Invoke();
     }

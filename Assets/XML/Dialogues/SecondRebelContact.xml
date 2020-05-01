@@ -30,7 +30,7 @@ I'll send you new jump coordinates then you can rendezvous with *zzz... zz zzz*<
     <prompt>Just running an assessment subroutine criminal, don't worry about a thing!</prompt>
     <continue target="7"/>
   </node>
-  <node index ="7" character ="None" music ="None">
+  <node index ="7" character ="None" music ="HeldDissonance">
     <prompt>A few moments pass in silence, all you can hear is your own breathing and the faint hum of the ship's engine.</prompt>
     <continue target="8"/>
   </node>

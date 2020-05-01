@@ -7,5 +7,5 @@ public struct Area {
     [SerializeField]
     public string prettyName;
     [SerializeField]
-    public MusicPlayer.MusicState musicState;
+    public string defaultMusic;
 }

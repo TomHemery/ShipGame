@@ -8244,17 +8244,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04dd78efb5ceac94eb0592a61097a79a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  introTracks:
-  - {fileID: 8300000, guid: 78935173d6dc0334aba39cdf0a0ee7db, type: 3}
-  lowTracks:
-  - {fileID: 8300000, guid: b5fe463afa80afa418c049dc6adee296, type: 3}
-  - {fileID: 8300000, guid: d3b81945516c87c4d8394d76af7d4aac, type: 3}
-  midTracks:
-  - {fileID: 8300000, guid: f1357bf674429e248ace4905a3c05d5e, type: 3}
-  transitionTracks:
-  - {fileID: 8300000, guid: 89cdf73568c05214b97ac2a281f96053, type: 3}
-  highTracks:
-  - {fileID: 8300000, guid: 1f53c1b7bf8d13c49a73d0699b19a08f, type: 3}
+  allMusicTracks:
+  - systemName: Area_LowIntensity_0
+    audioClips:
+    - {fileID: 8300000, guid: 78935173d6dc0334aba39cdf0a0ee7db, type: 3}
+    - {fileID: 8300000, guid: b5fe463afa80afa418c049dc6adee296, type: 3}
+    - {fileID: 8300000, guid: d3b81945516c87c4d8394d76af7d4aac, type: 3}
+  - systemName: Area_MidIntensity_0
+    audioClips:
+    - {fileID: 8300000, guid: f1357bf674429e248ace4905a3c05d5e, type: 3}
+  - systemName: PirateFight
+    audioClips:
+    - {fileID: 8300000, guid: 89cdf73568c05214b97ac2a281f96053, type: 3}
+    - {fileID: 8300000, guid: 1f53c1b7bf8d13c49a73d0699b19a08f, type: 3}
+  - systemName: HeldDissonance
+    audioClips:
+    - {fileID: 8300000, guid: f016125c9a575d24e86c22170ba6ba5c, type: 3}
 --- !u!82 &796492127
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8265,7 +8270,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 4044cdb78d80d7e4591dc1fc9ec4cc71, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.6
   m_Pitch: 1
@@ -11481,10 +11486,10 @@ MonoBehaviour:
   allAreas:
   - systemName: Area_0_Start
     prettyName: Outer Rim Asteroid Belt (Outer Zone)
-    musicState: 0
+    defaultMusic: Area_LowIntensity_0
   - systemName: Area_1_InnerBelt
     prettyName: Outer Rim Asteroid Belt (Inner Zone)
-    musicState: 2
+    defaultMusic: Area_MidIntensity_0
 --- !u!114 &1181497871
 MonoBehaviour:
   m_ObjectHideFlags: 0

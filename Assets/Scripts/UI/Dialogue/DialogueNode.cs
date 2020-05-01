@@ -25,7 +25,7 @@ public class DialogueNode
     public string characterName = "";
 
     public bool changesMusic = false;
-    public MusicPlayer.MusicState newMusicState = MusicPlayer.MusicState.None;
+    public string newTrack = MusicPlayer.NO_TRACK;
 
     //the dialogue graph to which this node belongs
     private readonly DialogueGraph dialogueGraph;

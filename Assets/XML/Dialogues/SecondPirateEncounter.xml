@@ -1,5 +1,5 @@
 <conversation entryNode="0" requirePause="true">
-  <node index ="0" character="FriendBot" music="Transition">
+  <node index ="0" character="FriendBot" music="PirateFight">
     <prompt>Ah... slight problemo criminal...</prompt>
     <continue target="1"/>
   </node>

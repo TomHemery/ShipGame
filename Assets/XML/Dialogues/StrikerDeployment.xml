@@ -3,7 +3,7 @@
     <prompt>Ah, excellent! They're arrived! Try not to feel too bad about your inevitable demise criminal!</prompt>
     <continue target ="1"/>
   </node>
-  <node index="1" character ="None" music="Transition">
+  <node index="1" character ="None" music="PirateFight">
     <prompt>The comms link emits a series of high pitched whines and whirrs. F.R.I.E.N.D's face distorts alarmingly</prompt>
     <continue target="2"/>
   </node>

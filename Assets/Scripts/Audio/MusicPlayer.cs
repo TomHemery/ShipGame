@@ -5,81 +5,59 @@ using UnityEngine.SceneManagement;
 
 public class MusicPlayer : MonoBehaviour
 {
-    public AudioClip[] introTracks;
-    public AudioClip[] lowTracks;
-    public AudioClip[] midTracks;
-    public AudioClip[] transitionTracks;
-    public AudioClip[] highTracks;
+    [SerializeField]
+    private MusicTrack [] allMusicTracks;
+    public Dictionary<string, MusicTrack> TrackDictionary { get; private set; } = new Dictionary<string, MusicTrack>();
 
-    private Dictionary<MusicState, AudioClip[]> stateToTrackMap;
-    private AudioClip[] activeTracks;
-    private int trackIndex = -1;
-
-    [HideInInspector]
-    public MusicState PlayerState { get; private set; } = MusicState.None;
+    private MusicTrack activeTrack;
 
     public static MusicPlayer Instance { get; private set; } = null;
     public AudioSource MusicSource { get; private set; } = null;
+
+    public const string NO_TRACK = "None";
 
     private void Awake()
     {
         Instance = this;
         MusicSource = GetComponent<AudioSource>();
-        stateToTrackMap = new Dictionary<MusicState, AudioClip[]>()
-        {
-            {MusicState.Intro, introTracks },
-            {MusicState.Low, lowTracks },
-            {MusicState.Mid, midTracks },
-            {MusicState.High, highTracks },
-            {MusicState.Transition, transitionTracks },
-            {MusicState.None, new AudioClip[0] }
-        };
+
+        foreach (MusicTrack track in allMusicTracks) {
+            TrackDictionary.Add(track.systemName, track);
+        }
+
     }
 
     private void FixedUpdate()
     {
-        if (PlayerState != MusicState.None && !MusicSource.isPlaying) {
-            if (trackIndex < activeTracks.Length - 1)
-            {
-                trackIndex++;
-            }
-
-            else
-            {
-                switch (PlayerState)
-                {
-                    case MusicState.Intro:
-                        PlayerState = MusicState.Low;
-                        activeTracks = lowTracks;
-                        trackIndex = 0;
-                        break;
-                    case MusicState.Transition:
-                        PlayerState = MusicState.High;
-                        activeTracks = highTracks;
-                        trackIndex = 0;
-                        break;
-                }
-            }
-
-            MusicSource.clip = activeTracks[trackIndex];
+        if (!MusicSource.isPlaying && activeTrack != null) {
+            Debug.Log("Music source not playing");
+            MusicSource.clip = activeTrack.GetNextClip();
             MusicSource.Play();
-        }
+        } 
     }
 
-    public void ForceSetPlayerState(MusicState state) {
-        PlayerState = state;
-        activeTracks = stateToTrackMap[state];
-        trackIndex = 0;
 
-        if (state == MusicState.None)
+    /// <summary>
+    /// Sets the current track based on the system name passed in, starts playing immediately
+    /// Pass in NO_TRACK or "" to stop music
+    /// </summary>
+    /// <param name="trackName"></param>
+    public void SetTrackImmediate(string trackName) {
+        //reset the current active track to it's beginning 
+        if(activeTrack != null) activeTrack.ResetTrack();
+        //load the new track (either nothing, or the associated track in the dictionary based on the passed in name)
+        if (trackName == "" || trackName == NO_TRACK)
         {
+            activeTrack = null;
             MusicSource.clip = null;
             MusicSource.Stop();
         }
         else {
-            MusicSource.clip = activeTracks[0];
+            activeTrack = TrackDictionary[trackName];
+            MusicSource.clip = activeTrack.GetNextClip();
             MusicSource.Play();
         }
+        
     }
 
     public void FadeOut(float fadeTime) {
@@ -97,17 +75,15 @@ public class MusicPlayer : MonoBehaviour
             yield return null;
         }
 
-        MusicSource.Stop();
-        PlayerState = MusicState.None;
-        activeTracks = null;
         MusicSource.volume = startVolume;
+        SetTrackImmediate(NO_TRACK);
     }
 
-    public void FadeToNewState(float fadeTime, MusicState newState) {
-        StartCoroutine(FadeToNewStateCoroutine(fadeTime, newState));
+    public void FadeToNewTrack(float fadeTime, string newTrack) {
+        StartCoroutine(FadeToNewTrackCoroutine(fadeTime, newTrack));
     }
 
-    private IEnumerator FadeToNewStateCoroutine(float fadeTime, MusicState newState) {
+    private IEnumerator FadeToNewTrackCoroutine(float fadeTime, string newTrack) {
         float startVolume = MusicSource.volume;
 
         while (MusicSource.volume > 0) {
@@ -117,17 +93,11 @@ public class MusicPlayer : MonoBehaviour
 
         MusicSource.Stop();
         MusicSource.volume = startVolume;
-        ForceSetPlayerState(newState);
+        SetTrackImmediate(newTrack);
     }
 
-    [System.Serializable]
-    public enum MusicState {
-        Intro,
-        Low,
-        Mid,
-        High,
-        Transition,
-        None
+    public bool IsPlayingTrack(string trackName) {
+        return activeTrack == null ? false : activeTrack.systemName == trackName;
     }
 
 }

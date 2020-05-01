@@ -175,7 +175,7 @@ public class StoryManager : MonoBehaviour
     }
 
     private IEnumerator AwaitStrikers() {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(5.0f);
         DialoguePanel.MainDialoguePanel.OpenDialogue("StrikerDeployment");
         Vector2 offset = UnityEngine.Random.insideUnitCircle.normalized * 100;
         Vector2 pos = playerShip.transform.position;
