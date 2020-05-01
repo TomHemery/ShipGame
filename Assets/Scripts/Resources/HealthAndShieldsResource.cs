@@ -23,7 +23,7 @@ public class HealthAndShieldsResource : HealthResource
     public override void FillResource()
     {
         base.FillResource();
-        ShieldValue = MaxShieldValue;
+        SetShieldValue(MaxHealthValue);
     }
 
     /// <summary>

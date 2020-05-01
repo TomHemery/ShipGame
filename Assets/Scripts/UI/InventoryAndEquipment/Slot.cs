@@ -160,4 +160,26 @@ public class Slot : MonoBehaviour
     public void SilentRemoveItemFrame() {
         StoredItemFrame = null;
     }
+
+    /// <summary>
+    /// Removes and destroys the stored item frame from this slot 
+    /// Updates associated inventories and alerts listeners
+    /// </summary>
+    public void DestroyItemFrame() {
+        if (StoredItemFrame != null)
+        {
+            GameObject frame = StoredItemFrame.gameObject;
+            RemoveItemFrame();
+            Destroy(frame);
+        }
+    }
+
+    /// <summary>
+    /// Removes and destroys the stored item frame from this slot 
+    /// Does not update associated inventories or alert listeners
+    /// </summary>
+    public void SilentDestroyItemFrame() {
+        Destroy(StoredItemFrame.gameObject);
+        StoredItemFrame = null;
+    }
 }

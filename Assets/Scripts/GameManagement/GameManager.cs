@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public static Area CurrentArea { get; private set; }
 
     public GameObject DeathScreen;
-    public GameObject MainMenu;
+    public MainMenuController MainMenu;
 
     private GameObject playerShip;
     private GameObject miningStation;
@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
 
     public void ShowMainMenu() {
         DeathScreen.SetActive(false);
-        MainMenu.SetActive(true);
+        MainMenu.Show();
     }
 
     public void LoadGameFromSave(Save save) {
@@ -120,16 +120,26 @@ public class GameManager : MonoBehaviour
 
     public void StartNewGame()
     {
-        playerDied = false;
-        LoadArea(AreaDatabase.AreaDictionary[firstArea]);
-
         playerShip.GetComponent<HullSpawner>().SpawnDefaultHull();
-        playerShip.GetComponent<HealthAndShieldsResource>().exploded = false;
 
+        playerShip.GetComponent<HealthAndShieldsResource>().exploded = false;
         playerShip.GetComponent<HealthAndShieldsResource>().SetMaxHealth(HealthResource.DEFAULT_MAX_HEALTH);
         playerShip.GetComponent<HealthAndShieldsResource>().SetMaxShieldValue(HealthAndShieldsResource.DEFAULT_MAX_SHIELDS);
-
         playerShip.GetComponent<HealthAndShieldsResource>().FillResource();
+
+        playerShip.GetComponent<OxygenResource>().FillResource();
+
+        playerShip.GetComponent<Inventory>().ClearContents();
+
+        miningStation.GetComponent<Inventory>().ClearContents();
+        miningStation.GetComponent<JumpResource>().EmptyResource();
+        miningStation.GetComponent<MiningStationController>().m_HullRepairer.slot.DestroyItemFrame();
+        miningStation.GetComponent<MiningStationController>().m_JumpDriveFueler.slot.DestroyItemFrame();
+        miningStation.GetComponent<MiningStationController>().m_O2Gen.slot.DestroyItemFrame();
+
+        playerDied = false;
+
+        StoryManager.Instance.SetStage(StoryManager.Stage.Intro);
 
         List<Blueprint> defaultBlueprints = new List<Blueprint>
         {
@@ -137,6 +147,8 @@ public class GameManager : MonoBehaviour
             BlueprintDatabase.BlueprintDictionary["MineralBlueprint"]
         };
         CraftingSystem.Instance.SetUnlockedBlueprints(defaultBlueprints);
+
+        LoadArea(AreaDatabase.AreaDictionary[firstArea]);
     }
 
     IEnumerator PlayerDeath()

@@ -14,10 +14,12 @@ public class MainMenuController : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        gameObject.SetActive(false);
     }
 
-    private void OnEnable()
+    public void Show()
     {
+        gameObject.SetActive(true);
         GameManager.PauseSim();
 
         loadGameDropdown.ClearOptions();

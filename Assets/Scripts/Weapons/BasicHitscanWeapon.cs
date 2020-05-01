@@ -21,14 +21,12 @@ public class BasicHitscanWeapon : Weapon
 
     protected override void Fire()
     {
-        Debug.Log("Fire hitscan weapon");
         if (mAudioSource != null)
         {
             mAudioSource.Play();
         }
 
         int currentLayer = transform.root.gameObject.layer;
-        Debug.Log("Setting layer of root to: " + LayerMask.NameToLayer("Ignore Raycast"));
         transform.root.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
 
         RaycastHit2D hit = Physics2D.Raycast(SpawnPoint.position, SpawnPoint.up, range, hitscanLayerMask);
