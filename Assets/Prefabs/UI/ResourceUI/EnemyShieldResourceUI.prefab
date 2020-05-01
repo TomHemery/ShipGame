@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.98154783, b: 1, a: 1}
+  m_Color: {r: 0.93840027, g: 0, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -264,6 +264,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthBar: {fileID: 5795215608632128574}
   ShieldBar: {fileID: 2214360238836192175}
+  healthAndShieldsResource: {fileID: 0}
+  healthResource: {fileID: 0}
+  attachToPlayer: 0
 --- !u!114 &5795215607735649559
 MonoBehaviour:
   m_ObjectHideFlags: 0

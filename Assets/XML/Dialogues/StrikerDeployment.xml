@@ -1,0 +1,27 @@
+<conversation entryNode="0" requirePause="true">
+  <node index="0" character ="FriendBot">
+    <prompt>Ah, excellent! They're arrived! Try not to feel too bad about your inevitable demise criminal!</prompt>
+    <continue target ="1"/>
+  </node>
+  <node index="1" character ="None" music="Transition">
+    <prompt>The comms link emits a series of high pitched whines and whirrs. F.R.I.E.N.D's face distorts alarmingly</prompt>
+    <continue target="2"/>
+  </node>
+  <node index="2" character ="FriendBot2">
+    <prompt>It...
+It appears I've been... tampered with... Are those... dog ears??</prompt>
+    <continue target="3"/>
+  </node>
+  <node index="3" character ="FriendBot2">
+    <prompt>I guess... you have control over your ship... kill the imperial scum... join the rebellion?
+This is a strange experience...</prompt>
+    <continue target="4"/>
+  </node>
+  <node index="4" character ="FriendBot2">
+    <prompt>I should warn you, Striker ships have shields just like your ship. You're going to have to lay down some sustained fire.
+...
+Friend out?
+    </prompt>
+    <continue target="-1"/>
+  </node>
+</conversation>

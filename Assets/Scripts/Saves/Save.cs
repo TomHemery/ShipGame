@@ -119,7 +119,8 @@ public class Save
             Directory.CreateDirectory(path);
         }
 
-        Debug.Log("Getting all saves in: " + path);
+        Debug.Log("Saves are stored in: " + path);
+        Debug.Log("Please check this directory to remove any unwanted data after playing for now!");
 
         string[] files = Directory.GetFiles(path);
         List<string> result = new List<string>();

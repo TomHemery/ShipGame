@@ -21,6 +21,7 @@ public class StoryManager : MonoBehaviour
 
     public static StoryManager Instance { get; private set; } = null;
 
+    //##MONO BEHAVIOUR EVENTS##
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -41,7 +42,9 @@ public class StoryManager : MonoBehaviour
         GalaxyMap.Instance.OnShowMap.AddListener(OnShowGalaxyMap);
         GameManager.OnPlayerDeath.AddListener(OnPlayerDied);
     }
+    //##END MONOBEHAVIOUR EVENTS##
 
+    //##EVENT LISTENERS##
     void OnAreaLoaded()
     {
         if (GameManager.CurrentArea.systemName == GameManager.Instance.firstArea) {
@@ -117,26 +120,13 @@ public class StoryManager : MonoBehaviour
     }
 
     public void OnDialogueClosed() {
-        
-    }
-
-    private IEnumerator SecondPirateEncounter()
-    {
-        float t = 0.0f;
-
-        while (t < 5.0f) {
-            yield return null;
-            if(!GameManager.SimPaused)
-                t += Time.deltaTime;
+        if (StoryStage == Stage.EmpireStrikerEncounter) {
+            playerShip.GetComponent<PlayerShipController>().RespondToInput = false;
+            StartCoroutine(AwaitStrikers());
         }
-
-        DialoguePanel.MainDialoguePanel.OpenDialogue("SecondPirateEncounter");
-        Vector2 offset = UnityEngine.Random.insideUnitCircle.normalized * 100;
-        Vector2 pos = playerShip.transform.position;
-        EnemySpawner.SpawnAt(pos + offset, "BasicPirateShip", 2);
-        EnemySpawner.SpawnAt(pos + offset + UnityEngine.Random.insideUnitCircle.normalized * 5.0f, "RocketLauncherPirateShip", 1);
-        SetStage(Stage.SecondRebelContact);
     }
+
+    
 
     void OnShowGalaxyMap() {
         if (StoryStage == Stage.GalaxyMapTutorial) {
@@ -153,6 +143,7 @@ public class StoryManager : MonoBehaviour
         }
         else if (StoryStage == Stage.SecondRebelContact) {
             DialoguePanel.MainDialoguePanel.OpenDialogue("SecondRebelContact");
+            SetStage(Stage.EmpireStrikerEncounter);
         }
     }
 
@@ -161,7 +152,40 @@ public class StoryManager : MonoBehaviour
         //stop all running coroutines to prevent any awkward stuff happening post player death
         StopAllCoroutines();
     }
+    //##END EVENT LISTENERS##
 
+    //###COROUTINE ENUMERATORS###
+    private IEnumerator SecondPirateEncounter()
+    {
+        float t = 0.0f;
+
+        while (t < 5.0f)
+        {
+            yield return null;
+            if (!GameManager.SimPaused)
+                t += Time.deltaTime;
+        }
+
+        DialoguePanel.MainDialoguePanel.OpenDialogue("SecondPirateEncounter");
+        Vector2 offset = UnityEngine.Random.insideUnitCircle.normalized * 100;
+        Vector2 pos = playerShip.transform.position;
+        EnemySpawner.SpawnAt(pos + offset, "BasicPirateShip", 1);
+        EnemySpawner.SpawnAt(pos + offset + UnityEngine.Random.insideUnitCircle.normalized * 5.0f, "RocketLauncherPirateShip", 1);
+        SetStage(Stage.SecondRebelContact);
+    }
+
+    private IEnumerator AwaitStrikers() {
+        yield return new WaitForSeconds(2.0f);
+        DialoguePanel.MainDialoguePanel.OpenDialogue("StrikerDeployment");
+        Vector2 offset = UnityEngine.Random.insideUnitCircle.normalized * 100;
+        Vector2 pos = playerShip.transform.position;
+        EnemySpawner.SpawnAt(pos + offset, "EmpireStriker", 1);
+        playerShip.GetComponent<PlayerShipController>().RespondToInput = true;
+        SetStage(Stage.End);
+    }
+    //###END COROUTINE ENUMERATORS###
+    
+    //##SETTERS##
     public void SetStage(Stage s) {
         StoryStage = s;
 
@@ -176,6 +200,7 @@ public class StoryManager : MonoBehaviour
             StartCoroutine(SecondPirateEncounter());
         }
     }
+    //##END SETTERS##
 
     //stages go here in chronological (I can't spell) order
     [Serializable]
@@ -192,6 +217,7 @@ public class StoryManager : MonoBehaviour
         FirstRebelContact,
         SecondPirateEncounter,
         SecondRebelContact,
+        EmpireStrikerEncounter,
         End
     }
 }
