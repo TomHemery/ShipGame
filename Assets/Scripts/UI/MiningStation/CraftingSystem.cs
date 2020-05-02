@@ -16,6 +16,7 @@ public class CraftingSystem : MonoBehaviour
     public Slot outputSlot;
     public Inventory associatedInventory;
     public Text craftButtonLabel;
+    public Text craftMaxButtonLabel;
 
     public List<Blueprint> UnlockedBlueprints { get; private set; } = new List<Blueprint>();
     private bool canCraft = false;
@@ -78,27 +79,35 @@ public class CraftingSystem : MonoBehaviour
 
             string requirementsDesc = "<b>Requirements</b>\n";
 
+            int totalCraftable = int.MaxValue;
             for (int i = 0; i < bp.materials.Length; i++)
             {
                 if (associatedInventory.Contents.ContainsKey(bp.materials[i]) && associatedInventory.Contents[bp.materials[i]].quantity >= bp.quantities[i])
                 {
                     requirementsDesc += "<color=green>";
+                    int num = associatedInventory.Contents[bp.materials[i]].quantity / bp.quantities[i];
+                    totalCraftable = totalCraftable > num ? num : totalCraftable;
                 }
                 else
                 {
+                    totalCraftable = 0;
                     requirementsDesc += "<color=red>";
                     canCraft = false;
                 }
                 requirementsDesc += "<b>" + bp.materials[i] + ":</b> " + bp.quantities[i] + "</color>\n";
+
             }
 
             if (canCraft) {
+
                 canCraft = outputSlot.StoredItemFrame == null || outputSlot.StoredItemFrame.m_InventoryItem.systemName == bp.output;
             }
 
             materialsText.text = requirementsDesc;
 
             craftButtonLabel.color = canCraft ? Color.green : Color.red;
+            craftMaxButtonLabel.color = canCraft ? Color.green : Color.red;
+            craftMaxButtonLabel.text = "Craft Max [" + totalCraftable + "]";
         }
     }
 
@@ -128,6 +137,18 @@ public class CraftingSystem : MonoBehaviour
         }
 
         CheckMaterials();
+    }
+
+    public void CraftMax() {
+        StartCoroutine(CraftMaxCoroutine());
+    }
+
+    private IEnumerator CraftMaxCoroutine() {
+        float autocraftDelay = 0.1f;
+        while (canCraft) {
+            Craft();
+            yield return new WaitForSeconds(autocraftDelay);
+        }
     }
 
     private void OnBlueprintSlotContentsChange() {

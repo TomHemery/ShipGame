@@ -20,6 +20,8 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private Vector2 dragStartPos;
     public Slot parentSlot;
 
+    private bool dragging = false;
+
     private void Awake()
     {
         mTransform = GetComponent<RectTransform>();
@@ -67,6 +69,7 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         mTransform.pivot = new Vector2(0.5f, 0.5f);
         mTransform.SetParent(mTransform.root);
         eventData.Use();
+        dragging = true;
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -99,6 +102,7 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             }
         }
         ResetDrag();
+        dragging = false;
     }
 
     private void ResetDrag()
@@ -126,7 +130,7 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (Input.GetButton("AutoMove")){
+        if (!dragging && Input.GetButton("AutoMove")){
             if (parentSlot != null) {
                 AutoMoveTarget target = parentSlot.autoMoveTarget;
                 if (target != null && target.type != AutoMoveTarget.AutomoveType.None)
@@ -141,7 +145,6 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                             storedQuantity = target.associatedSlot.StoreItemFrame(this);
                             break;
                     }
-                    Debug.Log("Automoving item, quantity moved: " + storedQuantity);
                     if (storedQuantity >= m_InventoryItem.quantity)
                     {
                         parentSlot.DestroyItemFrame();
