@@ -8,6 +8,7 @@ public class SlotManager : MonoBehaviour
     public Inventory associatedInventory;
     public bool attachToPlayerInventory;
     public GameObject slotPrefab;
+    public AutoMoveTarget autoMoveTarget;
 
     private void Awake()
     {
@@ -15,6 +16,7 @@ public class SlotManager : MonoBehaviour
 
         foreach (Transform child in transform) { //set up slots associated inventories
             child.GetComponent<Slot>().associatedInventory = associatedInventory;
+            child.GetComponent<Slot>().autoMoveTarget = autoMoveTarget;
         }
     }
 
@@ -113,14 +115,14 @@ public class SlotManager : MonoBehaviour
                 {
                     s = Instantiate(slotPrefab, transform).GetComponent<Slot>();
                     s.associatedInventory = associatedInventory;
+                    s.autoMoveTarget = autoMoveTarget;
                     s.TryCreateFrameFor(toAdd);
                 }
             }
 
-            //if we have to much then take it away
+            //if we have too much then take it away
             else if (totalInSlots > pair.Value.quantity) {
                 int diff = totalInSlots - pair.Value.quantity;
-                //try to store it in an already existing frame
                 foreach (Transform child in transform)
                 {
                     s = child.GetComponent<Slot>();

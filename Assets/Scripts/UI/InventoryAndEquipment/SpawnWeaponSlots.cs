@@ -7,6 +7,8 @@ public class SpawnWeaponSlots : MonoBehaviour
     public GameObject slotPrefab;
     private GameObject playerShip;
 
+    public AutoMoveTarget autoMoveTarget;
+
     private void Awake()
     {
         playerShip = GameObject.FindGameObjectWithTag("PlayerShip");
@@ -20,6 +22,7 @@ public class SpawnWeaponSlots : MonoBehaviour
                 if (child.CompareTag("WeaponAttachment")) {
                     Slot s = Instantiate(slotPrefab, transform).GetComponent<Slot>();
                     s.associatedEquipPoint = child;
+                    s.autoMoveTarget = autoMoveTarget;
                     s.m_equipType = EquipType.Weapon;
                     s.CreateFrameForEquipPoint();
                 }

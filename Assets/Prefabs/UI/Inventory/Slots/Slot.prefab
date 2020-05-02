@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 6587939850998633501}
   - component: {fileID: 2652322892199182304}
   m_Layer: 5
-  m_Name: Slot
+  m_Name: SlotNoAutomove
   m_TagString: EquipSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,6 +168,8 @@ MonoBehaviour:
   acceptedItemName: 
   associatedInventory: {fileID: 0}
   associatedEquipPoint: {fileID: 0}
+  autoMoveTarget: {fileID: 0}
+  outputOnly: 0
   itemFramePrefab: {fileID: 7114726645731438124, guid: c6ee3f63895130340a88b59e241c9388,
     type: 3}
   slotText: {fileID: 3844637295645984188}

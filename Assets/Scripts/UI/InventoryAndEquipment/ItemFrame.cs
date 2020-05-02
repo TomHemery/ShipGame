@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler
 {
     public InventoryItem m_InventoryItem;
 
@@ -122,5 +122,36 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public void SetInventoryItem(InventoryItem i) {
         m_InventoryItem = i;
         quantityText.GetComponent<Text>().text = i.quantity.ToString();
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (Input.GetButton("AutoMove")){
+            if (parentSlot != null) {
+                AutoMoveTarget target = parentSlot.autoMoveTarget;
+                if (target != null && target.type != AutoMoveTarget.AutomoveType.None)
+                {
+                    int storedQuantity = 0;
+                    switch (target.type)
+                    {
+                        case AutoMoveTarget.AutomoveType.TargetInventory:
+                            storedQuantity = target.associatedInventory.AddMaxOf(m_InventoryItem);
+                            break;
+                        case AutoMoveTarget.AutomoveType.TargetSlot:
+                            storedQuantity = target.associatedSlot.StoreItemFrame(this);
+                            break;
+                    }
+                    Debug.Log("Automoving item, quantity moved: " + storedQuantity);
+                    if (storedQuantity >= m_InventoryItem.quantity)
+                    {
+                        parentSlot.DestroyItemFrame();
+                    }
+                    else 
+                    {
+                        SetQuantity(m_InventoryItem.quantity - storedQuantity);
+                    }
+                }
+            }
+        }
     }
 }

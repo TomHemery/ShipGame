@@ -1340,6 +1340,10 @@ MonoBehaviour:
   acceptedItemName: 
   associatedInventory: {fileID: 0}
   associatedEquipPoint: {fileID: 0}
+  autoMoveTarget:
+    associatedSlot: {fileID: 0}
+    associatedInventory: {fileID: 0}
+    type: 0
   outputOnly: 1
   itemFramePrefab: {fileID: 7114726645731438124, guid: c6ee3f63895130340a88b59e241c9388,
     type: 3}
@@ -3270,6 +3274,16 @@ PrefabInstance:
       propertyPath: associatedInventory
       value: 
       objectReference: {fileID: 749523237}
+    - target: {fileID: 1653049709152919114, guid: ff0b99359c92e9e45a43d66277249cac,
+        type: 3}
+      propertyPath: autoMoveTarget.associatedInventory
+      value: 
+      objectReference: {fileID: 1163044659}
+    - target: {fileID: 1653049709152919114, guid: ff0b99359c92e9e45a43d66277249cac,
+        type: 3}
+      propertyPath: autoMoveTarget.type
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff0b99359c92e9e45a43d66277249cac, type: 3}
 --- !u!224 &272632864 stripped
@@ -3333,6 +3347,10 @@ MonoBehaviour:
   acceptedItemName: Iron
   associatedInventory: {fileID: 0}
   associatedEquipPoint: {fileID: 0}
+  autoMoveTarget:
+    associatedSlot: {fileID: 0}
+    associatedInventory: {fileID: 0}
+    type: 0
   outputOnly: 0
   itemFramePrefab: {fileID: 7114726645731438124, guid: c6ee3f63895130340a88b59e241c9388,
     type: 3}
@@ -5165,6 +5183,10 @@ MonoBehaviour:
   acceptedItemName: FuelCell
   associatedInventory: {fileID: 0}
   associatedEquipPoint: {fileID: 0}
+  autoMoveTarget:
+    associatedSlot: {fileID: 0}
+    associatedInventory: {fileID: 0}
+    type: 0
   outputOnly: 0
   itemFramePrefab: {fileID: 7114726645731438124, guid: c6ee3f63895130340a88b59e241c9388,
     type: 3}
@@ -6038,6 +6060,10 @@ MonoBehaviour:
   acceptedItemName: Ice
   associatedInventory: {fileID: 0}
   associatedEquipPoint: {fileID: 0}
+  autoMoveTarget:
+    associatedSlot: {fileID: 0}
+    associatedInventory: {fileID: 0}
+    type: 0
   outputOnly: 0
   itemFramePrefab: {fileID: 7114726645731438124, guid: c6ee3f63895130340a88b59e241c9388,
     type: 3}
@@ -7831,6 +7857,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653049709152919114, guid: ff0b99359c92e9e45a43d66277249cac,
+        type: 3}
+      propertyPath: autoMoveTarget.associatedInventory
+      value: 
+      objectReference: {fileID: 749523237}
+    - target: {fileID: 1653049709152919114, guid: ff0b99359c92e9e45a43d66277249cac,
+        type: 3}
+      propertyPath: autoMoveTarget.type
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1653049708157807568, guid: ff0b99359c92e9e45a43d66277249cac,
         type: 3}
@@ -9934,6 +9970,10 @@ MonoBehaviour:
   acceptedItemName: 
   associatedInventory: {fileID: 0}
   associatedEquipPoint: {fileID: 0}
+  autoMoveTarget:
+    associatedSlot: {fileID: 0}
+    associatedInventory: {fileID: 0}
+    type: 0
   outputOnly: 0
   itemFramePrefab: {fileID: 7114726645731438124, guid: c6ee3f63895130340a88b59e241c9388,
     type: 3}
@@ -12986,7 +13026,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 303388517}
   m_Direction: 2
   m_Value: 0.9971439
-  m_Size: 0.41666666
+  m_Size: 0.41666663
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -13691,7 +13731,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1749919435}
   m_HandleRect: {fileID: 1749919434}
   m_Direction: 2
-  m_Value: 1.0000013
+  m_Value: 1.0000014
   m_Size: 0.29999998
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -13859,8 +13899,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cbdbdce5e1c2ac4e9ac8d154fc4c0c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotPrefab: {fileID: 6587939850998633503, guid: 41396a067a2a139498574b36cd9aaeb3,
+  slotPrefab: {fileID: 6587939850998633503, guid: 40882aa2d204282458b0e1a4833ddba3,
     type: 3}
+  autoMoveTarget:
+    associatedSlot: {fileID: 0}
+    associatedInventory: {fileID: 1163044659}
+    type: 1
 --- !u!114 &1804212276
 MonoBehaviour:
   m_ObjectHideFlags: 0

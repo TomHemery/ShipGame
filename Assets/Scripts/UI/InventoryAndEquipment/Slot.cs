@@ -10,6 +10,8 @@ public class Slot : MonoBehaviour
     public Inventory associatedInventory = null;
     public Transform associatedEquipPoint = null;
 
+    public AutoMoveTarget autoMoveTarget;
+
     /// <summary>
     /// an outputOnly slot cannot store frames, but can create frames for inventory items (used in crafting system)
     /// </summary>
@@ -32,7 +34,7 @@ public class Slot : MonoBehaviour
     }
 
     /// <summary>
-    /// Attempts to store the passed frame and updates the associated inventories 
+    /// Attempts to store the passed frame and updates the associated inventories, returns the number of stored items 
     /// </summary>
     /// <param name="newFrame">The frame to be stored</param>
     /// <returns>The quantity of inventoryItems associated with the passed frame that this slot has stored</returns>
@@ -136,7 +138,7 @@ public class Slot : MonoBehaviour
 
     /// <summary>
     /// Removes (sets null) the stored item frame from this slot
-    ///  Updates associated inventories
+    /// Updates associated inventories
     /// </summary>
     public void RemoveItemFrame() {
         if (StoredItemFrame != null)
