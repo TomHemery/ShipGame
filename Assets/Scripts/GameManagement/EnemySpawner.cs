@@ -72,6 +72,6 @@ public class EnemySpawner : MonoBehaviour
     private static void OnAllEnemiesDefeated() {
         AllEnemiesDestroyed.Invoke();
         GameObject.FindGameObjectWithTag("MiningStation").GetComponent<MiningStationUIToggle>().SetBehaviourEnabled(true);
-        MusicPlayer.Instance.FadeToNewTrack(1.0f, GameManager.CurrentArea.defaultMusic);
+        MusicPlayer.Instance.FadeToNewTrack(2.0f, GameManager.CurrentArea.defaultMusic);
     }
 }

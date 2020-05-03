@@ -48,6 +48,7 @@ public class CraftingSystem : MonoBehaviour
     public void Show() {
         gameObject.SetActive(true);
         CentralPanel.SetActive(false);
+        CheckMaterials();
     }
 
     public void Hide() {

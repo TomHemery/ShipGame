@@ -18,7 +18,7 @@ This is a strange experience...</prompt>
     <continue target="4"/>
   </node>
   <node index="4" character ="FriendBot2">
-    <prompt>I should warn you, Striker ships have shields just like your ship. You're going to have to lay down some sustained fire.
+    <prompt>I should warn you, Striker ships have shields just like you do. You're going to have to lay down some sustained fire.
 ...
 Friend out?
     </prompt>

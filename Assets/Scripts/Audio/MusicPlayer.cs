@@ -85,9 +85,10 @@ public class MusicPlayer : MonoBehaviour
     }
 
     private IEnumerator FadeToNewTrackCoroutine(float fadeTime, string newTrack) {
-
+        float t = 0;
         while (MusicSource.volume > 0) {
-            MusicSource.volume -= startVolume * Time.deltaTime / fadeTime;
+            MusicSource.volume = startVolume * (1 - t / fadeTime);
+            t += Time.deltaTime;
             yield return null;
         }
 

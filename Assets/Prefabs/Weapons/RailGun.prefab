@@ -257,7 +257,7 @@ MonoBehaviour:
     equipable: 1
     equipType: 0
   mAudioSource: {fileID: 5138463257343684249}
-  CooldownInterval: 0.5
+  CooldownInterval: 0.6
   SpawnPoint: {fileID: 3403034328388050556}
   ProjectilePrefab: {fileID: 3023812596015843538, guid: b19f0e7c091c1d34c9e2148030f0dadc,
     type: 3}

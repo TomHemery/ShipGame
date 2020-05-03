@@ -162,8 +162,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxSpeed: 80
   lifeSpan: 1
-  damage: 30
-  explosionPrefab: {fileID: 1933057997586368794, guid: 2da328153fbfa1e4f9633a4dbabd9367,
+  damage: 35
+  explosionPrefab: {fileID: 3813318767767790973, guid: 018b1ecd48998fd49982f28eda841c20,
     type: 3}
 --- !u!61 &1582186913580194359
 BoxCollider2D:

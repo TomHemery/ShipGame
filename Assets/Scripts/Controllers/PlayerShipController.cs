@@ -7,10 +7,12 @@ public class PlayerShipController : ShipController
 {
     [HideInInspector]
     public bool RespondToInput = true;
+    [HideInInspector]
+    public bool StoryControlOverride = false;
 
     private void Update()
     {
-        if (RespondToInput)
+        if (RespondToInput && !StoryControlOverride)
         {
             //Acceleration based on user input 
             thrustMode = Input.GetButton("Accelerate") ? ThrustMode.Forward :

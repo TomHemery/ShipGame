@@ -311,12 +311,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2c8ae9770e10cb4ba371958c9bf5ef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealthValue: 100
+  MaxHealthValue: 75
   HealthValue: 0
   explosionPrefab: {fileID: 0}
   exploded: 0
   isPlayerHealth: 0
-  MaxShieldValue: 50
+  MaxShieldValue: 35
 --- !u!1 &5342775148491317807
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,11 +582,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5342775148438941789}
     m_Modifications:
-    - target: {fileID: 8921995031963440754, guid: 5fb0c31a38634d442a33010d1707ac42,
-        type: 3}
-      propertyPath: m_Name
-      value: EmpireStrikerHull
-      objectReference: {fileID: 0}
     - target: {fileID: 8921995031963440753, guid: 5fb0c31a38634d442a33010d1707ac42,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -642,6 +637,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8921995031963440754, guid: 5fb0c31a38634d442a33010d1707ac42,
+        type: 3}
+      propertyPath: m_Name
+      value: EmpireStrikerHull
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5fb0c31a38634d442a33010d1707ac42, type: 3}
 --- !u!4 &3264933871616756371 stripped
@@ -675,11 +675,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5342775148438941789}
     m_Modifications:
-    - target: {fileID: 5795215607735649549, guid: 3b8eb910a34f42947a236efde3a6f949,
-        type: 3}
-      propertyPath: m_Name
-      value: EnemyShieldResourceUI
-      objectReference: {fileID: 0}
     - target: {fileID: 5795215607735649548, guid: 3b8eb910a34f42947a236efde3a6f949,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -784,6 +779,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5795215607735649549, guid: 3b8eb910a34f42947a236efde3a6f949,
+        type: 3}
+      propertyPath: m_Name
+      value: EnemyShieldResourceUI
       objectReference: {fileID: 0}
     - target: {fileID: 5795215607735649552, guid: 3b8eb910a34f42947a236efde3a6f949,
         type: 3}

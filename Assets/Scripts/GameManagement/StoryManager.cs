@@ -55,6 +55,11 @@ public class StoryManager : MonoBehaviour
             }
             playerShip.GetComponent<PlayerSpawnController>().GotoSpawnPoint();
         }
+
+        if (StoryStage == Stage.EmpireStrikerEncounter)
+        {
+            StartCoroutine(AwaitStrikers());
+        }
     }
 
     void OnAsteroidDestroyed()
@@ -120,9 +125,14 @@ public class StoryManager : MonoBehaviour
     }
 
     public void OnDialogueClosed() {
-        if (StoryStage == Stage.EmpireStrikerEncounter) {
-            playerShip.GetComponent<PlayerShipController>().RespondToInput = false;
+        if (StoryStage == Stage.EmpireStrikerEncounter)
+        {
+            Save.SaveGame();
+            saveGameText.SetActive(true);
             StartCoroutine(AwaitStrikers());
+        }
+        else if (StoryStage == Stage.PostStrikers) {
+            playerShip.GetComponent<HealthAndShieldsResource>().FillResource();
         }
     }
 
@@ -175,13 +185,16 @@ public class StoryManager : MonoBehaviour
     }
 
     private IEnumerator AwaitStrikers() {
+        playerShip.GetComponent<PlayerShipController>().StoryControlOverride = true;
+        MusicPlayer.Instance.FadeToNewTrack(1.0f, "HeldDissonance");
         yield return new WaitForSeconds(5.0f);
         DialoguePanel.MainDialoguePanel.OpenDialogue("StrikerDeployment");
         Vector2 offset = UnityEngine.Random.insideUnitCircle.normalized * 100;
         Vector2 pos = playerShip.transform.position;
         EnemySpawner.SpawnAt(pos + offset, "EmpireStriker", 1);
-        playerShip.GetComponent<PlayerShipController>().RespondToInput = true;
-        SetStage(Stage.End);
+        playerShip.GetComponent<PlayerShipController>().StoryControlOverride = false;
+        
+        SetStage(Stage.PostStrikers);
     }
     //###END COROUTINE ENUMERATORS###
     
@@ -218,6 +231,7 @@ public class StoryManager : MonoBehaviour
         SecondPirateEncounter,
         SecondRebelContact,
         EmpireStrikerEncounter,
+        PostStrikers,
         End
     }
 }

@@ -22,7 +22,7 @@ As your F.R.I.E.N.D I am both responsible for you, and responsible for deeming w
     <continue target ="6"/>
   </node>
   <node index ="6" character ="FriendBot">
-    <prompt>Your job is to mine flux crystals and other useful minerals for the grand empire, then take them back to your mining station, see it just below you there?</prompt>
+    <prompt>Your job is to mine flux crystals and other useful minerals for the grand empire, then take them back to your mining station. Shouldn't be too hard right?</prompt>
     <continue target ="7"/>
   </node>
   <node index ="7" character ="FriendBot">
