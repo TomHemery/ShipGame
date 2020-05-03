@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -95,7 +95,8 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                     DestroySelf();
                     return;
                 }
-                else {
+                else
+                {
                     m_InventoryItem.quantity -= numStored;
                     break;
                 }
