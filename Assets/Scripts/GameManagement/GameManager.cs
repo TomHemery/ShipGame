@@ -92,12 +92,13 @@ public class GameManager : MonoBehaviour
             );
         }
 
+
         if (save.jumpDriveContents > 0)
         {
-            InventoryItem crystalItem = PrefabDatabase.PrefabDictionary["Crystal"].GetComponent<PickUpOnContact>().m_inventoryItem;
-            crystalItem.quantity = save.jumpDriveContents;
+            InventoryItem fuelCellItem = PrefabDatabase.PrefabDictionary["FuelCell"].GetComponent<PickUpOnContact>().m_inventoryItem;
+            fuelCellItem.quantity = save.jumpDriveContents;
             miningStation.GetComponent<MiningStationController>().m_JumpDriveFueler.slot.TryCreateFrameFor(
-                crystalItem
+                fuelCellItem
             );
         }
 

@@ -7,7 +7,7 @@ public class PauseAndShowUI : MonoBehaviour
 {
     public GameObject uiToShow;
 
-    public bool overwritePlayerPos = false;
+    public bool sendPlayerToSpawn = false;
 
     private GameObject playerShip;
     private GameObject mainCamera;
@@ -29,15 +29,16 @@ public class PauseAndShowUI : MonoBehaviour
     }
 
     public virtual void UnPauseAndHide() {
+        SilentUnPauseAndHide();
+        onHideUI.Invoke();
+    }
+
+    public virtual void SilentUnPauseAndHide() {
         uiToShow.SetActive(false);
 
         GameManager.UnPauseSim();
 
-        PlayerSpawnController playerSceneTransBehaviour = playerShip.GetComponent<PlayerSpawnController>();
-
-        if(overwritePlayerPos)
-            playerSceneTransBehaviour.GotoSpawnPoint();
-
-        onHideUI.Invoke();
+        if (sendPlayerToSpawn)
+            playerShip.GetComponent<PlayerSpawnController>().GotoSpawnPoint();
     }
 }

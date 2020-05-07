@@ -95,6 +95,9 @@ public class Save
         FileStream file = File.Create(path + "save " + dateAndTime + extension);
         bf.Serialize(file, save);
         file.Close();
+
+        Debug.Log("Saved Game!");
+        Debug.Log("Save jump drive fill level: " + save.jumpDriveFillLevel + " save jump refueller contents: " + save.jumpDriveContents);
     }
 
     /// <summary>

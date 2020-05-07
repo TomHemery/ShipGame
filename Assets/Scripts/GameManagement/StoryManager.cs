@@ -33,7 +33,8 @@ public class StoryManager : MonoBehaviour
         DialoguePanel.MainDialoguePanel.OnDialoguePanelClosed.AddListener(OnDialogueClosed);
     }
 
-    private void OnEnable()
+    //registers events that we need to hook in to
+    private void Start()
     {
         EnemySpawner.AllEnemiesDestroyed.AddListener(OnAllEnemiesDestroyed);
         AsteroidDestroyedEvent.OnDestroyEvent.AddListener(OnAsteroidDestroyed);
@@ -41,6 +42,7 @@ public class StoryManager : MonoBehaviour
         stationUIController.onHideUI.AddListener(OnHideStationUI);
         GalaxyMap.Instance.OnShowMap.AddListener(OnShowGalaxyMap);
         GameManager.OnPlayerDeath.AddListener(OnPlayerDied);
+        MiningStationController.Instance.OnJumpCompleted.AddListener(OnJumpCompleted);
     }
     //##END MONOBEHAVIOUR EVENTS##
 
@@ -102,17 +104,24 @@ public class StoryManager : MonoBehaviour
             SetStage(Stage.FirstPirateEncounter);
         }
 
-        else if (StoryStage == Stage.FirstRebelContact) {
-            DialoguePanel.MainDialoguePanel.OpenDialogue("FirstRebelContact");
-            SetStage(Stage.SecondPirateEncounter);
-        }
-
         //saves the game if we have completed the station tutorial
         if (StoryStage >= Stage.StationTutorial)
         {
             Save.SaveGame();
             saveGameText.SetActive(true);
         }
+    }
+
+    void OnJumpCompleted()
+    {
+        if (StoryStage == Stage.FirstRebelContact)
+        {
+            DialoguePanel.MainDialoguePanel.OpenDialogue("FirstRebelContact");
+            SetStage(Stage.SecondPirateEncounter);
+        }
+
+        Save.SaveGame();
+        saveGameText.SetActive(true);
     }
 
     public void OnToggleCraftingPanel()

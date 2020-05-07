@@ -71,7 +71,6 @@ public class GalaxyMap : MonoBehaviour
 
     public void DestinationSelected(string areaName) {
         HideMap();
-        stationJumpResource.EmptyResource();
-        GameManager.LoadArea(AreaDatabase.AreaDictionary[areaName]);
+        MiningStationController.Instance.JumpToArea(AreaDatabase.AreaDictionary[areaName]);
     }
 }

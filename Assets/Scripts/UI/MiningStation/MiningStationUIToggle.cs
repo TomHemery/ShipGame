@@ -42,6 +42,13 @@ public class MiningStationUIToggle : PauseAndShowUI
         sleepBehaviour = true;
     }
 
+    public override void SilentUnPauseAndHide()
+    {
+        base.SilentUnPauseAndHide();
+        playerInventoryToggle.ForceHideTarget();
+        sleepBehaviour = true;
+    }
+
     public void PauseBehaviourUntilCollisionExit() {
         sleepBehaviour = true;
     }
