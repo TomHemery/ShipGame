@@ -12,6 +12,7 @@ public class MiningStationController : MonoBehaviour
     public SpriteRenderer mRenderer;
     private GameObject playerShip;
     public GameObject[] entryLights;
+    public AudioSource jumpAudioSource;
 
     public HullRepairer m_HullRepairer;
     public ResourceFiller m_O2Gen;
@@ -19,6 +20,8 @@ public class MiningStationController : MonoBehaviour
     public Resource m_JumpResource;
 
     public UnityEvent OnJumpCompleted = new UnityEvent();
+
+    private const float JUMP_DURATION = 4.5f;
 
     private void Awake()
     {
@@ -43,10 +46,12 @@ public class MiningStationController : MonoBehaviour
         jumpParticles.SetActive(true);
         foreach (GameObject light in entryLights) light.SetActive(false);
 
+        jumpAudioSource.Play();
+
         //fade out ship over time
         float t = 0.0f;
         Color c = mRenderer.color;
-        while (t < 5.0f)
+        while (t < JUMP_DURATION)
         {
             t += Time.deltaTime;
             c.a = 1 - t / 5.0f;
