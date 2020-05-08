@@ -97,7 +97,6 @@ public class Save
         file.Close();
 
         Debug.Log("Saved Game!");
-        Debug.Log("Save jump drive fill level: " + save.jumpDriveFillLevel + " save jump refueller contents: " + save.jumpDriveContents);
     }
 
     /// <summary>
