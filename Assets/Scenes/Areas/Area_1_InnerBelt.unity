@@ -149,10 +149,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39a4ae5645838bf4d9d878bd755a8ab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asteroidPrefab: {fileID: 673632786037268407, guid: e37506c70a6453540a43fde3e492a4b3,
+  spawnPrefab: {fileID: 673632786037268407, guid: e37506c70a6453540a43fde3e492a4b3,
     type: 3}
-  minAsteroidsPerCell: 4
-  maxAsteroidsPerCell: 8
+  minObjectsPerCell: 3
+  maxObjectsPerCell: 6
+  cellSize: 64
   debugText: {fileID: 0}
 --- !u!4 &257482797
 Transform:

@@ -9,19 +9,23 @@ public class ProceduralAsteroid : MonoBehaviour
     private SpriteRenderer m_renderer;
     //private Sprite [] m_sprites;
 
-    private static Color32[][] m_texture_colours;
-    private static Texture2D[] m_textures = null;
-    private static Sprite[][] m_sprites = null;
+    private static Dictionary<string, Color32[][]> colourDict = new Dictionary<string, Color32[][]>();
+    private static Dictionary<string, Texture2D[]> textureDict = new Dictionary<string, Texture2D[]>();
+    private static Dictionary<string, Sprite[][]> spriteDict = new Dictionary<string, Sprite[][]>();
+
     private const int NUM_ASTEROID_TEXTURES = 64;
 
-    private static bool generatingTextures = false;
-    private static bool generatedTextures = false;
+    private static List<string> generatingTextureFlags = new List<string>();
+    private static List<string> generatedTextureFlags = new List<string>();
+
     private bool assignedTexture = false;
 
     private DamageAnimation damageAnimation;
 
     private readonly byte clear = 0;
     private float maxRealDistance;
+
+    public string presetName;
 
     public int pixelsPerUnit = 10;
     public int width = 64;
@@ -67,9 +71,9 @@ public class ProceduralAsteroid : MonoBehaviour
         maxRealDistance = Mathf.Sqrt(width * width + height * height);
         fullWidth = width * numFrames;
 
-        if (!generatingTextures)
+        if (!generatingTextureFlags.Contains(presetName))
         {
-            generatingTextures = true;
+            generatingTextureFlags.Add(presetName);
             GenerateAsteroids();
         }
     }
@@ -83,26 +87,26 @@ public class ProceduralAsteroid : MonoBehaviour
     private void Update()
     {
         //textures are ready now and we haven't picked one yet
-        if (!assignedTexture && generatedTextures)
+        if (!assignedTexture && generatedTextureFlags.Contains(presetName))
         {
             //if the textures haven't been set from the colour arrays, then do it
-            if (m_textures == null) {
-                m_sprites = new Sprite[NUM_ASTEROID_TEXTURES][];
-                m_textures = new Texture2D[NUM_ASTEROID_TEXTURES];
+            if (!textureDict.ContainsKey(presetName)) {
+                spriteDict[presetName] = new Sprite[NUM_ASTEROID_TEXTURES][];
+                textureDict[presetName] = new Texture2D[NUM_ASTEROID_TEXTURES];
                 for (int tex = 0; tex < NUM_ASTEROID_TEXTURES; tex++) {
-                    m_textures[tex] = new Texture2D(width * numFrames, height, TextureFormat.ARGB32, false)
+                    textureDict[presetName][tex] = new Texture2D(width * numFrames, height, TextureFormat.ARGB32, false)
                     {
                         filterMode = FilterMode.Point,
                     };
-                    m_textures[tex].SetPixels32(m_texture_colours[tex]);
-                    m_textures[tex].Apply();
-                    m_sprites[tex] = new Sprite[numFrames];
-                    for (int i = 0; i < numFrames; i++) m_sprites[tex][i] =
-                        Sprite.Create(m_textures[tex], new Rect(i * width, 0, width, height), new Vector2(0.5f, 0.5f), pixelsPerUnit);
+                    textureDict[presetName][tex].SetPixels32(colourDict[presetName][tex]);
+                    textureDict[presetName][tex].Apply();
+                    spriteDict[presetName][tex] = new Sprite[numFrames];
+                    for (int i = 0; i < numFrames; i++) spriteDict[presetName][tex][i] =
+                        Sprite.Create(textureDict[presetName][tex], new Rect(i * width, 0, width, height), new Vector2(0.5f, 0.5f), pixelsPerUnit);
                 }
             }
 
-            Sprite[] chosenSprites = m_sprites[Random.Range(0, NUM_ASTEROID_TEXTURES)];
+            Sprite[] chosenSprites = spriteDict[presetName][Random.Range(0, NUM_ASTEROID_TEXTURES)];
             m_renderer.sprite = chosenSprites[0];
             damageAnimation.sprites = chosenSprites;
             damageAnimation.enabled = true;
@@ -114,7 +118,7 @@ public class ProceduralAsteroid : MonoBehaviour
 
     private void GenerateAsteroids() {
         rand = new System.Random(Random.Range(0, int.MaxValue));
-        m_texture_colours = new Color32[NUM_ASTEROID_TEXTURES][];
+        colourDict[presetName] = new Color32[NUM_ASTEROID_TEXTURES][];
         //generate the texture
         Thread t = new Thread(new ThreadStart(GenerateTextures));
         t.Start();
@@ -238,13 +242,13 @@ public class ProceduralAsteroid : MonoBehaviour
 
             ShadeInTexture(pixels);
 
-            m_texture_colours[num] = new Color32[width * numFrames * height];
+            colourDict[presetName][num] = new Color32[width * numFrames * height];
 
             for (int i = 0; i < pixels.Length; i++)
             {
                 if (pixels[i] != clear)
                 {
-                    m_texture_colours[num][i] = new Color32(
+                    colourDict[presetName][num][i] = new Color32(
                         (byte)(baseColour.r * pixels[i]),
                         (byte)(baseColour.g * pixels[i]),
                         (byte)(baseColour.b * pixels[i]),
@@ -253,11 +257,13 @@ public class ProceduralAsteroid : MonoBehaviour
                 }
                 else
                 {
-                    m_texture_colours[num][i] = Color.clear;
+                    colourDict[presetName][num][i] = Color.clear;
                 }
             }
         }
-        generatedTextures = true;
+
+        generatedTextureFlags.Add(presetName);
+
     }
 
     private void ShadeInTexture(byte [] pixels) {

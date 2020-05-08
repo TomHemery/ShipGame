@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Areas/Area_1_InnerBelt.unity
     guid: 1ae92a4a1cb36ab439045a186fbe3644
+  - enabled: 1
+    path: Assets/Scenes/Areas/Area_2_DeadSector.unity
+    guid: 0ffbe9782c9e9f24c9cbfdef0495d08c
   m_configObjects: {}

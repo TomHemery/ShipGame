@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0bdb5dfed578ac45902db588b5e67e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  presetName: AsteroidType0
   pixelsPerUnit: 10
   width: 64
   height: 64
@@ -145,6 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b1615f89c6991148a0eaee12a795fb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxHealthValue: 100
+  HealthValue: 0
   explosionPrefab: {fileID: 0}
   exploded: 0
   isPlayerHealth: 0
