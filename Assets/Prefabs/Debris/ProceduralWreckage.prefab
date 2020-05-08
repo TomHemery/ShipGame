@@ -227,7 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b1615f89c6991148a0eaee12a795fb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealthValue: 100
+  MaxHealthValue: 200
   HealthValue: 0
   explosionPrefab: {fileID: 0}
   exploded: 0
@@ -284,8 +284,8 @@ MonoBehaviour:
   - dropPrefab: {fileID: 5447800882768667956, guid: eeb191af0e3e28e49977858483de5ab6,
       type: 3}
     dropProbability: 1
-    dropQuantityMax: 4
-    dropQuantityMin: 1
+    dropQuantityMax: 10
+    dropQuantityMin: 4
   - dropPrefab: {fileID: 6888309240082012301, guid: d1990fce2ac31a34685339cfc270f104,
       type: 3}
     dropProbability: 0.5
@@ -322,24 +322,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pixelsPerUnit: 10
-  width: 64
-  height: 64
-  numFrames: 6
-  numBaseShapes: 10
+  width: 96
+  height: 96
+  numFrames: 5
+  numBaseShapes: 16
   destructionNeighbourhood: 1
   destructionNoise: 0.04
   baseShapePointBounds:
     serializedVersion: 2
-    x: 16
-    y: 16
-    width: 32
-    height: 32
-  minShapeSize: 5
-  maxShapeSize: 15
+    x: 14
+    y: 14
+    width: 100
+    height: 100
+  minShapeSize: 10
+  maxShapeSize: 30
   numSplits: 4
-  minWires: 5
-  maxWires: 20
-  maxWireLength: 20
+  minWires: 10
+  maxWires: 50
+  maxWireLength: 40
   threshold: 140
   shadowValue: 40
   mid1ShadingNeighbourhood: 2

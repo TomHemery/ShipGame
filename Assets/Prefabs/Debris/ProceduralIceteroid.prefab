@@ -108,7 +108,7 @@ MonoBehaviour:
   minCraters: 2
   maxCraters: 7
   minCraterRadius: 4
-  maxCraterRadius: 20
+  maxCraterRadius: 12
   craterNoise: 10
   minCratersDestruction: 1
   maxCratersDestruction: 3

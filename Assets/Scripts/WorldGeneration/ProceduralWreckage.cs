@@ -319,7 +319,7 @@ public class ProceduralWreckage : MonoBehaviour
         int shapeType = rand.Next(0, 2);
         switch (shapeType) {
             case 0:
-                SpawnSquareAt(pos, 3 * shapeSize / 4, pixels);
+                SpawnSquareAt(pos, shapeSize / 2, pixels);
                 break;
             case 1:
                 SpawnTriangleAt(pos, shapeSize, pixels);
@@ -333,7 +333,8 @@ public class ProceduralWreckage : MonoBehaviour
         {
             for (int y = -size; y <= size; y++)
             {
-                SetPixel((int)pos.x + x, (int)pos.y + y, shadowValue, pixels);
+                if (pos.x + x >= 0 && pos.x + x < width && pos.y + y >= 0 && pos.y + y < height)
+                    SetPixel((int)pos.x + x, (int)pos.y + y, shadowValue, pixels);
             }
         }
     }
@@ -345,19 +346,23 @@ public class ProceduralWreckage : MonoBehaviour
         {
             for (int y = -size; y <= size; y++)
             {
-                switch (dir) {
-                    case 0:
-                        if(x < y) SetPixel((int)pos.x + x, (int)pos.y + y, shadowValue, pixels);
-                        break;
-                    case 1:
-                        if(x > y) SetPixel((int)pos.x + x, (int)pos.y + y, shadowValue, pixels);
-                        break;
-                    case 2:
-                        if(x + y < size / 2) SetPixel((int)pos.x + x, (int)pos.y + y, shadowValue, pixels);
-                        break;
-                    case 3:
-                        if(x + y > size / 2) SetPixel((int)pos.x + x, (int)pos.y + y, shadowValue, pixels);
-                        break;
+                if (pos.x + x >= 0 && pos.x + x < width && pos.y + y >= 0 && pos.y + y < height)
+                {
+                    switch (dir)
+                    {
+                        case 0:
+                            if (x < y) SetPixel((int)pos.x + x, (int)pos.y + y, shadowValue, pixels);
+                            break;
+                        case 1:
+                            if (x > y) SetPixel((int)pos.x + x, (int)pos.y + y, shadowValue, pixels);
+                            break;
+                        case 2:
+                            if (x + y < size / 2) SetPixel((int)pos.x + x, (int)pos.y + y, shadowValue, pixels);
+                            break;
+                        case 3:
+                            if (x + y > size / 2) SetPixel((int)pos.x + x, (int)pos.y + y, shadowValue, pixels);
+                            break;
+                    }
                 }
             }
         }

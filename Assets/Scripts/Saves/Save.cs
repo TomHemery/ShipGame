@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -97,6 +98,9 @@ public class Save
         file.Close();
 
         Debug.Log("Saved Game!");
+        Debug.Log("Saves are stored in: " + path);
+        Debug.Log("Please check this directory to remove any unwanted data after playing for now!");
+
     }
 
     /// <summary>
@@ -117,27 +121,23 @@ public class Save
     }
 
     public static string[] GetAllSaveNames() {
-        if (!Directory.Exists(path)) {
+        if (!Directory.Exists(path))
+        {
             Directory.CreateDirectory(path);
+            return new string[0];
         }
 
-        Debug.Log("Saves are stored in: " + path);
-        Debug.Log("Please check this directory to remove any unwanted data after playing for now!");
-
-        string[] files = Directory.GetFiles(path);
+        DirectoryInfo info = new DirectoryInfo(path);
+        FileInfo[] files = info.GetFiles().OrderByDescending(p => p.CreationTime).ToArray();
         List<string> result = new List<string>();
 
-        foreach (string file in files) {
-            if (Path.GetExtension(file) == extension)
+        foreach (FileInfo file in files) {
+            if (file.Extension == extension)
             {
-                result.Add(Path.GetFileNameWithoutExtension(file));
+                result.Add(Path.GetFileNameWithoutExtension(file.Name));
             }
         }
 
-        string[] saveNames = result.ToArray();
-        System.Array.Sort(saveNames);
-        System.Array.Reverse(saveNames);
-
-        return saveNames;
+        return result.ToArray();
     }
 }
