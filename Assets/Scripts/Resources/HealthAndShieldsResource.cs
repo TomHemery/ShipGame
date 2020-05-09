@@ -13,13 +13,35 @@ public class HealthAndShieldsResource : HealthResource
     public float ShieldRechargeRate { get; private set; } = 10; //shield value added per second
     public event EventHandler<ShieldChangedEventArgs> ShieldValueChangedEvent;
 
+    public bool ShieldsDisabled { get; private set; } = false;
+    private float DisableTimer = 0.0f;
+
     protected override void Update()
     {
         base.Update();
-        if(!GameManager.SimPaused)
-            AddShields(Time.deltaTime * ShieldRechargeRate);
+        //recharge shields if the game isn't paused
+        if (!GameManager.SimPaused)
+        {
+            //only recharge if shields aren't disabled
+            if (!ShieldsDisabled)
+            {
+                AddShields(Time.deltaTime * ShieldRechargeRate);
+            }
+            //countdown until we can recharge again
+            else
+            {
+                DisableTimer -= Time.deltaTime;
+                if (DisableTimer <= 0) {
+                    DisableTimer = 0.0f;
+                    ShieldsDisabled = false;
+                }
+            }
+        }
     }
 
+    /// <summary>
+    /// Completely fills shields and health
+    /// </summary>
     public override void FillResource()
     {
         base.FillResource();
@@ -82,8 +104,21 @@ public class HealthAndShieldsResource : HealthResource
         SubtractShields(shieldDamage);
         SubtractHealth(healthDamage);
     }
+
+    /// <summary>
+    /// Disables (sets to zero) the shields for the specified duration
+    /// </summary>
+    /// <param name="time">The time to disable shields for</param>
+    public void DisableShieldsForDuration(float time) {
+        ShieldsDisabled = true;
+        DisableTimer = time;
+        SetShieldValue(0);
+    }
 }
 
+/// <summary>
+/// Argumnents for the shield charged event
+/// </summary>
 public class ShieldChangedEventArgs : EventArgs
 {
     public ShieldChangedEventArgs(float _newShields, float _maxShields) { NewShields = _newShields; MaxShields = _maxShields; }

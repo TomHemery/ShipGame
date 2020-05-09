@@ -537,13 +537,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyTypes:
-  - BasicPirateShip
-  - RocketLauncherPirateShip
+  - PirateCruiser
   maxEnemiesPerSpawn: 3
   minEnemiesPerSpawn: 1
   minSpawnCooldown: 20
   maxSpawnCooldown: 45
   waitForEnemiesDefeated: 1
+  spawnImmediately: 1
   spawnRadius: 100
 --- !u!1 &1712936013
 GameObject:

@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FlashUIImage : MonoBehaviour
+public class FlashGraphic : MonoBehaviour
 {
     public bool doFlash = true;
     public AnimationCurve flashCurve;
 
-    private Image targetImage;
+    private Graphic targetGraphic;
 
     private void Awake()
     {
-        targetImage = gameObject.GetComponent<Image>();
+        targetGraphic = gameObject.GetComponent<Graphic>();
     }
 
     private void Update()
     {
         if (doFlash) {
-            Color c = targetImage.color;
+            Color c = targetGraphic.color;
             c.a = flashCurve.Evaluate(Time.time);
-            targetImage.color = c;
+            targetGraphic.color = c;
         }
     }
 

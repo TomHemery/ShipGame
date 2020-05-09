@@ -10,12 +10,14 @@ public class ProjectileController : Controller
 
     private Rigidbody2D mRigidBody;
     public float lifeSpan = 2; //lifespan in s
-    private float timeAlive;
+    private float timeAlive; //time this projectile has been alive
 
-    public float damage = 10;
+    public float damage = 10; //damage on hit, also used as duration for emp 
 
-    public GameObject explosionPrefab;
+    public GameObject explosionPrefab; //prefab spawned on explode
 
+    public ProjectileType projectileType = ProjectileType.standard; //for special projectiles
+    
     private void Awake()
     {
         mRigidBody = GetComponent<Rigidbody2D>();
@@ -40,11 +42,16 @@ public class ProjectileController : Controller
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
-    { 
+    {
         HealthResource resourceManager = collision.gameObject.GetComponent<HealthResource>();
         if(resourceManager != null)
         {
-            resourceManager.DoDamage(damage);
+            if (projectileType == ProjectileType.emp && resourceManager.GetType() == typeof(HealthAndShieldsResource)) {
+                ((HealthAndShieldsResource)resourceManager).DisableShieldsForDuration(damage);
+            }
+            else if (projectileType == ProjectileType.standard) {
+                resourceManager.DoDamage(damage);
+            }
         }
         Rigidbody2D otherRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
         Explode(otherRigidbody != null ? otherRigidbody.velocity : mRigidBody.velocity);
@@ -54,9 +61,18 @@ public class ProjectileController : Controller
         acc = dir * _acc;
     }
 
+    /// <summary>
+    /// Explode this projectile
+    /// </summary>
+    /// <param name="velocity">Velocity to give explosion</param>
     private void Explode(Vector2 velocity) {
         GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         explosion.GetComponent<Rigidbody2D>().velocity = velocity;
         Destroy(gameObject);
+    }
+
+    public enum ProjectileType { 
+        standard,
+        emp
     }
 }

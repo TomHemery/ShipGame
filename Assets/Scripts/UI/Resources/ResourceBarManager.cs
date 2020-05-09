@@ -13,6 +13,8 @@ public class ResourceBarManager : MonoBehaviour
     public HealthAndShieldsResource healthAndShieldsResource;
     public HealthResource healthResource;
 
+    public GameObject shieldsDisabledWarning;
+
     public bool attachToPlayer = false;
 
     private void Awake()
@@ -22,6 +24,7 @@ public class ResourceBarManager : MonoBehaviour
             healthAndShieldsResource =
                 GameObject.FindGameObjectWithTag("PlayerShip").GetComponent<HealthAndShieldsResource>();
         }
+        //if (shieldsDisabledWarning != null) shieldsDisabledWarning.SetActive(false);
     }
 
     private void OnEnable()
@@ -77,6 +80,10 @@ public class ResourceBarManager : MonoBehaviour
         {
             shieldBarScale.x = s.Map(0, maxS, 0, 1);
             ShieldBar.localScale = shieldBarScale;
+        }
+        if (shieldsDisabledWarning != null) {
+            Debug.Log("Shields disabled warning exists, shields disabled? " + healthAndShieldsResource.ShieldsDisabled);
+            shieldsDisabledWarning.SetActive(healthAndShieldsResource.ShieldsDisabled);
         }
     }
 }

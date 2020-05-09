@@ -2088,6 +2088,7 @@ MonoBehaviour:
   ShieldBar: {fileID: 0}
   healthAndShieldsResource: {fileID: 0}
   healthResource: {fileID: 0}
+  shieldsDisabledWarning: {fileID: 0}
   attachToPlayer: 1
 --- !u!1 &224800326
 GameObject:
@@ -6554,6 +6555,7 @@ MonoBehaviour:
   - {fileID: 3040169793755783779, guid: 544cd51812f8c254b89ab46f80f5c60d, type: 3}
   - {fileID: 5815092714895180223, guid: db6a087ebab5d26439f3b5418420b88c, type: 3}
   - {fileID: 5342775148438941788, guid: 6ad63beb86b27a24398cc30c8f1fbba4, type: 3}
+  - {fileID: 4292916291356418536, guid: 6775bf0918ad2d148ad15a4b19312357, type: 3}
 --- !u!114 &716273726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16679,6 +16681,8 @@ MonoBehaviour:
   - {fileID: 3403034328781754412, guid: 46f81ebfa6a8dbe4fa88254acaa914b6, type: 3}
   - {fileID: 646913464080788194, guid: 1126559a07b7bbf4587a8ad6028708d4, type: 3}
   - {fileID: 7404570130594227401, guid: 39b0efdd227eee8479b5a5dd1c1c65ac, type: 3}
+  - {fileID: 1970730092757422560, guid: 34b2dad71bbe036439be7fe886b1f00f, type: 3}
+  - {fileID: 2754082402485370343, guid: 2f43b9d6ca86a624f9b3a6e24ac87bd6, type: 3}
 --- !u!4 &1181497869
 Transform:
   m_ObjectHideFlags: 0
@@ -16783,6 +16787,15 @@ MonoBehaviour:
     - Uranium
     quantities: 0a000000050000000a00000005000000
     output: LaserCannon
+  - systemName: EMPCannonBlueprint
+    prettyName: EMP Cannon Blueprint
+    materials:
+    - Scrap
+    - Ice
+    - Iron
+    - Minerals
+    quantities: 0a000000050000000500000005000000
+    output: EMPCannon
 --- !u!1 &1183756878
 GameObject:
   m_ObjectHideFlags: 0
@@ -17834,6 +17847,7 @@ RectTransform:
   - {fileID: 848414257}
   - {fileID: 184712943}
   - {fileID: 1172111411}
+  - {fileID: 1517676586}
   m_Father: {fileID: 1866817315}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -17858,6 +17872,7 @@ MonoBehaviour:
   ShieldBar: {fileID: 184712943}
   healthAndShieldsResource: {fileID: 0}
   healthResource: {fileID: 0}
+  shieldsDisabledWarning: {fileID: 1517676585}
   attachToPlayer: 1
 --- !u!1 &1473271319
 GameObject:
@@ -18097,6 +18112,121 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1490750514}
   m_CullTransparentMesh: 0
+--- !u!1 &1517676585
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1517676586}
+  - component: {fileID: 1517676588}
+  - component: {fileID: 1517676587}
+  - component: {fileID: 1517676589}
+  m_Layer: 5
+  m_Name: ShieldDisabledWarning
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1517676586
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517676585}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1465152878}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 9, y: -12}
+  m_SizeDelta: {x: 84, y: 20}
+  m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &1517676587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517676585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 0cb2c47df63652d408ab6895cee841d0, type: 3}
+    m_FontSize: 10
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Shields Disabled
+--- !u!222 &1517676588
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517676585}
+  m_CullTransparentMesh: 0
+--- !u!114 &1517676589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517676585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeb81ff4b3d7bcc4e868f9c894e83d0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doFlash: 1
+  flashCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.25
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 0
+    m_RotationOrder: 4
 --- !u!1 &1525493112
 GameObject:
   m_ObjectHideFlags: 0
