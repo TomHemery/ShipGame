@@ -1,0 +1,54 @@
+<conversation entryNode="0" requirePause="true">
+  <node index="0" character ="FriendBot2">
+    <prompt>I am being compelled by my new programming to congratulate you on destroying that Imperial striker...</prompt>
+    <continue target ="1"/>
+  </node>
+  <node index="1" character ="FriendBot2">
+    <prompt>I have also been reliably informed by this programming that I am, in fact, stored locally inside a chip in your brain...
+This doesn't bode well for me if you explode so do me a favour and stay alive for now?
+    </prompt>
+    <continue target="2"/>
+  </node>
+  <node index="2" character ="FriendBot2">
+    <prompt>This is all highly, highly irregular... Do you have any questions I might be able to answer?</prompt>
+    <response target="4">What the hell is going on? I don't even know who the empire are, let alone the rebels!</response>
+    <response target="5">Where do we go now?</response>
+    <response target="6">What. The. Hell. Does F.R.I.E.N.D stand for?</response>
+  </node>
+  <node index="3" character ="FriendBot2">
+    <prompt>Did you have any other questions?</prompt>
+    <response target="4">What the hell is going on? I don't even know who the empire are, let alone the rebels!</response>
+    <response target="5">Where do we go now?</response>
+    <response target="6">What. The. Hell. Does F.R.I.E.N.D stand for?</response>
+    <response target="7">No, I guess that's everything...</response>
+  </node>
+  <node index="4" character="FriendBot2">
+    <prompt>Ah, that's a side effect of the memory erasure I'm afraid. The empire are the oldest civilisation in the galaxy (by their account). The rebels are... well rebels... I guess?</prompt>
+    <continue target="3"/>
+  </node>
+  <node index="5" character="FriendBot2">
+    <prompt>Well I've received some coordinates from these rebels... they're pointing us in a rather alarming direction though I'm afraid...</prompt>
+    <continue target="3"/>
+  </node>
+  <node index="6" character="FriendBot2">
+    <prompt>Ahhhh that old chestnut. I believe it stands for Forced Rehabilitiation Incubator and Enforcement Neurological Device
+Funny that I didn't know that before now ey? I'm literally inside your head!</prompt>
+    <continue target="3"/>
+  </node>
+  <node index="7" character="FriendBot2">
+    <prompt>Right, so the coordinates the "rebels" mentioned seem to point somewhere in the dead sector... that's... alarming.
+Nothing but pirates and scrap metal out there. It's the site of a very old war, which I suppose you've forgotten.</prompt>
+    <continue target="8"/>
+  </node>
+  <node index="8" character="FriendBot2">
+    <prompt>I'm afraid there's nothing for it... I'll add the dead sector coordinates to your galaxy map.
+We don't have an exact coordinate, so we'll have to jump then I'll try and point you in the direction of the signal source...
+Expect to encounter a lot of hostiles, I suggest you try and craft some improved weaponry before we make the jump.</prompt>
+    <continue target="9"/>
+  </node>
+  <node index="9" character="FriendBot2">
+    <prompt>Well... good luck I guess?
+Friend out?</prompt>
+    <continue target="-1"/>
+  </node>
+</conversation>

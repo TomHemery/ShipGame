@@ -97,10 +97,6 @@ public class Save
         bf.Serialize(file, save);
         file.Close();
 
-        Debug.Log("Saved Game!");
-        Debug.Log("Saves are stored in: " + path);
-        Debug.Log("Please check this directory to remove any unwanted data after playing for now!");
-
     }
 
     /// <summary>
@@ -121,6 +117,8 @@ public class Save
     }
 
     public static string[] GetAllSaveNames() {
+        Debug.Log("Saves are stored in: " + path);
+        Debug.Log("Please check this directory to remove any unwanted data after playing for now!");
         if (!Directory.Exists(path))
         {
             Directory.CreateDirectory(path);

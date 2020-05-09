@@ -21,6 +21,8 @@ public class StoryManager : MonoBehaviour
 
     public static StoryManager Instance { get; private set; } = null;
 
+    public DestinationButton deadSectorDestButton;
+
     //##MONO BEHAVIOUR EVENTS##
     private void Awake()
     {
@@ -119,6 +121,11 @@ public class StoryManager : MonoBehaviour
             DialoguePanel.MainDialoguePanel.OpenDialogue("FirstRebelContact");
             SetStage(Stage.SecondPirateEncounter);
         }
+        else if (GameManager.CurrentArea.systemName == "Area_2_DeadSector" && StoryStage == Stage.ArrivalAtDeadZone) 
+        {
+            DialoguePanel.MainDialoguePanel.OpenDialogue("DeadSectorArrival");
+            SetStage(Stage.End);
+        }
 
         Save.SaveGame();
         saveGameText.SetActive(true);
@@ -145,8 +152,6 @@ public class StoryManager : MonoBehaviour
         }
     }
 
-    
-
     void OnShowGalaxyMap() {
         if (StoryStage == Stage.GalaxyMapTutorial) {
             DialoguePanel.MainDialoguePanel.OpenDialogue("FriendBotGalaxyMapTutorial");
@@ -163,6 +168,10 @@ public class StoryManager : MonoBehaviour
         else if (StoryStage == Stage.SecondRebelContact) {
             DialoguePanel.MainDialoguePanel.OpenDialogue("SecondRebelContact");
             SetStage(Stage.EmpireStrikerEncounter);
+        }
+        else if (StoryStage == Stage.PostStrikers) {
+            DialoguePanel.MainDialoguePanel.OpenDialogue("RebelCoordinateDialogue");
+            SetStage(Stage.ArrivalAtDeadZone);
         }
     }
 
@@ -221,6 +230,11 @@ public class StoryManager : MonoBehaviour
         {
             StartCoroutine(SecondPirateEncounter());
         }
+
+        if (StoryStage >= Stage.PostStrikers)
+        {
+            deadSectorDestButton.Unlock();
+        }
     }
     //##END SETTERS##
 
@@ -241,6 +255,7 @@ public class StoryManager : MonoBehaviour
         SecondRebelContact,
         EmpireStrikerEncounter,
         PostStrikers,
+        ArrivalAtDeadZone,
         End
     }
 }

@@ -1,0 +1,13 @@
+<conversation entryNode="0" requirePause="true">
+  <node index="0" character ="FriendBot2">
+    <prompt>There are definitely hostiles in this area, keep an eye out. 
+You might well come across shielded pirates here, and there are small pockets of plasma residue from emp devices. 
+EMP cannons will disable your shields, so try not to get hit by them okay?</prompt>
+    <continue target ="1"/>
+  </node>
+  <node index="1" character="None">
+    <prompt>Thanks for playing the demo thus far! You can explore this area for a while if you'd like and try your hand at taking 
+down some advanced pirates, but there's no more story beyond this yet. I hope you enjoyed the experience!</prompt>
+    <continue target="-1"/>
+  </node>
+</conversation>

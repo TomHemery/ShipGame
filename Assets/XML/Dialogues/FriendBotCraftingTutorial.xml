@@ -1,14 +1,15 @@
 <conversation entryNode="0" requirePause="false">
   <node index="0" character ="FriendBot">
-    <prompt>Excellent, you've found the crafting system! Just put all the components listed into the station's inventory, then click craft!</prompt>
+    <prompt>Excellent, you've found the crafting system! To make something you just put all the components listed into the station's inventory, then click craft!</prompt>
     <continue target="1"/>
   </node>
   <node index="1" character="FriendBot">
-    <prompt>Even you can work that out, right criminal?</prompt>
+    <prompt>You can select any blueprint stored in the station's data banks from the dropdown list. Even you can work that out, right criminal?</prompt>
     <continue target="2"/>
   </node>
   <node index="2" character="FriendBot">
-    <prompt>Remember, it will take at least 4 fuel cells to fill up the jump drive, you CAN count that high right?</prompt>
+    <prompt>Also if you happen to find any blueprints you could technically make them here... but that would violate protocol! 
+Remember, it will take at least 4 fuel cells to fill up the jump drive, you CAN count that high right?</prompt>
     <continue target="3"/>
   </node>
   <node index="3" character="FriendBot">

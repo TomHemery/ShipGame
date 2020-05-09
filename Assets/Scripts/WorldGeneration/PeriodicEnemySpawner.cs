@@ -30,7 +30,6 @@ public class PeriodicEnemySpawner : MonoBehaviour
         if (spawnImmediately) waitPeriod = 0;
         else waitPeriod = Random.Range(minSpawnCooldown, maxSpawnCooldown);
         playerShipTransform = GameObject.FindGameObjectWithTag("PlayerShip").transform;
-        Debug.Log("Preiodic enemy spawner awake, enemies spawning in: " + waitPeriod);
 
         if(waitForEnemiesDefeated)EnemySpawner.AllEnemiesDestroyed.AddListener(OnAllEnemiesDestroyed);
     }

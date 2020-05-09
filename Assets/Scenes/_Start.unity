@@ -6601,6 +6601,7 @@ MonoBehaviour:
   jumpRefueler: {fileID: 1146550727}
   toggleCraftingPanelButton: {fileID: 972972449}
   saveGameText: {fileID: 449870044}
+  deadSectorDestButton: {fileID: 1014236518}
 --- !u!1 &727846352
 GameObject:
   m_ObjectHideFlags: 0
@@ -9758,7 +9759,7 @@ PrefabInstance:
     - target: {fileID: 622969043382424623, guid: 1bc7438d6b7ce7b41b7d43132a5dfd09,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 175
+      value: 205.4
       objectReference: {fileID: 0}
     - target: {fileID: 622969043382424623, guid: 1bc7438d6b7ce7b41b7d43132a5dfd09,
         type: 3}
@@ -10032,6 +10033,11 @@ PrefabInstance:
       propertyPath: neighbours.Array.data[1]
       value: 
       objectReference: {fileID: 1014236518}
+    - target: {fileID: 1025446599355670184, guid: 1bc7438d6b7ce7b41b7d43132a5dfd09,
+        type: 3}
+      propertyPath: unlocked
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 622969043382424623, guid: 1bc7438d6b7ce7b41b7d43132a5dfd09,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10090,12 +10096,12 @@ PrefabInstance:
     - target: {fileID: 622969043382424623, guid: 1bc7438d6b7ce7b41b7d43132a5dfd09,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -196.1
+      value: -214.9
       objectReference: {fileID: 0}
     - target: {fileID: 622969043382424623, guid: 1bc7438d6b7ce7b41b7d43132a5dfd09,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 165.7
+      value: 169.2
       objectReference: {fileID: 0}
     - target: {fileID: 622969043382424623, guid: 1bc7438d6b7ce7b41b7d43132a5dfd09,
         type: 3}
@@ -16642,6 +16648,8 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 37844736d29af66408049d4809f16270, type: 3}
   - {fileID: 4900000, guid: acc6d27202303c44aab4e7a216d2115d, type: 3}
   - {fileID: 4900000, guid: cf5eb00954ba37349a02fa0189b4970d, type: 3}
+  - {fileID: 4900000, guid: 2ec2fb974fecbce4f83d76991863c645, type: 3}
+  - {fileID: 4900000, guid: 0654d2e4c8aad3b49bd5091d042f00de, type: 3}
 --- !u!114 &1181497868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21223,6 +21231,11 @@ PrefabInstance:
       propertyPath: neighbours.Array.data[0]
       value: 
       objectReference: {fileID: 21996632}
+    - target: {fileID: 1025446599355670184, guid: 1bc7438d6b7ce7b41b7d43132a5dfd09,
+        type: 3}
+      propertyPath: unlocked
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 622969043382424623, guid: 1bc7438d6b7ce7b41b7d43132a5dfd09,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -21281,12 +21294,12 @@ PrefabInstance:
     - target: {fileID: 622969043382424623, guid: 1bc7438d6b7ce7b41b7d43132a5dfd09,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -265.1
+      value: -298.2
       objectReference: {fileID: 0}
     - target: {fileID: 622969043382424623, guid: 1bc7438d6b7ce7b41b7d43132a5dfd09,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 195.7
+      value: 224.3
       objectReference: {fileID: 0}
     - target: {fileID: 622969043382424623, guid: 1bc7438d6b7ce7b41b7d43132a5dfd09,
         type: 3}

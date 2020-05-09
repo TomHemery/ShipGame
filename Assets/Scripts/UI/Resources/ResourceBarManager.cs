@@ -82,7 +82,6 @@ public class ResourceBarManager : MonoBehaviour
             ShieldBar.localScale = shieldBarScale;
         }
         if (shieldsDisabledWarning != null) {
-            Debug.Log("Shields disabled warning exists, shields disabled? " + healthAndShieldsResource.ShieldsDisabled);
             shieldsDisabledWarning.SetActive(healthAndShieldsResource.ShieldsDisabled);
         }
     }
