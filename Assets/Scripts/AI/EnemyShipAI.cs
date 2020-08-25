@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//AI responsible for controlling enemy ships
 public class EnemyShipAI : BasicAI
 {
-    
+    //reference to player ship
     public Transform playerShipTransform;
 
+    //ship controller we control
     private ShipController controller;
+    //where we want to go to
     private Vector3 targetPosition;
 
+    //parameters
     public float maxDist = 20;
     public float targetDist = 5;
     public float attackRange = 18;
@@ -20,9 +24,11 @@ public class EnemyShipAI : BasicAI
     private Vector2 targetDirection = new Vector2(0, 0);
     private float rotationDeadZone = 5.0f;
 
+    //layer mask for raycasts
     private LayerMask obstacleAvoidanceLayerMask;
     private readonly string[] OBSTACLE_AVOID_LAYERS = { "Obstacle" };
 
+    //transform references for raycasts
     public Transform frontSensor;
     public Transform frontSensorEnd;
     public Transform leftSensor;
@@ -33,9 +39,11 @@ public class EnemyShipAI : BasicAI
     private float leftSensorRange;
     private float rightSensorRange;
 
+    //indexes for behaviours
     private const int SEEK_TARGET_INDEX = 0;
     private const int AVOID_OBSTACLES_INDEX = 1;
 
+    //control struct for behaviours
     private ControlStruct[] controlStructs = {
         new ControlStruct{ //SEEK TARGET
             direction = new Vector2(),
@@ -51,30 +59,38 @@ public class EnemyShipAI : BasicAI
 
     void Awake()
     {
+        //get reference to controller
         controller = GetComponent<ShipController>();
+        //create layer mask
         obstacleAvoidanceLayerMask = LayerMask.GetMask(OBSTACLE_AVOID_LAYERS);
 
+        //work out sensor ranges
         frontSensorRange = (frontSensor.position - frontSensorEnd.position).magnitude;
         leftSensorRange = (leftSensor.position - leftSensorEnd.position).magnitude;
         rightSensorRange = (rightSensor.position - rightSensorEnd.position).magnitude;
 
+        //get reference to player ship
         playerShipTransform = GameObject.FindGameObjectWithTag("PlayerShip").transform;
     }
 
     private void Start()
     {
+        //add tracker to player radar
         Radar.Instance.AddTarget(transform);
     }
 
 
     void Update()
     {
+        //perform behaviours
         SeekTarget();
         AvoidObstacles();
 
+        //reset targets
         targetSpeed = 0;
         targetDirection.Set(0, 0);
 
+        //assign outputs of behaviours to control based on weighting (essentially obstacle avoid subsumes seek target)
         float totalWeight = 0;
         foreach (ControlStruct c in controlStructs) totalWeight += c.weight;
 
@@ -88,6 +104,8 @@ public class EnemyShipAI : BasicAI
                 ShipController.ThrustMode.Forward : ShipController.ThrustMode.None;
 
         controller.desiredRotation = targetDirection;
+
+        //if within attack range, shoot player
         if (distToTarget < attackRange)
         {
             RaycastHit2D [] hits = Physics2D.RaycastAll(transform.position, transform.up, attackRange);
@@ -104,6 +122,7 @@ public class EnemyShipAI : BasicAI
 
     private void OnDestroy()
     {
+        //remove tracker from radar
         Radar.Instance.RemoveTarget(transform);
     }
 
