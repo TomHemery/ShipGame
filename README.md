@@ -1,7 +1,7 @@
 # ShipGame
 Need to think of a flashier title for this.
 
-This is a 2D top down space flight game, where you mine asteriods and fight bad guys. Developed mostly as a hobby but I'm liable to end up using it for a coursework at some point in the near future. 
+This is a 2D top down space flight game, where you mine asteriods and fight bad guys. Developed mostly as a hobby, but hopefully I'll actually get it finished one day.
 
 Started off as an android application, but I've since switched to PC as I feel like it better fits the aim of the game... as it were.
 
