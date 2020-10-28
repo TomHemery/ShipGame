@@ -6,7 +6,7 @@ using UnityEngine;
 public class PrefabDatabase : MonoBehaviour
 {
     public static PrefabDatabase Instance { get; private set; } = null;
-    public static Dictionary<string, GameObject> PrefabDictionary { get; private set; } = new Dictionary<string, GameObject>();
+    protected static Dictionary<string, GameObject> prefabDictionary = new Dictionary<string, GameObject>();
 
     [SerializeField]
     private GameObject [] allPrefabs;
@@ -15,7 +15,19 @@ public class PrefabDatabase : MonoBehaviour
     {
         if (Instance == null) Instance = this;
         foreach (GameObject g in allPrefabs) {
-            PrefabDictionary.Add(g.name, g);
+            prefabDictionary.Add(g.name, g);
+        }
+    }
+
+    public GameObject this [string name]
+    {
+        get
+        {
+            if (prefabDictionary.ContainsKey(name)) {
+                GameObject requested = prefabDictionary[name];
+                return Instantiate(requested);
+            }
+            return null;
         }
     }
 }

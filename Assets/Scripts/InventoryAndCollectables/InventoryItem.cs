@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public struct InventoryItem
+public class InventoryItem
 {
     [SerializeField]
     public Sprite inventorySprite;
@@ -17,6 +17,16 @@ public struct InventoryItem
     public bool equipable;
     [SerializeField]
     public EquipType equipType;
+
+    public InventoryItem(InventoryItem item)
+    {
+        inventorySprite = item.inventorySprite;
+        quantity = item.quantity;
+        systemName = item.systemName;
+        prettyName = item.prettyName;
+        equipable = item.equipable;
+        equipType = item.equipType;
+    }
 
     public override string ToString() {
         return "Inventory Item: " + systemName + ", " + prettyName + "; " + quantity + "\nEquipable? " + equipable + ", equip type: " + equipType;

@@ -39,8 +39,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2194583582815284982}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 2
+  m_Shape: 0
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_Intensity: 10
   m_Range: 1.5
@@ -130,8 +131,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5076040463669529693}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 2
+  m_Shape: 0
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_Intensity: 1.2
   m_Range: 1.5
@@ -227,6 +229,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -301,9 +305,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7404570130594227400}
+  - component: {fileID: 3245585307015432445}
   - component: {fileID: 6339890369447994250}
   - component: {fileID: 1060366710662208124}
-  - component: {fileID: 3245585307015432445}
   m_Layer: 0
   m_Name: LaserCannon
   m_TagString: Untagged
@@ -329,6 +333,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3245585307015432445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7404570130594227401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 880b6fa506dc31d48b68c972830889d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_inventoryItem:
+    inventorySprite: {fileID: 21300000, guid: 8c4a489195807f747a13f2ff966e9fd0, type: 3}
+    quantity: 1
+    systemName: LaserCannon
+    prettyName: Laser Cannon
+    equipable: 1
+    equipType: 0
+  mAudioSource: {fileID: 1060366710662208124}
+  CooldownInterval: 1
+  SpawnPoint: {fileID: 7404570129980320409}
+  damage: 50
+  range: 30
+  graphicPrefab: {fileID: 88994907633588723, guid: 1cbdd711c98580247a669bc941ab9320,
+    type: 3}
+  hitscanLayerMask:
+    serializedVersion: 2
+    m_Bits: 257
+  muzzleFlash: {fileID: 2331666228898891959}
 --- !u!61 &6339890369447994250
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -451,33 +485,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &3245585307015432445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7404570130594227401}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 880b6fa506dc31d48b68c972830889d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_inventoryItem:
-    inventorySprite: {fileID: 21300000, guid: 8c4a489195807f747a13f2ff966e9fd0, type: 3}
-    quantity: 1
-    systemName: LaserCannon
-    prettyName: Laser Cannon
-    equipable: 1
-    equipType: 0
-  mAudioSource: {fileID: 1060366710662208124}
-  CooldownInterval: 1
-  SpawnPoint: {fileID: 7404570129980320409}
-  damage: 50
-  range: 30
-  graphicPrefab: {fileID: 88994907633588723, guid: 1cbdd711c98580247a669bc941ab9320,
-    type: 3}
-  hitscanLayerMask:
-    serializedVersion: 2
-    m_Bits: 257
-  muzzleFlash: {fileID: 2331666228898891959}

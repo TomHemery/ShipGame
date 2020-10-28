@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
         miningStation.GetComponent<JumpResource>().SetResource(save.jumpDriveFillLevel);
 
         if (save.hullRepairerContents > 0) {
-            InventoryItem ironItem = PrefabDatabase.PrefabDictionary["Iron"].GetComponent<PickUpOnContact>().m_inventoryItem;
+            InventoryItem ironItem = PrefabDatabase.Instance["Iron"].GetComponent<PickUpOnContact>().m_inventoryItem;
             ironItem.quantity = save.hullRepairerContents;
             miningStation.GetComponent<MiningStationController>().m_HullRepairer.slot.TryCreateFrameFor(
                 ironItem
@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
 
         if (save.jumpDriveContents > 0)
         {
-            InventoryItem fuelCellItem = PrefabDatabase.PrefabDictionary["FuelCell"].GetComponent<PickUpOnContact>().m_inventoryItem;
+            InventoryItem fuelCellItem = PrefabDatabase.Instance["FuelCell"].GetComponent<PickUpOnContact>().m_inventoryItem;
             fuelCellItem.quantity = save.jumpDriveContents;
             miningStation.GetComponent<MiningStationController>().m_JumpDriveFueler.slot.TryCreateFrameFor(
                 fuelCellItem
@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
 
         if (save.o2GenContents > 0)
         {
-            InventoryItem iceItem = PrefabDatabase.PrefabDictionary["Ice"].GetComponent<PickUpOnContact>().m_inventoryItem;
+            InventoryItem iceItem = PrefabDatabase.Instance["Ice"].GetComponent<PickUpOnContact>().m_inventoryItem;
             iceItem.quantity = save.o2GenContents;
             miningStation.GetComponent<MiningStationController>().m_O2Gen.slot.TryCreateFrameFor(
                 iceItem

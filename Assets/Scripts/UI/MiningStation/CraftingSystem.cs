@@ -83,10 +83,11 @@ public class CraftingSystem : MonoBehaviour
             int totalCraftable = int.MaxValue;
             for (int i = 0; i < bp.materials.Length; i++)
             {
-                if (associatedInventory.Contents.ContainsKey(bp.materials[i]) && associatedInventory.Contents[bp.materials[i]].quantity >= bp.quantities[i])
+                int count = associatedInventory.CountOf(bp.materials[i]);
+                if (count >= bp.quantities[i])
                 {
                     requirementsDesc += "<color=green>";
-                    int num = associatedInventory.Contents[bp.materials[i]].quantity / bp.quantities[i];
+                    int num = count / bp.quantities[i];
                     totalCraftable = totalCraftable > num ? num : totalCraftable;
                 }
                 else
@@ -100,7 +101,6 @@ public class CraftingSystem : MonoBehaviour
             }
 
             if (canCraft) {
-
                 canCraft = outputSlot.StoredItemFrame == null || outputSlot.StoredItemFrame.m_InventoryItem.systemName == bp.output;
             }
 
@@ -117,11 +117,11 @@ public class CraftingSystem : MonoBehaviour
             Blueprint bp = UnlockedBlueprints[blueprintDropdown.value];
             for (int i = 0; i < bp.materials.Length; i++)
             {
-                associatedInventory.TryRemoveItem(bp.materials[i], bp.quantities[i]);
+                associatedInventory.TryRemove(bp.materials[i], bp.quantities[i]);
             }
             if (outputSlot.StoredItemFrame == null)
             {
-                GameObject output = PrefabDatabase.PrefabDictionary[bp.output];
+                GameObject output = PrefabDatabase.Instance[bp.output];
                 if (output.GetComponent<Weapon>() != null)
                 {
                     outputSlot.TryCreateFrameFor(output.GetComponent<Weapon>().m_inventoryItem);

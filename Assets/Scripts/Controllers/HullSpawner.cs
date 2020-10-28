@@ -35,7 +35,7 @@ public class HullSpawner : MonoBehaviour
         
         if (transform.childCount > 0) DestroyHull();
 
-        GameObject ship = Instantiate(PrefabDatabase.PrefabDictionary[hull], transform);
+        GameObject ship = Instantiate(PrefabDatabase.Instance[hull], transform);
         if (weapons != null && weapons.Length > 0)
         {
             int index = 0;
@@ -44,7 +44,7 @@ public class HullSpawner : MonoBehaviour
                 if (child.gameObject.CompareTag("WeaponAttachment"))
                 {
                     if (index < weapons.Length)
-                        Instantiate(PrefabDatabase.PrefabDictionary[weapons[index]], child.transform);
+                        Instantiate(PrefabDatabase.Instance[weapons[index]], child.transform);
                     else
                         break;
                     index++;

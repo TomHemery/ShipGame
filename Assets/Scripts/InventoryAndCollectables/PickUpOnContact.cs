@@ -9,7 +9,7 @@ public class PickUpOnContact : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Inventory targetInv = collision.gameObject.GetComponent<Inventory>();
-        if (targetInv != null && targetInv.TryAddItem(m_inventoryItem))
+        if (targetInv != null && targetInv.TryAddItem(new InventoryItem(m_inventoryItem)))
         {
             Destroy(gameObject);
         }

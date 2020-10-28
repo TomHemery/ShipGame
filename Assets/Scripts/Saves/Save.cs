@@ -12,8 +12,8 @@ public class Save
     public StoryManager.Stage storyStage;
     public string areaName;
 
-    public Dictionary<string, int> playerInventoryContents;
-    public Dictionary<string, int> miningStationInventoryContents;
+    public List<KeyValuePair<string, int>> playerInventoryContents;
+    public List<KeyValuePair<string, int>> miningStationInventoryContents;
     
     public int o2GenContents;
     public int hullRepairerContents;
@@ -45,8 +45,8 @@ public class Save
         {
             storyStage = StoryManager.StoryStage,
             areaName = GameManager.CurrentArea.systemName,
-            playerInventoryContents = new Dictionary<string, int>(),
-            miningStationInventoryContents = new Dictionary<string, int>(),
+            playerInventoryContents = new List<KeyValuePair<string, int>>(),
+            miningStationInventoryContents = new List<KeyValuePair<string, int>>(),
             playerHull = playerShip.GetComponent<HullSpawner>().hull,
             playerHealth = playerShip.GetComponent<HealthAndShieldsResource>().HealthValue,
             playerMaxShields = playerShip.GetComponent<HealthAndShieldsResource>().MaxShieldValue,
@@ -75,16 +75,28 @@ public class Save
         if (playerWeaponNames.Count > 0)
             save.playerWeapons = playerWeaponNames.ToArray();
 
-        foreach (KeyValuePair<string, InventoryItem> pair in 
-            GameObject.FindGameObjectWithTag("PlayerShip").GetComponent<Inventory>().Contents)
+        foreach (InventoryItem item in GameObject.FindGameObjectWithTag("PlayerShip").GetComponent<Inventory>().Contents)
         {
-            save.playerInventoryContents.Add(pair.Key, pair.Value.quantity);
+            if (item != null)
+            {
+                save.playerInventoryContents.Add(new KeyValuePair<string, int>(item.systemName, item.quantity));
+            }
+            else
+            {
+                save.playerInventoryContents.Add(new KeyValuePair<string, int>());
+            }
         }
 
-        foreach (KeyValuePair<string, InventoryItem> pair in
-            GameObject.FindGameObjectWithTag("MiningStation").GetComponent<Inventory>().Contents)
+        foreach (InventoryItem item in GameObject.FindGameObjectWithTag("MiningStation").GetComponent<Inventory>().Contents)
         {
-            save.miningStationInventoryContents.Add(pair.Key, pair.Value.quantity);
+            if (item != null)
+            {
+                save.miningStationInventoryContents.Add(new KeyValuePair<string, int>(item.systemName, item.quantity));
+            }
+            else
+            {
+                save.miningStationInventoryContents.Add(new KeyValuePair<string, int>());
+            }
         }
 
         BinaryFormatter bf = new BinaryFormatter();

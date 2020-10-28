@@ -9,6 +9,7 @@ public class SlotManager : MonoBehaviour
     public bool attachToPlayerInventory;
     public GameObject slotPrefab;
     public AutoMoveTarget autoMoveTarget;
+    public int minSlots;
 
     private void Awake()
     {
@@ -18,12 +19,17 @@ public class SlotManager : MonoBehaviour
             child.GetComponent<Slot>().associatedInventory = associatedInventory;
             child.GetComponent<Slot>().autoMoveTarget = autoMoveTarget;
         }
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Slot s = transform.GetChild(i).GetComponent<Slot>();
+            s.index = i;
+        }
     }
 
     private void OnEnable()
     {
         associatedInventory.InventoryChangedEvent += OnAssociatedInventoryChanged;
-        SilentClearAllSlots();
         UpdateSlots();
     }
 
@@ -54,104 +60,29 @@ public class SlotManager : MonoBehaviour
 
     void UpdateSlots()
     {
-        //make sure that no slots exist for items that aren't there any more
-        foreach (Transform child in transform)
+        SilentClearAllSlots();
+
+        int numSlots = minSlots > associatedInventory.Contents.Count ? minSlots : associatedInventory.Contents.Count;
+
+        // create missing slots
+        if (transform.childCount < numSlots)
         {
-            Slot s = child.GetComponent<Slot>();
-            if (s.StoredItemFrame != null && !associatedInventory.Contents.ContainsKey(s.StoredItemFrame.m_InventoryItem.systemName))
+            for(int i = transform.childCount; i < numSlots; i++)
             {
-                GameObject itemFrame = s.StoredItemFrame.gameObject;
-                s.SilentRemoveItemFrame();
-                Destroy(itemFrame);
+                GameObject slot = Instantiate(slotPrefab, transform);
+                slot.GetComponent<Slot>().index = i;
+                slot.GetComponent<Slot>().autoMoveTarget = autoMoveTarget;
+                slot.GetComponent<Slot>().associatedInventory = associatedInventory;
             }
         }
 
-        //check every item in the inventory is fully represented in the slots
-        foreach (KeyValuePair<string, InventoryItem> pair in associatedInventory.Contents)
+        // populate the inventory
+        for (int i = 0; i < associatedInventory.Contents.Count; i++)
         {
-            //check how much is stored in the inventory slots currently
-            Slot s;
-            int totalInSlots = 0;
-            foreach (Transform child in transform)
+            Slot s = transform.GetChild(i).GetComponent<Slot>();
+            if (associatedInventory.Contents[i] != null)
             {
-                s = child.GetComponent<Slot>();
-                if (s.StoredItemFrame != null && s.StoredItemFrame.m_InventoryItem.systemName == pair.Key) {
-                    totalInSlots += s.StoredItemFrame.m_InventoryItem.quantity;
-                }
-            }
-
-            //if we haven't stored it all then store the rest
-            if (totalInSlots < pair.Value.quantity)
-            {
-                //create an item with the right quantity
-                InventoryItem toAdd = pair.Value;
-                toAdd.quantity -= totalInSlots;
-                bool stored = false;
-
-                //try to store it in an already existing frame
-                foreach (Transform child in transform)
-                {
-                    s = child.GetComponent<Slot>();
-                    if (s != null)
-                    {
-                        //free slot
-                        if (s.StoredItemFrame == null)
-                        {
-                            stored = s.TryCreateFrameFor(toAdd);
-                            break;
-                        }
-                        //matching type
-                        else if (s.StoredItemFrame.m_InventoryItem.systemName == toAdd.systemName)
-                        {
-                            s.StoredItemFrame.SetQuantity(s.StoredItemFrame.m_InventoryItem.quantity + toAdd.quantity);
-                            stored = true;
-                            break;
-                        }
-                    }
-                }
-
-                //create a new slot otherwise
-                if (!stored)
-                {
-                    s = Instantiate(slotPrefab, transform).GetComponent<Slot>();
-                    s.associatedInventory = associatedInventory;
-                    s.autoMoveTarget = autoMoveTarget;
-                    s.TryCreateFrameFor(toAdd);
-                }
-            }
-
-            //if we have too much then take it away
-            else if (totalInSlots > pair.Value.quantity) {
-                int diff = totalInSlots - pair.Value.quantity;
-                foreach (Transform child in transform)
-                {
-                    s = child.GetComponent<Slot>();
-                    if (s != null && s.StoredItemFrame != null)
-                    {
-                        if (s.StoredItemFrame.m_InventoryItem.systemName == pair.Value.systemName) {
-                            int quantity = s.StoredItemFrame.m_InventoryItem.quantity;
-                            quantity -= diff;
-                            if (quantity > 0)
-                            {
-                                s.StoredItemFrame.SetQuantity(quantity);
-                                break;
-                            }
-                            else if (quantity == 0)
-                            {
-                                GameObject item = s.StoredItemFrame.gameObject;
-                                s.SilentRemoveItemFrame();
-                                Destroy(item);
-                                break;
-                            }
-                            else if (quantity < 0) {
-                                diff = Mathf.Abs(quantity);
-                                GameObject item = s.StoredItemFrame.gameObject;
-                                s.SilentRemoveItemFrame();
-                                Destroy(item);
-                            }
-                        }
-                    }
-                }
+                s.TryCreateFrameFor(associatedInventory.Contents[i]);
             }
         }
     }

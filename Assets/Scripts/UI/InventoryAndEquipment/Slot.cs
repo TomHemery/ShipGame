@@ -1,15 +1,36 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Slot : MonoBehaviour
 {
+    /// <summary>
+    /// The equip type of this slot (items stored must match)
+    /// </summary>
     public EquipType m_equipType = EquipType.None;
+
+    /// <summary>
+    /// The name of the item this slot accepts, or "" if any
+    /// </summary>
     public string acceptedItemName = "";
+
+    /// <summary>
+    /// The inventory associated with this slot, or null if none
+    /// </summary>
     public Inventory associatedInventory = null;
+
+    /// <summary>
+    /// The equip point associated with this slot, or null if none
+    /// </summary>
     public Transform associatedEquipPoint = null;
 
+    /// <summary>
+    /// The index of this slot in relation to a target inventory
+    /// </summary>
+    public int index;
+
+    /// <summary>
+    /// Any item frame stored in this slot can be shift clicked to this target
+    /// </summary>
     public AutoMoveTarget autoMoveTarget;
 
     /// <summary>
@@ -44,7 +65,7 @@ public class Slot : MonoBehaviour
             if (m_equipType == EquipType.None || (m_equipType == EquipType.SetItem && newFrame.m_InventoryItem.systemName == acceptedItemName)) 
             {
                 int quantityStored = associatedInventory == null ?
-                    newFrame.m_InventoryItem.quantity : associatedInventory.SilentAddMaxOf(newFrame.m_InventoryItem);
+                    newFrame.m_InventoryItem.quantity : associatedInventory.SilentAddMaxOf(newFrame.m_InventoryItem, index);
 
                 if (quantityStored > 0)
                     SetFrame(newFrame, quantityStored);
@@ -59,7 +80,7 @@ public class Slot : MonoBehaviour
                 //this is equipment
                 if (newFrame.m_InventoryItem.equipable)
                 {
-                    GameObject equipment = Instantiate(PrefabDatabase.PrefabDictionary[newFrame.m_InventoryItem.systemName], associatedEquipPoint);
+                    GameObject equipment = Instantiate(PrefabDatabase.Instance[newFrame.m_InventoryItem.systemName], associatedEquipPoint);
                     SetFrame(newFrame, 1);
                     return 1;
                 }
@@ -75,10 +96,9 @@ public class Slot : MonoBehaviour
         else if (!outputOnly && (m_equipType == EquipType.None || m_equipType == EquipType.SetItem) && StoredItemFrame.m_InventoryItem.systemName == newFrame.m_InventoryItem.systemName) {
             int quantityStored = associatedInventory == null ? 
                 newFrame.m_InventoryItem.quantity : 
-                associatedInventory.SilentAddMaxOf(newFrame.m_InventoryItem);
+                associatedInventory.SilentAddMaxOf(newFrame.m_InventoryItem, index);
             if (quantityStored > 0)
             {
-                StoredItemFrame.SetQuantity(StoredItemFrame.m_InventoryItem.quantity + quantityStored);
                 SlotContentsChanged?.Invoke();
             }
             if(associatedInventory != null) associatedInventory.ForceAlertListeners();
@@ -88,8 +108,8 @@ public class Slot : MonoBehaviour
     }
 
     public void RestoreChildFrame(ItemFrame frame) {
-        if (associatedInventory != null) associatedInventory.SilentAddMaxOf(frame.m_InventoryItem);
-        else if(m_equipType == EquipType.Weapon) Instantiate(PrefabDatabase.PrefabDictionary[frame.m_InventoryItem.systemName], associatedEquipPoint);
+        if (associatedInventory != null) associatedInventory.SilentAddMaxOf(frame.m_InventoryItem, index);
+        else if(m_equipType == EquipType.Weapon) Instantiate(PrefabDatabase.Instance[frame.m_InventoryItem.systemName], associatedEquipPoint);
         SetFrame(frame, frame.m_InventoryItem.quantity);
         if (associatedInventory != null) associatedInventory.ForceAlertListeners();
     }
@@ -147,7 +167,7 @@ public class Slot : MonoBehaviour
             StoredItemFrame = null;
 
             if (associatedInventory != null)
-                associatedInventory.TryRemoveItem(item);
+                associatedInventory.RemoveItemAt(index);
 
             if (associatedEquipPoint != null) Destroy(associatedEquipPoint.GetChild(0).gameObject);
             

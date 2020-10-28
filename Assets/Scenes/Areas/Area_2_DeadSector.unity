@@ -543,7 +543,7 @@ MonoBehaviour:
   minSpawnCooldown: 20
   maxSpawnCooldown: 45
   waitForEnemiesDefeated: 1
-  spawnImmediately: 0
+  spawnImmediately: 1
   spawnRadius: 100
 --- !u!1 &1712936013
 GameObject:
