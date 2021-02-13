@@ -11,7 +11,7 @@ For now to run the game please simply pull the main branch, and open it in a rec
 
 ### Prerequisites
 
-In theory you should only need a recent version of unity (2019.2.5f1 or later)
+In theory you should only need a recent version of unity.
 
 ## Authors
 
