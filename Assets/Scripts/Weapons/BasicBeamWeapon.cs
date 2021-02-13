@@ -5,13 +5,15 @@ using UnityEngine;
 public class BasicBeamWeapon : Weapon
 {
     public GameObject beamPrefab;
+
+    private GameObject beamInstance;
     public Transform beamSource;
 
 
     private void Start()
     {
-        beamPrefab = Instantiate(beamPrefab, beamSource);
-        beamPrefab.SetActive(false);
+        beamInstance = Instantiate(beamPrefab, beamSource);
+        beamInstance.SetActive(false);
     }
 
     public override void EnableAutoFire()
@@ -19,7 +21,7 @@ public class BasicBeamWeapon : Weapon
         base.EnableAutoFire();
         if (!GameManager.SimPaused)
         {
-            beamPrefab.SetActive(true);
+            beamInstance.SetActive(true);
             if(mAudioSource != null) mAudioSource.Play();
         }
     }
@@ -27,7 +29,7 @@ public class BasicBeamWeapon : Weapon
     public override void DisableAutoFire()
     {
         base.DisableAutoFire();
-        beamPrefab.SetActive(false);
+        beamInstance.SetActive(false);
         if (mAudioSource != null) mAudioSource.Stop();
     }
 
