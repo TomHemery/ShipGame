@@ -19,15 +19,16 @@ public class PrefabDatabase : MonoBehaviour
         }
     }
 
-    public GameObject this [string name]
+    /// <summary>
+    /// Gets a gameobject from the database if one exists
+    /// </summary>
+    /// <param name="name">The name of the prefab object to look for</param>
+    /// <returns></returns>
+    public static GameObject Get(string name)
     {
-        get
-        {
-            if (prefabDictionary.ContainsKey(name)) {
-                GameObject requested = prefabDictionary[name];
-                return Instantiate(requested);
-            }
-            return null;
+        if (prefabDictionary.ContainsKey(name)) {
+            return prefabDictionary[name];
         }
+        return null;
     }
 }

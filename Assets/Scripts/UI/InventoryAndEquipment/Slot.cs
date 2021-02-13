@@ -80,7 +80,7 @@ public class Slot : MonoBehaviour
                 //this is equipment
                 if (newFrame.m_InventoryItem.equipable)
                 {
-                    GameObject equipment = Instantiate(PrefabDatabase.Instance[newFrame.m_InventoryItem.systemName], associatedEquipPoint);
+                    Instantiate(PrefabDatabase.Get(newFrame.m_InventoryItem.systemName), associatedEquipPoint);
                     SetFrame(newFrame, 1);
                     return 1;
                 }
@@ -109,7 +109,7 @@ public class Slot : MonoBehaviour
 
     public void RestoreChildFrame(ItemFrame frame) {
         if (associatedInventory != null) associatedInventory.SilentAddMaxOf(frame.m_InventoryItem, index);
-        else if(m_equipType == EquipType.Weapon) Instantiate(PrefabDatabase.Instance[frame.m_InventoryItem.systemName], associatedEquipPoint);
+        else if(m_equipType == EquipType.Weapon) Instantiate(PrefabDatabase.Get(frame.m_InventoryItem.systemName), associatedEquipPoint);
         SetFrame(frame, frame.m_InventoryItem.quantity);
         if (associatedInventory != null) associatedInventory.ForceAlertListeners();
     }
@@ -148,7 +148,7 @@ public class Slot : MonoBehaviour
                 {
                     StoredItemFrame = Instantiate(itemFramePrefab, m_rectTransform).GetComponent<ItemFrame>();
                     Weapon w = associatedEquipPoint.GetChild(0).GetComponent<Weapon>();
-                    StoredItemFrame.SetInventoryItem(w.m_inventoryItem);
+                    StoredItemFrame.SetInventoryItem(w.inventoryItem);
                     StoredItemFrame.parentSlot = this;
                 }
             }

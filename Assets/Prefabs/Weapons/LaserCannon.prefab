@@ -90,6 +90,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!1 &5076040463669529693
@@ -182,6 +183,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!1 &6339890369210335824
@@ -345,7 +347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 880b6fa506dc31d48b68c972830889d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_inventoryItem:
+  inventoryItem:
     inventorySprite: {fileID: 21300000, guid: 8c4a489195807f747a13f2ff966e9fd0, type: 3}
     quantity: 1
     systemName: LaserCannon

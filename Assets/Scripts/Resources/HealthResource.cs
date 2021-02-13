@@ -75,7 +75,7 @@ public class HealthResource : MonoBehaviour
         if (!exploded)
         {
             if (explosionPrefab != null) Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-            LootDrops mLootDrops = GetComponent<LootDrops>();
+            LootDropTable mLootDrops = GetComponent<LootDropTable>();
             if (mLootDrops != null) mLootDrops.DropLoot();
             if (isPlayerHealth)
             {

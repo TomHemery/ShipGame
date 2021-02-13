@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3369edce748456e44898df86fc622f9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_inventoryItem:
+  inventoryItem:
     inventorySprite: {fileID: 21300000, guid: 3d7777a8283b4d947963c5a8cdc04774, type: 3}
     quantity: 1
     systemName: RocketLauncher
@@ -256,6 +256,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

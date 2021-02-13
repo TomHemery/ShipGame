@@ -45,6 +45,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -120,8 +122,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 646913463717554740}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 2
+  m_Shape: 0
   m_Color: {r: 0.48584908, g: 0.9895005, b: 1, a: 1}
   m_Intensity: 2
   m_Range: 0.5
@@ -170,6 +173,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!114 &5896375810268156742
@@ -263,7 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4054eb5f7be50904398e6cd497dcac06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_inventoryItem:
+  inventoryItem:
     inventorySprite: {fileID: 21300000, guid: a7b17f12541be9c4fb9440acdb67153e, type: 3}
     quantity: 1
     systemName: RailgunBlueprint

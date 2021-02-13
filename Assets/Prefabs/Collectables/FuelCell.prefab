@@ -46,11 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4054eb5f7be50904398e6cd497dcac06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_inventoryItem:
+  inventoryItem:
     inventorySprite: {fileID: 21300000, guid: 10c1fdf7a56fc4b4cbe4467efa361789, type: 3}
     quantity: 1
     systemName: FuelCell
-    prettyName: FuelCell
+    prettyName: Fuel Cell
     equipable: 0
     equipType: 3
 --- !u!58 &1110969070264969229
@@ -160,6 +160,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!114 &2772481038957866459

@@ -89,7 +89,7 @@ public class Inventory : MonoBehaviour
 
     /// <summary>
     /// Attempts to add item to the contents dictionary. If index is negative this will add to the next available / matching slot.
-    ///  If index is positive the item will be added only at the specified index and only if possible.
+    /// If index is positive the item will be added only at the specified index and only if possible.
     /// </summary>
     /// <param name="item"></param>
     /// <param name="index"></param>
@@ -294,10 +294,10 @@ public class Inventory : MonoBehaviour
         {
             if (!pair.Equals(new KeyValuePair<string, int>()) && pair.Key != "" && pair.Value >= 0)
             {
-                GameObject itemGameObject = PrefabDatabase.Instance[pair.Key];
+                GameObject itemGameObject = PrefabDatabase.Get(pair.Key);
                 if (itemGameObject.GetComponent<Weapon>() != null)
                 {
-                    InventoryItem item = new InventoryItem(itemGameObject.GetComponent<Weapon>().m_inventoryItem)
+                    InventoryItem item = new InventoryItem(itemGameObject.GetComponent<Weapon>().inventoryItem)
                     {
                         quantity = pair.Value
                     };
@@ -306,7 +306,7 @@ public class Inventory : MonoBehaviour
                 }
                 else if (itemGameObject.GetComponent<PickUpOnContact>() != null)
                 {
-                    InventoryItem item = new InventoryItem(itemGameObject.GetComponent<PickUpOnContact>().m_inventoryItem)
+                    InventoryItem item = new InventoryItem(itemGameObject.GetComponent<PickUpOnContact>().inventoryItem)
                     {
                         quantity = pair.Value
                     };

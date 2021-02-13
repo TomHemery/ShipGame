@@ -69,7 +69,7 @@ public class Save
         foreach (Transform hullChild in playerShip.transform.GetChild(0)) {
             if (hullChild.CompareTag("WeaponAttachment") && hullChild.childCount > 0) {
                 playerWeaponNames.Add(
-                    hullChild.GetChild(0).gameObject.GetComponent<Weapon>().m_inventoryItem.systemName);
+                    hullChild.GetChild(0).gameObject.GetComponent<Weapon>().inventoryItem.systemName);
             }
         }
         if (playerWeaponNames.Count > 0)

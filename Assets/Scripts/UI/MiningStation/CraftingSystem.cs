@@ -121,14 +121,14 @@ public class CraftingSystem : MonoBehaviour
             }
             if (outputSlot.StoredItemFrame == null)
             {
-                GameObject output = PrefabDatabase.Instance[bp.output];
+                GameObject output = PrefabDatabase.Get(bp.output);
                 if (output.GetComponent<Weapon>() != null)
                 {
-                    outputSlot.TryCreateFrameFor(output.GetComponent<Weapon>().m_inventoryItem);
+                    outputSlot.TryCreateFrameFor(new InventoryItem(output.GetComponent<Weapon>().inventoryItem));
                 }
                 else if (output.GetComponent<PickUpOnContact>() != null)
                 {
-                    outputSlot.TryCreateFrameFor(output.GetComponent<PickUpOnContact>().m_inventoryItem);
+                    outputSlot.TryCreateFrameFor(new InventoryItem(output.GetComponent<PickUpOnContact>().inventoryItem));
                 }
             }
             else
