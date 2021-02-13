@@ -18,6 +18,7 @@ public class Save
     public int o2GenContents;
     public int hullRepairerContents;
     public int jumpDriveContents;
+    public KeyValuePair<string, int> craftingSystemContents;
 
     public string playerHull;
     public string[] playerWeapons;
@@ -64,6 +65,11 @@ public class Save
 
         ItemFrame jumpFrame = MiningStationController.Instance.m_JumpDriveFueler.slot.StoredItemFrame;
         save.jumpDriveContents = jumpFrame == null ? 0 : jumpFrame.m_InventoryItem.quantity;
+
+        InventoryItem craftingSystemItem = CraftingSystem.Instance.outputSlot.StoredItemFrame?.m_InventoryItem;
+        save.craftingSystemContents = craftingSystemItem == null ?
+            new KeyValuePair<string, int>() :
+            new KeyValuePair<string, int>(craftingSystemItem.systemName, craftingSystemItem.quantity);
 
         List<string> playerWeaponNames = new List<string>();
         foreach (Transform hullChild in playerShip.transform.GetChild(0)) {

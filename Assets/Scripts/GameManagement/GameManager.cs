@@ -117,6 +117,15 @@ public class GameManager : MonoBehaviour
             );
         }
 
+        if(save.craftingSystemContents.Value > 0)
+        {
+            InventoryItem item = new InventoryItem(save.craftingSystemContents.Key)
+            {
+                quantity = save.craftingSystemContents.Value
+            };
+            CraftingSystem.Instance.outputSlot.TryCreateFrameFor(item);
+        }
+
         CraftingSystem.Instance.SetUnlockedBlueprints(save.unlockedBlueprints);
 
         StoryManager.Instance.SetStage(save.storyStage);
