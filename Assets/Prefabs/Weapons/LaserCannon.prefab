@@ -347,13 +347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 880b6fa506dc31d48b68c972830889d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryItem:
-    inventorySprite: {fileID: 21300000, guid: 8c4a489195807f747a13f2ff966e9fd0, type: 3}
-    quantity: 1
-    systemName: LaserCannon
-    prettyName: Laser Cannon
-    equipable: 1
-    equipType: 0
+  inventoryItem: LaserCannon
   mAudioSource: {fileID: 1060366710662208124}
   CooldownInterval: 1
   SpawnPoint: {fileID: 7404570129980320409}

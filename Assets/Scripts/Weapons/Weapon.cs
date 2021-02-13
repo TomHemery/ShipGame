@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour
 {
     [SerializeField]
-    public InventoryItem inventoryItem;
+    public string inventoryItem;
     protected ShipController parentShip_controller;
 
     public AudioSource mAudioSource = null;

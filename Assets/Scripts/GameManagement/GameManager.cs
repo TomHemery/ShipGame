@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
         miningStation.GetComponent<JumpResource>().SetResource(save.jumpDriveFillLevel);
 
         if (save.hullRepairerContents > 0) {
-            InventoryItem ironItem = new InventoryItem(PrefabDatabase.Get("Iron").GetComponent<PickUpOnContact>().inventoryItem)
+            InventoryItem ironItem = new InventoryItem("Iron")
             {
                 quantity = save.hullRepairerContents
             };
@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
 
         if (save.jumpDriveContents > 0)
         {
-            InventoryItem fuelCellItem = new InventoryItem(PrefabDatabase.Get("FuelCell").GetComponent<PickUpOnContact>().inventoryItem)
+            InventoryItem fuelCellItem = new InventoryItem("FuelCell")
             {
                 quantity = save.jumpDriveContents
             };
@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
 
         if (save.o2GenContents > 0)
         {
-            InventoryItem iceItem = new InventoryItem(PrefabDatabase.Get("Ice").GetComponent<PickUpOnContact>().inventoryItem)
+            InventoryItem iceItem = new InventoryItem("Ice")
             {
                 quantity = save.o2GenContents
             };

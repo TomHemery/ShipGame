@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 8869328912350223268}
   - component: {fileID: 4321866409305930723}
   m_Layer: 0
-  m_Name: PlasmaLaser
+  m_Name: PlasmaBeam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,13 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a44b66f614aa6af489fc73f9315ee246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryItem:
-    inventorySprite: {fileID: 21300000, guid: a283f6228100e7a41b111c2a82dcac42, type: 3}
-    quantity: 1
-    systemName: PlasmaBeam
-    prettyName: Plasma Beam
-    equipable: 1
-    equipType: 0
+  inventoryItem: PlasmaBeam
   mAudioSource: {fileID: 4321866409305930723}
   CooldownInterval: 1
   beamPrefab: {fileID: 2283367496695640054, guid: 37fbf542a66007546be4c1f7a7d5f26f,

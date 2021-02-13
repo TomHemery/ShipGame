@@ -46,13 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4054eb5f7be50904398e6cd497dcac06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryItem:
-    inventorySprite: {fileID: 21300000, guid: 10c1fdf7a56fc4b4cbe4467efa361789, type: 3}
-    quantity: 1
-    systemName: FuelCell
-    prettyName: Fuel Cell
-    equipable: 0
-    equipType: 3
+  inventoryItem: FuelCell
 --- !u!58 &1110969070264969229
 CircleCollider2D:
   m_ObjectHideFlags: 0

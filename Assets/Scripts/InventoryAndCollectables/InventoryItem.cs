@@ -28,6 +28,17 @@ public class InventoryItem
         equipType = item.equipType;
     }
 
+    public InventoryItem(string itemName)
+    {
+        InventoryItem item = InventoryItemDatabase.Get(itemName);
+        inventorySprite = item.inventorySprite;
+        quantity = item.quantity;
+        systemName = item.systemName;
+        prettyName = item.prettyName;
+        equipable = item.equipable;
+        equipType = item.equipType;
+    }
+
     public override string ToString() {
         return "Inventory Item: " + systemName + ", " + prettyName + "; " + quantity + "\nEquipable? " + equipable + ", equip type: " + equipType;
     }

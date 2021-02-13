@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PickUpOnContact : MonoBehaviour
 {
-    public InventoryItem inventoryItem;
+    public string inventoryItem;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

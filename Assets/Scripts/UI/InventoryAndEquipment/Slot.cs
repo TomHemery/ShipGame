@@ -148,7 +148,7 @@ public class Slot : MonoBehaviour
                 {
                     StoredItemFrame = Instantiate(itemFramePrefab, m_rectTransform).GetComponent<ItemFrame>();
                     Weapon w = associatedEquipPoint.GetChild(0).GetComponent<Weapon>();
-                    StoredItemFrame.SetInventoryItem(w.inventoryItem);
+                    StoredItemFrame.SetInventoryItem(new InventoryItem(w.inventoryItem));
                     StoredItemFrame.parentSlot = this;
                 }
             }

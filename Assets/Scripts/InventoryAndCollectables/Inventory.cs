@@ -72,7 +72,7 @@ public class Inventory : MonoBehaviour
         if (FilledCapacity + item.quantity > MaxCapacity)
         {
             int quantityAdded = MaxCapacity - FilledCapacity;
-            item.quantity = item.quantity - quantityAdded;
+            item.quantity -= quantityAdded;
             InventoryItem newItem = new InventoryItem(item)
             {
                 quantity = quantityAdded
@@ -294,25 +294,12 @@ public class Inventory : MonoBehaviour
         {
             if (!pair.Equals(new KeyValuePair<string, int>()) && pair.Key != "" && pair.Value >= 0)
             {
-                GameObject itemGameObject = PrefabDatabase.Get(pair.Key);
-                if (itemGameObject.GetComponent<Weapon>() != null)
+                InventoryItem item = new InventoryItem(pair.Key)
                 {
-                    InventoryItem item = new InventoryItem(itemGameObject.GetComponent<Weapon>().inventoryItem)
-                    {
-                        quantity = pair.Value
-                    };
-                    Contents.AddToEnd(item);
-                    FilledCapacity += pair.Value;
-                }
-                else if (itemGameObject.GetComponent<PickUpOnContact>() != null)
-                {
-                    InventoryItem item = new InventoryItem(itemGameObject.GetComponent<PickUpOnContact>().inventoryItem)
-                    {
-                        quantity = pair.Value
-                    };
-                    Contents.AddToEnd(item);
-                    FilledCapacity += pair.Value;
-                }
+                    quantity = pair.Value
+                };
+                Contents.AddToEnd(item);
+                FilledCapacity += pair.Value;
             }
             else
             {

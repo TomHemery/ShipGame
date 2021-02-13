@@ -279,13 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a44b66f614aa6af489fc73f9315ee246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryItem:
-    inventorySprite: {fileID: 21300000, guid: f704000d47307a7418eb1fea761afa31, type: 3}
-    quantity: 1
-    systemName: MiningLaser
-    prettyName: Mining Laser
-    equipable: 1
-    equipType: 0
+  inventoryItem: MiningLaser
   mAudioSource: {fileID: 4390449834213892686}
   CooldownInterval: 1
   beamPrefab: {fileID: 952520058924134200, guid: 0133dbcc349e7a14c83e355b016ff206,

@@ -77,13 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3369edce748456e44898df86fc622f9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryItem:
-    inventorySprite: {fileID: 21300000, guid: 3d7777a8283b4d947963c5a8cdc04774, type: 3}
-    quantity: 1
-    systemName: RocketLauncher
-    prettyName: Rocket Launcher
-    equipable: 1
-    equipType: 0
+  inventoryItem: RocketLauncher
   mAudioSource: {fileID: 8678540015815511645}
   CooldownInterval: 1
   SpawnPoint: {fileID: 5153481981354218673}
