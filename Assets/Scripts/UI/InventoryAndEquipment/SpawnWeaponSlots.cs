@@ -23,7 +23,7 @@ public class SpawnWeaponSlots : MonoBehaviour
                     Slot s = Instantiate(slotPrefab, transform).GetComponent<Slot>();
                     s.associatedEquipPoint = child;
                     s.autoMoveTarget = autoMoveTarget;
-                    s.m_equipType = EquipType.Weapon;
+                    s.equipType = EquipType.Weapon;
                     s.CreateFrameForEquipPoint();
                 }
             }

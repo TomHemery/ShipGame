@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HitscanGraphic : MonoBehaviour
 {
-    private SpriteRenderer m_renderer;
+    private SpriteRenderer spriteRenderer;
 
     public float lifeTime = 1.0f;
     private float timeAlive;
@@ -15,21 +15,21 @@ public class HitscanGraphic : MonoBehaviour
 
     private void Awake()
     {
-        m_renderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         Instantiate(impactEffectPrefab, transform);
     }
 
     private void Update()
     {
-        if (maxLength < 0) maxLength = m_renderer.size.y;
+        if (maxLength < 0) maxLength = spriteRenderer.size.y;
 
         timeAlive += Time.deltaTime;
 
-        Color c = m_renderer.color;
+        Color c = spriteRenderer.color;
         c.a = Mathf.Lerp(1, 0, timeAlive / lifeTime);
-        m_renderer.color = c;
+        spriteRenderer.color = c;
 
-        m_renderer.size = new Vector2(m_renderer.size.x, maxLength * c.a);
+        spriteRenderer.size = new Vector2(spriteRenderer.size.x, maxLength * c.a);
 
         if (timeAlive > lifeTime) {
             Destroy(gameObject);

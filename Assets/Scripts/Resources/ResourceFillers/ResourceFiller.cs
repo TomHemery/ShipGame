@@ -23,8 +23,8 @@ public class ResourceFiller : MonoBehaviour
             if (!cooldown && !resource.IsFull())
             {
                 resource.AddResource(resourcePerItem * itemUsePerCooldown);
-                slot.StoredItemFrame.SetQuantity(slot.StoredItemFrame.m_InventoryItem.quantity - itemUsePerCooldown);
-                if (slot.StoredItemFrame.m_InventoryItem.quantity <= 0)
+                slot.StoredItemFrame.SetQuantity(slot.StoredItemFrame.inventoryItem.quantity - itemUsePerCooldown);
+                if (slot.StoredItemFrame.inventoryItem.quantity <= 0)
                 {
                     Destroy(slot.StoredItemFrame.gameObject);
                     slot.SilentRemoveItemFrame();

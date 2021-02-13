@@ -6,12 +6,11 @@ using System.Threading;
 public class ProceduralWreckage : MonoBehaviour
 {
 
-    private SpriteRenderer m_renderer;
-    //private Sprite [] m_sprites;
+    private SpriteRenderer spriteRenderer;
 
-    private static Color32[][] m_texture_colours;
-    private static Texture2D[] m_textures = null;
-    private static Sprite[][] m_sprites = null;
+    private static Color32[][] textureColours;
+    private static Texture2D[] textures = null;
+    private static Sprite[][] sprites = null;
     private const int NUM_WRECKAGE_TEXTURES = 64;
 
     private static bool generatingTextures = false;
@@ -58,7 +57,7 @@ public class ProceduralWreckage : MonoBehaviour
 
     private void Awake()
     {
-        m_renderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         fullWidth = width * numFrames;
 
@@ -81,26 +80,26 @@ public class ProceduralWreckage : MonoBehaviour
         if (!assignedTexture && generatedTextures)
         {
             //if the textures haven't been set from the colour arrays, then do it
-            if (m_textures == null)
+            if (textures == null)
             {
-                m_sprites = new Sprite[NUM_WRECKAGE_TEXTURES][];
-                m_textures = new Texture2D[NUM_WRECKAGE_TEXTURES];
+                sprites = new Sprite[NUM_WRECKAGE_TEXTURES][];
+                textures = new Texture2D[NUM_WRECKAGE_TEXTURES];
                 for (int tex = 0; tex < NUM_WRECKAGE_TEXTURES; tex++)
                 {
-                    m_textures[tex] = new Texture2D(width * numFrames, height, TextureFormat.ARGB32, false)
+                    textures[tex] = new Texture2D(width * numFrames, height, TextureFormat.ARGB32, false)
                     {
                         filterMode = FilterMode.Point,
                     };
-                    m_textures[tex].SetPixels32(m_texture_colours[tex]);
-                    m_textures[tex].Apply();
-                    m_sprites[tex] = new Sprite[numFrames];
-                    for (int i = 0; i < numFrames; i++) m_sprites[tex][i] =
-                        Sprite.Create(m_textures[tex], new Rect(i * width, 0, width, height), new Vector2(0.5f, 0.5f), pixelsPerUnit);
+                    textures[tex].SetPixels32(textureColours[tex]);
+                    textures[tex].Apply();
+                    sprites[tex] = new Sprite[numFrames];
+                    for (int i = 0; i < numFrames; i++) sprites[tex][i] =
+                        Sprite.Create(textures[tex], new Rect(i * width, 0, width, height), new Vector2(0.5f, 0.5f), pixelsPerUnit);
                 }
             }
 
-            Sprite[] chosenSprites = m_sprites[Random.Range(0, NUM_WRECKAGE_TEXTURES)];
-            m_renderer.sprite = chosenSprites[0];
+            Sprite[] chosenSprites = sprites[Random.Range(0, NUM_WRECKAGE_TEXTURES)];
+            spriteRenderer.sprite = chosenSprites[0];
             damageAnimation.sprites = chosenSprites;
             damageAnimation.enabled = true;
 
@@ -112,7 +111,7 @@ public class ProceduralWreckage : MonoBehaviour
     private void GenerateWreckage()
     {
         rand = new System.Random(Random.Range(0, int.MaxValue));
-        m_texture_colours = new Color32[NUM_WRECKAGE_TEXTURES][];
+        textureColours = new Color32[NUM_WRECKAGE_TEXTURES][];
         //generate the texture
         Thread t = new Thread(new ThreadStart(GenerateTextures));
         t.Start();
@@ -195,13 +194,13 @@ public class ProceduralWreckage : MonoBehaviour
 
             ShadeInTexture(pixels);
 
-            m_texture_colours[num] = new Color32[width * numFrames * height];
+            textureColours[num] = new Color32[width * numFrames * height];
 
             for (int i = 0; i < pixels.Length; i++)
             {
                 if (pixels[i] != clear)
                 {
-                    m_texture_colours[num][i] = new Color32(
+                    textureColours[num][i] = new Color32(
                         (byte)(baseColour.r * pixels[i]),
                         (byte)(baseColour.g * pixels[i]),
                         (byte)(baseColour.b * pixels[i]),
@@ -210,7 +209,7 @@ public class ProceduralWreckage : MonoBehaviour
                 }
                 else
                 {
-                    m_texture_colours[num][i] = Color.clear;
+                    textureColours[num][i] = Color.clear;
                 }
             }
         }

@@ -28,8 +28,8 @@ public class HullRepairer : MonoBehaviour
             if (!cooldown && !playerhrm.IsFull())
             {
                 playerhrm.AddHealth(healthPerIron * ironPerCooldown);
-                slot.StoredItemFrame.SetQuantity(slot.StoredItemFrame.m_InventoryItem.quantity - ironPerCooldown);
-                if (slot.StoredItemFrame.m_InventoryItem.quantity <= 0)
+                slot.StoredItemFrame.SetQuantity(slot.StoredItemFrame.inventoryItem.quantity - ironPerCooldown);
+                if (slot.StoredItemFrame.inventoryItem.quantity <= 0)
                 {
                     Destroy(slot.StoredItemFrame.gameObject);
                     slot.SilentRemoveItemFrame();

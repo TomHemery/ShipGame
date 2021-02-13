@@ -6,13 +6,13 @@ using UnityEngine.EventSystems;
 
 public class DestinationButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    private Button m_Button;
-    private Text m_nameText;
+    private Button button;
+    private Text nameText;
 
     public Sprite validDestSprite;
     public Sprite currentDestSprite;
 
-    public Image m_overlayImage;
+    public Image overlayImage;
     
 
     public string areaName;
@@ -24,14 +24,14 @@ public class DestinationButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     private void Awake()
     {
-        m_Button = GetComponent<Button>();
-        m_nameText = GetComponentInChildren<Text>();
-        m_nameText.gameObject.SetActive(false);
+        button = GetComponent<Button>();
+        nameText = GetComponentInChildren<Text>();
+        nameText.gameObject.SetActive(false);
     }
 
     private void Start()
     {
-        m_nameText.text = AreaDatabase.AreaDictionary[areaName].prettyName;
+        nameText.text = AreaDatabase.AreaDictionary[areaName].prettyName;
         gameObject.SetActive(unlocked);
     }
 
@@ -51,22 +51,22 @@ public class DestinationButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
     }
 
     public void SetAsCurrent() {
-        m_overlayImage.color = Color.white;
-        m_overlayImage.sprite = currentDestSprite;
+        overlayImage.color = Color.white;
+        overlayImage.sprite = currentDestSprite;
 
-        m_Button.interactable = false;
+        button.interactable = false;
     }
 
     public void SetAsValidTarget() {
-        m_overlayImage.color = Color.white;
-        m_overlayImage.sprite = validDestSprite;
-        m_Button.interactable = true;
+        overlayImage.color = Color.white;
+        overlayImage.sprite = validDestSprite;
+        button.interactable = true;
     }
 
     public void SetAsInvalidTarget() {
-        m_overlayImage.color = Color.clear;
-        m_overlayImage.sprite = null;
-        m_Button.interactable = false;
+        overlayImage.color = Color.clear;
+        overlayImage.sprite = null;
+        button.interactable = false;
     }
 
     public void OnPressed()
@@ -76,11 +76,11 @@ public class DestinationButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        m_nameText.gameObject.SetActive(true);
+        nameText.gameObject.SetActive(true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        m_nameText.gameObject.SetActive(false);
+        nameText.gameObject.SetActive(false);
     }
 }

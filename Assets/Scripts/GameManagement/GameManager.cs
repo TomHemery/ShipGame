@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
             {
                 quantity = save.hullRepairerContents
             };
-            miningStation.GetComponent<MiningStationController>().m_HullRepairer.slot.TryCreateFrameFor(
+            miningStation.GetComponent<MiningStationController>().hullRepairer.slot.TryCreateFrameFor(
                 ironItem
             );
         }
@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
             {
                 quantity = save.jumpDriveContents
             };
-            miningStation.GetComponent<MiningStationController>().m_JumpDriveFueler.slot.TryCreateFrameFor(
+            miningStation.GetComponent<MiningStationController>().jumpDriveFueler.slot.TryCreateFrameFor(
                 fuelCellItem
             );
         }
@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour
             {
                 quantity = save.o2GenContents
             };
-            miningStation.GetComponent<MiningStationController>().m_O2Gen.slot.TryCreateFrameFor(
+            miningStation.GetComponent<MiningStationController>().o2Gen.slot.TryCreateFrameFor(
                 iceItem
             );
         }
@@ -148,9 +148,9 @@ public class GameManager : MonoBehaviour
 
         miningStation.GetComponent<Inventory>().ClearContents();
         miningStation.GetComponent<JumpResource>().EmptyResource();
-        miningStation.GetComponent<MiningStationController>().m_HullRepairer.slot.DestroyItemFrame();
-        miningStation.GetComponent<MiningStationController>().m_JumpDriveFueler.slot.DestroyItemFrame();
-        miningStation.GetComponent<MiningStationController>().m_O2Gen.slot.DestroyItemFrame();
+        miningStation.GetComponent<MiningStationController>().hullRepairer.slot.DestroyItemFrame();
+        miningStation.GetComponent<MiningStationController>().jumpDriveFueler.slot.DestroyItemFrame();
+        miningStation.GetComponent<MiningStationController>().o2Gen.slot.DestroyItemFrame();
 
         playerDied = false;
 

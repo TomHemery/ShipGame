@@ -14,10 +14,10 @@ public class MiningStationController : MonoBehaviour
     public GameObject[] entryLights;
     public AudioSource jumpAudioSource;
 
-    public HullRepairer m_HullRepairer;
-    public ResourceFiller m_O2Gen;
-    public ResourceFiller m_JumpDriveFueler;
-    public Resource m_JumpResource;
+    public HullRepairer hullRepairer;
+    public ResourceFiller o2Gen;
+    public ResourceFiller jumpDriveFueler;
+    public Resource jumpResource;
 
     public UnityEvent OnJumpCompleted = new UnityEvent();
 
@@ -67,7 +67,7 @@ public class MiningStationController : MonoBehaviour
         jumpParticles.SetActive(false);
 
         //empty jump drive
-        m_JumpResource.EmptyResource();
+        jumpResource.EmptyResource();
 
         //load destination and un pause
         GameManager.LoadArea(area);

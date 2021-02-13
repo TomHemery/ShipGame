@@ -6,8 +6,7 @@ using System.Threading;
 public class ProceduralAsteroid : MonoBehaviour
 {
 
-    private SpriteRenderer m_renderer;
-    //private Sprite [] m_sprites;
+    private SpriteRenderer spriteRenderer;
 
     private static Dictionary<string, Color32[][]> colourDict = new Dictionary<string, Color32[][]>();
     private static Dictionary<string, Texture2D[]> textureDict = new Dictionary<string, Texture2D[]>();
@@ -66,7 +65,7 @@ public class ProceduralAsteroid : MonoBehaviour
 
     private void Awake()
     {
-        m_renderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         
         maxRealDistance = Mathf.Sqrt(width * width + height * height);
         fullWidth = width * numFrames;
@@ -107,7 +106,7 @@ public class ProceduralAsteroid : MonoBehaviour
             }
 
             Sprite[] chosenSprites = spriteDict[presetName][Random.Range(0, NUM_ASTEROID_TEXTURES)];
-            m_renderer.sprite = chosenSprites[0];
+            spriteRenderer.sprite = chosenSprites[0];
             damageAnimation.sprites = chosenSprites;
             damageAnimation.enabled = true;
 

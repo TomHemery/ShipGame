@@ -57,16 +57,16 @@ public class Save
             unlockedBlueprints = CraftingSystem.Instance.UnlockedBlueprints
         };
 
-        ItemFrame o2Frame = MiningStationController.Instance.m_O2Gen.slot.StoredItemFrame;
-        save.o2GenContents = o2Frame == null ? 0 : o2Frame.m_InventoryItem.quantity;
+        ItemFrame o2Frame = MiningStationController.Instance.o2Gen.slot.StoredItemFrame;
+        save.o2GenContents = o2Frame == null ? 0 : o2Frame.inventoryItem.quantity;
 
-        ItemFrame ironFrame = MiningStationController.Instance.m_HullRepairer.slot.StoredItemFrame;
-        save.hullRepairerContents = ironFrame == null ? 0 : ironFrame.m_InventoryItem.quantity;
+        ItemFrame ironFrame = MiningStationController.Instance.hullRepairer.slot.StoredItemFrame;
+        save.hullRepairerContents = ironFrame == null ? 0 : ironFrame.inventoryItem.quantity;
 
-        ItemFrame jumpFrame = MiningStationController.Instance.m_JumpDriveFueler.slot.StoredItemFrame;
-        save.jumpDriveContents = jumpFrame == null ? 0 : jumpFrame.m_InventoryItem.quantity;
+        ItemFrame jumpFrame = MiningStationController.Instance.jumpDriveFueler.slot.StoredItemFrame;
+        save.jumpDriveContents = jumpFrame == null ? 0 : jumpFrame.inventoryItem.quantity;
 
-        InventoryItem craftingSystemItem = CraftingSystem.Instance.outputSlot.StoredItemFrame?.m_InventoryItem;
+        InventoryItem craftingSystemItem = CraftingSystem.Instance.outputSlot.StoredItemFrame?.inventoryItem;
         save.craftingSystemContents = craftingSystemItem == null ?
             new KeyValuePair<string, int>() :
             new KeyValuePair<string, int>(craftingSystemItem.systemName, craftingSystemItem.quantity);

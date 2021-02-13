@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Line : MonoBehaviour
 {
-    private RectTransform m_rectTransform;
+    private RectTransform rectTransform;
 
     public void Set(Vector3 start, Vector3 end, float lineWidth, Canvas targetCanvas) {
-        if(m_rectTransform == null) m_rectTransform = GetComponent<RectTransform>();
+        if(rectTransform == null) rectTransform = GetComponent<RectTransform>();
         Vector3 differenceVector = end - start;
-        m_rectTransform.sizeDelta = new Vector2(differenceVector.magnitude / targetCanvas.scaleFactor, lineWidth);
-        m_rectTransform.pivot = new Vector2(0, 0.5f);
-        m_rectTransform.position = start;
+        rectTransform.sizeDelta = new Vector2(differenceVector.magnitude / targetCanvas.scaleFactor, lineWidth);
+        rectTransform.pivot = new Vector2(0, 0.5f);
+        rectTransform.position = start;
         float angle = Mathf.Atan2(differenceVector.y, differenceVector.x) * Mathf.Rad2Deg;
-        m_rectTransform.rotation = Quaternion.Euler(0, 0, angle);
+        rectTransform.rotation = Quaternion.Euler(0, 0, angle);
     }
 }

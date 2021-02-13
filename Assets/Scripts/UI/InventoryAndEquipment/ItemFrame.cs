@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler
 {
-    public InventoryItem m_InventoryItem;
+    public InventoryItem inventoryItem;
 
     public GameObject nameText;
     public GameObject quantityText;
@@ -39,9 +39,9 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         if (nameText != null) nameText.SetActive(false);
 
-        nameText.GetComponent<Text>().text = m_InventoryItem.prettyName;
-        quantityText.GetComponent<Text>().text = m_InventoryItem.quantity.ToString();
-        itemFrameImage.sprite = m_InventoryItem.inventorySprite;
+        nameText.GetComponent<Text>().text = inventoryItem.prettyName;
+        quantityText.GetComponent<Text>().text = inventoryItem.quantity.ToString();
+        itemFrameImage.sprite = inventoryItem.inventorySprite;
     }
 
     public void OnPointerEnter(PointerEventData eventdata)
@@ -77,12 +77,12 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         mTransform.pivot = new Vector2(0, 1);
 
         GraphicRaycaster mRaycaster = transform.root.GetComponent<GraphicRaycaster>();
-        PointerEventData m_PointerEventData = new PointerEventData(EventSystem.current)
+        PointerEventData pointerEventData = new PointerEventData(EventSystem.current)
         {
             position = Input.mousePosition
         };
         List<RaycastResult> results = new List<RaycastResult>();
-        mRaycaster.Raycast(m_PointerEventData, results);
+        mRaycaster.Raycast(pointerEventData, results);
 
         foreach (RaycastResult result in results)
         {
@@ -90,14 +90,14 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             if (result.gameObject.GetComponent<Slot>() != null) {
                 Slot s = result.gameObject.GetComponent<Slot>();
                 int numStored = s.StoreItemFrame(this);
-                if (numStored == m_InventoryItem.quantity)
+                if (numStored == inventoryItem.quantity)
                 {
                     DestroySelf();
                     return;
                 }
                 else
                 {
-                    m_InventoryItem.quantity -= numStored;
+                    inventoryItem.quantity -= numStored;
                     break;
                 }
             }
@@ -120,12 +120,12 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     }
 
     public void SetQuantity(int newQuantity){
-        m_InventoryItem.quantity = newQuantity;
-        quantityText.GetComponent<Text>().text = m_InventoryItem.quantity.ToString();
+        inventoryItem.quantity = newQuantity;
+        quantityText.GetComponent<Text>().text = inventoryItem.quantity.ToString();
     }
 
     public void SetInventoryItem(InventoryItem i) {
-        m_InventoryItem = i;
+        inventoryItem = i;
         quantityText.GetComponent<Text>().text = i.quantity.ToString();
     }
 
@@ -140,19 +140,19 @@ public class ItemFrame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                     switch (target.type)
                     {
                         case AutoMoveTarget.AutomoveType.TargetInventory:
-                            storedQuantity = target.associatedInventory.AddMaxOf(m_InventoryItem);
+                            storedQuantity = target.associatedInventory.AddMaxOf(inventoryItem);
                             break;
                         case AutoMoveTarget.AutomoveType.TargetSlot:
                             storedQuantity = target.associatedSlot.StoreItemFrame(this);
                             break;
                     }
-                    if (storedQuantity >= m_InventoryItem.quantity)
+                    if (storedQuantity >= inventoryItem.quantity)
                     {
                         parentSlot.DestroyItemFrame();
                     }
                     else 
                     {
-                        SetQuantity(m_InventoryItem.quantity - storedQuantity);
+                        SetQuantity(inventoryItem.quantity - storedQuantity);
                     }
                 }
             }

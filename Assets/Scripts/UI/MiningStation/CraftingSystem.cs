@@ -101,7 +101,7 @@ public class CraftingSystem : MonoBehaviour
             }
 
             if (canCraft) {
-                canCraft = outputSlot.StoredItemFrame == null || outputSlot.StoredItemFrame.m_InventoryItem.systemName == bp.output;
+                canCraft = outputSlot.StoredItemFrame == null || outputSlot.StoredItemFrame.inventoryItem.systemName == bp.output;
             }
 
             materialsText.text = requirementsDesc;
@@ -121,19 +121,11 @@ public class CraftingSystem : MonoBehaviour
             }
             if (outputSlot.StoredItemFrame == null)
             {
-                GameObject output = PrefabDatabase.Get(bp.output);
-                if (output.GetComponent<Weapon>() != null)
-                {
-                    outputSlot.TryCreateFrameFor(new InventoryItem(output.GetComponent<Weapon>().inventoryItem));
-                }
-                else if (output.GetComponent<PickUpOnContact>() != null)
-                {
-                    outputSlot.TryCreateFrameFor(new InventoryItem(output.GetComponent<PickUpOnContact>().inventoryItem));
-                }
+                outputSlot.TryCreateFrameFor(new InventoryItem(bp.output));
             }
             else
             {
-                outputSlot.StoredItemFrame.SetQuantity(outputSlot.StoredItemFrame.m_InventoryItem.quantity + 1);
+                outputSlot.StoredItemFrame.SetQuantity(outputSlot.StoredItemFrame.inventoryItem.quantity + 1);
             }
         }
 
@@ -157,7 +149,7 @@ public class CraftingSystem : MonoBehaviour
             GameObject blueprintObject = blueprintSlot.StoredItemFrame.gameObject;
 
             Blueprint bp = 
-                BlueprintDatabase.BlueprintDictionary[blueprintObject.GetComponent<ItemFrame>().m_InventoryItem.systemName];
+                BlueprintDatabase.BlueprintDictionary[blueprintObject.GetComponent<ItemFrame>().inventoryItem.systemName];
 
             blueprintSlot.SilentRemoveItemFrame();
             Destroy(blueprintObject);

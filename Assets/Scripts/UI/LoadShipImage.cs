@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class LoadShipImage : MonoBehaviour
 {
-    private Image m_image;
+    private Image image;
 
     private void Awake()
     {
-        m_image = GetComponent<Image>();
+        image = GetComponent<Image>();
     }
 
     private void OnEnable()
@@ -17,6 +17,6 @@ public class LoadShipImage : MonoBehaviour
         GameObject playerShip = GameObject.FindGameObjectWithTag("PlayerShip");
         SpriteRenderer renderer = playerShip.transform.GetChild(0).GetComponentInChildren<SpriteRenderer>();
         Sprite sprite = renderer.sprite;
-        m_image.sprite = sprite;
+        image.sprite = sprite;
     }
 }
