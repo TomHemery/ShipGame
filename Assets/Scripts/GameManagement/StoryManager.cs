@@ -223,7 +223,7 @@ public class StoryManager : MonoBehaviour
         jumpPanelCover.SetActive(s < Stage.JumpTutorial);
 
         jumpRefueler.SetActive(s >= Stage.JumpTutorial);
-        toggleCraftingPanelButton.SetActive(s >= Stage.JumpTutorial);
+        // toggleCraftingPanelButton.SetActive(s >= Stage.JumpTutorial);
 
 
         if (s == Stage.SecondPirateEncounter)

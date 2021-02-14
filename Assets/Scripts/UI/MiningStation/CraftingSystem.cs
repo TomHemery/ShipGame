@@ -31,6 +31,7 @@ public class CraftingSystem : MonoBehaviour
         blueprintSlot.SlotContentsChanged += OnBlueprintSlotContentsChange;
         outputSlot.SlotContentsChanged += OnOutputSlotContentsChange;
         associatedInventory.InventoryChangedEvent += OnAssociatedInventoryChanged;
+        CheckMaterials();
     }
 
     private void OnDisable()
