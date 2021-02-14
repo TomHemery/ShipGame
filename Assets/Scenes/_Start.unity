@@ -1341,7 +1341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d5f23d135e7d547965c0cad1efcb78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_equipType: 3
+  equipType: 3
   acceptedItemName: 
   associatedInventory: {fileID: 0}
   associatedEquipPoint: {fileID: 0}
@@ -3353,7 +3353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d5f23d135e7d547965c0cad1efcb78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_equipType: 1
+  equipType: 3
   acceptedItemName: Iron
   associatedInventory: {fileID: 0}
   associatedEquipPoint: {fileID: 0}
@@ -5234,7 +5234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d5f23d135e7d547965c0cad1efcb78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_equipType: 1
+  equipType: 3
   acceptedItemName: FuelCell
   associatedInventory: {fileID: 0}
   associatedEquipPoint: {fileID: 0}
@@ -6211,7 +6211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d5f23d135e7d547965c0cad1efcb78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_equipType: 1
+  equipType: 3
   acceptedItemName: Ice
   associatedInventory: {fileID: 0}
   associatedEquipPoint: {fileID: 0}
@@ -6875,8 +6875,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1603186419}
   m_HandleRect: {fileID: 1603186418}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.81333333
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8326,10 +8326,10 @@ MonoBehaviour:
   - {fileID: 1106161203}
   - {fileID: 1079769364}
   jumpAudioSource: {fileID: 749523244}
-  m_HullRepairer: {fileID: 1409064371}
-  m_O2Gen: {fileID: 134312117}
-  m_JumpDriveFueler: {fileID: 1146550729}
-  m_JumpResource: {fileID: 749523242}
+  hullRepairer: {fileID: 1409064371}
+  o2Gen: {fileID: 134312117}
+  jumpDriveFueler: {fileID: 1146550729}
+  jumpResource: {fileID: 749523242}
   OnJumpCompleted:
     m_PersistentCalls:
       m_Calls: []
@@ -15321,7 +15321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d5f23d135e7d547965c0cad1efcb78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_equipType: 2
+  equipType: 3
   acceptedItemName: 
   associatedInventory: {fileID: 0}
   associatedEquipPoint: {fileID: 0}
@@ -18416,7 +18416,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.000022888184}
   m_SizeDelta: {x: 0, y: 28}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &1490750514
