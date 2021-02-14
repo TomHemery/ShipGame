@@ -203,6 +203,7 @@ GameObject:
   - component: {fileID: 280845222483470164}
   - component: {fileID: 1653049709152919115}
   - component: {fileID: 1653049709152919114}
+  - component: {fileID: 3971451597532045202}
   m_Layer: 5
   m_Name: SlotContainer
   m_TagString: Untagged
@@ -249,10 +250,10 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 85, y: 85}
+  m_CellSize: {x: 0, y: 0}
   m_Spacing: {x: 0, y: 0}
-  m_Constraint: 0
-  m_ConstraintCount: 2
+  m_Constraint: 1
+  m_ConstraintCount: 4
 --- !u!114 &1653049709152919114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,14 +267,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   associatedInventory: {fileID: 0}
-  attachToPlayerInventory: 1
+  attachToPlayerInventory: 0
   slotPrefab: {fileID: 6587939850998633503, guid: 40882aa2d204282458b0e1a4833ddba3,
     type: 3}
   autoMoveTarget:
     associatedSlot: {fileID: 0}
     associatedInventory: {fileID: 0}
-    type: 2
+    type: 1
   minSlots: 32
+--- !u!114 &3971451597532045202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3167099401116906083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c6aa23f61b1eb548b84189519a8b55b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetLayout: {fileID: 1653049709152919115}
+  contents: {fileID: 280845222483470164}
+  columnCount: 4
 --- !u!1 &3419086621386086727
 GameObject:
   m_ObjectHideFlags: 0

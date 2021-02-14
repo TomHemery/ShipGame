@@ -42,7 +42,9 @@ public class HullSpawner : MonoBehaviour
                 if (child.gameObject.CompareTag("WeaponAttachment"))
                 {
                     if (index < weapons.Length)
+                    {
                         Instantiate(PrefabDatabase.Get(weapons[index]), child.transform);
+                    }
                     else
                         break;
                     index++;
