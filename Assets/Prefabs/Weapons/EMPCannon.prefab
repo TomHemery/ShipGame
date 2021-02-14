@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3369edce748456e44898df86fc622f9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryItem: EmpCannon
+  inventoryItem: EMPCannon
   mAudioSource: {fileID: 2643039262769857884}
   CooldownInterval: 3
   SpawnPoint: {fileID: 1970730092330098608}

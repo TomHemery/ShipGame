@@ -10,8 +10,9 @@ public class BasicBeamWeapon : Weapon
     public Transform beamSource;
 
 
-    private void Start()
+    public override void Awake()
     {
+        base.Awake();
         beamInstance = Instantiate(beamPrefab, beamSource);
         beamInstance.SetActive(false);
     }

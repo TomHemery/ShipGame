@@ -201,7 +201,10 @@ public class Slot : MonoBehaviour
     /// Does not update associated inventories or alert listeners
     /// </summary>
     public void SilentDestroyItemFrame() {
-        Destroy(StoredItemFrame.gameObject);
-        StoredItemFrame = null;
+        if (StoredItemFrame != null)
+        {
+            Destroy(StoredItemFrame.gameObject);
+            StoredItemFrame = null;
+        }
     }
 }

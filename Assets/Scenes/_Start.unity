@@ -248,9 +248,9 @@ RectTransform:
   m_Father: {fileID: 941685054}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.000040871757, y: -253}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: -253}
   m_SizeDelta: {x: 192, y: 31.5}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &90161843
@@ -1516,7 +1516,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000040871757, y: 110.750015}
+  m_AnchoredPosition: {x: 0, y: -16}
   m_SizeDelta: {x: 192, y: 95}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &134312117
@@ -2085,9 +2085,9 @@ RectTransform:
   m_Father: {fileID: 941685054}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.000040871757, y: -126.5}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -253}
   m_SizeDelta: {x: 192, y: 31.5}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &223493587
@@ -3880,10 +3880,10 @@ RectTransform:
   m_Father: {fileID: 941685054}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000026611757, y: -79.74999}
-  m_SizeDelta: {x: 192, y: 30}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: -268.5}
+  m_SizeDelta: {x: 192, y: 31.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &331207196
 MonoBehaviour:
@@ -4105,7 +4105,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 7.5, y: 3.7}
+  m_AnchoredPosition: {x: 7.5, y: 3.699997}
   m_SizeDelta: {x: 177, y: 9}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &384325975
@@ -9174,7 +9174,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000032425, y: -87.75}
+  m_AnchoredPosition: {x: 0, y: -87.75}
   m_SizeDelta: {x: 192, y: 379.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &953761216
@@ -15586,7 +15586,7 @@ GameObject:
   - component: {fileID: 1090323400}
   - component: {fileID: 1090323399}
   m_Layer: 5
-  m_Name: ShipImage
+  m_Name: ShipRepresentation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15608,8 +15608,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.000040871757, y: 149.99998}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchoredPosition: {x: 0, y: 120}
+  m_SizeDelta: {x: 240, y: 240}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1090323399
 MonoBehaviour:
@@ -15623,6 +15623,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb8bb80313a141b40bb66489a417b994, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slotPrefab: {fileID: 5043041820404021338, guid: 9d91ea750df8fc04784f218c5c6d9740,
+    type: 3}
+  autoMoveTarget:
+    associatedSlot: {fileID: 0}
+    associatedInventory: {fileID: 1163044659}
+    type: 1
 --- !u!114 &1090323400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16265,9 +16271,9 @@ RectTransform:
   m_Father: {fileID: 941685054}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000040871757, y: -142.25}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: -332}
   m_SizeDelta: {x: 192, y: 95}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1146550729
@@ -17066,8 +17072,8 @@ MonoBehaviour:
     equipType: 3
   - inventorySprite: {fileID: 21300000, guid: a7b17f12541be9c4fb9440acdb67153e, type: 3}
     quantity: 1
-    systemName: EmpCannonBlueprint
-    prettyName: Emp Cannon Blueprint
+    systemName: EMPCannonBlueprint
+    prettyName: EMP Cannon Blueprint
     equipable: 0
     equipType: 2
   - inventorySprite: {fileID: 21300000, guid: a7b17f12541be9c4fb9440acdb67153e, type: 3}
@@ -17102,8 +17108,8 @@ MonoBehaviour:
     equipType: 2
   - inventorySprite: {fileID: 21300000, guid: d5e38de91786cf0409165e55e15cf781, type: 3}
     quantity: 1
-    systemName: EmpCannon
-    prettyName: Emp Cannon
+    systemName: EMPCannon
+    prettyName: EMP Cannon
     equipable: 1
     equipType: 0
   - inventorySprite: {fileID: 21300000, guid: 8c4a489195807f747a13f2ff966e9fd0, type: 3}
@@ -17309,9 +17315,9 @@ RectTransform:
   m_Father: {fileID: 941685054}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0, y: -126.49999}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: -316.5}
   m_SizeDelta: {x: 192, y: 126.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1251733203
@@ -17867,9 +17873,9 @@ RectTransform:
   m_Father: {fileID: 941685054}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000040871757, y: -15.749985}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -332}
   m_SizeDelta: {x: 192, y: 95}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1409064371
@@ -19265,7 +19271,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0024871826, y: 0.5699997}
+  m_AnchoredPosition: {x: 0.0024871826, y: 0.5700073}
   m_SizeDelta: {x: -15.005, y: -11.58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1607155974
@@ -19659,9 +19665,9 @@ RectTransform:
   m_Father: {fileID: 941685054}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.000040871757, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 252.7}
   m_SizeDelta: {x: 192, y: 31.5}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1736696365
@@ -19712,8 +19718,8 @@ RectTransform:
   m_Father: {fileID: 518752351}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.7}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -20744,7 +20750,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1896600542
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20997,7 +21003,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.000040871757, y: 198}
+  m_AnchoredPosition: {x: 0, y: 185}
   m_SizeDelta: {x: 192, y: 48}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1956463632
