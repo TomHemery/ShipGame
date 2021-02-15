@@ -11,11 +11,13 @@ public class StoryManager : MonoBehaviour
     private GameObject playerShip;
     private GameObject miningStation;
     private MiningStationUIToggle stationUIController;
+    public TabMenu miningStationUITabMenu;
+    private TabMenuButton craftingTabButton;
+    public int craftingTabButtonIndex = 1;
 
     public GameObject jumpPanelCover;
     public GameObject jumpRefueler;
 
-    public GameObject toggleCraftingPanelButton;
 
     public GameObject saveGameText;
 
@@ -45,6 +47,7 @@ public class StoryManager : MonoBehaviour
         GalaxyMap.Instance.OnShowMap.AddListener(OnShowGalaxyMap);
         GameManager.OnPlayerDeath.AddListener(OnPlayerDied);
         MiningStationController.Instance.OnJumpCompleted.AddListener(OnJumpCompleted);
+        craftingTabButton = miningStationUITabMenu.TabMenuButtons[craftingTabButtonIndex];
     }
     //##END MONOBEHAVIOUR EVENTS##
 
@@ -223,7 +226,7 @@ public class StoryManager : MonoBehaviour
         jumpPanelCover.SetActive(s < Stage.JumpTutorial);
 
         jumpRefueler.SetActive(s >= Stage.JumpTutorial);
-        // toggleCraftingPanelButton.SetActive(s >= Stage.JumpTutorial);
+        if (craftingTabButton != null) craftingTabButton.gameObject.SetActive(s >= Stage.JumpTutorial);
 
 
         if (s == Stage.SecondPirateEncounter)

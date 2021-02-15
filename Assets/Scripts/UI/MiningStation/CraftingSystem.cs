@@ -8,7 +8,6 @@ using static UnityEngine.UI.Dropdown;
 public class CraftingSystem : MonoBehaviour
 {
     public static CraftingSystem Instance { get; private set; } = null;
-    public GameObject CentralPanel;
 
     public Slot blueprintSlot;
     public Text materialsText;
@@ -31,7 +30,6 @@ public class CraftingSystem : MonoBehaviour
         blueprintSlot.SlotContentsChanged += OnBlueprintSlotContentsChange;
         outputSlot.SlotContentsChanged += OnOutputSlotContentsChange;
         associatedInventory.InventoryChangedEvent += OnAssociatedInventoryChanged;
-        CheckMaterials();
     }
 
     private void OnDisable()
@@ -39,27 +37,6 @@ public class CraftingSystem : MonoBehaviour
         blueprintSlot.SlotContentsChanged -= OnBlueprintSlotContentsChange;
         outputSlot.SlotContentsChanged -= OnOutputSlotContentsChange;
         associatedInventory.InventoryChangedEvent -= OnAssociatedInventoryChanged;
-    }
-
-    private void Start()
-    {
-        Hide();
-    }
-
-    public void Show() {
-        gameObject.SetActive(true);
-        CentralPanel.SetActive(false);
-        CheckMaterials();
-    }
-
-    public void Hide() {
-        gameObject.SetActive(false);
-        CentralPanel.SetActive(true);
-    }
-
-    public void Toggle() {
-        if (gameObject.activeInHierarchy) Hide();
-        else Show();
     }
 
     public void OnBlueprintDropdownSelection()
@@ -101,7 +78,8 @@ public class CraftingSystem : MonoBehaviour
 
             }
 
-            if (canCraft) {
+            if (canCraft)
+            {
                 canCraft = outputSlot.StoredItemFrame == null || outputSlot.StoredItemFrame.inventoryItem.systemName == bp.output;
             }
 
@@ -110,6 +88,10 @@ public class CraftingSystem : MonoBehaviour
             craftButtonLabel.color = canCraft ? Color.green : Color.red;
             craftMaxButtonLabel.color = canCraft ? Color.green : Color.red;
             craftMaxButtonLabel.text = "Craft Max [" + totalCraftable + "]";
+        }
+        else
+        {
+            canCraft = false;
         }
     }
 

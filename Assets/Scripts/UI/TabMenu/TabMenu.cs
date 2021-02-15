@@ -7,13 +7,13 @@ public class TabMenu : MonoBehaviour
 {
     public GameObject tabButtonPrefab;
     public GameObject [] tabs;
-    private TabMenuButton[] tabMenuButtons;
+    public TabMenuButton[] TabMenuButtons { get; private set; }
 
     protected int activeTab = 0;
 
     private void Awake()
     {
-        tabMenuButtons = new TabMenuButton[tabs.Length];
+        TabMenuButtons = new TabMenuButton[tabs.Length];
         for (int i = 0; i < tabs.Length; i++)
         {
             GameObject tabButton = Instantiate(tabButtonPrefab, transform);
@@ -21,7 +21,7 @@ public class TabMenu : MonoBehaviour
             
             button.index = i;
             button.onClick.AddListener(() => TabButtonClicked(button.index));
-            tabMenuButtons[i] = button;
+            TabMenuButtons[i] = button;
 
             Text buttonText = tabButton.GetComponentInChildren<Text>();
             buttonText.text = tabs[i].GetComponent<Tab>().TabName;
@@ -35,12 +35,12 @@ public class TabMenu : MonoBehaviour
             if (i == activeTab)
             {
                 tabs[i].SetActive(true);
-                tabMenuButtons[i].SetAsActiveTabButton(true);
+                TabMenuButtons[i].SetAsActiveTabButton(true);
             }
             else
             {
                 tabs[i].SetActive(false);
-                tabMenuButtons[i].SetAsActiveTabButton(false);
+                TabMenuButtons[i].SetAsActiveTabButton(false);
             }
         }
     }
@@ -50,9 +50,10 @@ public class TabMenu : MonoBehaviour
         if(activeTab != index)
         {
             tabs[activeTab].SetActive(false);
-            tabMenuButtons[activeTab].SetAsActiveTabButton(false);
+            TabMenuButtons[activeTab].SetAsActiveTabButton(false);
             tabs[index].SetActive(true);
-            tabMenuButtons[index].SetAsActiveTabButton(true);
+            tabs[index].GetComponent<Tab>().OnSelected?.Invoke();
+            TabMenuButtons[index].SetAsActiveTabButton(true);
             activeTab = index;
         }
     }
