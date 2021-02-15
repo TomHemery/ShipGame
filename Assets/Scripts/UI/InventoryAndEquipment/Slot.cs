@@ -42,6 +42,8 @@ public class Slot : MonoBehaviour
     public GameObject itemFramePrefab;
 
     public Text slotText;
+    public string slotTextString;
+    public bool hideSlotTextWhenFull = true;
 
     public ItemFrame StoredItemFrame { get; private set; } = null;
 
@@ -52,6 +54,11 @@ public class Slot : MonoBehaviour
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+    }
+
+    private void Start()
+    {
+        slotText.text = slotTextString;
     }
 
     /// <summary>
@@ -119,6 +126,7 @@ public class Slot : MonoBehaviour
         StoredItemFrame.parentSlot = this;
         StoredItemFrame.SetQuantity(quantity);
         SlotContentsChanged?.Invoke();
+        if(hideSlotTextWhenFull) slotText.text = "";
     }
 
 
@@ -135,6 +143,7 @@ public class Slot : MonoBehaviour
                 StoredItemFrame = Instantiate(itemFramePrefab, rectTransform).GetComponent<ItemFrame>();
                 StoredItemFrame.SetInventoryItem(item);
                 StoredItemFrame.parentSlot = this;
+                if (hideSlotTextWhenFull) slotText.text = "";
                 return true;
         }
         return false;
@@ -144,6 +153,7 @@ public class Slot : MonoBehaviour
         if (!outputOnly && StoredItemFrame == null) {
             if (equipType == EquipType.Weapon) {
                 slotText.text = associatedEquipPoint.name;
+                slotTextString = associatedEquipPoint.name;
                 if (associatedEquipPoint.childCount > 0)
                 {
                     StoredItemFrame = Instantiate(itemFramePrefab, rectTransform).GetComponent<ItemFrame>();
@@ -164,7 +174,7 @@ public class Slot : MonoBehaviour
         if (StoredItemFrame != null)
         {
             InventoryItem item = StoredItemFrame.inventoryItem;
-            StoredItemFrame = null;
+            SilentRemoveItemFrame();
 
             if (associatedInventory != null)
                 associatedInventory.RemoveItemAt(index);
@@ -181,6 +191,7 @@ public class Slot : MonoBehaviour
     /// </summary>
     public void SilentRemoveItemFrame() {
         StoredItemFrame = null;
+        slotText.text = slotTextString;
     }
 
     /// <summary>
@@ -204,7 +215,7 @@ public class Slot : MonoBehaviour
         if (StoredItemFrame != null)
         {
             Destroy(StoredItemFrame.gameObject);
-            StoredItemFrame = null;
+            SilentRemoveItemFrame();
         }
     }
 }

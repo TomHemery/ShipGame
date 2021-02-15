@@ -248,11 +248,11 @@ RectTransform:
   m_Father: {fileID: 1146550728}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -8}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -8, y: -8}
   m_SizeDelta: {x: 192, y: 31.5}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &90161843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1287,6 +1287,7 @@ MonoBehaviour:
   itemFramePrefab: {fileID: 7114726645731438124, guid: c6ee3f63895130340a88b59e241c9388,
     type: 3}
   slotText: {fileID: 387273173}
+  slotTextString: Output
 --- !u!114 &108281261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1664,7 +1665,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0024871826, y: 0.5699997}
+  m_AnchoredPosition: {x: 0.0025024414, y: 0.5699997}
   m_SizeDelta: {x: -15.005, y: -11.58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &173350212
@@ -2019,11 +2020,11 @@ RectTransform:
   m_Father: {fileID: 1409064370}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -8}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -8, y: -8}
   m_SizeDelta: {x: 192, y: 31.5}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &223493587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3237,7 +3238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d5f23d135e7d547965c0cad1efcb78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equipType: 3
+  equipType: 1
   acceptedItemName: Iron
   associatedInventory: {fileID: 0}
   associatedEquipPoint: {fileID: 0}
@@ -3250,6 +3251,7 @@ MonoBehaviour:
   itemFramePrefab: {fileID: 7114726645731438124, guid: c6ee3f63895130340a88b59e241c9388,
     type: 3}
   slotText: {fileID: 2043478924}
+  slotTextString: Iron In
 --- !u!114 &281277544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3854,11 +3856,11 @@ RectTransform:
   m_Father: {fileID: 1146550728}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -8}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -8, y: -8}
   m_SizeDelta: {x: 192, y: 31.5}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &331207196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4317,7 +4319,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.0025024414, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &390695322
@@ -5097,7 +5099,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d5f23d135e7d547965c0cad1efcb78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equipType: 3
+  equipType: 1
   acceptedItemName: FuelCell
   associatedInventory: {fileID: 0}
   associatedEquipPoint: {fileID: 0}
@@ -5110,6 +5112,7 @@ MonoBehaviour:
   itemFramePrefab: {fileID: 7114726645731438124, guid: c6ee3f63895130340a88b59e241c9388,
     type: 3}
   slotText: {fileID: 1178046396}
+  slotTextString: Fuel Cell In
 --- !u!114 &510352338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6190,7 +6193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d5f23d135e7d547965c0cad1efcb78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equipType: 3
+  equipType: 1
   acceptedItemName: Ice
   associatedInventory: {fileID: 0}
   associatedEquipPoint: {fileID: 0}
@@ -6203,6 +6206,7 @@ MonoBehaviour:
   itemFramePrefab: {fileID: 7114726645731438124, guid: c6ee3f63895130340a88b59e241c9388,
     type: 3}
   slotText: {fileID: 746574482}
+  slotTextString: Ice In
 --- !u!114 &670262531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6380,7 +6384,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0024871826, y: 0.5699997}
+  m_AnchoredPosition: {x: 0.0025024414, y: 0.5699997}
   m_SizeDelta: {x: -15.005, y: -11.58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &685626545
@@ -15183,6 +15187,7 @@ MonoBehaviour:
   itemFramePrefab: {fileID: 7114726645731438124, guid: c6ee3f63895130340a88b59e241c9388,
     type: 3}
   slotText: {fileID: 596428038}
+  slotTextString: Blueprint In
 --- !u!114 &1054373567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16511,7 +16516,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 12
-    m_FontStyle: 1
+    m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 40
@@ -19308,11 +19313,11 @@ RectTransform:
   m_Father: {fileID: 134312116}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -8}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -8, y: -8}
   m_SizeDelta: {x: 192, y: 31.5}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &1736696365
 MonoBehaviour:
   m_ObjectHideFlags: 0
