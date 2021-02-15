@@ -1288,6 +1288,7 @@ MonoBehaviour:
     type: 3}
   slotText: {fileID: 387273173}
   slotTextString: Output
+  hideSlotTextWhenFull: 1
 --- !u!114 &108281261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3252,6 +3253,7 @@ MonoBehaviour:
     type: 3}
   slotText: {fileID: 2043478924}
   slotTextString: Iron In
+  hideSlotTextWhenFull: 1
 --- !u!114 &281277544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5113,6 +5115,7 @@ MonoBehaviour:
     type: 3}
   slotText: {fileID: 1178046396}
   slotTextString: Fuel Cell In
+  hideSlotTextWhenFull: 1
 --- !u!114 &510352338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6207,6 +6210,7 @@ MonoBehaviour:
     type: 3}
   slotText: {fileID: 746574482}
   slotTextString: Ice In
+  hideSlotTextWhenFull: 1
 --- !u!114 &670262531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15188,6 +15192,7 @@ MonoBehaviour:
     type: 3}
   slotText: {fileID: 596428038}
   slotTextString: Blueprint In
+  hideSlotTextWhenFull: 1
 --- !u!114 &1054373567
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +6,7 @@ public class DynamicGridLayout : MonoBehaviour
 {
     public GridLayoutGroup targetLayout;
     public int columnCount;
+    private int padding = 5;
 
     private RectTransform rectTransform;
 
@@ -23,7 +23,9 @@ public class DynamicGridLayout : MonoBehaviour
     private IEnumerator Resize()
     {
         yield return new WaitForEndOfFrame();
-        float x = rectTransform.rect.width / columnCount;
-        targetLayout.cellSize = new Vector2(x, x);
+        float sideLength = (rectTransform.rect.width - (columnCount - 1) * padding) / columnCount;
+        targetLayout.cellSize = new Vector2(sideLength, sideLength);
+        //targetLayout.padding = new RectOffset(padding, padding, padding, padding);
+        targetLayout.spacing = new Vector2(padding, padding);
     }
 }
