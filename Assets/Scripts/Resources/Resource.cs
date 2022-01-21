@@ -10,13 +10,21 @@ public abstract class Resource : MonoBehaviour
     public float MaxValue { get; protected set; } = DEFAULT_MAX_VALUE;
     public event EventHandler<ResourceChangedEventArgs> ResourceValueChangedEvent;
 
+    protected PlayerShipController playerShipController;
+
     protected virtual void Awake() {
         
     }
 
+    private void Start()
+    {
+        playerShipController = GameObject.FindGameObjectWithTag("PlayerShip").GetComponent<PlayerShipController>();
+    }
+
     protected virtual void Update()
     {
-        if(!GameManager.SimPaused) UpdateResource();
+        // Update only when the sim is not paused and the player's control is not overidden
+        if(!GameManager.SimPaused && !playerShipController.StoryControlOverride) UpdateResource();
     }
 
     public virtual void UpdateResource() {}

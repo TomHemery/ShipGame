@@ -100,16 +100,29 @@ public class Slot : MonoBehaviour
             }
         }
         //not empty, but the passed frame matches the type of the already stored frame and it isn't equipment
-        else if (!outputOnly && (equipType == EquipType.None || equipType == EquipType.SetItem) && StoredItemFrame.inventoryItem.systemName == newFrame.inventoryItem.systemName) {
-            int quantityStored = associatedInventory == null ? 
-                newFrame.inventoryItem.quantity : 
-                associatedInventory.SilentAddMaxOf(newFrame.inventoryItem, index);
-            if (quantityStored > 0)
+        else if (
+            !outputOnly && 
+            (equipType == EquipType.None || equipType == EquipType.SetItem) && 
+            StoredItemFrame.inventoryItem.systemName == newFrame.inventoryItem.systemName
+        ) {
+            // Storing this as part of an inventory, check inventory contents and size etc.
+            if (associatedInventory != null)
             {
-                SlotContentsChanged?.Invoke();
+                int quantityStored = associatedInventory.SilentAddMaxOf(newFrame.inventoryItem, index);
+                if (quantityStored > 0)
+                {
+                    SlotContentsChanged?.Invoke();
+                }
+                associatedInventory.ForceAlertListeners();
+                return quantityStored;
             }
-            if(associatedInventory != null) associatedInventory.ForceAlertListeners();
-            return quantityStored;
+            // This is just going into a slot somewhere (i.e. ice gen) just add everything to the frame that already exists
+            else
+            {
+                StoredItemFrame.SetQuantity(StoredItemFrame.inventoryItem.quantity + newFrame.inventoryItem.quantity);
+                SlotContentsChanged?.Invoke();
+                return newFrame.inventoryItem.quantity;
+            }
         }
         return 0;
     }
